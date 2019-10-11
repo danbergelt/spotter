@@ -1,0 +1,55 @@
+@import '../variables.scss';
+
+.spotter-nav {
+  display: flex;
+  justify-content: space-between;
+  color: $gray1;
+
+  .spotter-nav-head {
+    display: flex;
+    position: relative;
+    right: 17px;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    p {
+      font-size: 3.5rem;
+      font-weight: bold;
+    }
+  }
+
+  .spotter-nav-links {
+    display: flex;
+
+    p {
+      font-size: 1.5rem;
+      height: max-content;
+      padding: 1rem 1.5rem;
+      border-radius: 5px;
+    }
+
+    p:nth-child(-n + 2){
+      margin-right: 2rem;
+      font-weight: bold;
+      color: $gray2;
+
+      &:hover {
+        color: $primary;
+        cursor: pointer;
+      }
+    }
+
+    p:nth-child(3){
+      background: $primary;
+      color: white;
+      font-weight: bold;
+
+      &:hover {
+        background: $primary-hover;
+        cursor: pointer;
+      }
+    }
+  }
+}

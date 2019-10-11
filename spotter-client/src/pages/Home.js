@@ -1,8 +1,13 @@
-import React from 'react';
+import React from "react";
+
+import Layout from "../components/Layout";
+import Hero from "../components/home/HomeHero";
 
 function Home() {
   return (
-    <>Hello, World!</>
+    <Layout>
+      <Hero />
+    </Layout>
   );
 }
 
