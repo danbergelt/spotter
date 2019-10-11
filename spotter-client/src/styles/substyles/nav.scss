@@ -30,8 +30,8 @@
       border-radius: 5px;
     }
 
-    p:nth-child(-n + 2){
-      margin-right: 2rem;
+    p:nth-child(-n + 3){
+      margin-right: 1.5rem;
       font-weight: bold;
       color: $gray2;
 
@@ -41,7 +41,7 @@
       }
     }
 
-    p:nth-child(3){
+    p:nth-child(4){
       background: $primary;
       color: white;
       font-weight: bold;

@@ -8,6 +8,7 @@ const Nav = () => {
       </div>
       <div className="spotter-nav-links">
         <p>About</p>
+        <p>Contact</p>
         <p>Log In</p>
         <p>Sign Up</p>
       </div>
