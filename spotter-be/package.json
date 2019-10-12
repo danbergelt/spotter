@@ -1,8 +1,13 @@
 {
-  "name": "spotter-API",
+  "name": "spotter-api",
   "version": "1.0.0",
   "description": "API serving data to the spotter client",
   "main": "index.js",
   "author": "Dan Bergelt",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.4"
+  }
 }
