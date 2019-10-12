@@ -1,0 +1,73 @@
+@import "../variables.scss";
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,400i,700&display=swap');
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Nanum Gothic";
+
+  .logo-container {
+    display: flex;
+    justify-content: center;
+
+    .form-logo {
+      width: 300px;
+      height: 300px;
+      position: relative;
+      bottom: 10px;
+    }
+  }
+
+  .form-sub-container {
+    position: relative;
+    bottom: 40px;
+
+    .form-head {
+      font-size: 5rem;
+      margin-bottom: 2rem;
+      color: $gray1;
+      text-align: center;
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      width: 400px;
+
+      .form-label {
+        font-size: 2rem;
+        color: $gray2;
+        margin: 1rem 0;
+      }
+
+      .form-field {
+        padding: 1rem;
+        font-size: 1.5rem;
+        margin: 1.5rem 0;
+
+        &::placeholder {
+          color: lighten($gray2, 25%);
+        }
+      }
+
+      .form-button {
+        margin-top: 1rem;
+        background: $primary;
+        border: 0;
+        border-radius: 2px;
+        padding: 1.5rem 0;
+        color: white;
+        font-size: 2rem;
+        font-family: "Roboto";
+        font-weight: bold;
+
+        &:hover {
+          cursor: pointer;
+          background: $primary-hover;
+        }
+      }
+    }
+  }
+}

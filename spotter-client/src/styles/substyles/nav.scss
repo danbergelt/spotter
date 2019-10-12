@@ -3,7 +3,6 @@
 .spotter-nav {
   display: flex;
   justify-content: space-between;
-  color: $gray1;
 
   .spotter-nav-head {
     display: flex;
@@ -14,23 +13,26 @@
       cursor: pointer;
     }
 
-    p {
+    .spotter-nav-head-logo {
       font-size: 3.5rem;
       font-weight: bold;
+      color: $gray1;
+      text-decoration: none;
     }
   }
 
   .spotter-nav-links {
     display: flex;
 
-    p {
+    .spotter-nav-link {
       font-size: 1.5rem;
       height: max-content;
       padding: 1rem 1.5rem;
       border-radius: 5px;
+      text-decoration: none;
     }
 
-    p:nth-child(-n + 3){
+    .spotter-nav-link:nth-child(-n + 3){
       margin-right: 1.5rem;
       font-weight: bold;
       color: $gray2;
@@ -41,7 +43,7 @@
       }
     }
 
-    p:nth-child(4){
+    .spotter-nav-link:nth-child(4){
       background: $primary;
       color: white;
       font-weight: bold;

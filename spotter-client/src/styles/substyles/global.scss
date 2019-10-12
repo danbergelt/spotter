@@ -52,6 +52,8 @@ html {
   box-sizing: border-box;
   font-size: 62.5%;
   font-family: 'Roboto';
+  position: relative;
+  min-height: 100%;
 }
 *, *:before, *:after {
   box-sizing: inherit;

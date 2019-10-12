@@ -1,6 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Home from './pages/Home';
-import './styles/index.scss';
+import React from "react";
+import ReactDOM from "react-dom";
+import Routes from "./routes";
+import "./styles/index.scss";
+import { BrowserRouter as Router } from "react-router-dom";
 
-ReactDOM.render(<Home />, document.getElementById('root'));
+ReactDOM.render(
+  <Router>
+    <Routes />
+  </Router>,
+  document.getElementById("root")
+);
