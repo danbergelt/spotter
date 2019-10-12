@@ -1,0 +1,8 @@
+{
+  "name": "spotter-API",
+  "version": "1.0.0",
+  "description": "API serving data to the spotter client",
+  "main": "index.js",
+  "author": "Dan Bergelt",
+  "license": "MIT"
+}
