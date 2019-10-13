@@ -1,24 +1,37 @@
 const express = require("express");
 const mongoose = require("mongoose");
-require('dotenv/config')
+const bodyParser = require("body-parser");
+const passport = require("passport");
+const users = require("./routes/user");
 
 const app = express();
-const port = process.env.port || 1234;
-
-// import routes
-const userRoutes = require('./routes/user');
 
 // middleware
-
-app.use(express.json());
-app.use('/user', userRoutes);
+app.use(
+  bodyParser.urlencoded({
+    extended: false
+  })
+);
+app.use(bodyParser.json());
 
 // Connect to DB
+const db = require("./config/keys").mongoURI;
 
 mongoose.connect(
-  process.env.DB,
-  { useNewUrlParser: true, useUnifiedTopology: true },
-  () => console.log("Connected to DB!")
-);
+  db,
+  { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }
+)
+.then(() => console.log("DB connected"))
+.catch(err => console.log(err));
 
-app.listen(port);
+// Passport initialization + config implementation
+app.use(passport.initialize());
+
+require("./config/passport")(passport);
+
+// Routes
+app.use("/api", users);
+
+const port = process.env.PORT || 1234;
+
+app.listen(port, () => console.log(`Server started on port ${port}`));
