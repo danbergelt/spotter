@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Routes from '../src/routes';
+import Routes from './src/routes';
 import { BrowserRouter as Router } from "react-router-dom";
 
 it('renders without crashing', () => {
