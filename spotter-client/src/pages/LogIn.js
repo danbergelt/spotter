@@ -7,7 +7,7 @@ import Form from "../components/Form";
 const LogIn = () => {
   return (
     <Form action="Log In">
-      <LogInLogo className="form-logo"/>
+      <LogInLogo data-testid="login-img" className="form-logo"/>
     </Form>
   );
 };

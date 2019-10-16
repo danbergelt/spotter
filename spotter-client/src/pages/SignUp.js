@@ -7,7 +7,7 @@ import Form from "../components/Form";
 const SignUp = () => {
   return (
     <Form action="Sign Up">
-      <SignUpLogo className="form-logo"/>
+      <SignUpLogo data-testid="signup-img" className="form-logo"/>
     </Form>
   )
 }
