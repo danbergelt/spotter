@@ -1,2 +1,2 @@
 # spotter
-A simple, desktop-first, PR-focused workout tracker
+A simple, desktop-first, unopinionated workout tracker
