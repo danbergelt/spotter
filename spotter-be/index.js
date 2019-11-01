@@ -1,37 +1,28 @@
 const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const passport = require("passport");
-const users = require("./routes/user");
+const users = require("./routes/users");
+const dotenv = require("dotenv");
+const connectDB = require("./config/db");
+const errorHandler = require("./middleware/error");
+dotenv.config({ path: "./config.env" });
 
+// Connect to DB and run server
+connectDB();
 const app = express();
 
-// middleware
-app.use(
-  bodyParser.urlencoded({
-    extended: false
-  })
-);
-app.use(bodyParser.json());
-
-// Connect to DB
-const db = require("./config/keys").mongoURI;
-
-mongoose.connect(
-  db,
-  { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }
-)
-.then(() => console.log("DB connected"))
-.catch(err => console.log(err));
-
-// Passport initialization + config implementation
-app.use(passport.initialize());
-
-require("./config/passport")(passport);
+// Body parser
+app.use(express.json());
 
 // Routes
-app.use("/api", users);
+app.use("/api/auth", users);
 
-const port = process.env.PORT || 1234;
+// Error handling
+app.use(errorHandler);
+
+const port = process.env.PORT || 5000;
 
 app.listen(port, () => console.log(`Server started on port ${port}`));
+
+// Unhandled rejection handling
+process.on("unhandledRejection", () => {
+  server.close(() => process.exit(1));
+});
