@@ -3,7 +3,7 @@ const users = require("./routes/users");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const errorHandler = require("./middleware/error");
-dotenv.config({ path: "./config.env" });
+dotenv.config();
 
 // Connect to DB and run server
 connectDB();
