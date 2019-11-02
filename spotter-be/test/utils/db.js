@@ -17,6 +17,7 @@ exports.dbHelper = Collection => {
   );
 
   mongoose.connection
+    // .once('open', () => console.log('Connected!'))
     .on("error", error => {
       console.warn(`Error: ${error}`);
     });
