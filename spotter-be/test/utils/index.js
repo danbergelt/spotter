@@ -1,12 +1,11 @@
 const express = require("express");
-const users = require("./routes/users");
+const users = require("../../routes/users");
 const dotenv = require("dotenv");
-const connectDB = require("./config/db");
-const errorHandler = require("./middleware/error");
+const User = require('../../models/User');
+const errorHandler = require("../../middleware/error");
 dotenv.config();
 
 // Connect to DB and run server
-connectDB();
 const app = express();
 
 // Body parser
@@ -26,3 +25,5 @@ app.listen(port, () => console.log(`Server started on port ${port}`));
 process.on("unhandledRejection", () => {
   server.close(() => process.exit(1));
 });
+
+module.exports = app;
