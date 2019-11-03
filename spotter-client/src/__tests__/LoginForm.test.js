@@ -1,16 +1,9 @@
 import React from "react";
 import Login from "../pages/LogIn";
-import SignUp from "../pages/SignUp";
 import axios from "axios";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
-import {
-  render,
-  cleanup,
-  fireEvent,
-  getByTestId,
-  wait
-} from "@testing-library/react";
+import { render, cleanup, fireEvent, wait } from "@testing-library/react";
 
 afterEach(cleanup);
 
@@ -28,6 +21,29 @@ describe("Login validation", () => {
 
     expect(email.getAttribute("value")).toBe("");
     expect(password.getAttribute("value")).toBe("");
+  });
+
+  test("fields can be typed in", () => {
+    const history = createMemoryHistory();
+    const { getByPlaceholderText } = render(
+      <Router history={history}>
+        <Login />
+      </Router>
+    );
+
+    const email = getByPlaceholderText(/name@email.com/i);
+    const password = getByPlaceholderText(/password/i);
+
+    fireEvent.change(email, {
+      target: { value: "test@input.com" }
+    });
+
+    fireEvent.change(password, {
+      target: { value: "testinginputs" }
+    });
+
+    expect(email.getAttribute("value")).toBe("test@input.com");
+    expect(password.getAttribute("value")).toBe("testinginputs");
   });
 
   test("login page renders yup vals on touched fields", async () => {

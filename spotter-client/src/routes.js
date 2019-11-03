@@ -1,7 +1,7 @@
 import React from "react";
 
-import { Route, Switch } from "react-router-dom";
-import PrivateRoute from './utils/PrivateRoute';
+import { Route, Switch, Redirect } from "react-router-dom";
+import PrivateRoute from "./utils/PrivateRoute";
 
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
@@ -15,6 +15,9 @@ const Routes = () => {
     <Layout>
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route component={Home} exact path="/">
+          {localStorage.getItem("token") && <Redirect to="/dashboard" />}
+        </Route>
         <Route path="/login" component={LogIn} />
         <Route path="/signup" component={SignUp} />
         <PrivateRoute path="/dashboard" component={Dashboard} />
