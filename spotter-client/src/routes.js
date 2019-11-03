@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Route, Switch } from "react-router-dom";
+import PrivateRoute from './utils/PrivateRoute';
 
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
@@ -16,7 +17,7 @@ const Routes = () => {
         <Route exact path="/" component={Home} />
         <Route path="/login" component={LogIn} />
         <Route path="/signup" component={SignUp} />
-        <Route path="/dashboard" component={Dashboard} />
+        <PrivateRoute path="/dashboard" component={Dashboard} />
         <Route component={NotFound} />
       </Switch>
     </Layout>
