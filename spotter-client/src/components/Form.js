@@ -13,7 +13,7 @@ const SpotterForm = ({ status, errors, touched, action, api, history, children }
       <div className="form-sub-container">
         <p className="form-head">{action}</p>
         {status && <p className="api-err-box">{status}</p>}
-        <Form className="form">
+        <Form data-testid="test-form" className="form">
           <label className="form-label">Email</label>
           <Field
             className="form-field"
@@ -30,7 +30,7 @@ const SpotterForm = ({ status, errors, touched, action, api, history, children }
             type="password"
           />
           {touched.password && errors.password && <p className="form-error pass">{errors.password}</p>}
-          <button className="form-button" type="submit">
+          <button data-testid="form-submit" className="form-button" type="submit">
             {action}
           </button>
         </Form>
@@ -47,8 +47,8 @@ const FormikForm = withFormik({
     };
   },
   validationSchema: Yup.object().shape({
-    email: Yup.string().required("Email is required!"),
-    password: Yup.string().required("Password is required!")
+    email: Yup.string().required("Email is required"),
+    password: Yup.string().required("Password is required")
   }),
   async handleSubmit(values, { props, resetForm, setStatus }) {
     try {

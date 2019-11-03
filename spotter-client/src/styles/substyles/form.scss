@@ -87,6 +87,10 @@
           background: $primary-hover;
         }
       }
+
+      .form-button:focus {
+        outline: none;
+      }
     }
   }
 }
