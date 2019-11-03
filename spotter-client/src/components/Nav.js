@@ -6,7 +6,7 @@ const Nav = () => {
   return (
     <nav className="spotter-nav">
       <div className="spotter-nav-head">
-        <Link data-testid="spotter" className="spotter-nav-head-logo" to="/">spotter</Link>
+        <Link data-testid="spotter" className="spotter-nav-head-logo" to="/">spotter<span className="spot">.</span></Link>
       </div>
       <div className="spotter-nav-links">
         <Link to="/" className="spotter-nav-link">About</Link>

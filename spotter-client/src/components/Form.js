@@ -2,8 +2,10 @@ import React from "react";
 
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
+import axios from "axios";
 
-const SpotterForm = ({ action, children }) => {
+const SpotterForm = ({ action, api, history, children }) => {
+
   return (
     <div className="form-container">
       <div className="logo-container">
@@ -46,11 +48,11 @@ const FormikForm = withFormik({
     email: Yup.string().required("Email is required!"),
     password: Yup.string().required("Password is required!")
   }),
-  handleSubmit(values, { resetForm }) {
-    // need to convert to API calls, for now just console logging input vals
-
-    console.log(values);
+  async handleSubmit(values, { props, resetForm }) {
+    const res = await axios.post(props.api, values);
     resetForm();
+    localStorage.setItem('token', res.data.token);
+    props.history.push('/dashboard');
   }
 })(SpotterForm);
 
