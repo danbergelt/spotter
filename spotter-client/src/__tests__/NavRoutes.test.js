@@ -4,7 +4,7 @@ import { render, fireEvent } from "@testing-library/react";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 
-describe("App routes", () => {
+describe("Nav routes", () => {
   test("Nav routes point to proper locations", () => {
     const history = createMemoryHistory();
     const { container, getByTestId } = render(
@@ -29,19 +29,30 @@ describe("App routes", () => {
     expect(container.innerHTML).toMatch(/intuitive/i);
   });
 
-  test("404 page displays at bad route", () => {
+  test("dashboard link works for logged-in users", () => {
+    localStorage.setItem("token", "token");
     const history = createMemoryHistory();
-    history.push("/badroutetest/badroute");
-    const { container, getByTestId } = render(
+    const { getByText } = render(
       <Router history={history}>
         <Routes />
       </Router>
     );
 
-    expect(container.innerHTML).toMatch(/404/i);
+    fireEvent.click(getByText(/dashboard/i));
+    expect(history.location.pathname).toEqual("/dashboard");
+    localStorage.removeItem("token");
+  });
 
-    // navigate away from 404
-    fireEvent.click(getByTestId(/spotter/i));
-    expect(container.innerHTML).toMatch(/intuitive/i);
+  test("logout functionality works", () => {
+    localStorage.setItem("token", "token");
+    const history = createMemoryHistory();
+    const { getByTestId, getByText } = render(
+      <Router history={history}>
+        <Routes />
+      </Router>
+    );
+    fireEvent.click(getByTestId(/logout/i));
+    expect(localStorage.getItem("token")).toEqual(null);
+    expect(history.location.pathname).toEqual("/login");
   });
 });
