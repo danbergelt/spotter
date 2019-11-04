@@ -14,7 +14,7 @@ describe("Nav routes", () => {
     );
 
     // home route
-    expect(container.innerHTML).toMatch(/intuitive/i);
+    expect(container.innerHTML).toMatch(/tracker/i);
 
     // login page
     fireEvent.click(getByTestId(/login/i));
@@ -26,7 +26,7 @@ describe("Nav routes", () => {
 
     // back to home
     fireEvent.click(getByTestId(/spotter/i));
-    expect(container.innerHTML).toMatch(/intuitive/i);
+    expect(container.innerHTML).toMatch(/tracker/i);
   });
 
   test("dashboard link works for logged-in users", () => {

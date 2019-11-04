@@ -15,9 +15,6 @@ const Routes = () => {
     <Layout>
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route component={Home} exact path="/">
-          {localStorage.getItem("token") && <Redirect to="/dashboard" />}
-        </Route>
         <Route path="/login" component={LogIn} />
         <Route path="/signup" component={SignUp} />
         <PrivateRoute path="/dashboard" component={Dashboard} />
