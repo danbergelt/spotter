@@ -47,6 +47,16 @@
       }
     }
 
+    .spotter-nav-link.dashboard {
+      color: $primary;
+      border: 1px solid $primary;
+
+      &:hover {
+        color: $primary-hover;
+        border: 1px solid $primary-hover;
+      }
+    }
+
     .spotter-nav-link.styled{
       background: $primary;
       color: white;

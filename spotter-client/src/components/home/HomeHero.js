@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   return (
@@ -16,6 +17,7 @@ const Hero = () => {
         </div>
       </div>
       <p className="home-hero-reg">Sign up</p>
+      <p className="home-hero-alt-signin">Already have an account? <span className="home-hero-alt-signin-link">Sign in.</span></p>
     </section>
   );
 };

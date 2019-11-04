@@ -10,7 +10,7 @@
   align-items: center;
   text-align: center;
 
-  @media (max-width: 1100px){
+  @media (max-width: 1200px){
     margin: 10rem;
   }
 
@@ -42,7 +42,6 @@
     .home-hero-sub-text {
       font-size: 2rem;
       color: darken($gray2, 10%);
-      line-height: 150%;
       font-family: "Nanum Gothic";
     }
   }
@@ -60,6 +59,17 @@
     &:hover {
       cursor: pointer;
       background: $primary-hover;
+    }
+  }
+
+  .home-hero-alt-signin {
+    margin-top: 1.5rem;
+    font-size: 1.175rem;
+
+    .home-hero-alt-signin-link {
+      color: $info;
+      text-decoration: underline;
+      cursor: pointer;
     }
   }
 }
