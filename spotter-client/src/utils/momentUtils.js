@@ -12,15 +12,14 @@ export const generateWeek = num => {
   const days = [];
 
   for (let day of range.by("day")) {
-    // days.push(day.format("ddd MMM D"));
     days.push(day);
   }
 
   return days;
 };
 
-export const dashHead = () => {
-  return moment()
+export const dashHead = num => {
+  return moment().add(num, 'weeks')
     .startOf("week")
     .format("MMMM YYYY");
 };

@@ -3,7 +3,7 @@
 .week-workouts-container {
   .week-workouts-head {
     color: $gray1;
-    font-size: 2.5rem;
+    font-size: 2.25rem;
     font-weight: bold;
     text-align: center;
     display: flex;
@@ -17,6 +17,55 @@
           background: $gray3;
           border-radius: 20px;
           cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .week-workouts-days {
+    display: flex;
+    margin-top: 3rem;
+    font-size: 1.2rem;
+    color: $gray1;
+
+    .week-workouts-column {
+      width: 15%;
+      text-align: center;
+
+      .week-workouts-day {
+        border-bottom: 1px solid $gray3;
+        padding: 2rem 0 4rem 0;
+
+        .week-workout-day-slug {
+          margin-bottom: 1rem;
+          font-size: 2.2rem;
+          color: $gray1;
+        }
+      }
+
+      .week-workouts-day:nth-child(-n + 6) {
+        border-right: 1px solid $gray3;
+      }
+
+      .week-workouts-add-workout {
+        color: $gray1;
+        margin: 1rem;
+        font-size: 1.5rem;
+        padding: 1rem 0;
+        box-shadow: $box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+         transform: scale(1.03);
+         cursor: pointer;   
+        }
+
+        .week-workouts-add-icon {
+          margin-right: 1rem;
+          font-size: 1.5rem;
+          color: $primary;
         }
       }
     }
