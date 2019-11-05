@@ -5,7 +5,7 @@ const SubNav = () => {
   return (
     <div className="subnav-container">
       <div className="subnav-menu left">
-        <SubnavDropdown className="subnav-menu-icon left" />
+        <SubnavDropdown />
         <p className="subnav-menu-icon left">Workouts</p>
         <p className="subnav-menu-icon left">Exercises</p>
       </div>

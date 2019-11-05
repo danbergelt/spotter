@@ -24,7 +24,12 @@ const SubnavDropdown = () => {
     }),
     indicatorSeparator: () => ({
       display: 0
-    })
+    }),
+    dropdownIndicator: (provided) => ({
+      ...provided,
+      position: "relative",
+      right: "10px"
+    }),
   }
 
   return (
@@ -36,6 +41,7 @@ const SubnavDropdown = () => {
         value={option}
         onChange={handleChange}
         defaultValue={option}
+        isSearchable={false}
       />
     </>
   );

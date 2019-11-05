@@ -1,0 +1,24 @@
+@import "../variables.scss";
+
+.week-workouts-container {
+  .week-workouts-head {
+    color: $gray1;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+
+    .week-workouts-icons {
+      margin-right: 2rem;
+      color: $gray2;
+
+      .week-workouts-head-icon {
+        &:hover {
+          background: $gray3;
+          border-radius: 20px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

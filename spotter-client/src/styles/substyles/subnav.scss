@@ -17,11 +17,23 @@
     }
 
     .subnav-menu-icon.left:not(:first-child) {
-      margin-left: 1rem;
+      cursor: pointer;
+
+      &:hover {
+        color: $gray2;
+      }
+    }
+
+    .subnav-menu-icon.left:last-child {
+      margin-left: 2rem;
     }
 
     .subnav-menu-icon.left.dropdown {
-      width: 90px;
+      width: 88px;
+
+      .css-1hwfws3 {
+        padding: 0;
+      }
     }
 
     .subnav-menu-icon.right {
