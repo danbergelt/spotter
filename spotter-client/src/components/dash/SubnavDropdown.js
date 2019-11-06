@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Select from "react-select";
 
 const SubnavDropdown = () => {
@@ -18,19 +18,25 @@ const SubnavDropdown = () => {
       ...provided,
       border: state.isFocused ? 0 : 0,
       boxShadow: state.isFocused ? 0 : 0,
-      '&:hover': {
-        cursor: 'pointer'
+      "&:hover": {
+        cursor: "pointer"
       }
     }),
     indicatorSeparator: () => ({
       display: 0
     }),
-    dropdownIndicator: (provided) => ({
+    dropdownIndicator: provided => ({
       ...provided,
       position: "relative",
       right: "10px"
     }),
-  }
+    option: provided => ({
+      ...provided,
+      "&:hover": {
+        cursor: "pointer"
+      }
+    })
+  };
 
   return (
     <>
@@ -42,6 +48,14 @@ const SubnavDropdown = () => {
         onChange={handleChange}
         defaultValue={option}
         isSearchable={false}
+        theme={theme => ({
+          ...theme,
+          colors: {
+            ...theme.colors,
+            primary50: "white",
+            primary25: "white"
+          }
+        })}
       />
     </>
   );

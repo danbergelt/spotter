@@ -3,6 +3,8 @@ import { extendMoment } from "moment-range";
 
 const moment = extendMoment(Moment);
 
+// Used for generating days of week in dashboard
+
 export const generateWeek = num => {
 
   const start = moment().add(num, 'weeks').startOf("week");
@@ -17,6 +19,8 @@ export const generateWeek = num => {
 
   return days;
 };
+
+// Used to set header of dashboard
 
 export const dashHead = num => {
   return moment().add(num, 'weeks')
