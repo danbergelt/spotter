@@ -68,9 +68,5 @@ describe("redirects and conditional rendering", () => {
     );
 
     expect(container.innerHTML).toMatch(/404/i);
-
-    // navigate away from 404
-    fireEvent.click(getByTestId(/spotter/i));
-    expect(container.innerHTML).toMatch(/intuitive/i);
   });
 });

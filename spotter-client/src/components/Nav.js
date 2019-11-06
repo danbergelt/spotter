@@ -32,7 +32,7 @@ const Nav = () => {
           Contact
         </Link>
         {token && (
-          <Link data-testid="dashboard" className="spotter-nav-link" to="/dashboard">
+          <Link data-testid="dashboard" className="spotter-nav-link dashboard" to="/dashboard">
             Dashboard{" "}
           </Link>
         )}

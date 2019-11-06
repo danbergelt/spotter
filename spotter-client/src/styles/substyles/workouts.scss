@@ -1,0 +1,73 @@
+@import "../variables.scss";
+
+.week-workouts-container {
+  .week-workouts-head {
+    margin-top: 3rem;
+    color: $gray1;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+
+    .week-workouts-icons {
+      margin-right: 2rem;
+      color: $gray2;
+
+      .week-workouts-head-icon {
+        &:hover {
+          background: $gray3;
+          border-radius: 20px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .week-workouts-days {
+    display: flex;
+    margin-top: 3rem;
+    font-size: 1.2rem;
+    color: $gray1;
+
+    .week-workouts-column {
+      width: 15%;
+      text-align: center;
+
+      .week-workouts-day {
+        border-bottom: 1px solid $gray3;
+        padding: 2rem 0 4rem 0;
+
+        .week-workout-day-slug {
+          margin-bottom: 1rem;
+          font-size: 2rem;
+          color: $gray1;
+        }
+      }
+
+      .week-workouts-add-workout {
+        color: $gray1;
+        margin: 1rem;
+        font-size: 1.3rem;
+        padding: 1rem 0;
+        box-shadow: $box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+          transform: scale(1.03);
+          cursor: pointer;
+        }
+
+        .week-workouts-add-icon {
+          margin-right: 1rem;
+          font-size: 1.3rem;
+          color: $primary;
+        }
+      }
+    }
+    .week-workouts-column:nth-of-type(-n + 6) .week-workouts-day {
+      border-right: 1px solid $gray3;
+    }
+  }
+}

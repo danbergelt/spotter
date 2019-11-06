@@ -1,37 +1,29 @@
-@import '../variables.scss';
+@import "../variables.scss";
 
-@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,400i,700&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,700&display=swap");
 
 .home-hero-container {
-  margin: 20rem 0;
+  margin: 15rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
 
+  @media (max-width: 1200px){
+    margin: 15rem 5rem;
+  }
+
   .home-hero-main-text {
-    font-size: 6rem;
+    line-height: 1.25;
+    font-size: 5rem;
     color: $gray1;
-    font-family: 'Nanum Gothic';
+    font-family: "Nanum Gothic";
 
     .home-hero-main-point {
       font-weight: bold;
       color: $primary;
       padding-top: 1.5rem;
-    }
-  }
-
-  .home-hero-sub {
-    padding-top: 4rem;
-    width: 50%;
-
-
-    .home-hero-sub-text {
-      font-size: 3rem;
-      color: darken($gray2, 10%);
-      line-height: 150%;
-      font-family: 'Nanum Gothic';
     }
 
     .home-hero-sub-text-highlight {
@@ -39,19 +31,41 @@
     }
   }
 
+  .home-hero-sub {
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+
+    .home-hero-sub-text {
+      line-height: 1.5;
+      font-size: 2rem;
+      color: darken($gray2, 10%);
+      font-family: "Nanum Gothic";
+    }
+  }
+
   .home-hero-reg {
     font-family: "Roboto";
     font-size: 2rem;
     margin-top: 2rem;
-    padding: 1rem 3rem;
+    padding: 1.5rem 3.5rem;
     background: $primary;
     color: white;
-    border-radius: 5px;
     font-weight: bold;
 
     &:hover {
       cursor: pointer;
       background: $primary-hover;
+    }
+  }
+
+  .home-hero-alt-signin {
+    margin-top: 1.5rem;
+    font-size: 1.175rem;
+
+    .home-hero-alt-signin-link {
+      color: $info;
+      text-decoration: underline;
+      cursor: pointer;
     }
   }
 }

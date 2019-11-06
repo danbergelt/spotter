@@ -1,0 +1,43 @@
+@import '../variables.scss';
+
+.subnav-container {
+  display: flex;
+  padding-top: 5rem;
+  font-size: 1.3rem;
+
+  .subnav-menu {
+    color: $gray1;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+
+
+    .subnav-menu-icon.left:last-child {
+      font-size: 1.6rem;
+      cursor: pointer;
+      color: $gray1;
+      margin-right: 3rem;
+    }
+
+    .subnav-menu-icon.left.dropdown {
+      width: 88px;
+
+      .css-1hwfws3 {
+        padding: 0;
+      }
+    }
+
+    .subnav-menu-icon.right {
+      color: $info;
+      padding: 0.5rem 0.75rem;
+      background: white;
+      border: 1px solid $info;
+      cursor: pointer;
+
+      &:hover {
+        color: darken($info, 10%);
+      }
+
+    }
+  }
+}
