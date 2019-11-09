@@ -1,0 +1,18 @@
+@import '../../variables.scss';
+
+.add-workout-modal-content {
+  display: flex;
+  flex-direction: column;
+
+  .add-workout-exit-modal {
+    align-self: flex-end;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0.9rem;
+    border-radius: 50%;
+
+    &:hover {
+      background-color: $gray3;
+    }
+  }
+}

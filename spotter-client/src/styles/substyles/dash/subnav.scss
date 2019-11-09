@@ -17,6 +17,12 @@
       cursor: pointer;
       color: $gray1;
       margin-right: 3rem;
+      padding: 0.9rem;
+      border-radius: 50%;
+
+      &:hover {
+        background: $gray3;
+      }
     }
 
     .subnav-menu-icon.left.dropdown {
