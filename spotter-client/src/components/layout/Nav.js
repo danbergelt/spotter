@@ -1,5 +1,5 @@
 import React from "react";
-import { useToken } from '../hooks/useToken';
+import { useToken } from '../../hooks/useToken';
 import { Link } from "react-router-dom";
 
 const Nav = () => {

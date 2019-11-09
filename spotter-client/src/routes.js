@@ -2,7 +2,7 @@ import React from "react";
 import { useToken } from "./hooks/useToken";
 import { Route, Switch, Redirect } from "react-router-dom";
 import PrivateRoute from "./utils/PrivateRoute";
-import Layout from "./components/Layout";
+import Layout from "./components/layout/Layout";
 import Home from "./pages/Home";
 import LogIn from "./pages/LogIn";
 import SignUp from "./pages/SignUp";

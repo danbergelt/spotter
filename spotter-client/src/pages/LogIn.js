@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { ReactComponent as LogInLogo } from "../assets/spotter_login.svg";
-import Form from "../components/Form";
+import Form from "../components/auth/Form";
 
 const LogIn = () => {
   const history = useHistory();

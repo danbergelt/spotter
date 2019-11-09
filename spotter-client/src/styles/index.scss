@@ -1,8 +1,8 @@
-@import "./substyles/global.scss";
-@import "./substyles/nav.scss";
-@import "./substyles/footer.scss";
-@import "./substyles/home-hero.scss";
-@import "./substyles/form.scss";
-@import "./substyles/subnav.scss";
-@import "./substyles/workouts.scss";
-@import "./substyles/notfound.scss";
+@import "./substyles/misc/global.scss";
+@import "./substyles/layout/nav.scss";
+@import "./substyles/layout/footer.scss";
+@import "./substyles/home/home-hero.scss";
+@import "./substyles/auth/form.scss";
+@import "./substyles/dash/subnav.scss";
+@import "./substyles/dash/workouts.scss";
+@import "./substyles/misc/notfound.scss";

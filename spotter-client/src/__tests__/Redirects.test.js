@@ -1,5 +1,5 @@
 import React from "react";
-import Routes from "../routes";
+import Routes from "../Routes";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 import { render, cleanup, fireEvent } from "@testing-library/react";
@@ -43,6 +43,8 @@ describe("redirects and conditional rendering", () => {
     expect(container.contains(getByText(/log out/i))).toBeTruthy();
     expect(container.contains(getByText(/dashboard/i))).toBeTruthy();
     expect(container.contains(queryByText(/log in/i))).toBeFalsy();
+    expect(container.contains(queryByText(/about/i))).toBeFalsy();
+    expect(container.contains(queryByText(/contact/i))).toBeFalsy();
     localStorage.removeItem("token");
   });
 
@@ -57,6 +59,45 @@ describe("redirects and conditional rendering", () => {
     history.push("/dashboard");
     expect(history.location.pathname).toEqual("/login");
   });
+
+  test("home path pushes logged in users to dashboard", () => {
+    localStorage.setItem("token", "token");
+    const history = createMemoryHistory();
+    const { container, getByText, queryByText } = render(
+      <Router history={history}>
+        <Routes />
+      </Router>
+    );
+
+    expect(history.location.pathname).toEqual("/dashboard")
+    expect(container.contains(getByText(/view prs/i))).toBeTruthy();
+  })
+
+  test("login path pushes logged in users to dashboard", () => {
+    localStorage.setItem("token", "token");
+    const history = createMemoryHistory();
+    const { container, getByText, queryByText } = render(
+      <Router history={history}>
+        <Routes />
+      </Router>
+    );
+    history.push("/login");
+    expect(history.location.pathname).toEqual("/dashboard")
+    expect(container.contains(getByText(/view prs/i))).toBeTruthy();
+  })
+
+  test("login path pushes logged in users to dashboard", () => {
+    localStorage.setItem("token", "token");
+    const history = createMemoryHistory();
+    const { container, getByText, queryByText } = render(
+      <Router history={history}>
+        <Routes />
+      </Router>
+    );
+    history.push("/signup");
+    expect(history.location.pathname).toEqual("/dashboard")
+    expect(container.contains(getByText(/view prs/i))).toBeTruthy();
+  })
 
   test("404 page displays at bad route", () => {
     const history = createMemoryHistory();
