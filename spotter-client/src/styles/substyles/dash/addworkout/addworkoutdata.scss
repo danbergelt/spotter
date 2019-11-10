@@ -53,7 +53,7 @@
     .add-workout-data-notes-head {
       display: flex;
       align-items: center;
-      font-size: 1.75rem;
+      font-size: 2rem;
       font-weight: bold;
       color: $gray1;
       margin-top: 4rem;
@@ -62,20 +62,37 @@
         margin-right: 1.3rem;
         font-size: 1.75rem;
       }
+
+      .add-workout-data-notes-title {
+        padding: 1.25rem;
+      }
+
+      .add-workout-data-notes-edit {
+        font-size: 1.5rem;
+        border-radius: 4px;
+        background: $gray4;
+        padding: 1.25rem;
+        font-weight: normal;
+
+        &:hover {
+          background: darken($gray4, 2.5%);
+          cursor: pointer;
+        }
+      }
     }
 
     .add-workout-data-notes-content {
       resize: none;
       width: 100%;
       border: 0;
-      background: $gray4;
+      background: $gray3;
       margin-left: 3rem;
       margin-top: 2rem;
-      padding: 1rem;
-      font-size: 1.3rem;
+      font-size: 1.5rem;
       border-radius: 4px;
 
       &:focus {
+        padding: 1rem;
         outline: 0;
         box-shadow: 0 0 0 2px $primary;
         background: white;

@@ -1,12 +1,12 @@
 import React from "react";
 import Modal from "react-modal";
-import styles from '../../../styles/variables.scss';
+import styles from "../../../styles/variables.scss";
 
 // components
 import AddWorkoutTitle from "./AddWorkoutTitle";
 import AddWorkoutContent from "./AddWorkoutContent";
 
-Modal.setAppElement("#root");
+if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
 const customStyles = {
   content: {
