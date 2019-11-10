@@ -1,13 +1,19 @@
 import React from "react";
 import Modal from "react-modal";
-import { FiX } from 'react-icons/fi';
+import styles from '../../../styles/variables.scss';
+
+// components
+import AddWorkoutTitle from "./AddWorkoutTitle";
+import AddWorkoutContent from "./AddWorkoutContent";
 
 Modal.setAppElement("#root");
 
 const customStyles = {
   content: {
     width: "750px",
-    margin: "0 auto"
+    margin: "0 auto",
+    background: styles.gray3,
+    border: 0
   }
 };
 
@@ -21,7 +27,8 @@ const AddWorkout = ({ modal, closeModal }) => {
       style={customStyles}
     >
       <div className="add-workout-modal-content">
-        <div onClick={closeModal} className="add-workout-exit-modal"><FiX /></div>
+        <AddWorkoutTitle closeModal={closeModal} />
+        <AddWorkoutContent />
       </div>
     </Modal>
   );

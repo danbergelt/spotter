@@ -1,0 +1,14 @@
+@import "../../../variables.scss";
+
+.add-workout-modal-content {
+  display: flex;
+  flex-direction: column;
+  margin-left: 2rem;
+
+  .add-workout-body-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 2rem;
+  }
+}

@@ -1,0 +1,112 @@
+@import "../../../variables.scss";
+
+.add-workout-data {
+  width: 100%;
+  margin-right: 6rem;
+
+  .add-workout-data-tags {
+    display: flex;
+    flex-direction: column;
+    margin-left: 3rem;
+
+    .add-workout-data-tags-head {
+      font-size: 1.3rem;
+      padding-top: 1rem;
+      margin-bottom: 1.25rem;
+      color: $gray2;
+    }
+
+    .add-workout-data-tags-container {
+      display: flex;
+      flex-flow: wrap;
+
+      .add-workout-data-tags-tag {
+        font-size: 1.5rem;
+        background: $info;
+        color: white;
+        padding: 1rem;
+        border-radius: 2px;
+        font-family: "Roboto";
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        border-radius: 4px;
+        margin-right: 0.5rem;
+
+        &:hover {
+          background: rgba($info, 0.8);
+        }
+      }
+
+      .add-workout-data-tags-tag.add {
+        background: $gray4;
+        color: $gray1;
+
+        &:hover {
+          background: darken($gray4, 5%);
+        }
+      }
+    }
+  }
+  .add-workout-data-notes {
+
+    .add-workout-data-notes-head {
+      display: flex;
+      align-items: center;
+      font-size: 1.75rem;
+      font-weight: bold;
+      color: $gray1;
+      margin-top: 4rem;
+
+      .add-workout-data-notes-icon {
+        margin-right: 1.3rem;
+        font-size: 1.75rem;
+      }
+    }
+
+    .add-workout-data-notes-content {
+      resize: none;
+      width: 100%;
+      border: 0;
+      background: $gray4;
+      margin-left: 3rem;
+      margin-top: 2rem;
+      padding: 1rem;
+      font-size: 1.3rem;
+      border-radius: 4px;
+
+      &:focus {
+        outline: 0;
+        box-shadow: 0 0 0 2px $primary;
+        background: white;
+        height: 100px;
+      }
+    }
+
+    .add-workout-data-notes-content::-webkit-input-placeholder {
+      color: $gray1;
+    }
+  }
+
+  .add-workout-data-notes-actions {
+    display: none;
+  }
+
+  .add-workout-data-notes-actions.active {
+    display: flex;
+    font-size: 2rem;
+    margin-left: 3rem;
+    margin-top: 2rem;
+
+    .add-workout-data-notes-submit {
+      color: $info;
+      cursor: pointer;
+      margin-right: 1rem;
+    }
+
+    .add-workout-data-notes-cancel {
+      color: $danger;
+      cursor: pointer;
+    }
+  }
+}

@@ -1,0 +1,47 @@
+.add-workout-modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .add-workout-modal-head-left {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    .add-workout-spotter-logo {
+      color: $primary;
+      font-size: 1.3rem;
+      margin-right: 1.3rem;
+    }
+
+    .add-workout-title {
+      width: 100%;
+      height: 3rem;
+      font-size: 2.25rem;
+      font-weight: bold;
+      color: $gray1;
+      border: 0;
+      padding: 0.25rem 0.25rem 0.25rem 0.5rem;
+      border-radius: 4px;
+      background: $gray3;
+
+      &:focus {
+        outline: 0;
+        box-shadow: 0 0 0 2px $primary;
+        background: white;
+      }
+    }
+  }
+
+  .add-workout-exit-modal {
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0.9rem;
+    border-radius: 50%;
+    margin-left: 2rem;
+
+    &:hover {
+      background-color: darken($gray3, 10%);
+    }
+  }
+}
