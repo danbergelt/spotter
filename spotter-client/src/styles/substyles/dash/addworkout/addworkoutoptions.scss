@@ -1,8 +1,8 @@
-@import '../../../variables.scss';
+@import "../../../variables.scss";
 
 .add-workout-options-container {
   width: 35%;
-  
+
   .add-workout-options-title {
     font-size: 1.3rem;
     color: $gray2;
@@ -29,6 +29,15 @@
 
       .add-workout-options-icon {
         margin-right: 0.75rem;
+      }
+    }
+
+    .add-workout-options-button.publish {
+      background: $primary;
+      color: white;
+
+      &:hover {
+        background: $primary-hover;
       }
     }
   }

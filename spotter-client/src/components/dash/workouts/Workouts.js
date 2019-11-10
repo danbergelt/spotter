@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import WorkoutColumn from "./WorkoutColumn";
-import { generateWeek, dashHead } from "../../utils/momentUtils";
+import { generateWeek, dashHead } from "../../../utils/momentUtils"
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 const Workouts = () => {

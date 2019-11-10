@@ -2,7 +2,7 @@ import React from "react";
 import Routes from "../Routes";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
-import { render, cleanup, fireEvent } from "@testing-library/react";
+import { render, cleanup } from "@testing-library/react";
 
 afterEach(cleanup);
 

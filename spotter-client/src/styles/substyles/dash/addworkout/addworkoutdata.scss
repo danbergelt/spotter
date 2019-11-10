@@ -49,7 +49,6 @@
     }
   }
   .add-workout-data-notes {
-
     .add-workout-data-notes-head {
       display: flex;
       align-items: center;
@@ -59,7 +58,6 @@
       margin-top: 4rem;
 
       .add-workout-data-notes-icon {
-        margin-right: 1.3rem;
         font-size: 1.75rem;
       }
 
@@ -124,6 +122,24 @@
     .add-workout-data-notes-cancel {
       color: $danger;
       cursor: pointer;
+    }
+  }
+  .add-workout-data-exercises {
+    .add-workout-data-exercises-head {
+      display: flex;
+      align-items: center;
+      font-size: 2rem;
+      font-weight: bold;
+      color: $gray1;
+      margin-top: 4rem;
+
+      .add-workout-data-exercises-icon {
+        font-size: 1.75rem;
+      }
+
+      .add-workout-data-exercises-title {
+        padding: 1.25rem;
+      }
     }
   }
 }

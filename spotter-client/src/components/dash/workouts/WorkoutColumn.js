@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FiPlusCircle } from "react-icons/fi";
-import AddWorkout from "./addworkout/AddWorkout";
+import AddWorkout from "./AddWorkout";
 
 const WorkoutColumn = ({ date }) => {
   const [modal, setModal] = useState(false);

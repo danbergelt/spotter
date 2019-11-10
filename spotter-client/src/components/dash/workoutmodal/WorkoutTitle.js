@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FiX } from "react-icons/fi";
 import { FaCircle } from "react-icons/fa";
 
-const AddWorkoutTitle = ({ closeModal }) => {
+const WorkoutTitle = ({ closeModal }) => {
   const [title, setTitle] = useState("");
 
   const titleHandler = e => {
@@ -22,4 +22,4 @@ const AddWorkoutTitle = ({ closeModal }) => {
   );
 };
 
-export default AddWorkoutTitle;
+export default WorkoutTitle;

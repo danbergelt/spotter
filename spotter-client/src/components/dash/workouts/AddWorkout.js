@@ -3,8 +3,8 @@ import Modal from "react-modal";
 import styles from "../../../styles/variables.scss";
 
 // components
-import AddWorkoutTitle from "./AddWorkoutTitle";
-import AddWorkoutContent from "./AddWorkoutContent";
+import WorkoutTitle from "../workoutmodal/WorkoutTitle";
+import WorkoutContent from "../workoutmodal/WorkoutContent";
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
@@ -27,8 +27,8 @@ const AddWorkout = ({ modal, closeModal }) => {
       style={customStyles}
     >
       <div className="add-workout-modal-content">
-        <AddWorkoutTitle closeModal={closeModal} />
-        <AddWorkoutContent />
+        <WorkoutTitle closeModal={closeModal} />
+        <WorkoutContent />
       </div>
     </Modal>
   );
