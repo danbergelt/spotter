@@ -4,6 +4,12 @@ import axios from "axios";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 import { render, cleanup, fireEvent, wait } from "@testing-library/react";
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
+import reducer from "../reducers/index";
+
+const store = createStore(reducer, applyMiddleware(thunk));
 
 afterEach(cleanup);
 
@@ -11,9 +17,11 @@ describe("Register validation", () => {
   test("register page renders with empty inputs", () => {
     const history = createMemoryHistory();
     const { getByPlaceholderText } = render(
-      <Router history={history}>
-        <SignUp />
-      </Router>
+      <Provider store={store}>
+        <Router history={history}>
+          <SignUp />
+        </Router>
+      </Provider>
     );
 
     const email = getByPlaceholderText(/name@email.com/i);
@@ -26,9 +34,11 @@ describe("Register validation", () => {
   test("fields can be typed in", () => {
     const history = createMemoryHistory();
     const { getByPlaceholderText } = render(
-      <Router history={history}>
-        <SignUp />
-      </Router>
+      <Provider store={store}>
+        <Router history={history}>
+          <SignUp />
+        </Router>
+      </Provider>
     );
 
     const email = getByPlaceholderText(/name@email.com/i);
@@ -49,9 +59,11 @@ describe("Register validation", () => {
   test("register page renders yup vals on touched fields", async () => {
     const history = createMemoryHistory();
     const { container, getByPlaceholderText, findByText } = render(
-      <Router history={history}>
-        <SignUp />
-      </Router>
+      <Provider store={store}>
+        <Router history={history}>
+          <SignUp />
+        </Router>
+      </Provider>
     );
 
     const email = getByPlaceholderText(/name@email.com/i);
@@ -78,9 +90,11 @@ describe("Register validation", () => {
 
     const history = createMemoryHistory();
     const { container, getByPlaceholderText, findByText, getByTestId } = render(
-      <Router history={history}>
-        <SignUp />
-      </Router>
+      <Provider store={store}>
+        <Router history={history}>
+          <SignUp />
+        </Router>
+      </Provider>
     );
 
     fireEvent.change(getByPlaceholderText(/name@email.com/i), {
@@ -107,9 +121,11 @@ describe("Register validation", () => {
 
     const history = createMemoryHistory();
     const { getByPlaceholderText, getByTestId } = render(
-      <Router history={history}>
-        <SignUp />
-      </Router>
+      <Provider store={store}>
+        <Router history={history}>
+          <SignUp />
+        </Router>
+      </Provider>
     );
 
     fireEvent.change(getByPlaceholderText(/name@email.com/i), {

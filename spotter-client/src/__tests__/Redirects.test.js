@@ -3,6 +3,12 @@ import Routes from "../Routes";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 import { render, cleanup } from "@testing-library/react";
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
+import reducer from "../reducers/index";
+
+const store = createStore(reducer, applyMiddleware(thunk));
 
 afterEach(cleanup);
 
@@ -10,9 +16,11 @@ describe("redirects and conditional rendering", () => {
   test("home path automatically renders `/` ", () => {
     const history = createMemoryHistory();
     render(
-      <Router history={history}>
-        <Routes />
-      </Router>
+      <Provider store={store}>
+        <Router history={history}>
+          <Routes />
+        </Router>
+      </Provider>
     );
 
     expect(history.location.pathname).toBe("/");
@@ -21,9 +29,11 @@ describe("redirects and conditional rendering", () => {
   test("nav conditionally renders when logged out", () => {
     const history = createMemoryHistory();
     const { container, getByText, queryByText } = render(
-      <Router history={history}>
-        <Routes />
-      </Router>
+      <Provider store={store}>
+        <Router history={history}>
+          <Routes />
+        </Router>
+      </Provider>
     );
 
     expect(container.contains(getByText(/log in/i))).toBeTruthy();
@@ -35,9 +45,11 @@ describe("redirects and conditional rendering", () => {
     localStorage.setItem("token", "token");
     const history = createMemoryHistory();
     const { container, getByText, queryByText } = render(
-      <Router history={history}>
-        <Routes />
-      </Router>
+      <Provider store={store}>
+        <Router history={history}>
+          <Routes />
+        </Router>
+      </Provider>
     );
 
     expect(container.contains(getByText(/log out/i))).toBeTruthy();
@@ -51,9 +63,11 @@ describe("redirects and conditional rendering", () => {
   test("dashboard path pushes logged out users to login", () => {
     const history = createMemoryHistory();
     render(
-      <Router history={history}>
-        <Routes />
-      </Router>
+      <Provider store={store}>
+        <Router history={history}>
+          <Routes />
+        </Router>
+      </Provider>
     );
 
     history.push("/dashboard");
@@ -64,48 +78,56 @@ describe("redirects and conditional rendering", () => {
     localStorage.setItem("token", "token");
     const history = createMemoryHistory();
     const { container, getByText, queryByText } = render(
-      <Router history={history}>
-        <Routes />
-      </Router>
+      <Provider store={store}>
+        <Router history={history}>
+          <Routes />
+        </Router>
+      </Provider>
     );
 
-    expect(history.location.pathname).toEqual("/dashboard")
+    expect(history.location.pathname).toEqual("/dashboard");
     expect(container.contains(getByText(/view prs/i))).toBeTruthy();
-  })
+  });
 
   test("login path pushes logged in users to dashboard", () => {
     localStorage.setItem("token", "token");
     const history = createMemoryHistory();
     const { container, getByText, queryByText } = render(
-      <Router history={history}>
-        <Routes />
-      </Router>
+      <Provider store={store}>
+        <Router history={history}>
+          <Routes />
+        </Router>
+      </Provider>
     );
     history.push("/login");
-    expect(history.location.pathname).toEqual("/dashboard")
+    expect(history.location.pathname).toEqual("/dashboard");
     expect(container.contains(getByText(/view prs/i))).toBeTruthy();
-  })
+  });
 
-  test("login path pushes logged in users to dashboard", () => {
+  test("signup path pushes logged in users to dashboard", () => {
     localStorage.setItem("token", "token");
     const history = createMemoryHistory();
     const { container, getByText, queryByText } = render(
-      <Router history={history}>
-        <Routes />
-      </Router>
+      <Provider store={store}>
+        <Router history={history}>
+          <Routes />
+        </Router>
+      </Provider>
     );
     history.push("/signup");
-    expect(history.location.pathname).toEqual("/dashboard")
+    expect(history.location.pathname).toEqual("/dashboard");
     expect(container.contains(getByText(/view prs/i))).toBeTruthy();
-  })
+  });
 
   test("404 page displays at bad route", () => {
     const history = createMemoryHistory();
     history.push("/badroutetest/badroute");
     const { container, getByTestId } = render(
-      <Router history={history}>
-        <Routes />
-      </Router>
+      <Provider store={store}>
+        <Router history={history}>
+          <Routes />
+        </Router>
+      </Provider>
     );
 
     expect(container.innerHTML).toMatch(/404/i);
