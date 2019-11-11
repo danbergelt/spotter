@@ -1,5 +1,6 @@
 import {
   ADD_WORKOUT_TITLE,
+  RESET_TITLE,
   ADD_WORKOUT_NOTES,
   RESET_NOTES
 } from "../actions/addWorkoutActions";
@@ -16,6 +17,11 @@ export const addWorkoutReducer = (state = initialState, action) => {
         ...state,
         title: action.payload
       };
+    case RESET_TITLE:
+      return {
+        ...state,
+        title: action.payload
+      }
     case ADD_WORKOUT_NOTES:
       return {
         ...state,

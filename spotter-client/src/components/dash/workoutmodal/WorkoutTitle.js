@@ -3,7 +3,6 @@ import { FiX } from "react-icons/fi";
 import { FaCircle } from "react-icons/fa";
 
 const WorkoutTitle = ({ closeModal, title, workoutTitle }) => {
-
   return (
     <div className="add-workout-modal-head">
       <div className="add-workout-modal-head-left">
