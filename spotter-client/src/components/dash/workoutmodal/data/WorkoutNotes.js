@@ -1,9 +1,9 @@
 import React, { useState, useRef } from "react";
 import { FiBookOpen, FiCheck, FiX } from "react-icons/fi";
+import { WorkoutDataConsumer } from "../../../../contexts/workoutDataContext";
 
 const WorkoutNotes = () => {
   const [actions, setActions] = useState(false);
-  const [notes, setNotes] = useState("");
 
   const notesRef = useRef(null);
 
@@ -11,48 +11,47 @@ const WorkoutNotes = () => {
     notesRef.current.focus();
   };
 
-  const notesHandler = e => {
-    setNotes(e.target.value);
-  };
-
-  const resetNotes = () => {
-    setNotes("");
-  };
-
   return (
-    <div className="add-workout-data-notes">
-      <div className="add-workout-data-notes-head">
-        <FiBookOpen className="add-workout-data-notes-icon" />
-        <div className="add-workout-data-notes-title">Notes</div>
-        {notes !== "" && (
-          <div className="add-workout-data-notes-edit" onClick={editHandler}>
-            Edit
+    <WorkoutDataConsumer>
+      {context => (
+        <div className="add-workout-data-notes">
+          <div className="add-workout-data-notes-head">
+            <FiBookOpen className="add-workout-data-notes-icon" />
+            <div className="add-workout-data-notes-title">Notes</div>
+            {context.notes !== "" && (
+              <div
+                className="add-workout-data-notes-edit"
+                onClick={editHandler}
+              >
+                Edit
+              </div>
+            )}
           </div>
-        )}
-      </div>
-      <textarea
-        ref={notesRef}
-        onFocus={() => setActions(true)}
-        onBlur={() => setActions(false)}
-        value={notes}
-        onChange={notesHandler}
-        className="add-workout-data-notes-content"
-        placeholder="Enter some notes..."
-      />
-      <div
-        className={
-          actions
-            ? "add-workout-data-notes-actions active"
-            : "add-workout-data-notes-actions"
-        }
-      >
-        <FiCheck className="add-workout-data-notes-submit" />
-        <FiX
-          onMouseDown={resetNotes}
-          className="add-workout-data-notes-cancel"
-        />
-      </div>
-    </div>
+          <textarea
+            ref={notesRef}
+            onFocus={() => setActions(true)}
+            onBlur={() => setActions(false)}
+            value={context.notes}
+            onChange={e => context.setNotes(e.target.value)}
+            className="add-workout-data-notes-content"
+            placeholder="Enter some notes..."
+          />
+          <div
+            className={
+              actions
+                ? "add-workout-data-notes-actions active"
+                : "add-workout-data-notes-actions"
+            }
+          >
+            <FiCheck className="add-workout-data-notes-submit" />
+            <FiX
+              onMouseDown={() => context.resetNotes("")}
+              className="add-workout-data-notes-cancel"
+            />
+          </div>
+        </div>
+      )}
+    </WorkoutDataConsumer>
   );
 };
 

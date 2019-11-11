@@ -1,10 +1,7 @@
-const initialState = {
-  test: "Hello World!"
-}
+import { combineReducers } from "redux";
 
-export const reducer = (state = initialState, action) => {
-  switch(action.type) {
-    default:
-      return state;
-  }
-}
+import { addWorkoutReducer } from "./addWorkoutReducer";
+
+export default combineReducers({
+  addWorkoutReducer
+});
