@@ -1,0 +1,281 @@
+@import "../../../variables.scss";
+
+.add-workout-data {
+  width: 100%;
+  margin-right: 4rem;
+
+  .add-workout-data-tags {
+    display: flex;
+    flex-direction: column;
+    margin-left: 3rem;
+
+    .add-workout-data-tags-head {
+      font-size: 1.3rem;
+      padding-top: 1rem;
+      margin-bottom: 1.25rem;
+      color: $gray2;
+    }
+
+    .add-workout-data-tags-container {
+      display: flex;
+      flex-flow: wrap;
+
+      .add-workout-data-tags-tag {
+        font-size: 1.5rem;
+        background: $info;
+        color: white;
+        padding: 1rem;
+        border-radius: 2px;
+        font-family: "Roboto";
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        border-radius: 4px;
+        margin-right: 0.5rem;
+
+        &:hover {
+          background: rgba($info, 0.8);
+        }
+      }
+
+      .add-workout-data-tags-tag.add {
+        background: $gray4;
+        color: $gray1;
+
+        &:hover {
+          background: darken($gray4, 5%);
+        }
+      }
+    }
+  }
+  .add-workout-data-notes {
+    .add-workout-data-notes-head {
+      display: flex;
+      align-items: center;
+      font-size: 2rem;
+      font-weight: bold;
+      color: $gray1;
+      margin-top: 3rem;
+
+      .add-workout-data-notes-icon {
+        font-size: 1.75rem;
+      }
+
+      .add-workout-data-notes-title {
+        padding: 1.25rem;
+      }
+
+      .add-workout-data-notes-edit {
+        font-size: 1.5rem;
+        border-radius: 4px;
+        background: $gray4;
+        padding: 1.25rem;
+        font-weight: normal;
+
+        &:hover {
+          background: darken($gray4, 2.5%);
+          cursor: pointer;
+        }
+      }
+    }
+
+    .add-workout-data-notes-content {
+      resize: none;
+      width: 100%;
+      border: 0;
+      background: $gray3;
+      margin-left: 3rem;
+      margin-top: 2rem;
+      font-size: 1.5rem;
+      border-radius: 4px;
+
+      &:focus {
+        padding: 1rem;
+        outline: 0;
+        box-shadow: 0 0 0 2px $primary;
+        background: white;
+        height: 75px;
+      }
+    }
+
+    .add-workout-data-notes-content::-webkit-input-placeholder {
+      color: $gray1;
+    }
+  }
+
+  .add-workout-data-notes-actions {
+    display: none;
+  }
+
+  .add-workout-data-notes-actions.active {
+    display: flex;
+    font-size: 2rem;
+    margin-left: 3rem;
+    margin-top: 2rem;
+
+    .add-workout-data-notes-submit {
+      font-size: 2.5rem;
+      color: $info;
+      cursor: pointer;
+      margin-right: 1rem;
+
+      &:hover {
+        transform: scale(1.25);
+      }
+    }
+
+    .add-workout-data-notes-cancel {
+      color: $danger;
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.15);
+      }
+    }
+  }
+  .add-workout-data-exercises {
+
+    .add-workout-data-exercises-head {
+      display: flex;
+      align-items: center;
+      font-size: 2rem;
+      font-weight: bold;
+      color: $gray1;
+      margin-top: 2rem;
+
+      .add-workout-data-exercises-icon {
+        font-size: 1.75rem;
+      }
+
+      .add-workout-data-exercises-title {
+        padding: 1.25rem;
+      }
+    }
+    .add-workout-data-exercises-content {
+      margin-top: 2rem;
+
+      .exercise-form {
+        display: flex;
+        align-items: flex-end;
+        color: $gray1;
+        margin-bottom: 3rem;
+
+        .exercise-form-field-container {
+          display: flex;
+          flex-direction: column;
+          width: 100px;
+          margin-right: 1rem;
+
+          .exercise-form-field-label {
+            height: 15px;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .save-exercise-button {
+              font-size: 1.75rem;
+              margin-right: 1.15rem;
+              color: $info;
+              cursor: pointer;
+            }
+          }
+
+          .error-exercise-form {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            color: $danger;
+          }
+
+          .exercise-form-field {
+            height: 2.5rem;
+            outline: none;
+            border-radius: 4px;
+            border: 0;
+            padding: 1.5rem 0 1.5rem 0.5rem;
+            font-size: 1.5rem;
+            border: 1px solid $gray4;
+
+            &:focus {
+              outline: 0;
+              box-shadow: 0 0 0 1px $primary;
+            }
+          }
+        }
+        .exercise-form-button {
+          font-size: 1.75rem;
+          cursor: pointer;
+
+          &:hover {
+            transform: scale(1.15)
+          }
+        }
+
+        .exercise-form-button.submit {
+          margin-right: 1rem;
+          font-size: 2.25rem;
+          color: $info;
+        }
+
+        .exercise-form-button.clear {
+          color: $danger;
+          position: relative;
+          bottom: 3px;
+        }
+      }
+
+      .add-workout-data-exercises-list {
+        margin-top: 2rem;
+        width: 100%;
+
+        .exercise-row {
+          padding: 1rem 0.5rem;
+          border-radius: 4px;
+          display: flex;
+          align-items: flex-end;
+
+          .exercise-results {
+            display: flex;
+            flex-direction: column;
+
+            .exercise-name {
+              font-size: 2rem;
+              font-weight: bold;
+              margin-bottom: 1rem;
+            }
+
+            .exercise-stats {
+              display: flex;
+              font-size: 1.5rem;
+
+              .exercise-stat {
+                padding-right: 1rem;
+              }
+            }
+          }
+
+          .exercise-actions {
+            display: flex;
+            color: $danger;
+            font-size: 1.75rem;
+            cursor: pointer;
+
+            &:hover {
+              transform: scale(1.1);
+            }
+
+            .exercise-edit {
+              color: $info;
+              margin-left: 1rem;
+            }
+          }
+        }
+
+        .exercise-row.odd {
+          background: $gray4;
+        }
+      }
+    }
+  }
+}

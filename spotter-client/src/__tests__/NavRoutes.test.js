@@ -3,14 +3,22 @@ import Routes from "../routes";
 import { render, fireEvent } from "@testing-library/react";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
+import reducer from "../reducers/index";
+
+const store = createStore(reducer, applyMiddleware(thunk));
 
 describe("Nav routes", () => {
   test("Nav routes point to proper locations", () => {
     const history = createMemoryHistory();
     const { container, getByTestId } = render(
-      <Router history={history}>
-        <Routes />
-      </Router>
+      <Provider store={store}>
+        <Router history={history}>
+          <Routes />
+        </Router>
+      </Provider>
     );
 
     // home route
@@ -33,9 +41,11 @@ describe("Nav routes", () => {
     localStorage.setItem("token", "token");
     const history = createMemoryHistory();
     const { getByText } = render(
-      <Router history={history}>
-        <Routes />
-      </Router>
+      <Provider store={store}>
+        <Router history={history}>
+          <Routes />
+        </Router>
+      </Provider>
     );
 
     fireEvent.click(getByText(/dashboard/i));
@@ -46,10 +56,12 @@ describe("Nav routes", () => {
   test("logout functionality works", () => {
     localStorage.setItem("token", "token");
     const history = createMemoryHistory();
-    const { getByTestId, getByText } = render(
-      <Router history={history}>
-        <Routes />
-      </Router>
+    const { getByTestId } = render(
+      <Provider store={store}>
+        <Router history={history}>
+          <Routes />
+        </Router>
+      </Provider>
     );
     fireEvent.click(getByTestId(/logout/i));
     expect(localStorage.getItem("token")).toEqual(null);

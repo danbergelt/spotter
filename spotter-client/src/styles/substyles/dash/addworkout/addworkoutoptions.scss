@@ -1,0 +1,48 @@
+@import "../../../variables.scss";
+
+.add-workout-options-container {
+  width: 35%;
+
+  .add-workout-options-title {
+    font-size: 1.3rem;
+    color: $gray2;
+  }
+
+  .add-workout-options-buttons {
+    margin: 1.25rem 0;
+
+    .add-workout-options-button {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      background: $gray4;
+      color: $gray1;
+      padding: 1.25rem;
+      border-radius: 4px;
+      font-family: "Roboto";
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      &:hover {
+        background: darken($gray4, 2.5%);
+      }
+
+      .add-workout-options-icon {
+        margin-right: 0.75rem;
+      }
+    }
+
+    .add-workout-options-button.publish {
+      background: $success;
+      color: white;
+
+      &:hover {
+        background: darken($success, 2.5%);
+      }
+    }
+  }
+
+  .add-workout-options-title.sub {
+    margin-top: 3.25rem;
+  }
+}

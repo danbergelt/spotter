@@ -1,4 +1,4 @@
-@import '../variables.scss';
+@import '../../variables.scss';
 
 .spotter-nav {
   display: flex;
@@ -33,10 +33,11 @@
       height: max-content;
       padding: 0.75rem;
       text-decoration: none;
+      border-radius: 4px;
     }
 
     .spotter-nav-link:nth-child(-n + 3){
-      margin-right: 1.5rem;
+      margin-right: 3rem;
       font-weight: bold;
       color: $gray2;
 

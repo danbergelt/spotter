@@ -1,4 +1,4 @@
-@import "../variables.scss";
+@import "../../variables.scss";
 
 .week-workouts-container {
   .week-workouts-head {
@@ -53,6 +53,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        border-radius: 4px;
 
         &:hover {
           transform: scale(1.03);

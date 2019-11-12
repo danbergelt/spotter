@@ -1,15 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import React from "react";
+import { useToken } from '../../hooks/useToken';
 import { Link } from "react-router-dom";
 
 const Nav = () => {
-  const location = useLocation();
-
-  const [token, setToken] = useState(null);
-
-  useEffect(() => {
-    setToken(localStorage.getItem("token"));
-  }, [location.pathname]);
 
   const logOut = () => localStorage.removeItem("token");
 
@@ -25,28 +18,28 @@ const Nav = () => {
         </Link>
       </div>
       <div className="spotter-nav-links">
-        <Link to="/" className="spotter-nav-link">
+        {!useToken() && <Link to="/" className="spotter-nav-link">
           About
-        </Link>
-        <Link to="/" className="spotter-nav-link">
+        </Link>}
+        {!useToken() && <Link to="/" className="spotter-nav-link">
           Contact
-        </Link>
-        {token && (
+        </Link>}
+        {useToken() && (
           <Link data-testid="dashboard" className="spotter-nav-link dashboard" to="/dashboard">
             Dashboard{" "}
           </Link>
         )}
-        {token && (
+        {useToken() && (
           <Link data-testid="logout" onClick={logOut} className="spotter-nav-link styled" to="/login">
             Log Out{" "}
           </Link>
         )}
-        {!token && (
+        {!useToken() && (
           <Link data-testid="login" className="spotter-nav-link" to="/login">
             Log In
           </Link>
         )}
-        {!token && (
+        {!useToken() && (
           <Link
             data-testid="signup"
             className="spotter-nav-link styled"

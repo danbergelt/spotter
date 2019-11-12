@@ -1,7 +1,7 @@
 import React from "react";
 
-import SubNav from "../components/dash/SubNav";
-import Workouts from "../components/dash/Workouts";
+import SubNav from "../components/dash/subnav/SubNav";
+import Workouts from "../components/dash/workouts/Workouts";
 
 const Dashboard = () => {
   return (

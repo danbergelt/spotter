@@ -1,4 +1,4 @@
-@import '../variables.scss';
+@import '../../variables.scss';
 
 .subnav-container {
   display: flex;
@@ -17,6 +17,12 @@
       cursor: pointer;
       color: $gray1;
       margin-right: 3rem;
+      padding: 0.9rem;
+      border-radius: 50%;
+
+      &:hover {
+        background: $gray3;
+      }
     }
 
     .subnav-menu-icon.left.dropdown {
@@ -33,6 +39,7 @@
       background: white;
       border: 1px solid $info;
       cursor: pointer;
+      border-radius: 4px;
 
       &:hover {
         color: darken($info, 10%);

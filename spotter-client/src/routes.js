@@ -1,9 +1,8 @@
 import React from "react";
-
-import { Route, Switch } from "react-router-dom";
+import { useToken } from "./hooks/useToken";
+import { Route, Switch, Redirect } from "react-router-dom";
 import PrivateRoute from "./utils/PrivateRoute";
-
-import Layout from "./components/Layout";
+import Layout from "./components/layout/Layout";
 import Home from "./pages/Home";
 import LogIn from "./pages/LogIn";
 import SignUp from "./pages/SignUp";
@@ -14,9 +13,15 @@ const Routes = () => {
   return (
     <Layout>
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/login" component={LogIn} />
-        <Route path="/signup" component={SignUp} />
+        <Route exact path="/">
+          {useToken() ? <Redirect to="/dashboard" /> : <Home />}
+        </Route>
+        <Route path="/login">
+          {useToken() ? <Redirect to="/dashboard" /> : <LogIn />}
+        </Route>
+        <Route path="/signup">
+          {useToken() ? <Redirect to="/dashboard" /> : <SignUp />}
+        </Route>
         <PrivateRoute path="/dashboard" component={Dashboard} />
         <Route component={NotFound} />
       </Switch>
