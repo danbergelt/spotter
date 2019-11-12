@@ -1,17 +1,12 @@
 export const ADD_WORKOUT_TITLE = "ADD_WORKOUT_TITLE";
-export const RESET_TITLE = "RESET_TITLE";
 export const ADD_WORKOUT_NOTES = "ADD_WORKOUT_NOTES";
 export const RESET_NOTES = "RESET_NOTES";
+export const ADD_EXERCISE = "ADD_EXERCISE";
+export const RESET_WORKOUT = "RESET_WORKOUT";
 
 export const addWorkoutTitle = title => {
   return dispatch => {
     dispatch({ type: ADD_WORKOUT_TITLE, payload: title });
-  };
-};
-
-export const resetTitle = empty => {
-  return dispatch => {
-    dispatch({ type: RESET_TITLE, payload: empty });
   };
 };
 
@@ -21,8 +16,20 @@ export const addWorkoutNotes = notes => {
   };
 };
 
-export const resetNotes = empty => {
+export const addExercise = exercise => {
   return dispatch => {
-    dispatch({ type: RESET_NOTES, payload: empty });
+    dispatch({ type: ADD_EXERCISE, payload: exercise });
+  };
+};
+
+export const resetWorkout = () => {
+  return dispatch => {
+    dispatch({ type: RESET_WORKOUT });
+  };
+};
+
+export const resetNotes = () => {
+  return dispatch => {
+    dispatch({ type: RESET_NOTES });
   };
 };

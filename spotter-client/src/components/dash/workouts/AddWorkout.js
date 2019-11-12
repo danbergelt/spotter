@@ -5,7 +5,8 @@ import { connect } from "react-redux";
 import {
   addWorkoutTitle,
   addWorkoutNotes,
-  resetNotes
+  resetNotes,
+  addExercise
 } from "../../../actions/addWorkoutActions";
 import { WorkoutDataProvider } from "../../../contexts/workoutDataContext";
 
@@ -31,12 +32,16 @@ const AddWorkout = ({
   addWorkoutTitle,
   addWorkoutNotes,
   resetNotes,
-  notes
+  notes,
+  addExercise,
+  exercises
 }) => {
   const context = {
     notes: notes,
     setNotes: addWorkoutNotes,
-    resetNotes: resetNotes
+    resetNotes: resetNotes,
+    addExercise: addExercise,
+    exercises: exercises
   };
   return (
     <Modal
@@ -63,11 +68,12 @@ const AddWorkout = ({
 const mapStateToProps = state => {
   return {
     title: state.addWorkoutReducer.title,
-    notes: state.addWorkoutReducer.notes
+    notes: state.addWorkoutReducer.notes,
+    exercises: state.addWorkoutReducer.exercises
   };
 };
 
 export default connect(
   mapStateToProps,
-  { addWorkoutTitle, addWorkoutNotes, resetNotes }
+  { addWorkoutTitle, addWorkoutNotes, resetNotes, addExercise  }
 )(AddWorkout);

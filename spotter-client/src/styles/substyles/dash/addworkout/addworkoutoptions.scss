@@ -33,11 +33,11 @@
     }
 
     .add-workout-options-button.publish {
-      background: $primary;
+      background: $success;
       color: white;
 
       &:hover {
-        background: $primary-hover;
+        background: darken($success, 2.5%);
       }
     }
   }

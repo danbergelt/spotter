@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { FiPlusCircle } from "react-icons/fi";
 import AddWorkout from "./AddWorkout";
 import { connect } from "react-redux";
-import { resetNotes, resetTitle } from "../../../actions/addWorkoutActions";
+import { resetWorkout } from "../../../actions/addWorkoutActions";
 
-const WorkoutColumn = ({ date, resetNotes, resetTitle }) => {
+const WorkoutColumn = ({ date, resetWorkout }) => {
   const [modal, setModal] = useState(false);
 
   const openModal = () => {
@@ -13,13 +13,12 @@ const WorkoutColumn = ({ date, resetNotes, resetTitle }) => {
 
   const closeAddWorkoutModal = () => {
     setModal(false);
-    resetNotes("");
-    resetTitle("");
+    resetWorkout();
   };
 
-  const closeModal = () => {
-    setModal(false);
-  }
+  // const closeModal = () => {
+  //   setModal(false);
+  // }
 
   return (
     <div className="week-workouts-column">
@@ -37,5 +36,5 @@ const WorkoutColumn = ({ date, resetNotes, resetTitle }) => {
 
 export default connect(
   null,
-  { resetNotes, resetTitle }
+  { resetWorkout }
 )(WorkoutColumn);

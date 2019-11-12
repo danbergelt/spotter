@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { FiBookOpen, FiCheck, FiX } from "react-icons/fi";
+import { FiBookOpen, FiCheck, FiTrash } from "react-icons/fi";
 import { WorkoutDataConsumer } from "../../../../contexts/workoutDataContext";
 
 const WorkoutNotes = () => {
@@ -34,7 +34,7 @@ const WorkoutNotes = () => {
             value={context.notes}
             onChange={e => context.setNotes(e.target.value)}
             className="add-workout-data-notes-content"
-            placeholder="Enter some notes..."
+            placeholder="Click to enter some notes..."
           />
           <div
             className={
@@ -44,7 +44,7 @@ const WorkoutNotes = () => {
             }
           >
             <FiCheck className="add-workout-data-notes-submit" />
-            <FiX
+            <FiTrash
               onMouseDown={() => context.resetNotes("")}
               className="add-workout-data-notes-cancel"
             />

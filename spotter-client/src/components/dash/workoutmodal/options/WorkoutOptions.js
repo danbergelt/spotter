@@ -11,28 +11,21 @@ import {
 import WorkoutOption from "./WorkoutOption";
 
 const WorkoutOptions = () => {
-
-  const iconClass = "add-workout-options-icon"
+  const iconClass = "add-workout-options-icon";
 
   return (
     <div className="add-workout-options-container">
       <h1 className="add-workout-options-title">CREATE</h1>
       <div className="add-workout-options-buttons">
+        <WorkoutOption text={"Tags"} icon={<FiTag className={iconClass} />} />
         <WorkoutOption
-          text={"Tags"}
-          icon={<FiTag className={iconClass} />}
+          text={"Template"}
+          icon={<FiSave className={iconClass} />}
         />
       </div>
       <h1 className="add-workout-options-title sub">ACTIONS</h1>
       <div className="add-workout-options-buttons">
-        <WorkoutOption
-          text={"Move"}
-          icon={<FiMove className={iconClass} />}
-        />
-        <WorkoutOption
-          text={"Save Workout"}
-          icon={<FiSave className={iconClass} />}
-        />
+        <WorkoutOption text={"Move"} icon={<FiMove className={iconClass} />} />
         <WorkoutOption
           text={"From Template"}
           icon={<FiPackage className={iconClass} />}
