@@ -2,9 +2,11 @@ import React from "react";
 import { useToken } from '../../hooks/useToken';
 import { Link } from "react-router-dom";
 
+import secureStorage from '../../utils/secureToken';
+
 const Nav = () => {
 
-  const logOut = () => localStorage.removeItem("token");
+  const logOut = () => secureStorage.removeItem(`${process.env.REACT_APP_KEY}`);
 
   return (
     <nav className="spotter-nav">

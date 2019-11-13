@@ -25,7 +25,7 @@ const ExerciseForm = ({
           <Field
             className="exercise-form-field"
             name="exercise"
-            placeholder="e.g. Deadlift"
+            placeholder="e.g. squat"
             type="string"
           />
         </div>
@@ -86,7 +86,7 @@ const FormikExerciseForm = withFormik({
   validationSchema: Yup.object().shape({
     exercise: Yup.string()
       .required("Enter exercise name")
-      .max(20, "20 character max"),
+      .max(40, "40 character max"),
     weight: Yup.number().max(2000, "2000 lb limit"),
     reps: Yup.number().max(2000, "2000 lb limit"),
     sets: Yup.number().max(2000, "2000 lb limit")

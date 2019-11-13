@@ -4,6 +4,7 @@ import axios from "axios";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 import { render, cleanup, fireEvent, wait } from "@testing-library/react";
+import secureStorage from '../utils/secureToken'
 
 afterEach(cleanup);
 
@@ -124,7 +125,7 @@ describe("Login validation", () => {
 
     await wait(() => {
       expect(axios.post).toHaveBeenCalledTimes(1);
-      expect(localStorage.getItem("token")).toEqual("test-token");
+      expect(secureStorage.getItem(`${process.env.REACT_APP_KEY}`)).toEqual("test-token");
       expect(history.location.pathname).toEqual("/dashboard");
     });
   });

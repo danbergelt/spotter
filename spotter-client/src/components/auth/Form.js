@@ -4,7 +4,17 @@ import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
-const SpotterForm = ({ status, errors, touched, action, api, history, children }) => {
+import secureStorage from '../../utils/secureToken';
+
+const SpotterForm = ({
+  status,
+  errors,
+  touched,
+  action,
+  api,
+  history,
+  children
+}) => {
   return (
     <div className="form-container">
       <div className="logo-container">
@@ -21,7 +31,9 @@ const SpotterForm = ({ status, errors, touched, action, api, history, children }
             placeholder="name@email.com"
             type="email"
           />
-          {touched.email && errors.email && <p className="form-error email">{errors.email}</p>}
+          {touched.email && errors.email && (
+            <p className="form-error email">{errors.email}</p>
+          )}
           <label className="form-label">Password</label>
           <Field
             className="form-field"
@@ -29,8 +41,14 @@ const SpotterForm = ({ status, errors, touched, action, api, history, children }
             placeholder="Password"
             type="password"
           />
-          {touched.password && errors.password && <p className="form-error pass">{errors.password}</p>}
-          <button data-testid="form-submit" className="form-button" type="submit">
+          {touched.password && errors.password && (
+            <p className="form-error pass">{errors.password}</p>
+          )}
+          <button
+            data-testid="form-submit"
+            className="form-button"
+            type="submit"
+          >
             {action}
           </button>
         </Form>
@@ -54,7 +72,7 @@ const FormikForm = withFormik({
     try {
       const res = await axios.post(props.api, values);
       resetForm();
-      localStorage.setItem("token", res.data.token);
+      secureStorage.setItem(`${process.env.REACT_APP_KEY}`, res.data.token)
       props.history.push("/dashboard");
     } catch (error) {
       setStatus(error.response.data.error);

@@ -8,6 +8,7 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import reducer from "../reducers/index";
+import secureStorage from '../utils/secureToken';
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
@@ -140,7 +141,7 @@ describe("Register validation", () => {
 
     await wait(() => {
       expect(axios.post).toHaveBeenCalledTimes(1);
-      expect(localStorage.getItem("token")).toEqual("test-token");
+      expect(secureStorage.getItem(`${process.env.REACT_APP_KEY}`)).toEqual("test-token");
       expect(history.location.pathname).toEqual("/dashboard");
     });
   });

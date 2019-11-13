@@ -7,6 +7,7 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import reducer from "../reducers/index";
+import secureStorage from "../utils/secureToken";
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
@@ -42,7 +43,7 @@ describe("redirects and conditional rendering", () => {
   });
 
   test("nav conditionally renders when logged in", () => {
-    localStorage.setItem("token", "token");
+    secureStorage.setItem(`${process.env.REACT_APP_KEY}`, "token");
     const history = createMemoryHistory();
     const { container, getByText, queryByText } = render(
       <Provider store={store}>
@@ -57,7 +58,7 @@ describe("redirects and conditional rendering", () => {
     expect(container.contains(queryByText(/log in/i))).toBeFalsy();
     expect(container.contains(queryByText(/about/i))).toBeFalsy();
     expect(container.contains(queryByText(/contact/i))).toBeFalsy();
-    localStorage.removeItem("token");
+    secureStorage.removeItem(`${process.env.REACT_APP_KEY}`);
   });
 
   test("dashboard path pushes logged out users to login", () => {
@@ -75,7 +76,7 @@ describe("redirects and conditional rendering", () => {
   });
 
   test("home path pushes logged in users to dashboard", () => {
-    localStorage.setItem("token", "token");
+    secureStorage.setItem(`${process.env.REACT_APP_KEY}`, "token");
     const history = createMemoryHistory();
     const { container, getByText, queryByText } = render(
       <Provider store={store}>
@@ -90,7 +91,6 @@ describe("redirects and conditional rendering", () => {
   });
 
   test("login path pushes logged in users to dashboard", () => {
-    localStorage.setItem("token", "token");
     const history = createMemoryHistory();
     const { container, getByText, queryByText } = render(
       <Provider store={store}>
@@ -105,7 +105,6 @@ describe("redirects and conditional rendering", () => {
   });
 
   test("signup path pushes logged in users to dashboard", () => {
-    localStorage.setItem("token", "token");
     const history = createMemoryHistory();
     const { container, getByText, queryByText } = render(
       <Provider store={store}>
@@ -122,7 +121,7 @@ describe("redirects and conditional rendering", () => {
   test("404 page displays at bad route", () => {
     const history = createMemoryHistory();
     history.push("/badroutetest/badroute");
-    const { container, getByTestId } = render(
+    const { container } = render(
       <Provider store={store}>
         <Router history={history}>
           <Routes />

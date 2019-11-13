@@ -9,6 +9,7 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import reducer from "../reducers/index";
+import secureStorage from '../utils/secureToken';
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
@@ -17,7 +18,7 @@ afterEach(cleanup);
 describe("Weekly dash date settings", () => {
   it("can go back in time", () => {
     const moment = extendMoment(Moment);
-    localStorage.setItem("token", "token");
+    secureStorage.setItem(`${process.env.REACT_APP_KEY}`, "token");
     const history = createMemoryHistory();
     const { container, getByText, getByTestId, queryByText } = render(
       <Provider store={store}>
@@ -75,7 +76,6 @@ describe("Weekly dash date settings", () => {
 
   it("can go forward in time", () => {
     const moment = extendMoment(Moment);
-    localStorage.setItem("token", "token");
     const history = createMemoryHistory();
     const { container, getByText, getByTestId, queryByText } = render(
       <Provider store={store}>

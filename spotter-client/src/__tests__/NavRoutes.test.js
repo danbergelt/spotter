@@ -7,6 +7,7 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import reducer from "../reducers/index";
+import secureStorage from '../utils/secureToken';
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
@@ -38,7 +39,7 @@ describe("Nav routes", () => {
   });
 
   test("dashboard link works for logged-in users", () => {
-    localStorage.setItem("token", "token");
+    secureStorage.setItem(`${process.env.REACT_APP_KEY}`, "token");
     const history = createMemoryHistory();
     const { getByText } = render(
       <Provider store={store}>
@@ -50,11 +51,9 @@ describe("Nav routes", () => {
 
     fireEvent.click(getByText(/dashboard/i));
     expect(history.location.pathname).toEqual("/dashboard");
-    localStorage.removeItem("token");
   });
 
   test("logout functionality works", () => {
-    localStorage.setItem("token", "token");
     const history = createMemoryHistory();
     const { getByTestId } = render(
       <Provider store={store}>
@@ -64,7 +63,7 @@ describe("Nav routes", () => {
       </Provider>
     );
     fireEvent.click(getByTestId(/logout/i));
-    expect(localStorage.getItem("token")).toEqual(null);
+    expect(secureStorage.getItem(`${process.env.REACT_APP_KEY}`)).toEqual(null);
     expect(history.location.pathname).toEqual("/login");
   });
 });
