@@ -1,0 +1,87 @@
+@import "../../../variables.scss";
+
+.workout-data-notes {
+  .workout-data-notes-head {
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: $gray1;
+    margin-top: 3rem;
+
+    .workout-data-notes-icon {
+      font-size: 1.75rem;
+    }
+
+    .workout-data-notes-title {
+      padding: 1.25rem;
+    }
+
+    .workout-data-notes-edit {
+      font-size: 1.5rem;
+      border-radius: 4px;
+      background: $gray4;
+      padding: 1.25rem;
+      font-weight: normal;
+
+      &:hover {
+        background: darken($gray4, 2.5%);
+        cursor: pointer;
+      }
+    }
+  }
+
+  .workout-data-notes-content {
+    resize: none;
+    width: 100%;
+    border: 0;
+    background: $gray3;
+    margin-left: 3rem;
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    border-radius: 4px;
+
+    &:focus {
+      padding: 1rem;
+      outline: 0;
+      box-shadow: 0 0 0 2px $primary;
+      background: white;
+      height: 75px;
+    }
+  }
+
+  .workout-data-notes-content::-webkit-input-placeholder {
+    color: $gray1;
+  }
+}
+
+.workout-data-notes-actions {
+  display: none;
+}
+
+.workout-data-notes-actions.active {
+  display: flex;
+  font-size: 2rem;
+  margin-left: 3rem;
+  margin-top: 2rem;
+
+  .workout-data-notes-submit {
+    font-size: 2.5rem;
+    color: $info;
+    cursor: pointer;
+    margin-right: 1rem;
+
+    &:hover {
+      transform: scale(1.25);
+    }
+  }
+
+  .workout-data-notes-cancel {
+    color: $danger;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.15);
+    }
+  }
+}
