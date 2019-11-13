@@ -51,7 +51,7 @@ const AddWorkout = ({
       shouldCloseOnOverlayClick={true}
       style={customStyles}
     >
-      <div className="add-workout-modal-content">
+      <div className="workout-modal-content">
         <WorkoutTitle
           title={title}
           workoutTitle={addWorkoutTitle}

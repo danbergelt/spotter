@@ -4,7 +4,7 @@ import WorkoutOptions from "./options/WorkoutOptions";
 
 const WorkoutContent = () => {
   return (
-    <div className="add-workout-body-container">
+    <div className="workout-body-container">
       <WorkoutData />
       <WorkoutOptions />
     </div>

@@ -8,7 +8,7 @@ import WorkoutExercises from './WorkoutExercises';
 const WorkoutData = () => {
 
   return (
-    <div className="add-workout-data">
+    <div className="workout-data">
       <WorkoutTags />
       <WorkoutNotes />
       <WorkoutExercises />
