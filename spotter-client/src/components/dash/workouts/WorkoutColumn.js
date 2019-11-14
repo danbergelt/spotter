@@ -4,7 +4,7 @@ import AddWorkout from "./AddWorkout";
 import { connect } from "react-redux";
 import { resetWorkout } from "../../../actions/addWorkoutActions";
 
-const WorkoutColumn = ({ date, resetWorkout }) => {
+const WorkoutColumn = ({ date, resetWorkout, i }) => {
   const [modal, setModal] = useState(false);
 
   const openModal = () => {
@@ -26,7 +26,11 @@ const WorkoutColumn = ({ date, resetWorkout }) => {
         <div className="week-workout-day-slug">{date.format("ddd")}</div>
         <div>{date.format("MMM DD")}</div>
       </div>
-      <div onClick={openModal} className="week-workouts-add-workout">
+      <div
+        data-testid={i === 0 && "modal-click"}
+        onClick={openModal}
+        className="week-workouts-add-workout"
+      >
         {<FiPlusCircle className="week-workouts-add-icon" />} Add Workout
       </div>
       <AddWorkout modal={modal} closeModal={closeAddWorkoutModal} />

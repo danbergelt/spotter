@@ -15,7 +15,7 @@ const WorkoutTitle = ({ closeModal, title, workoutTitle }) => {
         />
       </div>
       <div onClick={closeModal} className="workout-exit-modal">
-        <FiX />
+        <FiX data-testid="exit-modal"/>
       </div>
     </div>
   );

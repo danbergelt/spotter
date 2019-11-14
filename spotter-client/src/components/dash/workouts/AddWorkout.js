@@ -50,6 +50,7 @@ const AddWorkout = ({
       onRequestClose={closeModal}
       shouldCloseOnOverlayClick={true}
       style={customStyles}
+      data-testid="modal"
     >
       <div className="workout-modal-content">
         <WorkoutTitle

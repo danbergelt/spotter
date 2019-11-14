@@ -33,7 +33,7 @@ const Workouts = () => {
       </div>
       <div className="week-workouts-days">
         {generateWeek(week).map((date, i) => (
-          <WorkoutColumn date={date} key={i} />
+          <WorkoutColumn date={date} key={i} i={i} />
         ))}
       </div>
     </div>
