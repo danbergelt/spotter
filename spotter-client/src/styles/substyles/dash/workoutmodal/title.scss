@@ -1,11 +1,11 @@
+@import '../../../mixins.scss';
+
 .workout-modal-head {
-  display: flex;
+  @include flex-center;
   justify-content: space-between;
-  align-items: center;
 
   .workout-modal-head-left {
-    display: flex;
-    align-items: center;
+    @include flex-center;
     width: 100%;
 
     .workout-spotter-logo {

@@ -1,16 +1,16 @@
 @import "../../../variables.scss";
+@import '../../../mixins.scss';
 
 .workout-data-exercises {
   .workout-data-exercises-head {
-    display: flex;
-    align-items: center;
+    @include flex-center;
     font-size: 2rem;
     font-weight: bold;
     color: $gray1;
     margin-top: 2rem;
 
     .workout-data-exercises-icon {
-      font-size: 1.75rem;
+      font-size: $icon;
     }
 
     .workout-data-exercises-title {
@@ -35,13 +35,12 @@
         .exercise-form-field-label {
           height: 15px;
           margin-bottom: 1rem;
-          font-size: 1.5rem;
-          display: flex;
-          align-items: center;
+          font-size: $p;
+          @include flex-center;
           justify-content: space-between;
 
           .save-exercise-button {
-            font-size: 1.75rem;
+            font-size: $icon;
             margin-right: 1.15rem;
             color: $info;
             cursor: pointer;
@@ -60,7 +59,7 @@
           border-radius: 4px;
           border: 0;
           padding: 1.5rem 0 1.5rem 0.5rem;
-          font-size: 1.5rem;
+          font-size: $p;
           border: 1px solid $gray4;
 
           &:focus {
@@ -70,11 +69,11 @@
         }
       }
       .exercise-form-button {
-        font-size: 1.75rem;
+        font-size: $icon;
         cursor: pointer;
 
         &:hover {
-          transform: scale(1.15);
+          transform: $hover-scale;
         }
       }
 
@@ -113,7 +112,7 @@
 
           .exercise-stats {
             display: flex;
-            font-size: 1.5rem;
+            font-size: $p;
 
             .exercise-stat {
               padding-right: 1rem;
@@ -124,12 +123,12 @@
         .exercise-actions {
           display: flex;
           color: $danger;
-          font-size: 1.75rem;
+          font-size: $icon;
           cursor: pointer;
 
           .exercise-del {
             &:hover {
-              transform: scale(1.1);
+              transform: $hover-scale;
             }
           }
 
@@ -138,7 +137,7 @@
             margin-left: 1rem;
 
             &:hover {
-              transform: scale(1.1);
+              transform: $hover-scale;
             }
           }
         }

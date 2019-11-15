@@ -1,4 +1,5 @@
 @import "../../../variables.scss";
+@import '../../../mixins.scss';
 
 .add-workout-options-container {
   width: 35%;
@@ -12,15 +13,14 @@
     margin: 1.25rem 0;
 
     .add-workout-options-button {
-      font-size: 1.5rem;
+      font-size: $p;
       margin-bottom: 0.75rem;
       background: $gray4;
       color: $gray1;
       padding: 1.25rem;
       border-radius: 4px;
       font-family: "Roboto";
-      display: flex;
-      align-items: center;
+      @include flex-center;
       cursor: pointer;
 
       &:hover {

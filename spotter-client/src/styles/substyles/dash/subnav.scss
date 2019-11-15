@@ -1,4 +1,5 @@
-@import '../../variables.scss';
+@import "../../variables.scss";
+@import "../../mixins.scss";
 
 .subnav-container {
   display: flex;
@@ -8,9 +9,7 @@
   .subnav-menu {
     color: $gray1;
     font-weight: bold;
-    display: flex;
-    align-items: center;
-
+    @include flex-center;
 
     .subnav-menu-icon.left:last-child {
       font-size: 1.6rem;
@@ -44,7 +43,6 @@
       &:hover {
         color: darken($info, 10%);
       }
-
     }
   }
 }
