@@ -50,9 +50,7 @@ const WorkoutSchema = new Schema({
     maxlength: [50, "Title cannot be longer than 50 characters"],
     trim: true
   },
-  tags: {
-    type: [TagSchema]
-  },
+  tags: [TagSchema],
   notes: String,
   exercises: [ExerciseSchema]
 });
