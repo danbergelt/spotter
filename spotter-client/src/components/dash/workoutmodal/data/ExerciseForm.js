@@ -26,7 +26,7 @@ const ExerciseForm = ({
             className="exercise-form-field"
             name="exercise"
             placeholder="e.g. squat"
-            type="string"
+            type="text"
           />
         </div>
         <div className="exercise-form-field-container">
@@ -60,11 +60,13 @@ const ExerciseForm = ({
           />
         </div>
         <FiCheck
+          data-testid="submit-exercise"
           className="exercise-form-button submit"
           type="submit"
           onClick={submitForm}
         />
         <FiTrash
+          data-testid="trash-exercise"
           className="exercise-form-button clear"
           type="button"
           onClick={handleReset}

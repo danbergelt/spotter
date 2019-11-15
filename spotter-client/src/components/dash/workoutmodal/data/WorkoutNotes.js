@@ -45,6 +45,7 @@ const WorkoutNotes = () => {
           >
             <FiCheck className="workout-data-notes-submit" />
             <FiTrash
+              data-testid="trash"
               onMouseDown={() => context.resetNotes("")}
               className="workout-data-notes-cancel"
             />
