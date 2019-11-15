@@ -1,16 +1,16 @@
 @import "../../../variables.scss";
+@import '../../../mixins.scss';
 
 .workout-data-notes {
   .workout-data-notes-head {
-    display: flex;
-    align-items: center;
+    @include flex-center;
     font-size: 2rem;
     font-weight: bold;
     color: $gray1;
     margin-top: 3rem;
 
     .workout-data-notes-icon {
-      font-size: 1.75rem;
+      font-size: $icon;
     }
 
     .workout-data-notes-title {
@@ -18,7 +18,7 @@
     }
 
     .workout-data-notes-edit {
-      font-size: 1.5rem;
+      font-size: $p;
       border-radius: 4px;
       background: $gray4;
       padding: 1.25rem;
@@ -38,7 +38,7 @@
     background: $gray3;
     margin-left: 3rem;
     margin-top: 2rem;
-    font-size: 1.5rem;
+    font-size: $p;
     border-radius: 4px;
 
     &:focus {
@@ -72,7 +72,7 @@
     margin-right: 1rem;
 
     &:hover {
-      transform: scale(1.25);
+      transform: $hover-scale;
     }
   }
 
@@ -81,7 +81,7 @@
     cursor: pointer;
 
     &:hover {
-      transform: scale(1.15);
+      transform: $hover-scale;
     }
   }
 }

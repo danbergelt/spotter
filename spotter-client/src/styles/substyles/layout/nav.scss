@@ -1,4 +1,4 @@
-@import '../../variables.scss';
+@import "../../variables.scss";
 
 .spotter-nav {
   display: flex;
@@ -36,7 +36,7 @@
       border-radius: 4px;
     }
 
-    .spotter-nav-link:nth-child(-n + 3){
+    .spotter-nav-link:nth-child(-n + 3) {
       margin-right: 3rem;
       font-weight: bold;
       color: $gray2;
@@ -57,7 +57,7 @@
       }
     }
 
-    .spotter-nav-link.styled{
+    .spotter-nav-link.styled {
       background: $primary;
       color: white;
       font-weight: bold;

@@ -38,6 +38,6 @@ describe("User model update", () => {
         { email: "blah" },
         { runValidators: true }
       )
-    ).to.be.rejectedWith(Error);
+    ).to.be.rejectedWith("Please add a valid email");
   });
 });

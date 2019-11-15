@@ -1,4 +1,5 @@
 @import "../../../variables.scss";
+@import "../../../mixins.scss";
 
 .workout-data-tags {
   display: flex;
@@ -17,14 +18,13 @@
     flex-flow: wrap;
 
     .workout-data-tags-tag {
-      font-size: 1.5rem;
+      font-size: $p;
       background: $info;
       color: white;
       padding: 1rem;
       border-radius: 2px;
       font-family: "Roboto";
-      display: flex;
-      align-items: center;
+      @include flex-center;
       cursor: pointer;
       border-radius: 4px;
       margin-right: 0.5rem;
