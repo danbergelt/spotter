@@ -52,7 +52,12 @@ const WorkoutSchema = new Schema({
   },
   tags: [TagSchema],
   notes: String,
-  exercises: [ExerciseSchema]
+  exercises: [ExerciseSchema],
+  user: {
+    type: Schema.ObjectId,
+    ref: "User",
+    required: true
+  }
 });
 
 module.exports = mongoose.model("Workout", WorkoutSchema);

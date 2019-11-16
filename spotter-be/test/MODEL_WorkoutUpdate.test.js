@@ -3,7 +3,9 @@ const chai = require("chai");
 const expect = chai.expect;
 chai.use(require("chai-as-promised"));
 const Workout = require("../models/Workout");
+const User = require("../models/User");
 const { dbHelper } = require("./utils/db");
+const { createUser } = require("./utils/createUser");
 
 dbHelper(Workout);
 
@@ -15,8 +17,14 @@ const template = {
   exercises: [
     { name: "Exercise", weight: 100, sets: 1, reps: 1 },
     { name: "Exercise2", weight: 200, sets: 2, reps: 2 }
-  ]
+  ],
+  user: null
 };
+
+beforeEach(async () => {
+  const { _id } = await createUser();
+  template.user = _id;
+});
 
 describe("Workout model update functionality", () => {
   it("updates workout successfully", async () => {

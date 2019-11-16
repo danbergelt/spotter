@@ -64,5 +64,5 @@ const sendToken = (user, statusCode, res) => {
     options.secure = true;
   }
 
-  res.status(statusCode).json({success: true, token})
+  res.status(statusCode).json({success: true, token, id: user._id})
 };

@@ -3,7 +3,9 @@ const chai = require("chai");
 const expect = chai.expect;
 chai.use(require("chai-as-promised"));
 const Workout = require("../models/Workout");
+const User = require("../models/User");
 const { dbHelper } = require("./utils/db");
+const { createUser } = require("./utils/createUser");
 
 dbHelper(Workout);
 
@@ -17,6 +19,11 @@ const template = {
     { name: "Exercise2", weight: 200, sets: 2, reps: 2 }
   ]
 };
+
+beforeEach(async () => {
+  const { _id } = await createUser();
+  template.user = _id;
+});
 
 describe("Testing workout model deletion", () => {
   it("removes a workout successfully", async () => {
