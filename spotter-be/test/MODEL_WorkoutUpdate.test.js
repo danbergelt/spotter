@@ -10,7 +10,7 @@ const { createUser } = require("./utils/createUser");
 dbHelper(Workout);
 
 const template = {
-  date: "Jan 01",
+  date: "Jan 01 2020",
   title: "Workout",
   tags: [{ color: "red", content: "tag" }, { color: "blue", content: "tag2" }],
   notes: "Notes for workout",
@@ -30,8 +30,8 @@ describe("Workout model update functionality", () => {
   it("updates workout successfully", async () => {
     const workout = new Workout(template);
     await workout.save();
-    await Workout.findOneAndUpdate({ date: "Jan 01" }, { date: "Jan 02" });
-    const foo = await Workout.findOne({ date: "Jan 02" });
+    await Workout.findOneAndUpdate({ date: "Jan 01 2020" }, { date: "Jan 02 2020" });
+    const foo = await Workout.findOne({ date: "Jan 02 2020" });
     assert(foo !== null);
   });
 
@@ -64,7 +64,7 @@ describe("Workout model update functionality", () => {
         { date: "January 1st" },
         { runValidators: true }
       )
-    ).to.be.rejectedWith("Please add a valid date (Mmm DD)");
+    ).to.be.rejectedWith("Please add a valid date (Mmm DD YYYY)");
   });
 
   it("cannot update a workout title to nothing", async () => {

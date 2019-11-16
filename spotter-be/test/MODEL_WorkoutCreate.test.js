@@ -10,7 +10,7 @@ const { createUser } = require("./utils/createUser");
 dbHelper(Workout);
 
 const template = {
-  date: "Jan 01",
+  date: "Jan 01 2020",
   title: "Workout",
   tags: [{ color: "red", content: "tag" }, { color: "blue", content: "tag2" }],
   notes: "Notes for workout",
@@ -44,7 +44,7 @@ describe("Workout model creation", () => {
   it("cannot create with invalid date format", async () => {
     const workout = new Workout({ ...template, date: "January 1st" });
     await expect(workout.save()).to.be.rejectedWith(
-      "Please add a valid date (Mmm DD)"
+      "Please add a valid date (Mmm DD YYYY)"
     );
   });
 

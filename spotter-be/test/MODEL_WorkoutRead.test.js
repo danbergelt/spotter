@@ -10,7 +10,7 @@ const { createUser } = require("./utils/createUser");
 dbHelper(Workout);
 
 const template = {
-  date: "Jan 01",
+  date: "Jan 01 2020",
   title: "Workout",
   tags: [{ color: "red", content: "tag" }, { color: "blue", content: "tag2" }],
   notes: "Notes for workout",
@@ -32,7 +32,7 @@ describe("Workout model reading", () => {
     const workout = new Workout(template);
     await workout.save();
     const fetched = await Workout.findOne({ title: "Workout" });
-    assert(fetched.date === "Jan 01");
+    assert(fetched.date === "Jan 01 2020");
   });
 
   // Cannot fetch bad user details

@@ -10,7 +10,7 @@ const { createUser } = require("./utils/createUser");
 dbHelper(Workout);
 
 const template = {
-  date: "Jan 01",
+  date: "Jan 01 2020",
   title: "Workout",
   tags: [{ color: "red", content: "tag" }, { color: "blue", content: "tag2" }],
   notes: "Notes for workout",

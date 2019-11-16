@@ -8,18 +8,23 @@ const Err = require("../utils/Err");
 // @access --> Private
 
 exports.getWorkoutsByUserId = asyncHandler(async (req, res, next) => {
-  const workouts = await Workout.find({ user: req.user._id });
+  const pagination = {
+    page: parseInt(req.query.page, 10) || 0,
+    limit: parseInt(req.query.limit, 10) || 10
+  };
+
+  const workouts = await Workout.find({ user: req.user._id })
+    .skip(pagination.page * pagination.limit)
+    .limit(pagination.limit);
 
   return res
     .status(200)
     .json({ success: true, count: workouts.length, data: workouts });
 });
 
-// @desc --> get current week's workouts by user id 
+// @desc --> get current week's workouts by user id
 // @route --> GET /api/auth/workouts/week
 // @access --> Private
-
-
 
 // @desc --> add workout
 // @route --> POST /api/auth/workouts
