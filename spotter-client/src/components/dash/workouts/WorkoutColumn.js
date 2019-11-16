@@ -24,7 +24,7 @@ const WorkoutColumn = ({ date, resetWorkout, i }) => {
     <div className="week-workouts-column">
       <div className="week-workouts-day">
         <div className="week-workout-day-slug">{date.format("ddd")}</div>
-        <div>{date.format("MMM DD")}</div>
+        <div>{date.format("MMM DD YYYY")}</div>
       </div>
       <div
         data-testid={i === 0 && "modal-click"}

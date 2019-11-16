@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import WorkoutColumn from "./WorkoutColumn";
 import { generateWeek, dashHead } from "../../../utils/momentUtils"
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
@@ -13,6 +13,13 @@ const Workouts = () => {
   const dec = () => {
     setWeek(week - 1);
   };
+
+  useEffect(() => {
+    // let range = generateWeek(week);
+    // range = week.map(d => d.format("MMM"));
+    // generateWeek(range);
+    console.log("changed")
+  }, [week])
 
   return (
     <div className="week-workouts-container">

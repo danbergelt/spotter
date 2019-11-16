@@ -38,7 +38,7 @@ const WorkoutSchema = new Schema({
   date: {
     type: String,
     required: [true, "Please add a date for this workout"],
-    match: [/[A-Z][a-z]{2} \d{2}$/, "Please add a valid date (Mmm DD)"]
+    match: [/[A-Z][a-z]{2} \d{2} \d{4}$/, "Please add a valid date (Mmm DD YYYY)"]
   },
   createdAt: {
     type: Date,
@@ -52,7 +52,12 @@ const WorkoutSchema = new Schema({
   },
   tags: [TagSchema],
   notes: String,
-  exercises: [ExerciseSchema]
+  exercises: [ExerciseSchema],
+  user: {
+    type: Schema.ObjectId,
+    ref: "User",
+    required: true
+  }
 });
 
 module.exports = mongoose.model("Workout", WorkoutSchema);
