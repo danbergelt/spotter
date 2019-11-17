@@ -3,7 +3,8 @@ const {
   addWorkout,
   getWorkoutsByUserId,
   editWorkout,
-  deleteWorkout
+  deleteWorkout,
+  workoutRangeByUserId
 } = require("../controllers/workouts");
 
 const router = express.Router();
@@ -20,5 +21,7 @@ router
   .route("/:id")
   .put(protect, editWorkout)
   .delete(protect, deleteWorkout);
+
+router.route("/range").post(protect, workoutRangeByUserId);
 
 module.exports = router;

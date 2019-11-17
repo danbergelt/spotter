@@ -22,9 +22,31 @@ exports.getWorkoutsByUserId = asyncHandler(async (req, res, next) => {
     .json({ success: true, count: workouts.length, data: workouts });
 });
 
-// @desc --> get current week's workouts by user id
-// @route --> GET /api/auth/workouts/week
+// @desc --> get time sorted list of workouts by user id
+// @route --> GET /api/auth/workouts/range
 // @access --> Private
+
+exports.workoutRangeByUserId = asyncHandler(async (req, res, next) => {
+
+  if (!req.body.range) {
+    return next(new Err("Please supply a date range", 400));
+  }
+
+  const workouts = await Workout.find({
+    user: req.user._id,
+    date: { $in: req.body.range }
+  }).sort({ date: 1 });
+
+  if (!workouts) {
+    return res
+      .status(200)
+      .json({ success: true, data: "No workouts found in this date range" });
+  }
+
+  return res
+    .status(200)
+    .json({ success: true, count: workouts.length, workouts });
+});
 
 // @desc --> add workout
 // @route --> POST /api/auth/workouts
