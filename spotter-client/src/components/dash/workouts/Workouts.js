@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
 import WorkoutColumn from "./WorkoutColumn";
-import { generateWeek, dashHead } from "../../../utils/momentUtils"
+import { generateWeek, dashHead } from "../../../utils/momentUtils";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { connect } from "react-redux";
+import { fetchWorkouts } from "../../../actions/fetchWorkoutsActions";
 
-const Workouts = () => {
+const Workouts = ( { data, fetchWorkouts } ) => {
+
+  const { err, isLoading, workouts } = data;
+
   const [week, setWeek] = useState(0);
 
   const inc = () => {
@@ -15,11 +20,10 @@ const Workouts = () => {
   };
 
   useEffect(() => {
-    // let range = generateWeek(week);
-    // range = week.map(d => d.format("MMM"));
-    // generateWeek(range);
-    console.log("changed")
-  }, [week])
+    let range = generateWeek(week);
+    range = range.map(d => d.format("MMM DD YYYY"));
+    fetchWorkouts(range);
+  }, [week]);
 
   return (
     <div className="week-workouts-container">
@@ -40,11 +44,17 @@ const Workouts = () => {
       </div>
       <div className="week-workouts-days">
         {generateWeek(week).map((date, i) => (
-          <WorkoutColumn date={date} key={i} i={i} />
+          <WorkoutColumn workouts={workouts} date={date} key={i} i={i} />
         ))}
       </div>
     </div>
   );
 };
 
-export default Workouts;
+const mapStateToProps = state => {
+  return {
+    data: state.fetchWorkoutsReducer
+  }
+}
+
+export default connect(mapStateToProps, { fetchWorkouts})(Workouts);
