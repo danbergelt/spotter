@@ -19,7 +19,7 @@ exports.getWorkoutsByUserId = asyncHandler(async (req, res, next) => {
 
   return res
     .status(200)
-    .json({ success: true, count: workouts.length, data: workouts });
+    .json({ success: true, count: workouts.length, workouts });
 });
 
 // @desc --> get time sorted list of workouts by user id
@@ -27,7 +27,6 @@ exports.getWorkoutsByUserId = asyncHandler(async (req, res, next) => {
 // @access --> Private
 
 exports.workoutRangeByUserId = asyncHandler(async (req, res, next) => {
-
   if (!req.body.range) {
     return next(new Err("Please supply a date range", 400));
   }
@@ -36,12 +35,6 @@ exports.workoutRangeByUserId = asyncHandler(async (req, res, next) => {
     user: req.user._id,
     date: { $in: req.body.range }
   }).sort({ date: 1 });
-
-  if (!workouts) {
-    return res
-      .status(200)
-      .json({ success: true, data: "No workouts found in this date range" });
-  }
 
   return res
     .status(200)
@@ -96,15 +89,6 @@ exports.editWorkout = asyncHandler(async (req, res, next) => {
 
 exports.deleteWorkout = asyncHandler(async (req, res, next) => {
   let workout = await Workout.findById(req.params.id);
-
-  if (JSON.stringify(workout.user) !== JSON.stringify(req.user._id)) {
-    return next(
-      new Err(
-        `User ${req.user._id} is not authorized to delete this workout`,
-        403
-      )
-    );
-  }
 
   await workout.remove();
 

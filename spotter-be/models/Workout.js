@@ -25,11 +25,11 @@ const ExerciseSchema = new Schema({
   },
   sets: {
     type: Number,
-    max: [2000, "2000 lb limit"]
+    max: [2000, "2000 sets limit"]
   },
   reps: {
     type: Number,
-    max: [2000, "2000 lb limit"]
+    max: [2000, "2000 reps limit"]
   }
 });
 

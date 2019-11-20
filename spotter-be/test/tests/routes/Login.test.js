@@ -1,6 +1,6 @@
-const app = require("./utils/index");
-const { dbHelper } = require("./utils/db");
-const User = require("../models/User");
+const app = require("../../utils/index");
+const { dbHelper } = require("../../utils/db");
+const User = require("../../../models/User");
 const chaiHttp = require("chai-http");
 const chai = require("chai");
 const should = chai.should();
@@ -8,10 +8,10 @@ const should = chai.should();
 // configure Chai HTTP
 chai.use(chaiHttp);
 
-// Run DB
-dbHelper(User);
-
 describe("Login existing user", async () => {
+  // Run DB
+  dbHelper(User);
+
   // Successful login
   it("should login existing user", done => {
     chai
@@ -25,6 +25,7 @@ describe("Login existing user", async () => {
           .send({ email: "new@email.com", password: "password" })
           .end((err, res) => {
             should.exist(res);
+            res.body.success.should.equal(true);
             res.should.have.status(200);
             res.body.should.be.a("object");
             res.body.should.have.property("token");
@@ -41,6 +42,7 @@ describe("Login existing user", async () => {
       .send({ password: "password" })
       .end((err, res) => {
         should.exist(res);
+        res.body.success.should.equal(false);
         res.should.have.status(400);
         res.body.should.be.a("object");
         res.body.error.should.equal("Please provide an email and password");
@@ -56,6 +58,7 @@ describe("Login existing user", async () => {
       .end((err, res) => {
         should.exist(res);
         res.should.have.status(400);
+        res.body.success.should.equal(false);
         res.body.should.be.a("object");
         res.body.error.should.equal("Please provide an email and password");
         done();
@@ -70,6 +73,7 @@ describe("Login existing user", async () => {
       .end((err, res) => {
         should.exist(res);
         res.should.have.status(401);
+        res.body.success.should.equal(false);
         res.body.should.be.a("object");
         res.body.error.should.equal("Invalid credentials");
         done();
