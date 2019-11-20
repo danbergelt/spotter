@@ -4,11 +4,11 @@ import axios from "axios";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 import { render, cleanup, fireEvent, wait } from "@testing-library/react";
-import secureStorage from '../utils/secureToken'
-
-afterEach(cleanup);
+import secureStorage from "../utils/secureToken";
 
 describe("Login validation", () => {
+  afterEach(cleanup);
+  
   test("login page renders empty inputs", () => {
     const history = createMemoryHistory();
     const { getByPlaceholderText } = render(
@@ -125,7 +125,9 @@ describe("Login validation", () => {
 
     await wait(() => {
       expect(axios.post).toHaveBeenCalledTimes(1);
-      expect(secureStorage.getItem(`${process.env.REACT_APP_KEY}`)).toEqual("test-token");
+      expect(secureStorage.getItem(`${process.env.REACT_APP_KEY}`)).toEqual(
+        "test-token"
+      );
       expect(history.location.pathname).toEqual("/dashboard");
     });
   });

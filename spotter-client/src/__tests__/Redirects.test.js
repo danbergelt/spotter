@@ -5,15 +5,16 @@ import { createMemoryHistory } from "history";
 import { render, cleanup } from "@testing-library/react";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
+import axios from "axios";
 import thunk from "redux-thunk";
 import reducer from "../reducers/index";
 import secureStorage from "../utils/secureToken";
-
-const store = createStore(reducer, applyMiddleware(thunk));
-
-afterEach(cleanup);
+import mockWorkoutRes from "../__testUtils__/mockWorkoutRes";
 
 describe("redirects and conditional rendering", () => {
+  afterEach(cleanup);
+  const store = createStore(reducer, applyMiddleware(thunk));
+
   test("home path automatically renders `/` ", () => {
     const history = createMemoryHistory();
     render(
@@ -44,6 +45,8 @@ describe("redirects and conditional rendering", () => {
 
   test("nav conditionally renders when logged in", () => {
     secureStorage.setItem(`${process.env.REACT_APP_KEY}`, "token");
+    axios.post.mockResolvedValue(mockWorkoutRes);
+
     const history = createMemoryHistory();
     const { container, getByText, queryByText } = render(
       <Provider store={store}>

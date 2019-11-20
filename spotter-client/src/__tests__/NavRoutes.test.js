@@ -1,17 +1,20 @@
 import React from "react";
 import Routes from "../routes";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, cleanup } from "@testing-library/react";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import reducer from "../reducers/index";
-import secureStorage from '../utils/secureToken';
-
-const store = createStore(reducer, applyMiddleware(thunk));
+import secureStorage from "../utils/secureToken";
+import axios from "axios";
+import mockWorkoutRes from "../__testUtils__/mockWorkoutRes";
 
 describe("Nav routes", () => {
+  afterEach(cleanup);
+  const store = createStore(reducer, applyMiddleware(thunk));
+
   test("Nav routes point to proper locations", () => {
     const history = createMemoryHistory();
     const { container, getByTestId } = render(
@@ -40,6 +43,7 @@ describe("Nav routes", () => {
 
   test("dashboard link works for logged-in users", () => {
     secureStorage.setItem(`${process.env.REACT_APP_KEY}`, "token");
+    axios.post.mockResolvedValue(mockWorkoutRes);
     const history = createMemoryHistory();
     const { getByText } = render(
       <Provider store={store}>
@@ -55,6 +59,7 @@ describe("Nav routes", () => {
 
   test("logout functionality works", () => {
     const history = createMemoryHistory();
+    axios.post.mockResolvedValue(mockWorkoutRes);
     const { getByTestId } = render(
       <Provider store={store}>
         <Router history={history}>

@@ -7,7 +7,7 @@ export const FETCH_WORKOUTS_ERROR = "FETCH_WORKOUT_ERROR";
 export const fetchWorkouts = range => {
   return dispatch => {
     dispatch({ type: FETCH_WORKOUTS_START });
-    axiosWithAuth()
+    return axiosWithAuth()
       .post(`${process.env.REACT_APP_T_API}/api/auth/workouts/range`, {
         range
       })

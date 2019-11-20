@@ -9,16 +9,18 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import reducer from "../reducers/index";
-import secureStorage from '../utils/secureToken';
-
-const store = createStore(reducer, applyMiddleware(thunk));
-
-afterEach(cleanup);
+import secureStorage from "../utils/secureToken";
+import mockWorkoutRes from "../__testUtils__/mockWorkoutRes";
+import axios from "axios";
 
 describe("Weekly dash date settings", () => {
+  afterEach(cleanup);
+  const store = createStore(reducer, applyMiddleware(thunk));
+
   it("can go back in time", () => {
     const moment = extendMoment(Moment);
     secureStorage.setItem(`${process.env.REACT_APP_KEY}`, "token");
+    axios.post.mockResolvedValue(mockWorkoutRes);
     const history = createMemoryHistory();
     const { container, getByText, getByTestId, queryByText } = render(
       <Provider store={store}>
@@ -36,7 +38,7 @@ describe("Weekly dash date settings", () => {
         getByText(
           moment()
             .startOf("week")
-            .format("MMM DD")
+            .format("MMM DD YYYY")
         )
       )
     ).toBeTruthy();
@@ -49,7 +51,7 @@ describe("Weekly dash date settings", () => {
           moment()
             .add(-1, "weeks")
             .startOf("week")
-            .format("MMM DD")
+            .format("MMM DD YYYY")
         )
       )
     ).toBeTruthy();
@@ -58,7 +60,7 @@ describe("Weekly dash date settings", () => {
         queryByText(
           moment()
             .startOf("week")
-            .format("MMM DD")
+            .format("MMM DD YYYY")
         )
       )
     ).toBeFalsy();
@@ -77,6 +79,7 @@ describe("Weekly dash date settings", () => {
   it("can go forward in time", () => {
     const moment = extendMoment(Moment);
     const history = createMemoryHistory();
+    axios.post.mockResolvedValue(mockWorkoutRes);
     const { container, getByText, getByTestId, queryByText } = render(
       <Provider store={store}>
         <Router history={history}>
@@ -93,7 +96,7 @@ describe("Weekly dash date settings", () => {
         getByText(
           moment()
             .startOf("week")
-            .format("MMM DD")
+            .format("MMM DD YYYY")
         )
       )
     ).toBeTruthy();
@@ -106,7 +109,7 @@ describe("Weekly dash date settings", () => {
           moment()
             .add(1, "weeks")
             .startOf("week")
-            .format("MMM DD")
+            .format("MMM DD YYYY")
         )
       )
     ).toBeTruthy();
@@ -115,7 +118,7 @@ describe("Weekly dash date settings", () => {
         queryByText(
           moment()
             .startOf("week")
-            .format("MMM DD")
+            .format("MMM DD YYYY")
         )
       )
     ).toBeFalsy();
@@ -125,7 +128,7 @@ describe("Weekly dash date settings", () => {
           moment()
             .add(2, "weeks")
             .startOf("week")
-            .format("MMM DD")
+            .format("MMM DD YYYY")
         )
       )
     ).toBeFalsy();

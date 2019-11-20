@@ -3,24 +3,32 @@ import Workouts from "../components/dash/workouts/Workouts";
 import AddWorkout from "../components/dash/workouts/AddWorkout";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
-import { render, cleanup, fireEvent, wait, findAllByText } from "@testing-library/react";
+import {
+  render,
+  cleanup,
+  fireEvent,
+  wait
+} from "@testing-library/react";
 import secureStorage from "../utils/secureToken";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import reducer from "../reducers/index";
 import Modal from "react-modal";
-
-// initial setup
-afterEach(cleanup);
-secureStorage.setItem(`${process.env.REACT_APP_KEY}`, "token");
-const store = createStore(reducer, applyMiddleware(thunk));
-Modal.setAppElement(document.createElement("div"));
+import axios from "axios";
+import mockWorkoutRes from "../__testUtils__/mockWorkoutRes";
 
 describe("add workout modal functionality", () => {
+  // initial setup
+  afterEach(cleanup);
+  secureStorage.setItem(`${process.env.REACT_APP_KEY}`, "token");
+  const store = createStore(reducer, applyMiddleware(thunk));
+  Modal.setAppElement(document.createElement("div"));
+
   test("open and close modal functionality", () => {
     // suppresses warning for rendering document.body directly in render function
     console.error = jest.fn();
+    axios.post.mockResolvedValue(mockWorkoutRes);
     const history = createMemoryHistory();
     const { queryByPlaceholderText, getByTestId, queryByTestId } = render(
       <Provider store={store}>
@@ -229,7 +237,13 @@ describe("add workout modal functionality", () => {
 
   test("2000 lb limit enforced", async () => {
     const history = createMemoryHistory();
-    const { queryByText, getByPlaceholderText, container, getAllByText, getByTestId } = render(
+    const {
+      queryByText,
+      getByPlaceholderText,
+      container,
+      getAllByText,
+      getByTestId
+    } = render(
       <Provider store={store}>
         <Router history={history}>
           <AddWorkout modal={true} />
@@ -268,7 +282,7 @@ describe("add workout modal functionality", () => {
 
     fireEvent.click(getByTestId(/submit-exercise/i));
 
-    await wait(() => expect(getAllByText(/2000 lb limit/i).length).toBe(3))
+    await wait(() => expect(getAllByText(/2000 lb limit/i).length).toBe(3));
   });
 
   test("trashcan empties exercise inputs", () => {
@@ -302,7 +316,6 @@ describe("add workout modal functionality", () => {
     expect(weight.value).toEqual("");
     expect(sets.value).toEqual("");
     expect(reps.value).toEqual("");
-
   });
 
   test("submitted exercise renders on page", async () => {
@@ -341,6 +354,6 @@ describe("add workout modal functionality", () => {
       expect(container.contains(getByText(/100 lbs/i))).toBeTruthy();
       expect(container.contains(getByText(/100 reps/i))).toBeTruthy();
       expect(container.contains(getByText(/100 sets/i))).toBeTruthy();
-    })
+    });
   });
 });
