@@ -2,12 +2,12 @@ const assert = require("assert");
 const chai = require("chai");
 const expect = chai.expect;
 chai.use(require("chai-as-promised"));
-const User = require("../models/User");
-const { dbHelper } = require("./utils/db");
-
-dbHelper(User);
+const User = require("../../../models/User");
+const { dbHelper } = require("../../utils/db");
 
 describe("User model update", () => {
+  dbHelper(User);
+
   // Successful user update
   it("updates a user successfully", async () => {
     const user = new User({ email: "test@email.com", password: "password" });

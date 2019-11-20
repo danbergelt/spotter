@@ -2,35 +2,27 @@ const assert = require("assert");
 const chai = require("chai");
 const expect = chai.expect;
 chai.use(require("chai-as-promised"));
-const Workout = require("../models/Workout");
-const User = require("../models/User");
-const { dbHelper } = require("./utils/db");
-const { createUser } = require("./utils/createUser");
-
-dbHelper(Workout);
-
-const template = {
-  date: "Jan 01 2020",
-  title: "Workout",
-  tags: [{ color: "red", content: "tag" }, { color: "blue", content: "tag2" }],
-  notes: "Notes for workout",
-  exercises: [
-    { name: "Exercise", weight: 100, sets: 1, reps: 1 },
-    { name: "Exercise2", weight: 200, sets: 2, reps: 2 }
-  ],
-  user: null
-};
-
-beforeEach(async () => {
-  const { _id } = await createUser();
-  template.user = _id;
-});
+const Workout = require("../../../models/Workout");
+const User = require("../../../models/User");
+const { dbHelper } = require("../../utils/db");
+const { createUser } = require("../../utils/createUser");
+const { template } = require("../../utils/templateWorkout");
 
 describe("Workout model update functionality", () => {
+  dbHelper(Workout);
+
+  beforeEach(async () => {
+    const { _id } = await createUser();
+    template.user = _id;
+  });
+
   it("updates workout successfully", async () => {
     const workout = new Workout(template);
     await workout.save();
-    await Workout.findOneAndUpdate({ date: "Jan 01 2020" }, { date: "Jan 02 2020" });
+    await Workout.findOneAndUpdate(
+      { date: "Jan 01 2020" },
+      { date: "Jan 02 2020" }
+    );
     const foo = await Workout.findOne({ date: "Jan 02 2020" });
     assert(foo !== null);
   });
@@ -171,7 +163,7 @@ describe("Workout model update functionality", () => {
         { exercises: [{ ...template.exercises[0], sets: 2001 }] },
         { runValidators: true }
       )
-    ).to.be.rejectedWith("2000 lb limit");
+    ).to.be.rejectedWith("2000 sets limit");
 
     // reps
     await expect(
@@ -180,6 +172,6 @@ describe("Workout model update functionality", () => {
         { exercises: [{ ...template.exercises[0], reps: 2001 }] },
         { runValidators: true }
       )
-    ).to.be.rejectedWith("2000 lb limit");
+    ).to.be.rejectedWith("2000 reps limit");
   });
 });
