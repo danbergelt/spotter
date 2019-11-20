@@ -15,10 +15,14 @@ export const fetchWorkouts = range => {
         dispatch({ type: FETCH_WORKOUTS_SUCCESS, payload: res.data.workouts });
       })
       .catch(err => {
-        dispatch({
-          type: FETCH_WORKOUTS_ERROR,
-          payload: err.response.data.error
-        });
+        if (err.message) {
+          dispatch({ type: FETCH_WORKOUTS_ERROR, payload: err.message });
+        } else {
+          dispatch({
+            type: FETCH_WORKOUTS_ERROR,
+            payload: err.response.data.error
+          });
+        }
       });
   };
 };
