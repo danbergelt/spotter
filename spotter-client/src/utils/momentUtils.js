@@ -25,5 +25,5 @@ export const generateWeek = num => {
 export const dashHead = num => {
   return moment().add(num, 'weeks')
     .startOf("week")
-    .format("MMMM YYYY");
+    .format("MMMM");
 };

@@ -86,21 +86,6 @@ describe("GET workouts by date range and user id", () => {
       });
   });
 
-  it("should fail with no range", done => {
-    const token = genToken(template.user);
-    chai
-      .request(app)
-      .post("/api/auth/workouts/range")
-      .set("Authorization", `Bearer ${token}`)
-      .end((err, res) => {
-        should.exist(res);
-        res.body.success.should.equal(false);
-        res.should.have.status(400);
-        res.body.error.should.equal("Please supply a date range");
-        done();
-      });
-  });
-
   it("should return empty array when no dates found", done => {
     const token = genToken(template.user);
     chai

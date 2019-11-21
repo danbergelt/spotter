@@ -4,7 +4,7 @@ export const FETCH_WORKOUTS_START = "FETCH_WORKOUTS_START";
 export const FETCH_WORKOUTS_SUCCESS = "FETCH_WORKOUTS_SUCCESS";
 export const FETCH_WORKOUTS_ERROR = "FETCH_WORKOUT_ERROR";
 
-export const fetchWorkouts = range => {
+export const fetchWorkouts = (range, history) => {
   return dispatch => {
     dispatch({ type: FETCH_WORKOUTS_START });
     return axiosWithAuth()
@@ -15,13 +15,13 @@ export const fetchWorkouts = range => {
         dispatch({ type: FETCH_WORKOUTS_SUCCESS, payload: res.data.workouts });
       })
       .catch(err => {
-        if (err.message) {
-          dispatch({ type: FETCH_WORKOUTS_ERROR, payload: err.message });
-        } else {
+        if (err.response) {
           dispatch({
             type: FETCH_WORKOUTS_ERROR,
             payload: err.response.data.error
           });
+        } else {
+          history.push("/500");
         }
       });
   };

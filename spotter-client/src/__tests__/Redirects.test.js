@@ -1,11 +1,11 @@
 import React from "react";
 import wrapper from "../__testUtils__/wrapper";
 import Routes from "../Routes";
-import { cleanup } from "@testing-library/react";
+import { cleanup, wait } from "@testing-library/react";
 import axios from "axios";
 import secureStorage from "../utils/secureToken";
 import mockWorkoutRes from "../__testUtils__/mockWorkoutRes";
-import reducer from '../reducers/index';
+import reducer from "../reducers/index";
 
 describe("redirects and conditional rendering", () => {
   afterEach(cleanup);
@@ -35,7 +35,7 @@ describe("redirects and conditional rendering", () => {
     expect(container.contains(queryByText(/log in/i))).toBeFalsy();
     expect(container.contains(queryByText(/about/i))).toBeFalsy();
     expect(container.contains(queryByText(/contact/i))).toBeFalsy();
-    expect(axios.post).toHaveBeenCalledTimes(1)
+    expect(axios.post).toHaveBeenCalledTimes(1);
     secureStorage.removeItem(`${process.env.REACT_APP_KEY}`);
   });
 
@@ -75,5 +75,15 @@ describe("redirects and conditional rendering", () => {
     history.push("/badroutetest/badroute");
 
     expect(container.innerHTML).toMatch(/404/i);
+  });
+
+  test("500 page displays at server error", async () => {
+    secureStorage.setItem(`${process.env.REACT_APP_KEY}`, "token");
+    axios.post.mockRejectedValue({ unhandled: "error" });
+    const { container, history } = wrapper(reducer, <Routes />);
+
+    history.push("/dashboard");
+    await wait(() => expect(container.innerHTML).toMatch(/500/i));
+    secureStorage.removeItem(`${process.env.REACT_APP_KEY}`);
   });
 });

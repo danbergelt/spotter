@@ -1,14 +1,20 @@
+import Moment from "moment";
+import { extendMoment } from "moment-range";
+
+const moment = extendMoment(Moment);
+
 const mockWorkoutRes = {
-  response: {
-    body: {
+    data: {
       workouts: [
         {
-          _id: "5dd4a49f2f67ae62f99cec6c",
-          date: "Jan 01 2020",
-          title: "Workout",
+          _id: "jfi289f289fj9jf289jf9",
+          date: moment()
+            .startOf("week")
+            .format("MMM DD YYYY"),
+          title: "Workout FOR TESTING",
           tags: [
-            { color: "red", content: "tag" },
-            { color: "blue", content: "tag2" }
+            { _id: "jfio2jf2890fj892jf928", color: "red", content: "tag" },
+            { _id: "jfio2jf28guyguygjf928", color: "blue", content: "tag2" }
           ],
           notes: "Notes for workout",
           exercises: [
@@ -21,7 +27,6 @@ const mockWorkoutRes = {
         }
       ]
     }
-  }
 };
 
 export default mockWorkoutRes;

@@ -4,7 +4,7 @@ import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
-import secureStorage from '../../utils/secureToken';
+import secureStorage from "../../utils/secureToken";
 
 const SpotterForm = ({
   status,
@@ -72,10 +72,14 @@ const FormikForm = withFormik({
     try {
       const res = await axios.post(props.api, values);
       resetForm();
-      secureStorage.setItem(`${process.env.REACT_APP_KEY}`, res.data.token)
+      secureStorage.setItem(`${process.env.REACT_APP_KEY}`, res.data.token);
       props.history.push("/dashboard");
     } catch (error) {
-      setStatus(error.response.data.error);
+      if (error.response) {
+        setStatus(error.response.data.error);
+      } else {
+        props.history.push("/500")
+      }
     }
   }
 })(SpotterForm);

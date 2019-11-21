@@ -2,7 +2,7 @@ import React from "react";
 import Routes from "../routes";
 import Moment from "moment";
 import { extendMoment } from "moment-range";
-import { cleanup, fireEvent } from "@testing-library/react";
+import { cleanup, fireEvent, wait } from "@testing-library/react";
 import wrapper from "../__testUtils__/wrapper";
 import secureStorage from "../utils/secureToken";
 import mockWorkoutRes from "../__testUtils__/mockWorkoutRes";
@@ -15,8 +15,9 @@ describe("Weekly dash date settings", () => {
     jest.clearAllMocks();
   });
 
+  const moment = extendMoment(Moment);
+
   it("can go back in time", () => {
-    const moment = extendMoment(Moment);
     secureStorage.setItem(`${process.env.REACT_APP_KEY}`, "token");
     axios.post.mockResolvedValue(mockWorkoutRes);
     const { container, getByText, getByTestId, queryByText, history } = wrapper(
@@ -73,7 +74,6 @@ describe("Weekly dash date settings", () => {
   });
 
   it("can go forward in time", () => {
-    const moment = extendMoment(Moment);
     axios.post.mockResolvedValue(mockWorkoutRes);
     const { container, getByText, getByTestId, queryByText, history } = wrapper(
       reducer,
@@ -126,5 +126,14 @@ describe("Weekly dash date settings", () => {
     ).toBeFalsy();
 
     expect(axios.post).toHaveBeenCalledTimes(2);
+  });
+
+  it("fetches workouts and displays them", async () => {
+    axios.post.mockResolvedValue(mockWorkoutRes);
+    const { queryByTestId, history } = wrapper(reducer, <Routes />);
+    history.push("/dashboard");
+
+    await wait(() => expect(queryByTestId(/workout-title/i)).toBeTruthy());
+    expect(axios.post).toHaveBeenCalledTimes(1)
   });
 });

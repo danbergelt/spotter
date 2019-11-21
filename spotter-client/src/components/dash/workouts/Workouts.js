@@ -4,8 +4,12 @@ import { generateWeek, dashHead } from "../../../utils/momentUtils";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { connect } from "react-redux";
 import { fetchWorkouts } from "../../../actions/fetchWorkoutsActions";
+import { useHistory } from 'react-router-dom';
 
 const Workouts = ({ data, fetchWorkouts }) => {
+
+  const history = useHistory();
+
   const { err, isLoading, workouts } = data;
 
   const [week, setWeek] = useState(0);
@@ -21,7 +25,7 @@ const Workouts = ({ data, fetchWorkouts }) => {
   useEffect(() => {
     let range = generateWeek(week);
     range = range.map(d => d.format("MMM DD YYYY"));
-    fetchWorkouts(range);
+    fetchWorkouts(range, history);
   }, [week]);
 
   return (

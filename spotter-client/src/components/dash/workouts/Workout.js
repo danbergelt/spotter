@@ -4,7 +4,7 @@ import { FiAlignLeft } from "react-icons/fi";
 const Workout = ({ data }) => {
   return (
     <>
-      <div className="workout-card-title">{data.title}</div>
+      <div data-testid="workout-title" className="workout-card-title">{data.title}</div>
       {(data.notes || data.exercises.length) && (
         <FiAlignLeft className="workout-card-notes-ind" />
       )}
