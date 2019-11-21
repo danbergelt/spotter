@@ -3,6 +3,7 @@ import { FiPlusCircle } from "react-icons/fi";
 import AddWorkout from "./AddWorkout";
 import { connect } from "react-redux";
 import { resetWorkout } from "../../../actions/addWorkoutActions";
+import Workout from "./Workout";
 
 const WorkoutColumn = ({ date, resetWorkout, i, workouts }) => {
   const [modal, setModal] = useState(false);
@@ -32,7 +33,7 @@ const WorkoutColumn = ({ date, resetWorkout, i, workouts }) => {
     <div className="week-workouts-column">
       <div className="week-workouts-day">
         <div className="week-workout-day-slug">{date.format("ddd")}</div>
-        <div>{date.format("MMM DD YYYY")}</div>
+        <div className="week-workout-day-date">{date.format("MMM DD YYYY")}</div>
       </div>
       <div
         data-testid={i === 0 && "modal-click"}
@@ -44,10 +45,8 @@ const WorkoutColumn = ({ date, resetWorkout, i, workouts }) => {
       <AddWorkout modal={modal} closeModal={closeAddWorkoutModal} />
       <div>
         {workout.map(data => (
-          <div key={data._id}>
-            <div>{data.date}</div>
-            <div>{data.title}</div>
-            <div>{data.notes}</div>
+          <div className="workout-card-container" key={data._id}>
+            <Workout data={data} />
           </div>
         ))}
       </div>

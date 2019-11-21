@@ -2,41 +2,38 @@ import React from "react";
 import Routes from "../routes";
 import Moment from "moment";
 import { extendMoment } from "moment-range";
-import { Router } from "react-router-dom";
-import { createMemoryHistory } from "history";
-import { render, cleanup, fireEvent } from "@testing-library/react";
-import { createStore, applyMiddleware } from "redux";
-import { Provider } from "react-redux";
-import thunk from "redux-thunk";
-import reducer from "../reducers/index";
-import secureStorage from '../utils/secureToken';
-
-const store = createStore(reducer, applyMiddleware(thunk));
-
-afterEach(cleanup);
+import { cleanup, fireEvent, wait } from "@testing-library/react";
+import wrapper from "../__testUtils__/wrapper";
+import secureStorage from "../utils/secureToken";
+import mockWorkoutRes from "../__testUtils__/mockWorkoutRes";
+import axios from "axios";
+import reducer from "../reducers/index.js";
 
 describe("Weekly dash date settings", () => {
+  afterEach(() => {
+    cleanup;
+    jest.clearAllMocks();
+  });
+
+  const moment = extendMoment(Moment);
+
   it("can go back in time", () => {
-    const moment = extendMoment(Moment);
     secureStorage.setItem(`${process.env.REACT_APP_KEY}`, "token");
-    const history = createMemoryHistory();
-    const { container, getByText, getByTestId, queryByText } = render(
-      <Provider store={store}>
-        <Router history={history}>
-          <Routes />
-        </Router>
-      </Provider>
+    axios.post.mockResolvedValue(mockWorkoutRes);
+    const { container, getByText, getByTestId, queryByText, history } = wrapper(
+      reducer,
+      <Routes />
     );
 
     history.push("/dashboard");
 
-    expect(container.contains(getByText(/view prs/i))).toBeTruthy();
+    expect(container.contains(getByText(/week/i))).toBeTruthy();
     expect(
       container.contains(
         getByText(
           moment()
             .startOf("week")
-            .format("MMM DD")
+            .format("MMM DD YYYY")
         )
       )
     ).toBeTruthy();
@@ -49,7 +46,7 @@ describe("Weekly dash date settings", () => {
           moment()
             .add(-1, "weeks")
             .startOf("week")
-            .format("MMM DD")
+            .format("MMM DD YYYY")
         )
       )
     ).toBeTruthy();
@@ -58,7 +55,7 @@ describe("Weekly dash date settings", () => {
         queryByText(
           moment()
             .startOf("week")
-            .format("MMM DD")
+            .format("MMM DD YYYY")
         )
       )
     ).toBeFalsy();
@@ -72,28 +69,26 @@ describe("Weekly dash date settings", () => {
         )
       )
     ).toBeFalsy();
+
+    expect(axios.post).toHaveBeenCalledTimes(2);
   });
 
   it("can go forward in time", () => {
-    const moment = extendMoment(Moment);
-    const history = createMemoryHistory();
-    const { container, getByText, getByTestId, queryByText } = render(
-      <Provider store={store}>
-        <Router history={history}>
-          <Routes />
-        </Router>
-      </Provider>
+    axios.post.mockResolvedValue(mockWorkoutRes);
+    const { container, getByText, getByTestId, queryByText, history } = wrapper(
+      reducer,
+      <Routes />
     );
 
     history.push("/dashboard");
 
-    expect(container.contains(getByText(/view prs/i))).toBeTruthy();
+    expect(container.contains(getByText(/week/i))).toBeTruthy();
     expect(
       container.contains(
         getByText(
           moment()
             .startOf("week")
-            .format("MMM DD")
+            .format("MMM DD YYYY")
         )
       )
     ).toBeTruthy();
@@ -106,7 +101,7 @@ describe("Weekly dash date settings", () => {
           moment()
             .add(1, "weeks")
             .startOf("week")
-            .format("MMM DD")
+            .format("MMM DD YYYY")
         )
       )
     ).toBeTruthy();
@@ -115,7 +110,7 @@ describe("Weekly dash date settings", () => {
         queryByText(
           moment()
             .startOf("week")
-            .format("MMM DD")
+            .format("MMM DD YYYY")
         )
       )
     ).toBeFalsy();
@@ -125,9 +120,20 @@ describe("Weekly dash date settings", () => {
           moment()
             .add(2, "weeks")
             .startOf("week")
-            .format("MMM DD")
+            .format("MMM DD YYYY")
         )
       )
     ).toBeFalsy();
+
+    expect(axios.post).toHaveBeenCalledTimes(2);
+  });
+
+  it("fetches workouts and displays them", async () => {
+    axios.post.mockResolvedValue(mockWorkoutRes);
+    const { queryByTestId, history } = wrapper(reducer, <Routes />);
+    history.push("/dashboard");
+
+    await wait(() => expect(queryByTestId(/workout-title/i)).toBeTruthy());
+    expect(axios.post).toHaveBeenCalledTimes(1)
   });
 });

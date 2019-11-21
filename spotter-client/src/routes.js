@@ -8,6 +8,7 @@ import LogIn from "./pages/LogIn";
 import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
+import ServerError from "./pages/ServerError";
 
 const Routes = () => {
   return (
@@ -23,6 +24,7 @@ const Routes = () => {
           {useToken() ? <Redirect to="/dashboard" /> : <SignUp />}
         </Route>
         <PrivateRoute path="/dashboard" component={Dashboard} />
+        <Route path="/500" component={ServerError} />
         <Route component={NotFound} />
       </Switch>
     </Layout>

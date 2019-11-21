@@ -1,29 +1,15 @@
 import React from "react";
 import SignUp from "../pages/SignUp";
 import axios from "axios";
-import { Router } from "react-router-dom";
-import { createMemoryHistory } from "history";
-import { render, cleanup, fireEvent, wait } from "@testing-library/react";
-import { createStore, applyMiddleware } from "redux";
-import { Provider } from "react-redux";
-import thunk from "redux-thunk";
-import reducer from "../reducers/index";
-import secureStorage from '../utils/secureToken';
-
-const store = createStore(reducer, applyMiddleware(thunk));
-
-afterEach(cleanup);
+import { cleanup, fireEvent, wait } from "@testing-library/react";
+import wrapper from '../__testUtils__/wrapper';
+import secureStorage from "../utils/secureToken";
 
 describe("Register validation", () => {
+  afterEach(cleanup);
+
   test("register page renders with empty inputs", () => {
-    const history = createMemoryHistory();
-    const { getByPlaceholderText } = render(
-      <Provider store={store}>
-        <Router history={history}>
-          <SignUp />
-        </Router>
-      </Provider>
-    );
+    const { getByPlaceholderText } = wrapper(() => {}, <SignUp />)
 
     const email = getByPlaceholderText(/name@email.com/i);
     const password = getByPlaceholderText(/password/i);
@@ -33,14 +19,7 @@ describe("Register validation", () => {
   });
 
   test("fields can be typed in", () => {
-    const history = createMemoryHistory();
-    const { getByPlaceholderText } = render(
-      <Provider store={store}>
-        <Router history={history}>
-          <SignUp />
-        </Router>
-      </Provider>
-    );
+    const { getByPlaceholderText } = wrapper(() => {}, <SignUp />)
 
     const email = getByPlaceholderText(/name@email.com/i);
     const password = getByPlaceholderText(/password/i);
@@ -58,14 +37,7 @@ describe("Register validation", () => {
   });
 
   test("register page renders yup vals on touched fields", async () => {
-    const history = createMemoryHistory();
-    const { container, getByPlaceholderText, findByText } = render(
-      <Provider store={store}>
-        <Router history={history}>
-          <SignUp />
-        </Router>
-      </Provider>
-    );
+    const { container, getByPlaceholderText, findByText } = wrapper(() => {}, <SignUp />)
 
     const email = getByPlaceholderText(/name@email.com/i);
     const password = getByPlaceholderText(/password/i);
@@ -89,14 +61,7 @@ describe("Register validation", () => {
       response: { data: { error: "Test reject" } }
     });
 
-    const history = createMemoryHistory();
-    const { container, getByPlaceholderText, findByText, getByTestId } = render(
-      <Provider store={store}>
-        <Router history={history}>
-          <SignUp />
-        </Router>
-      </Provider>
-    );
+    const { container, getByPlaceholderText, findByText, getByTestId } = wrapper(() => {}, <SignUp />)
 
     fireEvent.change(getByPlaceholderText(/name@email.com/i), {
       target: { value: "bademail@email.com" }
@@ -120,14 +85,7 @@ describe("Register validation", () => {
       data: { token: "test-token" }
     });
 
-    const history = createMemoryHistory();
-    const { getByPlaceholderText, getByTestId } = render(
-      <Provider store={store}>
-        <Router history={history}>
-          <SignUp />
-        </Router>
-      </Provider>
-    );
+    const { getByPlaceholderText, getByTestId, history } = wrapper(() => {}, <SignUp />)
 
     fireEvent.change(getByPlaceholderText(/name@email.com/i), {
       target: { value: "goodemail@email.com" }
@@ -141,7 +99,9 @@ describe("Register validation", () => {
 
     await wait(() => {
       expect(axios.post).toHaveBeenCalledTimes(1);
-      expect(secureStorage.getItem(`${process.env.REACT_APP_KEY}`)).toEqual("test-token");
+      expect(secureStorage.getItem(`${process.env.REACT_APP_KEY}`)).toEqual(
+        "test-token"
+      );
       expect(history.location.pathname).toEqual("/dashboard");
     });
   });

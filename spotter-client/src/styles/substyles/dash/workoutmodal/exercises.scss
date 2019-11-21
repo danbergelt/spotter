@@ -1,5 +1,5 @@
 @import "../../../variables.scss";
-@import '../../../mixins.scss';
+@import "../../../mixins.scss";
 
 .workout-data-exercises {
   .workout-data-exercises-head {
@@ -56,7 +56,7 @@
         .exercise-form-field {
           height: 2.5rem;
           outline: none;
-          border-radius: 4px;
+          border-radius: $border;
           border: 0;
           padding: 1.5rem 0 1.5rem 0.5rem;
           font-size: $p;
@@ -96,7 +96,7 @@
 
       .exercise-row {
         padding: 1rem 0.5rem;
-        border-radius: 4px;
+        border-radius: $border;
         display: flex;
         align-items: flex-end;
 
@@ -108,6 +108,29 @@
             font-size: 2rem;
             font-weight: bold;
             margin-bottom: 1rem;
+
+            .exercise-actions {
+              font-weight: normal;
+              text-decoration: underline;
+              margin-top: 1rem;
+              display: flex;
+              font-size: 1.2rem;
+              cursor: pointer;
+
+              .exercise-del {
+                &:hover {
+                  transform: $hover-scale;
+                }
+              }
+
+              .exercise-edit {
+                margin-left: 1rem;
+
+                &:hover {
+                  transform: $hover-scale;
+                }
+              }
+            }
           }
 
           .exercise-stats {
@@ -116,28 +139,6 @@
 
             .exercise-stat {
               padding-right: 1rem;
-            }
-          }
-        }
-
-        .exercise-actions {
-          display: flex;
-          color: $danger;
-          font-size: $icon;
-          cursor: pointer;
-
-          .exercise-del {
-            &:hover {
-              transform: $hover-scale;
-            }
-          }
-
-          .exercise-edit {
-            color: $info;
-            margin-left: 1rem;
-
-            &:hover {
-              transform: $hover-scale;
             }
           }
         }

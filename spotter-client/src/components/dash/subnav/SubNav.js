@@ -11,9 +11,6 @@ const SubNav = () => {
           <FiSettings />
         </div>
       </div>
-      <div className="subnav-menu right">
-        <p className="subnav-menu-icon right">View PRs</p>
-      </div>
     </div>
   );
 };
