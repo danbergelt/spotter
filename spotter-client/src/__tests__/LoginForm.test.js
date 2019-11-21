@@ -1,21 +1,15 @@
 import React from "react";
 import Login from "../pages/LogIn";
 import axios from "axios";
-import { Router } from "react-router-dom";
-import { createMemoryHistory } from "history";
-import { render, cleanup, fireEvent, wait } from "@testing-library/react";
+import wrapper from '../__testUtils__/wrapper';
+import { cleanup, fireEvent, wait } from "@testing-library/react";
 import secureStorage from "../utils/secureToken";
 
 describe("Login validation", () => {
   afterEach(cleanup);
   
   test("login page renders empty inputs", () => {
-    const history = createMemoryHistory();
-    const { getByPlaceholderText } = render(
-      <Router history={history}>
-        <Login />
-      </Router>
-    );
+    const { getByPlaceholderText } = wrapper(() => {}, <Login />)
 
     const email = getByPlaceholderText(/name@email.com/i);
     const password = getByPlaceholderText(/password/i);
@@ -25,12 +19,7 @@ describe("Login validation", () => {
   });
 
   test("fields can be typed in", () => {
-    const history = createMemoryHistory();
-    const { getByPlaceholderText } = render(
-      <Router history={history}>
-        <Login />
-      </Router>
-    );
+    const { getByPlaceholderText } = wrapper(() => {}, <Login />)
 
     const email = getByPlaceholderText(/name@email.com/i);
     const password = getByPlaceholderText(/password/i);
@@ -48,12 +37,7 @@ describe("Login validation", () => {
   });
 
   test("login page renders yup vals on touched fields", async () => {
-    const history = createMemoryHistory();
-    const { container, getByPlaceholderText, findByText } = render(
-      <Router history={history}>
-        <Login />
-      </Router>
-    );
+    const { container, getByPlaceholderText, findByText } = wrapper(() => {}, <Login />);
 
     const email = getByPlaceholderText(/name@email.com/i);
     const password = getByPlaceholderText(/password/i);
@@ -77,12 +61,7 @@ describe("Login validation", () => {
       response: { data: { error: "Test reject" } }
     });
 
-    const history = createMemoryHistory();
-    const { container, getByPlaceholderText, findByText, getByTestId } = render(
-      <Router history={history}>
-        <Login />
-      </Router>
-    );
+    const { container, getByPlaceholderText, findByText, getByTestId } = wrapper(() => {}, <Login />)
 
     fireEvent.change(getByPlaceholderText(/name@email.com/i), {
       target: { value: "bademail@email.com" }
@@ -106,12 +85,7 @@ describe("Login validation", () => {
       data: { token: "test-token" }
     });
 
-    const history = createMemoryHistory();
-    const { getByPlaceholderText, getByTestId } = render(
-      <Router history={history}>
-        <Login />
-      </Router>
-    );
+    const { getByPlaceholderText, getByTestId, history } = wrapper(() => {}, <Login />)
 
     fireEvent.change(getByPlaceholderText(/name@email.com/i), {
       target: { value: "goodemail@email.com" }

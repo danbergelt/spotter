@@ -47,8 +47,6 @@ const AddWorkout = ({
     <Modal
       contentLabel="Add Workout Modal"
       isOpen={modal}
-      onRequestClose={closeModal}
-      shouldCloseOnOverlayClick={true}
       style={customStyles}
       data-testid="modal"
     >

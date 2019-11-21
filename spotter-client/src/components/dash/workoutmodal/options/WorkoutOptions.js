@@ -35,7 +35,7 @@ const WorkoutOptions = () => {
           icon={<FiDelete className={iconClass} />}
         />
         <div className="add-workout-options-button publish">
-          <FiPlusCircle className={iconClass} /> Publish
+          <FiPlusCircle className={iconClass} /> Save
         </div>
       </div>
     </div>

@@ -1,42 +1,27 @@
 import React from "react";
 import Workouts from "../components/dash/workouts/Workouts";
 import AddWorkout from "../components/dash/workouts/AddWorkout";
-import { Router } from "react-router-dom";
-import { createMemoryHistory } from "history";
-import {
-  render,
-  cleanup,
-  fireEvent,
-  wait
-} from "@testing-library/react";
+import { cleanup, fireEvent, wait } from "@testing-library/react";
 import secureStorage from "../utils/secureToken";
-import { createStore, applyMiddleware } from "redux";
-import { Provider } from "react-redux";
-import thunk from "redux-thunk";
-import reducer from "../reducers/index";
+import wrapper from "../__testUtils__/wrapper";
 import Modal from "react-modal";
 import axios from "axios";
 import mockWorkoutRes from "../__testUtils__/mockWorkoutRes";
+import reducer from "../reducers/index";
 
 describe("add workout modal functionality", () => {
   // initial setup
   afterEach(cleanup);
   secureStorage.setItem(`${process.env.REACT_APP_KEY}`, "token");
-  const store = createStore(reducer, applyMiddleware(thunk));
   Modal.setAppElement(document.createElement("div"));
 
   test("open and close modal functionality", () => {
     // suppresses warning for rendering document.body directly in render function
     console.error = jest.fn();
     axios.post.mockResolvedValue(mockWorkoutRes);
-    const history = createMemoryHistory();
-    const { queryByPlaceholderText, getByTestId, queryByTestId } = render(
-      <Provider store={store}>
-        <Router history={history}>
-          <Workouts />
-        </Router>
-      </Provider>,
-      { container: document.body }
+    const { queryByPlaceholderText, getByTestId, queryByTestId } = wrapper(
+      reducer,
+      <Workouts />
     );
 
     fireEvent.click(getByTestId(/modal-click/i));
@@ -48,22 +33,13 @@ describe("add workout modal functionality", () => {
 
     expect(queryByTestId(/exit-modal/i)).toBeFalsy();
     expect(queryByPlaceholderText(/e.g. squat/i)).toBeFalsy();
+    expect(axios.post).toHaveBeenCalledTimes(1);
   });
 
   test("can hold user-entered text in title and notes", () => {
-    const history = createMemoryHistory();
-    const {
-      container,
-      queryByTestId,
-      getByText,
-      getByPlaceholderText
-    } = render(
-      <Provider store={store}>
-        <Router history={history}>
-          <AddWorkout modal={true} />
-        </Router>
-      </Provider>,
-      { container: document.body }
+    const { container, queryByTestId, getByPlaceholderText } = wrapper(
+      reducer,
+      <AddWorkout modal={true} />
     );
 
     expect(queryByTestId(/exit-modal/i)).toBeTruthy();
@@ -82,14 +58,9 @@ describe("add workout modal functionality", () => {
   });
 
   test("edit notes focuses notes", () => {
-    const history = createMemoryHistory();
-    const { container, queryByText, getByPlaceholderText } = render(
-      <Provider store={store}>
-        <Router history={history}>
-          <AddWorkout modal={true} />
-        </Router>
-      </Provider>,
-      { container: document.body }
+    const { container, queryByText, getByPlaceholderText } = wrapper(
+      reducer,
+      <AddWorkout modal={true} />
     );
 
     const notes = getByPlaceholderText(/click to enter some notes.../i);
@@ -108,14 +79,9 @@ describe("add workout modal functionality", () => {
   });
 
   test("trashcan empties notes", () => {
-    const history = createMemoryHistory();
-    const { container, getByTestId, getByPlaceholderText } = render(
-      <Provider store={store}>
-        <Router history={history}>
-          <AddWorkout modal={true} />
-        </Router>
-      </Provider>,
-      { container: document.body }
+    const { container, getByTestId, getByPlaceholderText } = wrapper(
+      reducer,
+      <AddWorkout modal={true} />
     );
 
     const notes = getByPlaceholderText(/click to enter some notes.../i);
@@ -132,14 +98,9 @@ describe("add workout modal functionality", () => {
   });
 
   test("exercise form inputs work", () => {
-    const history = createMemoryHistory();
-    const { getByPlaceholderText } = render(
-      <Provider store={store}>
-        <Router history={history}>
-          <AddWorkout modal={true} />
-        </Router>
-      </Provider>,
-      { container: document.body }
+    const { getByPlaceholderText } = wrapper(
+      reducer,
+      <AddWorkout modal={true} />
     );
 
     const name = getByPlaceholderText(/e.g. squat/i);
@@ -161,14 +122,9 @@ describe("add workout modal functionality", () => {
   });
 
   test("can't enter letters in number inputs", () => {
-    const history = createMemoryHistory();
-    const { getByPlaceholderText } = render(
-      <Provider store={store}>
-        <Router history={history}>
-          <AddWorkout modal={true} />
-        </Router>
-      </Provider>,
-      { container: document.body }
+    const { getByPlaceholderText } = wrapper(
+      reducer,
+      <AddWorkout modal={true} />
     );
 
     const weight = getByPlaceholderText(/lbs/i);
@@ -186,14 +142,9 @@ describe("add workout modal functionality", () => {
   });
 
   test("name is required", async () => {
-    const history = createMemoryHistory();
-    const { findByText, getByPlaceholderText, container } = render(
-      <Provider store={store}>
-        <Router history={history}>
-          <AddWorkout modal={true} />
-        </Router>
-      </Provider>,
-      { container: document.body }
+    const { findByText, getByPlaceholderText, container } = wrapper(
+      reducer,
+      <AddWorkout modal={true} />
     );
 
     const name = getByPlaceholderText(/e.g. squat/i);
@@ -207,14 +158,9 @@ describe("add workout modal functionality", () => {
   });
 
   test("40 character max on name field", async () => {
-    const history = createMemoryHistory();
-    const { findByText, getByPlaceholderText, container, getByText } = render(
-      <Provider store={store}>
-        <Router history={history}>
-          <AddWorkout modal={true} />
-        </Router>
-      </Provider>,
-      { container: document.body }
+    const { findByText, container } = wrapper(
+      reducer,
+      <AddWorkout modal={true} />
     );
 
     const name = container.querySelector('input[name="exercise"]');
@@ -236,21 +182,13 @@ describe("add workout modal functionality", () => {
   });
 
   test("2000 lb limit enforced", async () => {
-    const history = createMemoryHistory();
     const {
       queryByText,
       getByPlaceholderText,
       container,
       getAllByText,
       getByTestId
-    } = render(
-      <Provider store={store}>
-        <Router history={history}>
-          <AddWorkout modal={true} />
-        </Router>
-      </Provider>,
-      { container: document.body }
-    );
+    } = wrapper(reducer, <AddWorkout modal={true} />);
 
     const weight = getByPlaceholderText(/lbs/i);
     const sets = getByPlaceholderText(/# of sets/i);
@@ -286,14 +224,9 @@ describe("add workout modal functionality", () => {
   });
 
   test("trashcan empties exercise inputs", () => {
-    const history = createMemoryHistory();
-    const { getByPlaceholderText, getByTestId } = render(
-      <Provider store={store}>
-        <Router history={history}>
-          <AddWorkout modal={true} />
-        </Router>
-      </Provider>,
-      { container: document.body }
+    const { getByPlaceholderText, getByTestId } = wrapper(
+      reducer,
+      <AddWorkout modal={true} />
     );
 
     const name = getByPlaceholderText(/e.g. squat/i);
@@ -319,14 +252,9 @@ describe("add workout modal functionality", () => {
   });
 
   test("submitted exercise renders on page", async () => {
-    const history = createMemoryHistory();
-    const { container, getByPlaceholderText, getByTestId, getByText } = render(
-      <Provider store={store}>
-        <Router history={history}>
-          <AddWorkout modal={true} />
-        </Router>
-      </Provider>,
-      { container: document.body }
+    const { container, getByPlaceholderText, getByTestId, getByText } = wrapper(
+      reducer,
+      <AddWorkout modal={true} />
     );
 
     const name = getByPlaceholderText(/e.g. squat/i);

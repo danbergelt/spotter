@@ -2,32 +2,26 @@ import React from "react";
 import Routes from "../routes";
 import Moment from "moment";
 import { extendMoment } from "moment-range";
-import { Router } from "react-router-dom";
-import { createMemoryHistory } from "history";
-import { render, cleanup, fireEvent } from "@testing-library/react";
-import { createStore, applyMiddleware } from "redux";
-import { Provider } from "react-redux";
-import thunk from "redux-thunk";
-import reducer from "../reducers/index";
+import { cleanup, fireEvent } from "@testing-library/react";
+import wrapper from "../__testUtils__/wrapper";
 import secureStorage from "../utils/secureToken";
 import mockWorkoutRes from "../__testUtils__/mockWorkoutRes";
 import axios from "axios";
+import reducer from "../reducers/index.js";
 
 describe("Weekly dash date settings", () => {
-  afterEach(cleanup);
-  const store = createStore(reducer, applyMiddleware(thunk));
+  afterEach(() => {
+    cleanup;
+    jest.clearAllMocks();
+  });
 
   it("can go back in time", () => {
     const moment = extendMoment(Moment);
     secureStorage.setItem(`${process.env.REACT_APP_KEY}`, "token");
     axios.post.mockResolvedValue(mockWorkoutRes);
-    const history = createMemoryHistory();
-    const { container, getByText, getByTestId, queryByText } = render(
-      <Provider store={store}>
-        <Router history={history}>
-          <Routes />
-        </Router>
-      </Provider>
+    const { container, getByText, getByTestId, queryByText, history } = wrapper(
+      reducer,
+      <Routes />
     );
 
     history.push("/dashboard");
@@ -74,18 +68,16 @@ describe("Weekly dash date settings", () => {
         )
       )
     ).toBeFalsy();
+
+    expect(axios.post).toHaveBeenCalledTimes(2);
   });
 
   it("can go forward in time", () => {
     const moment = extendMoment(Moment);
-    const history = createMemoryHistory();
     axios.post.mockResolvedValue(mockWorkoutRes);
-    const { container, getByText, getByTestId, queryByText } = render(
-      <Provider store={store}>
-        <Router history={history}>
-          <Routes />
-        </Router>
-      </Provider>
+    const { container, getByText, getByTestId, queryByText, history } = wrapper(
+      reducer,
+      <Routes />
     );
 
     history.push("/dashboard");
@@ -132,5 +124,7 @@ describe("Weekly dash date settings", () => {
         )
       )
     ).toBeFalsy();
+
+    expect(axios.post).toHaveBeenCalledTimes(2);
   });
 });

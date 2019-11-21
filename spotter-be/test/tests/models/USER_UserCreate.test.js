@@ -18,6 +18,7 @@ describe("User model creation", () => {
   // Invalid email errs
   it("cannot create with invalid email", async () => {
     const user = new User({ email: "bademail", password: "password" });
+    console.log(user.validate(err => console.log(err)))
     await expect(user.save()).to.be.rejectedWith("Please add a valid email");
   });
 
