@@ -18,7 +18,7 @@
       background: $gray4;
       color: $gray1;
       padding: 1.25rem;
-      border-radius: 4px;
+      border-radius: $border;
       font-family: "Roboto";
       @include flex-center;
       cursor: pointer;

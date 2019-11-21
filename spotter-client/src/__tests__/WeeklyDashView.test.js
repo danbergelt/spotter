@@ -26,7 +26,7 @@ describe("Weekly dash date settings", () => {
 
     history.push("/dashboard");
 
-    expect(container.contains(getByText(/view prs/i))).toBeTruthy();
+    expect(container.contains(getByText(/week/i))).toBeTruthy();
     expect(
       container.contains(
         getByText(
@@ -82,7 +82,7 @@ describe("Weekly dash date settings", () => {
 
     history.push("/dashboard");
 
-    expect(container.contains(getByText(/view prs/i))).toBeTruthy();
+    expect(container.contains(getByText(/week/i))).toBeTruthy();
     expect(
       container.contains(
         getByText(

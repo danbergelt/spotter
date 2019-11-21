@@ -56,7 +56,7 @@
         .exercise-form-field {
           height: 2.5rem;
           outline: none;
-          border-radius: 4px;
+          border-radius: $border;
           border: 0;
           padding: 1.5rem 0 1.5rem 0.5rem;
           font-size: $p;
@@ -96,7 +96,7 @@
 
       .exercise-row {
         padding: 1rem 0.5rem;
-        border-radius: 4px;
+        border-radius: $border;
         display: flex;
         align-items: flex-end;
 

@@ -38,7 +38,7 @@
       background: white;
       border: 1px solid $info;
       cursor: pointer;
-      border-radius: 4px;
+      border-radius: $border;
 
       &:hover {
         color: darken($info, 10%);

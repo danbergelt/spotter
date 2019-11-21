@@ -5,8 +5,7 @@ import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { connect } from "react-redux";
 import { fetchWorkouts } from "../../../actions/fetchWorkoutsActions";
 
-const Workouts = ( { data, fetchWorkouts } ) => {
-
+const Workouts = ({ data, fetchWorkouts }) => {
   const { err, isLoading, workouts } = data;
 
   const [week, setWeek] = useState(0);
@@ -30,11 +29,13 @@ const Workouts = ( { data, fetchWorkouts } ) => {
       <div className="week-workouts-head">
         <div className="week-workouts-icons">
           <FiChevronLeft
+            style={{ fontSize: "2.75rem" }}
             data-testid="back"
             onClick={dec}
             className="week-workouts-head-icon"
           />
           <FiChevronRight
+            style={{ fontSize: "2.75rem" }}
             data-testid="forward"
             onClick={inc}
             className="week-workouts-head-icon"
@@ -54,7 +55,7 @@ const Workouts = ( { data, fetchWorkouts } ) => {
 const mapStateToProps = state => {
   return {
     data: state.fetchWorkoutsReducer
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps, { fetchWorkouts})(Workouts);
+export default connect(mapStateToProps, { fetchWorkouts })(Workouts);

@@ -51,7 +51,7 @@ describe("redirects and conditional rendering", () => {
     const { container, getByText, history } = wrapper(reducer, <Routes />);
 
     expect(history.location.pathname).toEqual("/dashboard");
-    expect(container.contains(getByText(/view prs/i))).toBeTruthy();
+    expect(container.contains(getByText(/week/i))).toBeTruthy();
   });
 
   test("login path pushes logged in users to dashboard", () => {
@@ -59,7 +59,7 @@ describe("redirects and conditional rendering", () => {
 
     history.push("/login");
     expect(history.location.pathname).toEqual("/dashboard");
-    expect(container.contains(getByText(/view prs/i))).toBeTruthy();
+    expect(container.contains(getByText(/week/i))).toBeTruthy();
   });
 
   test("signup path pushes logged in users to dashboard", () => {
@@ -67,7 +67,7 @@ describe("redirects and conditional rendering", () => {
 
     history.push("/signup");
     expect(history.location.pathname).toEqual("/dashboard");
-    expect(container.contains(getByText(/view prs/i))).toBeTruthy();
+    expect(container.contains(getByText(/week/i))).toBeTruthy();
   });
 
   test("404 page displays at bad route", () => {

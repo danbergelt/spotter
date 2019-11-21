@@ -1,20 +1,23 @@
 @import "../../variables.scss";
-@import '../../mixins.scss';
+@import "../../mixins.scss";
 
 .week-workouts-container {
   .week-workouts-head {
     margin-top: 3rem;
     color: $gray1;
     font-size: 2rem;
-    font-weight: bold;
     text-align: center;
+    font-weight: bold;
     display: flex;
+    align-items: center;
 
     .week-workouts-icons {
       margin-right: 2rem;
       color: $gray2;
 
       .week-workouts-head-icon {
+        margin-right: 1.5rem;
+
         &:hover {
           background: $gray3;
           border-radius: 20px;
@@ -26,7 +29,7 @@
 
   .week-workouts-days {
     display: flex;
-    margin-top: 3rem;
+    margin-top: 2rem;
     font-size: 1.2rem;
     color: $gray1;
 
@@ -36,12 +39,16 @@
 
       .week-workouts-day {
         border-bottom: 1px solid $gray3;
-        padding: 2rem 0 4rem 0;
+        padding: 2rem 0 2rem 0;
 
         .week-workout-day-slug {
           margin-bottom: 1rem;
-          font-size: 2rem;
+          font-size: $p;
           color: $gray1;
+        }
+
+        .week-workout-day-date {
+          color: $gray2;
         }
       }
 
@@ -53,10 +60,10 @@
         box-shadow: $box;
         @include flex-center;
         justify-content: center;
-        border-radius: 4px;
+        border-radius: $border;
 
         &:hover {
-          transform: $hover-scale;
+          background: $gray3;
           cursor: pointer;
         }
 

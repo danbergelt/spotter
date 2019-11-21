@@ -51,7 +51,7 @@
     background: $primary;
     color: white;
     font-weight: bold;
-    border-radius: 4px;
+    border-radius: $border;
 
     &:hover {
       cursor: pointer;
