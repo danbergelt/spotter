@@ -9,6 +9,11 @@ const TagSchema = new Schema({
   content: {
     type: String,
     maxlength: [20, "20 character max"]
+  },
+  user: {
+    type: Schema.ObjectId,
+    ref: "User",
+    required: [true, "User ID is required"]
   }
 });
 

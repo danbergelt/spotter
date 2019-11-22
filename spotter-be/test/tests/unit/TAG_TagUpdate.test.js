@@ -4,12 +4,14 @@ const expect = chai.expect;
 chai.use(require("chai-as-promised"));
 const Tag = require("../../../models/Tag");
 const { dbHelper } = require("../../utils/db");
+const { createUser } = require("../../utils/createUser");
 
 describe("Update tag model", () => {
   dbHelper(Tag);
 
   it("successfully updates tag model", async () => {
-    const tag = new Tag({ color: "red", content: "content" });
+    const { _id } = await createUser();
+    const tag = new Tag({ color: "red", content: "content", user: _id });
     await tag.save();
     await Tag.findByIdAndUpdate(tag._id, { color: "blue", content: "text" });
     const foo = await Tag.findOne({ color: "blue" });
@@ -17,7 +19,8 @@ describe("Update tag model", () => {
   });
 
   it("cannot update tag color to undefined", async () => {
-    const tag = new Tag({ color: "red", content: "content" });
+    const { _id } = await createUser();
+    const tag = new Tag({ color: "red", content: "content", user: _id });
     await tag.save();
     await expect(
       Tag.findByIdAndUpdate(
@@ -29,7 +32,8 @@ describe("Update tag model", () => {
   });
 
   it("cannot update tag color to undefined", async () => {
-    const tag = new Tag({ color: "red", content: "content" });
+    const { _id } = await createUser();
+    const tag = new Tag({ color: "red", content: "content", user: _id });
     await tag.save();
     await expect(
       Tag.findByIdAndUpdate(
