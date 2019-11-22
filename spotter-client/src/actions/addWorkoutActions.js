@@ -13,13 +13,13 @@ export const addWorkoutNotes = notes => {
 };
 
 export const addExercise = exercise => {
-  return { type: ADD_EXERCISE, payload: exercise }
+  return { type: ADD_EXERCISE, payload: exercise };
 };
 
 export const resetWorkout = () => {
-  return { type: RESET_WORKOUT }
+  return { type: RESET_WORKOUT };
 };
 
 export const resetNotes = () => {
-  return { type: RESET_NOTES }
+  return { type: RESET_NOTES };
 };
