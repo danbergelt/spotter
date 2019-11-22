@@ -7,7 +7,7 @@ const { dbHelper } = require("../../utils/db");
 
 describe("User model creation", () => {
   dbHelper(User);
-  
+
   // Successful user creation
   it("creates a user", async () => {
     const user = new User({ email: "test@email.com", password: "password" });
@@ -18,7 +18,6 @@ describe("User model creation", () => {
   // Invalid email errs
   it("cannot create with invalid email", async () => {
     const user = new User({ email: "bademail", password: "password" });
-    console.log(user.validate(err => console.log(err)))
     await expect(user.save()).to.be.rejectedWith("Please add a valid email");
   });
 

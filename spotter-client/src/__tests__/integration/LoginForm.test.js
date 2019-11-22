@@ -1,9 +1,9 @@
 import React from "react";
-import Login from "../pages/LogIn";
+import Login from "../../pages/LogIn";
 import axios from "axios";
-import wrapper from '../__testUtils__/wrapper';
+import wrapper from '../../__testUtils__/wrapper';
 import { cleanup, fireEvent, wait } from "@testing-library/react";
-import secureStorage from "../utils/secureToken";
+import secureStorage from "../../utils/secureToken";
 
 describe("Login validation", () => {
   afterEach(cleanup);

@@ -3,7 +3,7 @@
 
 .week-workouts-container {
   .week-workouts-head {
-    margin-top: 3rem;
+    margin-top: 2rem;
     color: $gray1;
     font-size: 2rem;
     text-align: center;
@@ -55,7 +55,6 @@
       .week-workouts-add-workout {
         color: $gray1;
         margin: 1rem;
-        font-size: 1.3rem;
         padding: 1rem 0;
         box-shadow: $box;
         @include flex-center;
