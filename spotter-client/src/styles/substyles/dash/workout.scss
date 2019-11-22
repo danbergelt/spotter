@@ -1,7 +1,7 @@
 @import '../../variables.scss';
 
 .workout-card-container {
-  margin: 3rem 1rem 0 1rem;
+  margin: 0 1rem;
   border-radius: $border;
   padding: 2rem;
   display: flex;
@@ -15,7 +15,7 @@
   }
 
   .workout-card-title {
-    font-size: $p;
+    font-size: 1.3rem;
     color: $gray1;
   }
 
@@ -28,10 +28,11 @@
   .workout-card-tag-container {
     display: flex;
     flex-wrap: wrap;
+    margin-top: 2rem;
 
     .workout-card-tag {
       margin-right: 1.5rem;
-      margin-top: 7rem;
+      margin-top: 1rem;
       font-size: 1rem;
       padding: 0.25rem 1.25rem;
       border-radius: 8px;

@@ -1,11 +1,11 @@
 import React from "react";
-import Routes from "../routes";
+import Routes from "../../routes";
 import { fireEvent, cleanup } from "@testing-library/react";
-import wrapper from "../__testUtils__/wrapper";
-import secureStorage from "../utils/secureToken";
+import wrapper from "../../__testUtils__/wrapper";
+import secureStorage from "../../utils/secureToken";
 import axios from "axios";
-import mockWorkoutRes from "../__testUtils__/mockWorkoutRes";
-import reducer from "../reducers/index";
+import mockWorkoutRes from "../../__testUtils__/mockWorkoutRes";
+import reducer from "../../reducers/index";
 
 describe("Nav routes", () => {
   afterEach(() => {

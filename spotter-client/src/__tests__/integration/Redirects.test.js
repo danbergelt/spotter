@@ -1,11 +1,11 @@
 import React from "react";
-import wrapper from "../__testUtils__/wrapper";
-import Routes from "../Routes";
+import wrapper from "../../__testUtils__/wrapper";
+import Routes from "../../Routes";
 import { cleanup, wait } from "@testing-library/react";
 import axios from "axios";
-import secureStorage from "../utils/secureToken";
-import mockWorkoutRes from "../__testUtils__/mockWorkoutRes";
-import reducer from "../reducers/index";
+import secureStorage from "../../utils/secureToken";
+import mockWorkoutRes from "../../__testUtils__/mockWorkoutRes";
+import reducer from "../../reducers/index";
 
 describe("redirects and conditional rendering", () => {
   afterEach(cleanup);
