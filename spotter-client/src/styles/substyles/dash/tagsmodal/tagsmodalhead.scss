@@ -1,0 +1,12 @@
+.tags-modal-head-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.3rem;
+
+  .tags-modal-head-tabs {
+    display: flex;
+    width: 75%;
+    justify-content: space-between;
+  }
+}

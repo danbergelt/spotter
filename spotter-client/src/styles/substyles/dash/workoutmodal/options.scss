@@ -3,6 +3,7 @@
 
 .add-workout-options-container {
   width: 35%;
+  height: max-content;
 
   .add-workout-options-title {
     font-size: 1.3rem;
@@ -13,7 +14,7 @@
     margin: 1.25rem 0;
 
     .add-workout-options-button {
-      font-size: $p;
+      font-size: 1.3rem;
       margin-bottom: 0.75rem;
       background: $gray4;
       color: $gray1;
@@ -32,17 +33,22 @@
       }
     }
 
+    .add-workout-options-button.delete {
+      background: $danger;
+      color: white;
+
+      &:hover {
+        background: darken($danger, 5%);
+      }
+    }
+
     .add-workout-options-button.publish {
       background: $success;
       color: white;
 
       &:hover {
-        background: darken($success, 2.5%);
+        background: darken($success, 5%);
       }
     }
-  }
-
-  .add-workout-options-title.sub {
-    margin-top: 3.25rem;
   }
 }

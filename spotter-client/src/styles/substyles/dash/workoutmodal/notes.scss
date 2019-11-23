@@ -4,7 +4,7 @@
 .workout-data-notes {
   .workout-data-notes-head {
     @include flex-center;
-    font-size: 2rem;
+    font-size: 1.75rem;
     font-weight: bold;
     color: $gray1;
     margin-top: 3rem;
@@ -18,10 +18,10 @@
     }
 
     .workout-data-notes-edit {
-      font-size: $p;
+      font-size: 1.3rem;
       border-radius: $border;
       background: $gray4;
-      padding: 1.25rem;
+      padding: 0.75rem;
       font-weight: normal;
 
       &:hover {
@@ -38,7 +38,8 @@
     background: $gray3;
     margin-left: 3rem;
     margin-top: 2rem;
-    font-size: $p;
+    padding: 0;
+    font-size: 1.3rem;
     border-radius: $border;
 
     &:focus {
@@ -61,12 +62,12 @@
 
 .workout-data-notes-actions.active {
   display: flex;
-  font-size: 2rem;
+  font-size: 1.75rem;
   margin-left: 3rem;
   margin-top: 2rem;
 
   .workout-data-notes-submit {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
     color: $info;
     cursor: pointer;
     margin-right: 1rem;
