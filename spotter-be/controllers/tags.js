@@ -8,7 +8,7 @@ const asyncHandler = require("../middleware/async");
 
 exports.createTag = asyncHandler(async (req, res, next) => {
   if (req.body.color && !req.body.content) {
-    const tags = await Tag.find({ color: req.body.color });
+    const tags = await Tag.find({ color: req.body.color, content: undefined });
     if (tags.length) {
       return next(new Err("Tag already exists", 400));
     }
@@ -24,7 +24,9 @@ exports.createTag = asyncHandler(async (req, res, next) => {
     }
   }
 
-  if (await Tag.find({ user: req.user._id }).length === 25) {
+  const tags = await Tag.find({ user: req.user._id });
+
+  if (tags.length >= 25) {
     return next(new Err("Too many tags, delete one to make room", 400));
   }
 
