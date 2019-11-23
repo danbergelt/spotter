@@ -5,7 +5,6 @@
   .workout-data-exercises-head {
     @include flex-center;
     font-size: 1.75rem;
-    font-weight: bold;
     color: $gray1;
     margin-top: 2rem;
 
@@ -110,7 +109,6 @@
 
           .exercise-name {
             font-size: 1.75rem;
-            font-weight: bold;
             margin-bottom: 1rem;
           }
 
