@@ -9,6 +9,7 @@ dotenv.config();
 // Route imports
 const users = require("./routes/users");
 const workouts = require("./routes/workouts");
+const tags = require("./routes/tags");
 
 // Connect to DB and run server
 if (process.env.NODE_ENV === "development") {
@@ -32,6 +33,7 @@ app.use(express.json());
 // Routes
 app.use("/api/auth", users);
 app.use("/api/auth/workouts", workouts);
+app.use("/api/auth/tags", tags);
 
 // Error handling
 app.use(errorHandler);

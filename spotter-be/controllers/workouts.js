@@ -61,9 +61,7 @@ exports.addWorkout = asyncHandler(async (req, res, next) => {
 // @access --> Private
 
 exports.editWorkout = asyncHandler(async (req, res, next) => {
-  let workout = await Workout.findById(req.params.id);
-
-  workout = await Workout.findByIdAndUpdate(req.params.id, req.body, {
+  let workout = await Workout.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true
   });
