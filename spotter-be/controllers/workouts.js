@@ -61,18 +61,7 @@ exports.addWorkout = asyncHandler(async (req, res, next) => {
 // @access --> Private
 
 exports.editWorkout = asyncHandler(async (req, res, next) => {
-  let workout = await Workout.findById(req.params.id);
-
-  if (JSON.stringify(workout.user) !== JSON.stringify(req.user._id)) {
-    return next(
-      new Err(
-        `User ${req.user._id} is not authorized to edit this workout`,
-        403
-      )
-    );
-  }
-
-  workout = await Workout.findByIdAndUpdate(req.params.id, req.body, {
+  let workout = await Workout.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true
   });

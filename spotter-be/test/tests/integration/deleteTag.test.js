@@ -1,85 +1,83 @@
 const app = require("../../utils/index");
 const { dbHelper } = require("../../utils/db");
-const Workout = require("../../../models/Workout");
+const Tag = require("../../../models/Tag");
 const chaiHttp = require("chai-http");
 const chai = require("chai");
 const should = chai.should();
 const { createUser } = require("../../utils/createUser");
-const { createWorkout } = require("../../utils/createWorkout");
-const { template } = require("../../utils/templateWorkout");
+const { createTag } = require("../../utils/createTag");
 const { genToken } = require("../../utils/genToken");
 
 // configure Chai HTTP
 chai.use(chaiHttp);
 
-describe("DELETE workout by workout id", () => {
-  // connect to test db
-  dbHelper(Workout);
+describe("DELETE Tag by tag id", () => {
+  dbHelper(Tag);
 
   let uId;
+  let tId;
 
-  // create test user
   beforeEach(async () => {
     const { _id } = await createUser();
-    template.user = _id;
-    const { _id: temp } = await createWorkout(template);
-    uId = temp;
-    return uId;
+    uId = _id;
+    const { _id: temp } = await createTag(_id);
+    tId = temp;
+    return uId, tId;
   });
 
-  it("should delete workout", done => {
-    const token = genToken(template.user);
+  it("successfully deletes tag", done => {
+    const token = genToken(uId);
     chai
       .request(app)
-      .delete(`/api/auth/workouts/${uId}`)
+      .delete(`/api/auth/tags/${tId}`)
       .set("Authorization", `Bearer ${token}`)
       .end((err, res) => {
         should.exist(res);
         res.body.success.should.equal(true);
         res.should.have.status(200);
-        res.body.data.should.equal("Workout deleted")
+        res.body.data.should.equal("Tag deleted");
         done();
       });
   });
 
-  it("should not delete workout with bad id", done => {
-    const token = genToken(template.user);
+  it("should not delete tag with bad id", done => {
+    const token = genToken(uId);
     chai
       .request(app)
-      .delete(`/api/auth/workouts/12345`)
+      .delete(`/api/auth/tags/123456`)
       .set("Authorization", `Bearer ${token}`)
       .end((err, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(404);
-        res.body.error.should.equal("Resource not found")
+        res.body.error.should.equal("Resource not found");
         done();
       });
   });
 
-  it("should not delete workout with bad token", done => {
+  it("should not delete tag with bad token", done => {
     chai
       .request(app)
-      .delete(`/api/auth/workouts/${uId}`)
+      .delete(`/api/auth/tags/${uId}`)
       .set("Authorization", `Bearer token`)
       .end((err, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(401);
-        res.body.error.should.equal("Access denied")
+        res.body.error.should.equal("Access denied");
         done();
       });
   });
 
-  it("should not delete workout with no token", done => {
+  it("should not delete tag with no token", done => {
     chai
       .request(app)
-      .delete(`/api/auth/workouts/${uId}`)
+      .delete(`/api/auth/tags/${uId}`)
       .end((err, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(401);
-        res.body.error.should.equal("Access denied")
+        res.body.error.should.equal("Access denied");
         done();
       });
   });
