@@ -59,7 +59,6 @@ describe("PUT edit workout by workout id", () => {
   });
 
   it("should not edit workout with bad token", done => {
-    const token = genToken(template.user);
     chai
       .request(app)
       .put(`/api/auth/workouts/${uId}`)
@@ -75,7 +74,6 @@ describe("PUT edit workout by workout id", () => {
   });
 
   it("should not edit workout with no token", done => {
-    const token = genToken(template.user);
     chai
       .request(app)
       .put(`/api/auth/workouts/${uId}`)
