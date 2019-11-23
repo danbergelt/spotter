@@ -19,7 +19,7 @@
     "morgan": "^1.9.1"
   },
   "scripts": {
-    "test": "nodemon --exec 'mocha test/tests/integration/editTag.test.js'",
+    "test": "nodemon --exec 'mocha test/tests/integration/getTagsByUserId.test.js'",
     "start": "NODE_ENV=production node index",
     "dev": "nodemon index"
   }
