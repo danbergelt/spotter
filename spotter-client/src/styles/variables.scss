@@ -15,5 +15,15 @@ $hover-scale: scale(1.1);
 $border: 4px;
 
 :export {
-  gray3: $gray3
+  primary: $primary;
+  danger: $danger;
+  success: $success;
+  info: $info;
+  warning: $warning;
+  info2: #07EBF7;
+  warning2: #FFD800;
+  success2: #0DDD83;
+  gray1: $gray1;
+  gray2: $gray2;
+  gray3: $gray3;
 }
