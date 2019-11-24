@@ -27,7 +27,7 @@ exports.createTag = asyncHandler(async (req, res, next) => {
   const tags = await Tag.find({ user: req.user._id });
 
   if (tags.length >= 25) {
-    return next(new Err("Too many tags, delete one to make room", 400));
+    return next(new Err("25 tag maximum", 400));
   }
 
   const tag = await Tag.create(req.body);

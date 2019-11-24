@@ -21,7 +21,9 @@ const ExerciseForm = ({
               <p className="save-exercise-button">{<FiSave />}</p>
             )}
           </div>
-          {errors.exercise && touched.exercise && <p className="error-exercise-form">{errors.exercise}</p>}
+          {errors.exercise && touched.exercise && (
+            <p className="error-exercise-form">{errors.exercise}</p>
+          )}
           <Field
             className="exercise-form-field"
             name="exercise"
@@ -31,7 +33,9 @@ const ExerciseForm = ({
         </div>
         <div className="exercise-form-field-container">
           <label className="exercise-form-field-label">Weight</label>
-          {errors.weight && touched.weight && <p className="error-exercise-form">{errors.weight}</p>}
+          {errors.weight && touched.weight && (
+            <p className="error-exercise-form">{errors.weight}</p>
+          )}
           <Field
             className="exercise-form-field"
             name="weight"
@@ -41,7 +45,9 @@ const ExerciseForm = ({
         </div>
         <div className="exercise-form-field-container">
           <label className="exercise-form-field-label">Sets</label>
-          {errors.sets && touched.sets && <p className="error-exercise-form">{errors.sets}</p>}
+          {errors.sets && touched.sets && (
+            <p className="error-exercise-form">{errors.sets}</p>
+          )}
           <Field
             className="exercise-form-field"
             name="sets"
@@ -51,7 +57,9 @@ const ExerciseForm = ({
         </div>
         <div className="exercise-form-field-container">
           <label className="exercise-form-field-label">Reps</label>
-          {errors.reps && touched.reps && <p className="error-exercise-form">{errors.reps}</p>}
+          {errors.reps && touched.reps && (
+            <p className="error-exercise-form">{errors.reps}</p>
+          )}
           <Field
             className="exercise-form-field"
             name="reps"
@@ -59,18 +67,36 @@ const ExerciseForm = ({
             type="number"
           />
         </div>
-        <FiCheck
-          data-testid="submit-exercise"
-          className="exercise-form-button submit"
+        <button
+          style={{
+            border: "none",
+            background: "none",
+            padding: "0",
+            outline: "none"
+          }}
           type="submit"
-          onClick={submitForm}
-        />
-        <FiTrash
-          data-testid="trash-exercise"
-          className="exercise-form-button clear"
+        >
+          <FiCheck
+            data-testid="submit-exercise"
+            className="exercise-form-button submit"
+          />
+        </button>
+        <button
+          style={{
+            border: "none",
+            background: "none",
+            padding: "0",
+            outline: "none"
+          }}
           type="button"
-          onClick={handleReset}
-        />
+        >
+          <FiTrash
+            data-testid="trash-exercise"
+            className="exercise-form-button clear"
+            type="button"
+            onClick={handleReset}
+          />
+        </button>
       </Form>
     </div>
   );

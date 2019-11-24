@@ -236,7 +236,7 @@ describe("POST tag by user id", () => {
           should.exist(res);
           res.body.success.should.equal(false);
           res.should.have.status(400);
-          res.body.error.should.equal("Too many tags, delete one to make room");
+          res.body.error.should.equal("25 tag maximum");
           done();
         });
     });
