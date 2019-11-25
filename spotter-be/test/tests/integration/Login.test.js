@@ -25,6 +25,7 @@ describe("Login existing user", async () => {
           .send({ email: "new@email.com", password: "password" })
           .set('Cookie', 'toll=paid')
           .end((err, res) => {
+            chai.expect(res).to.have.cookie('toll')
             should.exist(res);
             res.body.success.should.equal(true);
             res.should.have.status(200);

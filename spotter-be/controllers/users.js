@@ -50,7 +50,7 @@ exports.login = asyncHandler(async (req, res, next) => {
   if (!isMatch) {
     return next(new Err("Invalid credentials", 401));
   }
-  
+
   refreshToken(
     res,
     genToken(user._id, process.env.REF_SECRET, process.env.REF_EXPIRE)
@@ -59,9 +59,15 @@ exports.login = asyncHandler(async (req, res, next) => {
   sendToken(user, 200, res);
 });
 
-// @desc --> refresh token
-// @route --> POST /api/auth/register
+// @desc --> logout
+// @route --> POST /api/auth/logout
 // @access --> Public
+
+exports.logout = asyncHandler(async (req, res, next) => {
+  refreshToken(res, "");
+
+  return res.status(200).json({ success: true, data: "Logged out" });
+});
 
 // Get token from model, send response
 const sendToken = (user, statusCode, res) => {
