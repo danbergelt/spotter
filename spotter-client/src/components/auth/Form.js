@@ -70,7 +70,9 @@ const FormikForm = withFormik({
   }),
   async handleSubmit(values, { props, resetForm, setStatus }) {
     try {
-      const res = await axios.post(props.api, values);
+      const res = await axios.post(props.api, values, {
+        withCredentials: true
+      });
       resetForm();
       secureStorage.setItem(`${process.env.REACT_APP_KEY}`, res.data.token);
       props.history.push("/dashboard");
@@ -78,7 +80,7 @@ const FormikForm = withFormik({
       if (error.response) {
         setStatus(error.response.data.error);
       } else {
-        props.history.push("/500")
+        props.history.push("/500");
       }
     }
   }

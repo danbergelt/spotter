@@ -1,6 +1,7 @@
 const Err = require("../utils/Err");
 const User = require("../models/User");
 const asyncHandler = require("../middleware/async");
+const { refreshToken, genToken } = require("../utils/tokens");
 
 // @desc --> register user
 // @route --> POST /api/auth/register
@@ -15,6 +16,11 @@ exports.register = asyncHandler(async (req, res, next) => {
     password,
     role
   });
+
+  refreshToken(
+    res,
+    genToken(user._id, process.env.REF_SECRET, process.env.REF_EXPIRE)
+  );
 
   sendToken(user, 201, res);
 });
@@ -44,9 +50,18 @@ exports.login = asyncHandler(async (req, res, next) => {
   if (!isMatch) {
     return next(new Err("Invalid credentials", 401));
   }
+  
+  refreshToken(
+    res,
+    genToken(user._id, process.env.REF_SECRET, process.env.REF_EXPIRE)
+  );
 
   sendToken(user, 200, res);
 });
+
+// @desc --> refresh token
+// @route --> POST /api/auth/register
+// @access --> Public
 
 // Get token from model, send response
 const sendToken = (user, statusCode, res) => {
@@ -64,5 +79,5 @@ const sendToken = (user, statusCode, res) => {
     options.secure = true;
   }
 
-  res.status(statusCode).json({success: true, token, id: user._id})
+  res.status(statusCode).json({ success: true, token, id: user._id });
 };

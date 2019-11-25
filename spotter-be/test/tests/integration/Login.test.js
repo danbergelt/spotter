@@ -23,6 +23,7 @@ describe("Login existing user", async () => {
           .request(app)
           .post("/api/auth/login")
           .send({ email: "new@email.com", password: "password" })
+          .set('Cookie', 'toll=paid')
           .end((err, res) => {
             should.exist(res);
             res.body.success.should.equal(true);
