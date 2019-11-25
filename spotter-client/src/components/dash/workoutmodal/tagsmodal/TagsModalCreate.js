@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { axiosWithAuth } from "../../../../utils/axiosWithAuth";
 import styles from "../../../../styles/variables.scss";
 import adjust from "../../../../utils/darkenColorInJS";
-import { FiCheck } from "react-icons/fi";
+import { FiCheck, FiX } from "react-icons/fi";
+import Loader from "react-loader-spinner";
 
 const TagsModalCreate = () => {
   const colors = [
@@ -14,7 +16,7 @@ const TagsModalCreate = () => {
     styles.success2,
     styles.warning2,
     styles.gray1,
-    styles.gray2,
+    styles.gray2
   ];
 
   const colorStyles = {
@@ -31,6 +33,28 @@ const TagsModalCreate = () => {
   const [name, setName] = useState("");
   const [hover, setHover] = useState(null);
   const [color, setColor] = useState(styles.primary);
+  const [message, setMessage] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  const submitTag = async () => {
+    setLoading(true);
+    try {
+      await axiosWithAuth().post(
+        `${process.env.REACT_APP_T_API}/api/auth/tags`,
+        {
+          color: color,
+          content: name
+        }
+      );
+      setMessage({ success: "New tag created" });
+      setLoading(false);
+      setName("");
+    } catch (error) {
+      setMessage(error.response.data);
+      setLoading(false);
+      setName("");
+    }
+  };
 
   return (
     <div className="tags-modal-create">
@@ -41,7 +65,7 @@ const TagsModalCreate = () => {
         className="tags-modal-create-name"
       />
       <div className="tags-modal-colors">
-        {colors.map((c, i) => (
+        {colors.map(c => (
           <div
             key={c}
             style={
@@ -52,10 +76,44 @@ const TagsModalCreate = () => {
             onClick={() => setColor(c)}
             onMouseEnter={() => setHover(c)}
             onMouseLeave={() => setHover(null)}
-          >{c === color && <div className="active-tag-color"><FiCheck /></div>}</div>
+          >
+            {c === color && (
+              <div className="active-tag-color">
+                <FiCheck />
+              </div>
+            )}
+          </div>
         ))}
       </div>
-      <div className="tags-modal-create-submit">Create Tag</div>
+      {message.error && (
+        <div className="tag-creation failure">
+          {message.error}
+          <div
+            onClick={() => setMessage("")}
+            style={{ fontSize: "1.2rem", cursor: "pointer" }}
+          >
+            <FiX />
+          </div>
+        </div>
+      )}
+      {message.success && (
+        <div className="tag-creation success">
+          {message.success}
+          <div
+            onClick={() => setMessage("")}
+            style={{ fontSize: "1.2rem", cursor: "pointer" }}
+          >
+            <FiX />
+          </div>
+        </div>
+      )}
+      <div onClick={submitTag} className="tags-modal-create-submit">
+        {loading ? (
+          <Loader color="white" height={10} width={50} type="ThreeDots" />
+        ) : (
+          "Create Tag"
+        )}
+      </div>
     </div>
   );
 };

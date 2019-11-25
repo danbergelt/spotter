@@ -6,13 +6,13 @@ const Hero = () => {
       <div className="home-hero-main">
         <p className="home-hero-main-text">
           A{" "}
-          <span className="home-hero-sub-text-highlight">fitness tracker</span>{" "}
-          that includes what you need, and cuts the B.S.
+          <span className="home-hero-sub-text-highlight">lifting tracker</span>{" "}
+          that includes what you need, and cuts the BS
         </p>
       </div>
       <div className="home-hero-sub">
         <div className="home-hero-sub-text">
-          No bells and whistles, no needless features, no upselling. Just you, and your lifts.
+          Stop living in Excel. Track your lifts, and have fun doing it.
         </div>
       </div>
       <p className="home-hero-reg">Sign up</p>

@@ -7,13 +7,12 @@
   font-size: 1.23rem;
   align-items: center;
   margin-bottom: 0.5rem;
+  margin-bottom: 1.2rem;
 
   .tags-modal-head-tabs {
     display: flex;
     width: 66%;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.2rem;
 
     .tags-modal-tab-active {
       color: $gray1;

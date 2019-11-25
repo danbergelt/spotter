@@ -13,7 +13,7 @@ const TagsModal = ({ modal, closeModal }) => {
     },
     content: {
       width: "300px",
-      height: "300px",
+      height: "325px",
       marginLeft: "60.5vw"
     }
   };

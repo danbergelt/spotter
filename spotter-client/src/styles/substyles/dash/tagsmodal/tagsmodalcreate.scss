@@ -34,6 +34,22 @@
     }
   }
 
+  .tag-creation {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .tag-creation.failure {
+    background: rgba($danger, 0.5);
+  }
+
+  .tag-creation.success {
+    background: rgba($success, 0.5);
+  }
+
   .tags-modal-create-submit {
     width: 100%;
     padding: 0.75rem;

@@ -15,6 +15,7 @@ export const fetchWorkouts = (range, history) => {
         dispatch({ type: FETCH_WORKOUTS_SUCCESS, payload: res.data.workouts });
       })
       .catch(err => {
+        console.log(err.response)
         if (err.response) {
           dispatch({
             type: FETCH_WORKOUTS_ERROR,

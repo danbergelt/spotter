@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
-import secureStorage from '../utils/secureToken';
+import secureStorage from "../utils/secureToken";
 
 export const useToken = () => {
   const location = useLocation();
@@ -13,4 +13,4 @@ export const useToken = () => {
   }, [location.pathname]);
 
   return token;
-}
+};
