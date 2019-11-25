@@ -108,7 +108,7 @@ describe("POST tag by user id", () => {
   describe("wrapper for testing custom duplicates check (no content)", () => {
     beforeEach(async () => {
       dbHelper(Tag);
-      await Tag.create({ color: "red", user: uId });
+      await Tag.create({ color: "red", user: uId, content: "" });
     });
 
     it("should not post duplicate tag (no content)", done => {
@@ -117,7 +117,7 @@ describe("POST tag by user id", () => {
         .request(app)
         .post("/api/auth/tags")
         .set("Authorization", `Bearer ${token}`)
-        .send({ color: "red", user: uId })
+        .send({ color: "red", user: uId, content: "" })
         .end((err, res) => {
           should.exist(res);
           res.body.success.should.equal(false);

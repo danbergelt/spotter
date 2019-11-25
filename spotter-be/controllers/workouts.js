@@ -32,7 +32,7 @@ exports.workoutRangeByUserId = asyncHandler(async (req, res, next) => {
   }
 
   const workouts = await Workout.find({
-    user: req.user._id,
+    user: req.user,
     date: { $in: req.body.range }
   }).sort({ date: 1 });
 

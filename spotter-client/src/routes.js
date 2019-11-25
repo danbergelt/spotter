@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Profiler } from "react";
 import { useToken } from "./hooks/useToken";
 import { Route, Switch, Redirect } from "react-router-dom";
 import PrivateRoute from "./utils/PrivateRoute";
