@@ -9,19 +9,21 @@ import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import ServerError from "./pages/ServerError";
+import { connect } from "react-redux";
 
-const Routes = () => {
+const Routes = ({ token }) => {
+
   return (
     <Layout>
       <Switch>
         <Route exact path="/">
-          {useToken() ? <Redirect to="/dashboard" /> : <Home />}
+          {token ? <Redirect to="/dashboard" /> : <Home />}
         </Route>
         <Route path="/login">
-          {useToken() ? <Redirect to="/dashboard" /> : <LogIn />}
+          {token ? <Redirect to="/dashboard" /> : <LogIn />}
         </Route>
         <Route path="/signup">
-          {useToken() ? <Redirect to="/dashboard" /> : <SignUp />}
+          {token ? <Redirect to="/dashboard" /> : <SignUp />}
         </Route>
         <PrivateRoute path="/dashboard" component={Dashboard} />
         <Route path="/500" component={ServerError} />
@@ -31,4 +33,10 @@ const Routes = () => {
   );
 };
 
-export default Routes;
+const mapStateToProps = state => {
+  return {
+    token: state.tokenReducer.t
+  };
+};
+
+export default connect(mapStateToProps, {})(Routes);

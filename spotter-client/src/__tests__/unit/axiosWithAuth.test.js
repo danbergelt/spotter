@@ -1,7 +1,6 @@
 require("jest-localstorage-mock");
 import secureStorage from "../../utils/secureToken";
-import axios from "axios";
-import { axiosWithAuth } from "../../utils/axiosWithAuth";
+import axiosWithAuth from "../../utils/axiosWithAuth";
 
 jest.unmock("axios");
 

@@ -4,8 +4,6 @@ import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
-import secureStorage from "../../utils/secureToken";
-
 const SpotterForm = ({
   status,
   errors,
@@ -13,7 +11,8 @@ const SpotterForm = ({
   action,
   api,
   history,
-  children
+  children,
+  addToken
 }) => {
   return (
     <div className="form-container">
@@ -74,7 +73,7 @@ const FormikForm = withFormik({
         withCredentials: true
       });
       resetForm();
-      secureStorage.setItem(`${process.env.REACT_APP_KEY}`, res.data.token);
+      props.addToken(res.data.token)
       props.history.push("/dashboard");
     } catch (error) {
       if (error.response) {

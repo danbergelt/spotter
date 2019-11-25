@@ -4,13 +4,15 @@ import { Route, Redirect } from "react-router-dom";
 
 import secureStorage from './secureToken';
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+import { connect } from 'react-redux';
+
+const PrivateRoute = ({ token, component: Component, ...rest }) => {
   return (
     <>
       <Route
         {...rest}
         render={props => {
-          if (secureStorage.getItem(`${process.env.REACT_APP_KEY}`)) {
+          if (token) {
             return <Component {...props} />;
           }
           return <Redirect to="/login" />;
@@ -20,4 +22,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   );
 };
 
-export default PrivateRoute;
+const mapStateToProps = state => {
+  return {
+    token: state.tokenReducer.t
+  }
+}
+
+export default connect(mapStateToProps, null)(PrivateRoute);

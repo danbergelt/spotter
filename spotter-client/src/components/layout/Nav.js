@@ -1,13 +1,14 @@
 import React from "react";
-import { useToken } from "../../hooks/useToken";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-import secureStorage from "../../utils/secureToken";
+import { connect } from "react-redux";
+import { addToken } from "../../actions/addTokenActions";
 
-const Nav = () => {
+const Nav = ({ token, addToken }) => {
+
   const logOut = async () => {
-    secureStorage.removeItem(`${process.env.REACT_APP_KEY}`);
+    addToken(null);
     await axios.get(`${process.env.REACT_APP_T_API}/api/auth/logout`, {
       withCredentials: true
     });
@@ -21,17 +22,17 @@ const Nav = () => {
         </Link>
       </div>
       <div className="spotter-nav-links">
-        {!useToken() && (
+        {!token && (
           <Link to="/" className="spotter-nav-link">
             About
           </Link>
         )}
-        {!useToken() && (
+        {!token && (
           <Link to="/" className="spotter-nav-link">
             Contact
           </Link>
         )}
-        {useToken() && (
+        {token && (
           <Link
             data-testid="dashboard"
             className="spotter-nav-link dashboard"
@@ -40,7 +41,7 @@ const Nav = () => {
             Dashboard{" "}
           </Link>
         )}
-        {useToken() && (
+        {token && (
           <Link
             data-testid="logout"
             onClick={logOut}
@@ -50,12 +51,12 @@ const Nav = () => {
             Log Out{" "}
           </Link>
         )}
-        {!useToken() && (
+        {!token && (
           <Link data-testid="login" className="spotter-nav-link" to="/login">
             Log In
           </Link>
         )}
-        {!useToken() && (
+        {!token && (
           <Link
             data-testid="signup"
             className="spotter-nav-link styled"
@@ -69,4 +70,10 @@ const Nav = () => {
   );
 };
 
-export default Nav;
+const mapStateToProps = state => {
+  return {
+    token: state.tokenReducer.t
+  };
+};
+
+export default connect(mapStateToProps, { addToken })(Nav);
