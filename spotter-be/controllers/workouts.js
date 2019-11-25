@@ -31,8 +31,6 @@ exports.workoutRangeByUserId = asyncHandler(async (req, res, next) => {
     return next(new Err("Please supply a date range", 400));
   }
 
-  console.log(req.user._id)
-
   const workouts = await Workout.find({
     user: req.user._id,
     date: { $in: req.body.range }
