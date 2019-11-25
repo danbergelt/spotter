@@ -2,27 +2,28 @@ import React from "react";
 import Workouts from "../../components/dash/workouts/Workouts";
 import AddWorkout from "../../components/dash/workouts/AddWorkout";
 import { cleanup, fireEvent, wait } from "@testing-library/react";
-import secureStorage from "../../utils/secureToken";
 import wrapper from "../../__testUtils__/wrapper";
 import Modal from "react-modal";
 import axios from "axios";
 import mockWorkoutRes from "../../__testUtils__/mockWorkoutRes";
 import reducer from "../../reducers/index";
+import { ADD_TOKEN } from '../../actions/addTokenActions';
 
 describe("add workout modal functionality", () => {
   // initial setup
   afterEach(cleanup);
-  secureStorage.setItem(`${process.env.REACT_APP_KEY}`, "token");
   Modal.setAppElement(document.createElement("div"));
 
   test("open and close modal functionality", () => {
     // suppresses warning for rendering document.body directly in render function
     console.error = jest.fn();
     axios.post.mockResolvedValue(mockWorkoutRes);
-    const { queryByPlaceholderText, getByTestId, queryByTestId } = wrapper(
+    const { queryByPlaceholderText, getByTestId, queryByTestId, store } = wrapper(
       reducer,
       <Workouts />
     );
+
+    store.dispatch({ type: ADD_TOKEN, payload: "token" });
 
     fireEvent.click(getByTestId(/modal-click/i));
 
@@ -37,10 +38,12 @@ describe("add workout modal functionality", () => {
   });
 
   test("can hold user-entered text in title and notes", () => {
-    const { container, queryByTestId, getByPlaceholderText } = wrapper(
+    const { container, queryByTestId, getByPlaceholderText, store } = wrapper(
       reducer,
       <AddWorkout modal={true} />
     );
+
+    store.dispatch({ type: ADD_TOKEN, payload: "token" });
 
     expect(queryByTestId(/exit-modal/i)).toBeTruthy();
 
@@ -58,10 +61,12 @@ describe("add workout modal functionality", () => {
   });
 
   test("edit notes focuses notes", () => {
-    const { container, queryByText, getByPlaceholderText } = wrapper(
+    const { container, queryByText, getByPlaceholderText, store } = wrapper(
       reducer,
       <AddWorkout modal={true} />
     );
+
+    store.dispatch({ type: ADD_TOKEN, payload: "token" });
 
     const notes = getByPlaceholderText(/click to enter some notes.../i);
 
@@ -79,10 +84,12 @@ describe("add workout modal functionality", () => {
   });
 
   test("trashcan empties notes", () => {
-    const { container, getByTestId, getByPlaceholderText } = wrapper(
+    const { container, getByTestId, getByPlaceholderText, store } = wrapper(
       reducer,
       <AddWorkout modal={true} />
     );
+
+    store.dispatch({ type: ADD_TOKEN, payload: "token" });
 
     const notes = getByPlaceholderText(/click to enter some notes.../i);
 
@@ -98,10 +105,12 @@ describe("add workout modal functionality", () => {
   });
 
   test("exercise form inputs work", () => {
-    const { getByPlaceholderText } = wrapper(
+    const { getByPlaceholderText, store } = wrapper(
       reducer,
       <AddWorkout modal={true} />
     );
+
+    store.dispatch({ type: ADD_TOKEN, payload: "token" });
 
     const name = getByPlaceholderText(/e.g. squat/i);
     const weight = getByPlaceholderText(/lbs/i);
@@ -122,10 +131,12 @@ describe("add workout modal functionality", () => {
   });
 
   test("can't enter letters in number inputs", () => {
-    const { getByPlaceholderText } = wrapper(
+    const { getByPlaceholderText, store } = wrapper(
       reducer,
       <AddWorkout modal={true} />
     );
+
+    store.dispatch({ type: ADD_TOKEN, payload: "token" });
 
     const weight = getByPlaceholderText(/lbs/i);
     const sets = getByPlaceholderText(/# of sets/i);
@@ -142,10 +153,12 @@ describe("add workout modal functionality", () => {
   });
 
   test("name is required", async () => {
-    const { findByText, getByPlaceholderText, container } = wrapper(
+    const { findByText, getByPlaceholderText, container, store } = wrapper(
       reducer,
       <AddWorkout modal={true} />
     );
+
+    store.dispatch({ type: ADD_TOKEN, payload: "token" });
 
     const name = getByPlaceholderText(/e.g. squat/i);
 
@@ -158,10 +171,12 @@ describe("add workout modal functionality", () => {
   });
 
   test("40 character max on name field", async () => {
-    const { findByText, container } = wrapper(
+    const { findByText, container, store } = wrapper(
       reducer,
       <AddWorkout modal={true} />
     );
+
+    store.dispatch({ type: ADD_TOKEN, payload: "token" });
 
     const name = container.querySelector('input[name="exercise"]');
 
@@ -187,8 +202,11 @@ describe("add workout modal functionality", () => {
       getByPlaceholderText,
       container,
       getAllByText,
-      getByTestId
+      getByTestId,
+      store
     } = wrapper(reducer, <AddWorkout modal={true} />);
+
+    store.dispatch({ type: ADD_TOKEN, payload: "token" });
 
     const weight = getByPlaceholderText(/lbs/i);
     const sets = getByPlaceholderText(/# of sets/i);
@@ -224,10 +242,12 @@ describe("add workout modal functionality", () => {
   });
 
   test("trashcan empties exercise inputs", () => {
-    const { getByPlaceholderText, getByTestId } = wrapper(
+    const { getByPlaceholderText, getByTestId, store } = wrapper(
       reducer,
       <AddWorkout modal={true} />
     );
+
+    store.dispatch({ type: ADD_TOKEN, payload: "token" });
 
     const name = getByPlaceholderText(/e.g. squat/i);
     const weight = getByPlaceholderText(/lbs/i);
@@ -252,10 +272,12 @@ describe("add workout modal functionality", () => {
   });
 
   test("submitted exercise renders on page", async () => {
-    const { container, getByPlaceholderText, getByTestId, getByText } = wrapper(
+    const { store, container, getByPlaceholderText, getByTestId, getByText } = wrapper(
       reducer,
       <AddWorkout modal={true} />
     );
+
+    store.dispatch({ type: ADD_TOKEN, payload: "token" });
 
     const name = getByPlaceholderText(/e.g. squat/i);
     const weight = getByPlaceholderText(/lbs/i);

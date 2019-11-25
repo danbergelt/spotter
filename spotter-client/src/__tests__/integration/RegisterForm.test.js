@@ -3,7 +3,6 @@ import SignUp from "../../pages/SignUp";
 import axios from "axios";
 import { cleanup, fireEvent, wait } from "@testing-library/react";
 import wrapper from '../../__testUtils__/wrapper';
-import secureStorage from "../../utils/secureToken";
 
 describe("Register validation", () => {
   afterEach(cleanup);
@@ -99,9 +98,6 @@ describe("Register validation", () => {
 
     await wait(() => {
       expect(axios.post).toHaveBeenCalledTimes(1);
-      expect(secureStorage.getItem(`${process.env.REACT_APP_KEY}`)).toEqual(
-        "test-token"
-      );
       expect(history.location.pathname).toEqual("/dashboard");
     });
   });

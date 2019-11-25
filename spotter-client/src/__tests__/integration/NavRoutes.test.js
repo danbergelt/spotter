@@ -2,10 +2,10 @@ import React from "react";
 import Routes from "../../routes";
 import { fireEvent, cleanup } from "@testing-library/react";
 import wrapper from "../../__testUtils__/wrapper";
-import secureStorage from "../../utils/secureToken";
 import axios from "axios";
 import mockWorkoutRes from "../../__testUtils__/mockWorkoutRes";
 import reducer from "../../reducers/index";
+import { ADD_TOKEN } from '../../actions/addTokenActions';
 
 describe("Nav routes", () => {
   afterEach(() => {
@@ -33,9 +33,10 @@ describe("Nav routes", () => {
   });
 
   test("dashboard link works for logged-in users", () => {
-    secureStorage.setItem(`${process.env.REACT_APP_KEY}`, "token");
     axios.post.mockResolvedValue(mockWorkoutRes);
-    const { getByText, history } = wrapper(reducer, <Routes />);
+    const { getByText, history, store } = wrapper(reducer, <Routes />);
+
+    store.dispatch({ type: ADD_TOKEN, payload: "token" });
 
     fireEvent.click(getByText(/dashboard/i));
     expect(history.location.pathname).toEqual("/dashboard");
@@ -45,10 +46,11 @@ describe("Nav routes", () => {
 
   test("logout functionality works", () => {
     axios.post.mockResolvedValue(mockWorkoutRes);
-    const { getByTestId, history } = wrapper(reducer, <Routes />);
+    const { getByTestId, history, store } = wrapper(reducer, <Routes />);
+
+    store.dispatch({ type: ADD_TOKEN, payload: "token" });
 
     fireEvent.click(getByTestId(/logout/i));
-    expect(secureStorage.getItem(`${process.env.REACT_APP_KEY}`)).toEqual(null);
     expect(history.location.pathname).toEqual("/login");
     expect(axios.post).toHaveBeenCalledTimes(1);
   });

@@ -4,10 +4,10 @@ import Moment from "moment";
 import { extendMoment } from "moment-range";
 import { cleanup, fireEvent, wait } from "@testing-library/react";
 import wrapper from "../../__testUtils__/wrapper";
-import secureStorage from "../../utils/secureToken";
 import mockWorkoutRes from "../../__testUtils__/mockWorkoutRes";
 import axios from "axios";
 import reducer from "../../reducers/index.js";
+import { ADD_TOKEN } from "../../actions/addTokenActions";
 
 describe("Weekly dash date settings", () => {
   afterEach(() => {
@@ -18,12 +18,17 @@ describe("Weekly dash date settings", () => {
   const moment = extendMoment(Moment);
 
   it("can go back in time", () => {
-    secureStorage.setItem(`${process.env.REACT_APP_KEY}`, "token");
     axios.post.mockResolvedValue(mockWorkoutRes);
-    const { container, getByText, getByTestId, queryByText, history } = wrapper(
-      reducer,
-      <Routes />
-    );
+    const {
+      container,
+      getByText,
+      getByTestId,
+      queryByText,
+      history,
+      store
+    } = wrapper(reducer, <Routes />);
+
+    store.dispatch({ type: ADD_TOKEN, payload: "token" });
 
     history.push("/dashboard");
 
@@ -75,10 +80,16 @@ describe("Weekly dash date settings", () => {
 
   it("can go forward in time", () => {
     axios.post.mockResolvedValue(mockWorkoutRes);
-    const { container, getByText, getByTestId, queryByText, history } = wrapper(
-      reducer,
-      <Routes />
-    );
+    const {
+      container,
+      getByText,
+      getByTestId,
+      queryByText,
+      history,
+      store
+    } = wrapper(reducer, <Routes />);
+
+    store.dispatch({ type: ADD_TOKEN, payload: "token" });
 
     history.push("/dashboard");
 
@@ -130,10 +141,13 @@ describe("Weekly dash date settings", () => {
 
   it("fetches workouts and displays them", async () => {
     axios.post.mockResolvedValue(mockWorkoutRes);
-    const { queryByTestId, history } = wrapper(reducer, <Routes />);
+    const { queryByTestId, history, store } = wrapper(reducer, <Routes />);
+
+    store.dispatch({ type: ADD_TOKEN, payload: "token" });
+
     history.push("/dashboard");
 
     await wait(() => expect(queryByTestId(/workout-title/i)).toBeTruthy());
-    expect(axios.post).toHaveBeenCalledTimes(1)
+    expect(axios.post).toHaveBeenCalledTimes(1);
   });
 });

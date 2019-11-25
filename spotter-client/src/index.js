@@ -3,14 +3,7 @@ import ReactDOM from "react-dom";
 import Routes from "./Routes";
 import "./styles/index.scss";
 import { BrowserRouter as Router } from "react-router-dom";
-import { createStore, applyMiddleware } from "redux";
-import { Provider } from "react-redux";
-import thunk from "redux-thunk";
-import reducer from "./reducers/index";
-
-const store = createStore(reducer, applyMiddleware(thunk));
-
-export default store;
+import store from './utils/store';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -20,3 +13,5 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
+
+export default store;

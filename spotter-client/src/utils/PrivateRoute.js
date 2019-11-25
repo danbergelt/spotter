@@ -2,8 +2,6 @@ import React from "react";
 
 import { Route, Redirect } from "react-router-dom";
 
-import secureStorage from './secureToken';
-
 import { connect } from 'react-redux';
 
 const PrivateRoute = ({ token, component: Component, ...rest }) => {

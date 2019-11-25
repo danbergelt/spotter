@@ -1,12 +1,12 @@
-require("jest-localstorage-mock");
-import secureStorage from "../../utils/secureToken";
 import axiosWithAuth from "../../utils/axiosWithAuth";
+import { store } from '../../utils/store';
+import { ADD_TOKEN } from '../../actions/addTokenActions';
 
 jest.unmock("axios");
 
 describe("axios with auth", () => {
   test("create axios object to use for calls", () => {
-    secureStorage.setItem(`${process.env.REACT_APP_KEY}`, "TEST_TOKEN");
-    expect(axiosWithAuth().defaults.headers.Authorization).toEqual('Bearer TEST_TOKEN')
+    store.dispatch({ type: ADD_TOKEN, payload: "token" });
+    expect(axiosWithAuth().defaults.headers.Authorization).toEqual('Bearer token')
   });
 });
