@@ -1,12 +1,17 @@
-import axios from 'axios';
-import secureStorage from './secureToken';
+import axios from "axios";
+import { store } from "./store";
 
-export const axiosWithAuth = () => {
-  const token = secureStorage.getItem(`${process.env.REACT_APP_KEY}`);
+const axiosWithAuth = () => {
+  const {
+    tokenReducer: { t }
+  } = store.getState();
 
   return axios.create({
     headers: {
-      'Authorization': `Bearer ${token}`
-    }
-  })
-}
+      Authorization: `Bearer ${t}`
+    },
+    withCredentials: true
+  });
+};
+
+export default axiosWithAuth;

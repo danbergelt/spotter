@@ -1,6 +1,8 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const colors = require("colors");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const { connectDB, connectTestDB } = require("./config/db");
 const errorHandler = require("./middleware/error");
@@ -21,6 +23,15 @@ if (process.env.NODE_ENV === "production") {
 }
 
 const app = express();
+
+// CORS
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true
+}))
+
+// Cookie parser
+app.use(cookieParser());
 
 // Dev logger
 if (process.env.NODE_ENV === "development") {

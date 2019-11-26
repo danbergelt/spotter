@@ -1,4 +1,4 @@
-import { axiosWithAuth } from "../utils/axiosWithAuth";
+import axiosWithAuth from "../utils/axiosWithAuth";
 
 export const FETCH_WORKOUTS_START = "FETCH_WORKOUTS_START";
 export const FETCH_WORKOUTS_SUCCESS = "FETCH_WORKOUTS_SUCCESS";
@@ -15,7 +15,6 @@ export const fetchWorkouts = (range, history) => {
         dispatch({ type: FETCH_WORKOUTS_SUCCESS, payload: res.data.workouts });
       })
       .catch(err => {
-        console.log(err.response)
         if (err.response) {
           dispatch({
             type: FETCH_WORKOUTS_ERROR,

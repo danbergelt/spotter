@@ -1,47 +1,62 @@
 import React from "react";
-import { useToken } from '../../hooks/useToken';
 import { Link } from "react-router-dom";
+import axios from "axios";
 
-import secureStorage from '../../utils/secureToken';
+import { connect } from "react-redux";
+import { addToken } from "../../actions/addTokenActions";
 
-const Nav = () => {
+const Nav = ({ token, addToken }) => {
 
-  const logOut = () => secureStorage.removeItem(`${process.env.REACT_APP_KEY}`);
+  const logOut = async () => {
+    addToken(null);
+    await axios.get(`${process.env.REACT_APP_T_API}/api/auth/logout`, {
+      withCredentials: true
+    });
+  };
 
   return (
     <nav className="spotter-nav">
       <div className="spotter-nav-head">
-        <Link
-          data-testid="spotter"
-          className="spotter-nav-head-logo"
-          to={"/"}
-        >
+        <Link data-testid="spotter" className="spotter-nav-head-logo" to={"/"}>
           spotter<span className="spot">.</span>
         </Link>
       </div>
       <div className="spotter-nav-links">
-        {!useToken() && <Link to="/" className="spotter-nav-link">
-          About
-        </Link>}
-        {!useToken() && <Link to="/" className="spotter-nav-link">
-          Contact
-        </Link>}
-        {useToken() && (
-          <Link data-testid="dashboard" className="spotter-nav-link dashboard" to="/dashboard">
+        {!token && (
+          <Link to="/" className="spotter-nav-link">
+            About
+          </Link>
+        )}
+        {!token && (
+          <Link to="/" className="spotter-nav-link">
+            Contact
+          </Link>
+        )}
+        {token && (
+          <Link
+            data-testid="dashboard"
+            className="spotter-nav-link dashboard"
+            to="/dashboard"
+          >
             Dashboard{" "}
           </Link>
         )}
-        {useToken() && (
-          <Link data-testid="logout" onClick={logOut} className="spotter-nav-link styled" to="/login">
+        {token && (
+          <Link
+            data-testid="logout"
+            onClick={logOut}
+            className="spotter-nav-link styled"
+            to="/login"
+          >
             Log Out{" "}
           </Link>
         )}
-        {!useToken() && (
+        {!token && (
           <Link data-testid="login" className="spotter-nav-link" to="/login">
             Log In
           </Link>
         )}
-        {!useToken() && (
+        {!token && (
           <Link
             data-testid="signup"
             className="spotter-nav-link styled"
@@ -55,4 +70,10 @@ const Nav = () => {
   );
 };
 
-export default Nav;
+const mapStateToProps = state => {
+  return {
+    token: state.tokenReducer.t
+  };
+};
+
+export default connect(mapStateToProps, { addToken })(Nav);

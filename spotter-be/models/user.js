@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const { genToken } = require("../utils/tokens");
 const Schema = mongoose.Schema;
 
 // User model
@@ -44,9 +44,7 @@ UserSchema.pre("save", async function(next) {
 
 // Sign token and return
 UserSchema.methods.getToken = function() {
-  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE
-  });
+  return genToken(this._id, process.env.JWT_SECRET, process.env.JWT_EXPIRE);
 };
 
 // Match password on login
