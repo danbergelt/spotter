@@ -3,7 +3,6 @@ import Login from "../../pages/LogIn";
 import axios from "axios";
 import wrapper from '../../__testUtils__/wrapper';
 import { cleanup, fireEvent, wait } from "@testing-library/react";
-import secureStorage from "../../utils/secureToken";
 
 describe("Login validation", () => {
   afterEach(cleanup);
@@ -99,9 +98,6 @@ describe("Login validation", () => {
 
     await wait(() => {
       expect(axios.post).toHaveBeenCalledTimes(1);
-      expect(secureStorage.getItem(`${process.env.REACT_APP_KEY}`)).toEqual(
-        "test-token"
-      );
       expect(history.location.pathname).toEqual("/dashboard");
     });
   });

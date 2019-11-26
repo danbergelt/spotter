@@ -2,10 +2,10 @@ import React from "react";
 import wrapper from "../../__testUtils__/wrapper";
 import Routes from "../../Routes";
 import { cleanup, wait } from "@testing-library/react";
-import axios from "axios";
-import secureStorage from "../../utils/secureToken";
+import mockAxios from "axios";
 import mockWorkoutRes from "../../__testUtils__/mockWorkoutRes";
 import reducer from "../../reducers/index";
+import { ADD_TOKEN } from "../../actions/addTokenActions";
 
 describe("redirects and conditional rendering", () => {
   afterEach(cleanup);
@@ -24,19 +24,22 @@ describe("redirects and conditional rendering", () => {
     expect(container.contains(queryByText(/dashboard/i))).toBeFalsy();
   });
 
-  test("nav conditionally renders when logged in", () => {
-    secureStorage.setItem(`${process.env.REACT_APP_KEY}`, "token");
-    axios.post.mockResolvedValue(mockWorkoutRes);
+  test("nav conditionally renders when logged in", async () => {
+    mockAxios.post.mockResolvedValue(mockWorkoutRes);
 
-    const { container, getByText, queryByText } = wrapper(reducer, <Routes />);
+    const { container, getByText, queryByText, store } = wrapper(
+      reducer,
+      <Routes />
+    );
+
+    store.dispatch({ type: ADD_TOKEN, payload: "token" });
 
     expect(container.contains(getByText(/log out/i))).toBeTruthy();
     expect(container.contains(getByText(/dashboard/i))).toBeTruthy();
     expect(container.contains(queryByText(/log in/i))).toBeFalsy();
     expect(container.contains(queryByText(/about/i))).toBeFalsy();
     expect(container.contains(queryByText(/contact/i))).toBeFalsy();
-    expect(axios.post).toHaveBeenCalledTimes(1);
-    secureStorage.removeItem(`${process.env.REACT_APP_KEY}`);
+    await wait(() => expect(mockAxios.post).toHaveBeenCalledTimes(1));
   });
 
   test("dashboard path pushes logged out users to login", () => {
@@ -47,15 +50,18 @@ describe("redirects and conditional rendering", () => {
   });
 
   test("home path pushes logged in users to dashboard", () => {
-    secureStorage.setItem(`${process.env.REACT_APP_KEY}`, "token");
-    const { container, getByText, history } = wrapper(reducer, <Routes />);
+    const { container, getByText, history, store } = wrapper(reducer, <Routes />);
+
+    store.dispatch({ type: ADD_TOKEN, payload: "token" });
 
     expect(history.location.pathname).toEqual("/dashboard");
     expect(container.contains(getByText(/week/i))).toBeTruthy();
   });
 
   test("login path pushes logged in users to dashboard", () => {
-    const { container, getByText, history } = wrapper(reducer, <Routes />);
+    const { container, getByText, history, store } = wrapper(reducer, <Routes />);
+
+    store.dispatch({ type: ADD_TOKEN, payload: "token" });
 
     history.push("/login");
     expect(history.location.pathname).toEqual("/dashboard");
@@ -63,7 +69,9 @@ describe("redirects and conditional rendering", () => {
   });
 
   test("signup path pushes logged in users to dashboard", () => {
-    const { container, getByText, history } = wrapper(reducer, <Routes />);
+    const { container, getByText, history, store } = wrapper(reducer, <Routes />);
+
+    store.dispatch({ type: ADD_TOKEN, payload: "token" });
 
     history.push("/signup");
     expect(history.location.pathname).toEqual("/dashboard");
@@ -78,12 +86,12 @@ describe("redirects and conditional rendering", () => {
   });
 
   test("500 page displays at server error", async () => {
-    secureStorage.setItem(`${process.env.REACT_APP_KEY}`, "token");
-    axios.post.mockRejectedValue({ unhandled: "error" });
-    const { container, history } = wrapper(reducer, <Routes />);
+    mockAxios.post.mockRejectedValue({ unhandled: "error" });
+    const { container, history, store } = wrapper(reducer, <Routes />);
+
+    store.dispatch({ type: ADD_TOKEN, payload: "token" });
 
     history.push("/dashboard");
     await wait(() => expect(container.innerHTML).toMatch(/500/i));
-    secureStorage.removeItem(`${process.env.REACT_APP_KEY}`);
   });
 });

@@ -18,8 +18,10 @@ describe("Register new user", () => {
       .request(app)
       .post("/api/auth/register")
       .send({ email: "test@email.com", password: "password" })
+      .set("Cookie", "toll=paid")
       .end((err, res) => {
         should.exist(res);
+        chai.expect(res).to.have.cookie("toll");
         res.body.success.should.equal(true);
         res.should.have.status(201);
         res.body.should.be.a("object");

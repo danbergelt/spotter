@@ -68,6 +68,7 @@ const ExerciseForm = ({
           />
         </div>
         <button
+          data-testid="submit-exercise"
           style={{
             border: "none",
             background: "none",
@@ -76,10 +77,7 @@ const ExerciseForm = ({
           }}
           type="submit"
         >
-          <FiCheck
-            data-testid="submit-exercise"
-            className="exercise-form-button submit"
-          />
+          <FiCheck className="exercise-form-button submit" />
         </button>
         <button
           style={{
