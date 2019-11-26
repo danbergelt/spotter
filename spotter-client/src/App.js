@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Profiler } from "react";
 import Loader from "react-loader-spinner";
 import axios from "axios";
 import Routes from "./Routes";
@@ -30,13 +30,22 @@ const App = ({ addToken }) => {
         }}
         type="ThreeDots"
         color="#E9503F"
-        height={50}
-        width={250}
+        height={40}
+        width={150}
       />
     );
   }
 
-  return <Routes />;
+  return (
+    <Profiler
+      id="app"
+      onRender={(a, b, actualDuration, baseDuration) =>
+        console.log(actualDuration)
+      }
+    >
+      <Routes />
+    </Profiler>
+  );
 };
 
 export default connect(null, { addToken })(App);

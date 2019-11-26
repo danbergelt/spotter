@@ -28,6 +28,6 @@ exports.protect = asyncHandler(async (req, res, next) => {
 
     next();
   } catch (err) {
-    return next(new Err("Access denied", 401));
+    return next(new Err("Access denied, try refreshing", 401));
   }
 });

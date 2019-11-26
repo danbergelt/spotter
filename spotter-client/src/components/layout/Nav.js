@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-
 import { connect } from "react-redux";
 import { addToken } from "../../actions/addTokenActions";
 

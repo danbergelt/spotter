@@ -14,7 +14,7 @@ describe("logout functionality", () => {
       .set("Cookie", "toll=cookie")
       .end((err, res) => {
         should.exist(res)
-        chai.expect(res).to.have.cookie("toll")
+        chai.expect(res).not.to.have.cookie("toll")
         res.should.have.status(200);
         res.body.should.be.a("object");
         res.body.data.should.equal("Logged out")

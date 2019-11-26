@@ -2,16 +2,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 // Helper Schemas
-const TagSchema = new Schema({
-  color: {
-    type: String,
-    required: [true, "Please add a tag color"]
-  },
-  content: {
-    type: String,
-    maxlength: [20, "Tag content cannot be longer than 20 characters"]
-  }
-});
 
 const ExerciseSchema = new Schema({
   name: {
@@ -38,7 +28,10 @@ const WorkoutSchema = new Schema({
   date: {
     type: String,
     required: [true, "Please add a date for this workout"],
-    match: [/[A-Z][a-z]{2} \d{2} \d{4}$/, "Please add a valid date (Mmm DD YYYY)"]
+    match: [
+      /[A-Z][a-z]{2} \d{2} \d{4}$/,
+      "Please add a valid date (Mmm DD YYYY)"
+    ]
   },
   createdAt: {
     type: Date,
@@ -50,7 +43,15 @@ const WorkoutSchema = new Schema({
     maxlength: [50, "Title cannot be longer than 50 characters"],
     trim: true
   },
-  tags: [TagSchema],
+  tags: [
+    {
+      tag: {
+        required: [true, "Tag must include tag ID"],
+        type: Schema.Types.ObjectId,
+        ref: "Tag"
+      }
+    }
+  ],
   notes: String,
   exercises: [ExerciseSchema],
   user: {

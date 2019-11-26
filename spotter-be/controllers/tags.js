@@ -7,9 +7,12 @@ const asyncHandler = require("../middleware/async");
 // @access --> Private
 
 exports.createTag = asyncHandler(async (req, res, next) => {
-
   if (req.body.color && !req.body.content) {
-    const tags = await Tag.find({ color: req.body.color, content: "" });
+    const tags = await Tag.find({
+      user: req.user._id,
+      color: req.body.color,
+      content: ""
+    });
     if (tags.length) {
       return next(new Err("Tag already exists", 400));
     }
@@ -17,6 +20,7 @@ exports.createTag = asyncHandler(async (req, res, next) => {
 
   if (req.body.color && req.body.content) {
     const tags = await Tag.find({
+      user: req.user._id,
       color: req.body.color,
       content: req.body.content
     });
@@ -31,7 +35,7 @@ exports.createTag = asyncHandler(async (req, res, next) => {
     return next(new Err("25 tag maximum", 400));
   }
 
-  req.body.user = req.user._id
+  req.body.user = req.user._id;
 
   const tag = await Tag.create(req.body);
 
