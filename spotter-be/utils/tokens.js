@@ -8,7 +8,7 @@ exports.genToken = (id, sec, exp) => {
 
 exports.refreshToken = (res, token) => {
   res.cookie("toll", token, {
-    httpOnly: true,
+    httpOnly: process.env.NODE_ENV === "development" ? false : true,
     // path: "/",
     expires: new Date(Number(new Date()) + 604800000)
   });

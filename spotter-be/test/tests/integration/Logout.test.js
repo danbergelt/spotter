@@ -1,5 +1,4 @@
 const app = require("../../utils/index");
-const { dbHelper } = require("../../utils/db");
 const chaiHttp = require("chai-http");
 const chai = require("chai");
 const should = chai.should();
@@ -12,7 +11,7 @@ describe("logout functionality", () => {
     chai
       .request(app)
       .get("/api/auth/logout")
-      .set("Cookie", "toll=")
+      .set("Cookie", "toll=cookie")
       .end((err, res) => {
         should.exist(res)
         chai.expect(res).to.have.cookie("toll")

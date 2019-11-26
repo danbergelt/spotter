@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axiosWithAuth from "../../../../utils/axiosWithAuth";
 import styles from "../../../../styles/variables.scss";
 import adjust from "../../../../utils/darkenColorInJS";
