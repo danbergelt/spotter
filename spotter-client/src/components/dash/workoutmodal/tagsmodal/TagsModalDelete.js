@@ -10,11 +10,15 @@ const TagsModalDelete = ({ fetchTags, toDelete, setActive }) => {
   const history = useHistory();
 
   const deleteTag = async () => {
-    await axiosWithAuth().delete(
-      `${process.env.REACT_APP_T_API}/api/auth/tags/${toDelete}`
-    );
-    setActive(0);
-    fetchTags(history);
+    try {
+      await axiosWithAuth().delete(
+        `${process.env.REACT_APP_T_API}/api/auth/tags/${toDelete}`
+      );
+      setActive(0);
+      fetchTags(history);
+    } catch (error) {
+      setErr(error.response.data.error);
+    }
   };
 
   return (

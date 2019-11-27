@@ -52,6 +52,10 @@ exports.createTag = asyncHandler(async (req, res, next) => {
 exports.deleteTag = asyncHandler(async (req, res, next) => {
   let tag = await Tag.findById(req.params.id);
 
+  if (!tag) {
+    return next(new Err("Could not delete tag", 400));
+  }
+
   await tag.remove();
 
   res.status(200).json({
