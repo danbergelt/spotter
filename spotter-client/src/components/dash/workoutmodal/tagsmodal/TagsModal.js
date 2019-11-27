@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
-import { connect } from "react-redux";
 
 import TagsModalHead from "./TagsModalHead";
 import TagsModalCreate from "./TagsModalCreate";
@@ -35,7 +34,9 @@ const TagsModal = ({ modal, closeModal, active, setActive }) => {
         active={active}
         setActive={setActive}
       />
-      {active === 3 && <TagsModalDelete toDelete={toDelete} setActive={setActive} />}
+      {active === 3 && (
+        <TagsModalDelete toDelete={toDelete} setActive={setActive} />
+      )}
       {active === 2 && <TagsModalCreate />}
       {active === 1 && (
         <TagsModalManage
