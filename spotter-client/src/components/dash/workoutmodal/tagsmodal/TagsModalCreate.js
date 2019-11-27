@@ -4,8 +4,13 @@ import styles from "../../../../styles/variables.scss";
 import adjust from "../../../../utils/darkenColorInJS";
 import { FiCheck, FiX } from "react-icons/fi";
 import Loader from "react-loader-spinner";
+import { fetchTags } from "../../../../actions/tagsActions";
+import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 
-const TagsModalCreate = () => {
+const TagsModalCreate = ({ fetchTags }) => {
+  const history = useHistory();
+
   const colors = [
     styles.primary,
     styles.info,
@@ -49,6 +54,7 @@ const TagsModalCreate = () => {
       setMessage({ success: "New tag created" });
       setLoading(false);
       setName("");
+      fetchTags(history);
     } catch (error) {
       setMessage(error.response.data);
       setLoading(false);
@@ -76,7 +82,7 @@ const TagsModalCreate = () => {
             onClick={() => setColor(c)}
             onMouseEnter={() => setHover(c)}
             onMouseLeave={() => setHover(null)}
-            data-testid={c === color && 'selected-tag'}
+            data-testid={c === color && "selected-tag"}
             aria-label="tag-colors"
           >
             {c === color && (
@@ -120,4 +126,4 @@ const TagsModalCreate = () => {
   );
 };
 
-export default TagsModalCreate;
+export default connect(null, { fetchTags })(TagsModalCreate);

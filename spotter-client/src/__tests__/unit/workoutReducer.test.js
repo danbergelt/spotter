@@ -1,15 +1,15 @@
-import { addWorkoutReducer } from "../../reducers/addWorkoutReducer";
+import { workoutReducer } from "../../reducers/workoutReducer";
 import {
   ADD_WORKOUT_TITLE,
   RESET_WORKOUT,
   RESET_NOTES,
   ADD_WORKOUT_NOTES,
   ADD_EXERCISE
-} from "../../actions/addWorkoutActions";
+} from "../../actions/workoutActions";
 
 describe("add workout reducer", () => {
   test("should return initial state", () => {
-    expect(addWorkoutReducer(undefined, {})).toEqual({
+    expect(workoutReducer(undefined, {})).toEqual({
       title: "",
       notes: "",
       exercises: []
@@ -18,7 +18,7 @@ describe("add workout reducer", () => {
 
   test("should handle ADD_WORKOUT_TITLE", () => {
     expect(
-      addWorkoutReducer(undefined, {
+      workoutReducer(undefined, {
         type: ADD_WORKOUT_TITLE,
         payload: "title"
       })
@@ -27,7 +27,7 @@ describe("add workout reducer", () => {
 
   test("should handle ADD_WORKOUT_NOTES", () => {
     expect(
-      addWorkoutReducer(undefined, {
+      workoutReducer(undefined, {
         type: ADD_WORKOUT_NOTES,
         payload: "notes"
       })
@@ -36,7 +36,7 @@ describe("add workout reducer", () => {
 
   test("should handle RESET_WORKOUT", () => {
     expect(
-      addWorkoutReducer(
+      workoutReducer(
         {
           title: "",
           notes: "",
@@ -49,7 +49,7 @@ describe("add workout reducer", () => {
 
   test("should handle RESET_NOTES", () => {
     expect(
-      addWorkoutReducer(
+      workoutReducer(
         {
           title: "",
           notes: "notes",
@@ -62,7 +62,7 @@ describe("add workout reducer", () => {
 
   test("should handle ADD_EXERCISE", () => {
     expect(
-      addWorkoutReducer(undefined, {
+      workoutReducer(undefined, {
         type: ADD_EXERCISE,
         payload: { name: "name" }
       })

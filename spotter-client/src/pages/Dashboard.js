@@ -1,13 +1,13 @@
 import React from "react";
 
 import SubNav from "../components/dash/subnav/SubNav";
-import Workouts from "../components/dash/workouts/Workouts";
+import WorkoutColumns from "../components/dash/workouts/WorkoutColumns";
 
 const Dashboard = () => {
   return (
     <>
       <SubNav />
-      <Workouts />
+      <WorkoutColumns />
     </>
   );
 };

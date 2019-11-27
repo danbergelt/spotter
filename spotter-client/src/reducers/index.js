@@ -1,10 +1,12 @@
 import { combineReducers } from "redux";
-import { addWorkoutReducer } from "./addWorkoutReducer";
+import { workoutReducer } from "./workoutReducer";
 import { fetchWorkoutsReducer } from "./fetchWorkoutsReducer";
 import { tokenReducer } from "./tokenReducer";
+import { tagsReducer } from "./tagsReducer";
 
 export default combineReducers({
-  addWorkoutReducer,
+  workoutReducer,
   fetchWorkoutsReducer,
-  tokenReducer
+  tokenReducer,
+  tagsReducer
 });

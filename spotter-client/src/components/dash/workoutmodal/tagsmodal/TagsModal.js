@@ -3,6 +3,7 @@ import Modal from "react-modal";
 
 import TagsModalHead from "./TagsModalHead";
 import TagsModalCreate from "./TagsModalCreate";
+import TagsModalManage from "./TagsModalManage";
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
@@ -33,6 +34,7 @@ const TagsModal = ({ modal, closeModal }) => {
         setActive={setActive}
       />
       {active === 2 && <TagsModalCreate />}
+      {active === 1 && <TagsModalManage />}
     </Modal>
   );
 };

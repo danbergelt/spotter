@@ -10,7 +10,14 @@ import {
 import WorkoutOption from "./WorkoutOption";
 import TagsModal from "../tagsmodal/TagsModal";
 
-const WorkoutOptions = () => {
+import { connect } from 'react-redux';
+import { fetchTags } from '../../../../actions/tagsActions';
+import { useHistory } from 'react-router-dom';
+
+const WorkoutOptions = ({ fetchTags }) => {
+
+  const history = useHistory();
+
   const iconClass = "add-workout-options-icon";
 
   const [modal, setModal] = useState(false);
@@ -19,11 +26,16 @@ const WorkoutOptions = () => {
 
   const closeModal = () => setModal(false);
 
+  const openTagsModal = () => {
+    setModal(true);
+    fetchTags(history);
+  }
+
   return (
     <div className="add-workout-options-container">
       <h1 className="add-workout-options-title sub">ACTIONS</h1>
       <div className="add-workout-options-buttons">
-        <div data-testid="tags-modal" onClick={openModal}>
+        <div data-testid="tags-modal" onClick={openTagsModal}>
           <WorkoutOption text={"Tags"} icon={<FiTag className={iconClass} />} />
         </div>
         <TagsModal modal={modal} closeModal={closeModal} />
@@ -46,4 +58,4 @@ const WorkoutOptions = () => {
   );
 };
 
-export default WorkoutOptions;
+export default connect(null, { fetchTags })(WorkoutOptions);

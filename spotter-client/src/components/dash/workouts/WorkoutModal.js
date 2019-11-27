@@ -7,7 +7,7 @@ import {
   addWorkoutNotes,
   resetNotes,
   addExercise
-} from "../../../actions/addWorkoutActions";
+} from "../../../actions/workoutActions";
 import { WorkoutDataProvider } from "../../../contexts/workoutDataContext";
 
 // components
@@ -25,7 +25,7 @@ const customStyles = {
   }
 };
 
-const AddWorkout = ({
+const WorkoutModal = ({
   modal,
   closeModal,
   title,
@@ -66,13 +66,13 @@ const AddWorkout = ({
 
 const mapStateToProps = state => {
   return {
-    title: state.addWorkoutReducer.title,
-    notes: state.addWorkoutReducer.notes,
-    exercises: state.addWorkoutReducer.exercises
+    title: state.workoutReducer.title,
+    notes: state.workoutReducer.notes,
+    exercises: state.workoutReducer.exercises
   };
 };
 
 export default connect(
   mapStateToProps,
   { addWorkoutTitle, addWorkoutNotes, resetNotes, addExercise  }
-)(AddWorkout);
+)(WorkoutModal);

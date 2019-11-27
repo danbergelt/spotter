@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { FiPlusCircle } from "react-icons/fi";
-import AddWorkout from "./AddWorkout";
+import WorkoutModal from "./WorkoutModal";
 import { connect } from "react-redux";
-import { resetWorkout } from "../../../actions/addWorkoutActions";
-import Workout from "./Workout";
+import { resetWorkout } from "../../../actions/workoutActions";
+import { resetTags } from "../../../actions/tagsActions";
+import WorkoutCard from "./WorkoutCard";
 
-const WorkoutColumn = ({ date, resetWorkout, i, workouts }) => {
+const WorkoutColumn = ({ date, resetWorkout, i, workouts, resetTags }) => {
   const [modal, setModal] = useState(false);
   const [workout, setWorkout] = useState([]);
 
@@ -16,6 +17,7 @@ const WorkoutColumn = ({ date, resetWorkout, i, workouts }) => {
   const closeAddWorkoutModal = () => {
     setModal(false);
     resetWorkout();
+    resetTags();
   };
 
   useEffect(() => {
@@ -42,11 +44,11 @@ const WorkoutColumn = ({ date, resetWorkout, i, workouts }) => {
       >
         {<FiPlusCircle className="week-workouts-add-icon" />} Add Workout
       </div>
-      <AddWorkout modal={modal} closeModal={closeAddWorkoutModal} />
+      <WorkoutModal modal={modal} closeModal={closeAddWorkoutModal} />
       <div>
         {workout.map(data => (
           <div className="workout-card-container" key={data._id}>
-            <Workout data={data} />
+            <WorkoutCard data={data} />
           </div>
         ))}
       </div>
@@ -54,4 +56,4 @@ const WorkoutColumn = ({ date, resetWorkout, i, workouts }) => {
   );
 };
 
-export default connect(null, { resetWorkout })(WorkoutColumn);
+export default connect(null, { resetWorkout, resetTags })(WorkoutColumn);
