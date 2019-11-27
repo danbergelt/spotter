@@ -8,6 +8,7 @@ const Err = require("../utils/Err");
 // @access --> Private
 
 exports.getWorkoutsByUserId = asyncHandler(async (req, res, next) => {
+
   const pagination = {
     page: parseInt(req.query.page, 10) || 0,
     limit: parseInt(req.query.limit, 10) || 10

@@ -52,7 +52,7 @@ describe("GET workouts by date range and user id", () => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(401);
-        res.body.error.should.equal("Access denied");
+        res.body.error.should.equal("Access denied, try refreshing");
         done();
       });
   });

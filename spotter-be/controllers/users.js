@@ -1,7 +1,7 @@
 const Err = require("../utils/Err");
 const User = require("../models/User");
 const asyncHandler = require("../middleware/async");
-const { refreshToken, genToken } = require("../utils/tokens");
+const { refreshToken, genToken, clearRefreshToken } = require("../utils/tokens");
 const jwt = require("jsonwebtoken");
 
 // @desc --> register user
@@ -65,7 +65,7 @@ exports.login = asyncHandler(async (req, res, next) => {
 // @access --> Public
 
 exports.logout = asyncHandler(async (req, res, next) => {
-  refreshToken(res, "");
+  clearRefreshToken(res);
 
   return res.status(200).json({ success: true, data: "Logged out" });
 });
@@ -102,7 +102,6 @@ exports.refresh = asyncHandler(async (req, res, next) => {
   );
 
   sendToken(user, 200, res);
-
 });
 
 // Get token from model, send response

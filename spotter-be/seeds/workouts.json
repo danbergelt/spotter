@@ -2,8 +2,8 @@
   {
     "date": "Nov 08 2019",
     "title": "Workout title",
-    "tags": [{ "color": "#64C431", "content": "tag" }, { "color": "#0977F4", "content": "tag2" }],
     "notes": "Notes for workout",
+    "tags": [],
     "exercises": [
       { "name": "Exercise", "weight": 100, "sets": 1, "reps": 1 },
       { "name": "Exercise2", "weight": 200, "sets": 2, "reps": 2 }
@@ -13,8 +13,8 @@
   {
     "date": "Nov 09 2019",
     "title": "Workout title",
-    "tags": [{ "color": "#64C431", "content": "tag" }, { "color": "#0977F4", "content": "tag2" }],
     "notes": "Notes for workout",
+    "tags": [],
     "exercises": [
       { "name": "Exercise", "weight": 100, "sets": 1, "reps": 1 },
       { "name": "Exercise2", "weight": 200, "sets": 2, "reps": 2 }
@@ -24,8 +24,8 @@
   {
     "date": "Nov 10 2019",
     "title": "Workout title",
-    "tags": [{ "color": "#64C431", "content": "tag" }, { "color": "#0977F4", "content": "tag2" }],
     "notes": "Notes for workout",
+    "tags": [],
     "exercises": [
       { "name": "Exercise", "weight": 100, "sets": 1, "reps": 1 },
       { "name": "Exercise2", "weight": 200, "sets": 2, "reps": 2 }
@@ -35,8 +35,8 @@
   {
     "date": "Nov 11 2019",
     "title": "Workout title",
-    "tags": [{ "color": "#64C431", "content": "tag" }, { "color": "#0977F4", "content": "tag2" }],
     "notes": "Notes for workout",
+    "tags": [],
     "exercises": [
       { "name": "Exercise", "weight": 100, "sets": 1, "reps": 1 },
       { "name": "Exercise2", "weight": 200, "sets": 2, "reps": 2 }
@@ -46,8 +46,8 @@
   {
     "date": "Nov 12 2019",
     "title": "Workout title",
-    "tags": [{ "color": "#64C431", "content": "tag" }, { "color": "#0977F4", "content": "tag2" }],
     "notes": "Notes for workout",
+    "tags": [],
     "exercises": [
       { "name": "Exercise", "weight": 100, "sets": 1, "reps": 1 },
       { "name": "Exercise2", "weight": 200, "sets": 2, "reps": 2 }
@@ -57,8 +57,8 @@
   {
     "date": "Nov 13 2019",
     "title": "Workout title",
-    "tags": [{ "color": "#64C431", "content": "tag" }, { "color": "#0977F4", "content": "tag2" }],
     "notes": "Notes for workout",
+    "tags": [],
     "exercises": [
       { "name": "Exercise", "weight": 100, "sets": 1, "reps": 1 },
       { "name": "Exercise2", "weight": 200, "sets": 2, "reps": 2 }
@@ -68,8 +68,8 @@
   {
     "date": "Nov 14 2019",
     "title": "Workout title",
-    "tags": [{ "color": "#64C431", "content": "tag" }, { "color": "#0977F4", "content": "tag2" }],
     "notes": "Notes for workout",
+    "tags": [],
     "exercises": [
       { "name": "Exercise", "weight": 100, "sets": 1, "reps": 1 },
       { "name": "Exercise2", "weight": 200, "sets": 2, "reps": 2 }
@@ -79,8 +79,8 @@
   {
     "date": "Nov 15 2019",
     "title": "Workout title",
-    "tags": [{ "color": "#64C431", "content": "tag" }, { "color": "#0977F4", "content": "tag2" }],
     "notes": "Notes for workout",
+    "tags": [],
     "exercises": [
       { "name": "Exercise", "weight": 100, "sets": 1, "reps": 1 },
       { "name": "Exercise2", "weight": 200, "sets": 2, "reps": 2 }
@@ -90,8 +90,8 @@
   {
     "date": "Nov 16 2019",
     "title": "Workout title",
-    "tags": [{ "color": "#64C431", "content": "tag" }, { "color": "#0977F4", "content": "tag2" }],
     "notes": "Notes for workout",
+    "tags": [],
     "exercises": [
       { "name": "Exercise", "weight": 100, "sets": 1, "reps": 1 },
       { "name": "Exercise2", "weight": 200, "sets": 2, "reps": 2 }
@@ -101,8 +101,8 @@
   {
     "date": "Nov 17 2019",
     "title": "Workout title",
-    "tags": [{ "color": "#64C431", "content": "tag" }, { "color": "#0977F4", "content": "tag2" }],
     "notes": "Notes for workout",
+    "tags": [],
     "exercises": [
       { "name": "Exercise", "weight": 100, "sets": 1, "reps": 1 },
       { "name": "Exercise2", "weight": 200, "sets": 2, "reps": 2 }
@@ -112,8 +112,8 @@
   {
     "date": "Nov 18 2019",
     "title": "Workout title",
-    "tags": [{ "color": "#64C431", "content": "tag" }, { "color": "#0977F4", "content": "tag2" }],
     "notes": "Notes for workout",
+    "tags": [],
     "exercises": [
       { "name": "Exercise", "weight": 100, "sets": 1, "reps": 1 },
       { "name": "Exercise2", "weight": 200, "sets": 2, "reps": 2 }
@@ -123,8 +123,8 @@
   {
     "date": "Nov 19 2019",
     "title": "Workout title",
-    "tags": [{ "color": "#64C431", "content": "tag" }, { "color": "#0977F4", "content": "tag2" }],
     "notes": "Notes for workout",
+    "tags": [],
     "exercises": [
       { "name": "Exercise", "weight": 100, "sets": 1, "reps": 1 },
       { "name": "Exercise2", "weight": 200, "sets": 2, "reps": 2 }
@@ -134,8 +134,8 @@
   {
     "date": "Nov 20 2019",
     "title": "Workout title",
-    "tags": [{ "color": "#64C431", "content": "tag" }, { "color": "#0977F4", "content": "tag2" }],
     "notes": "Notes for workout",
+    "tags": [],
     "exercises": [
       { "name": "Exercise", "weight": 100, "sets": 1, "reps": 1 },
       { "name": "Exercise2", "weight": 200, "sets": 2, "reps": 2 }
@@ -145,8 +145,8 @@
   {
     "date": "Nov 22 2019",
     "title": "Workout title",
-    "tags": [{ "color": "#64C431", "content": "tag" }, { "color": "#0977F4", "content": "tag2" }],
     "notes": "Notes for workout",
+    "tags": [],
     "exercises": [
       { "name": "Exercise", "weight": 100, "sets": 1, "reps": 1 },
       { "name": "Exercise2", "weight": 200, "sets": 2, "reps": 2 }

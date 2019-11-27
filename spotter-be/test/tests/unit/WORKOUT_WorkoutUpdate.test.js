@@ -86,32 +86,6 @@ describe("Workout model update functionality", () => {
     ).to.be.rejectedWith("Title cannot be longer than 50 characters");
   });
 
-  it("cannot update a workout tag to no color", async () => {
-    const workout = new Workout(template);
-    await workout.save();
-    await expect(
-      Workout.findByIdAndUpdate(
-        workout._id,
-        { tags: [{ color: undefined }] },
-        { runValidators: true }
-      )
-    ).to.be.rejectedWith("Please add a tag color");
-  });
-
-  it("cannot update a workout tag content to invalid length", async () => {
-    const workout = new Workout(template);
-    await workout.save();
-    await expect(
-      Workout.findByIdAndUpdate(
-        workout._id,
-        {
-          tags: [{ color: "red", content: "fjewiofjeiowfjeiowfjeiowfjeiowfj" }]
-        },
-        { runValidators: true }
-      )
-    ).to.be.rejectedWith("Tag content cannot be longer than 20 characters");
-  });
-
   it("cannot update an exercise to nothing", async () => {
     const workout = new Workout(template);
     await workout.save();

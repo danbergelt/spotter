@@ -68,7 +68,7 @@ describe("PUT edit workout by workout id", () => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(401);
-        res.body.error.should.equal("Access denied");
+        res.body.error.should.equal("Access denied, try refreshing");
         done();
       });
   });
@@ -83,48 +83,6 @@ describe("PUT edit workout by workout id", () => {
         res.body.success.should.equal(false);
         res.should.have.status(401);
         res.body.error.should.equal("Access denied");
-        done();
-      });
-  });
-
-  it("should not put workout with missing tag color", done => {
-    const token = genToken(template.user);
-    chai
-      .request(app)
-      .put(`/api/auth/workouts/${uId}`)
-      .set("Authorization", `Bearer ${token}`)
-      .send({ ...template, tags: [{ color: undefined }] })
-      .end((err, res) => {
-        should.exist(res);
-        res.body.success.should.equal(false);
-        res.should.have.status(400);
-        res.body.error.should.equal("Please add a tag color");
-        done();
-      });
-  });
-
-  it("should not put workout with long tag content", done => {
-    const token = genToken(template.user);
-    chai
-      .request(app)
-      .put(`/api/auth/workouts/${uId}`)
-      .set("Authorization", `Bearer ${token}`)
-      .send({
-        ...template,
-        tags: [
-          {
-            color: "red",
-            content: "jiojiojiowfjiowfjiowfjiowfjiowfjiowfjiowfjiowfjwiofjo"
-          }
-        ]
-      })
-      .end((err, res) => {
-        should.exist(res);
-        res.body.success.should.equal(false);
-        res.should.have.status(400);
-        res.body.error.should.equal(
-          "Tag content cannot be longer than 20 characters"
-        );
         done();
       });
   });

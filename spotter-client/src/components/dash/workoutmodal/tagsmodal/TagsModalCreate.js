@@ -76,6 +76,8 @@ const TagsModalCreate = () => {
             onClick={() => setColor(c)}
             onMouseEnter={() => setHover(c)}
             onMouseLeave={() => setHover(null)}
+            data-testid={c === color && 'selected-tag'}
+            aria-label="tag-colors"
           >
             {c === color && (
               <div className="active-tag-color">
