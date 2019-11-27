@@ -23,7 +23,7 @@ const WorkoutColumn = ({ date, resetWorkout, i, workouts }) => {
       el => el.date === date.format("MMM DD YYYY")
     );
     setWorkout(workout);
-  }, [workouts]);
+  }, [workouts, date]);
 
   // const closeModal = () => {
   //   setModal(false);

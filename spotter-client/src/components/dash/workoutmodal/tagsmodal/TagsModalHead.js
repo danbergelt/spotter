@@ -3,7 +3,7 @@ import { FiX } from "react-icons/fi";
 
 const TagsModalHead = ({ closeModal, active, setActive }) => {
   return (
-    <div className="tags-modal-head-container">
+    <div data-testid="tags-modal-head" className="tags-modal-head-container">
       <div className="tags-modal-head-tabs">
         <div
           className={
@@ -30,7 +30,7 @@ const TagsModalHead = ({ closeModal, active, setActive }) => {
           Create
         </div>
       </div>
-      <div onClick={closeModal} className="tags-modal-head-exit">
+      <div data-testid="close-tag-modal" onClick={closeModal} className="tags-modal-head-exit">
         <FiX />
       </div>
     </div>

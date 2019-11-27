@@ -17,7 +17,7 @@ const App = ({ addToken }) => {
         addToken(res.data.token);
         setLoading(false);
       });
-  }, []);
+  }, [addToken]);
 
   if (loading) {
     return (

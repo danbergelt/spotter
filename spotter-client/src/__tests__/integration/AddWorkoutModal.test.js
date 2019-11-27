@@ -7,7 +7,6 @@ import Modal from "react-modal";
 import axios from "axios";
 import mockWorkoutRes from "../../__testUtils__/mockWorkoutRes";
 import reducer from "../../reducers/index";
-import { ADD_TOKEN } from '../../actions/addTokenActions';
 
 describe("add workout modal functionality", () => {
   // initial setup
@@ -22,8 +21,6 @@ describe("add workout modal functionality", () => {
       reducer,
       <Workouts />
     );
-
-    store.dispatch({ type: ADD_TOKEN, payload: "token" });
 
     fireEvent.click(getByTestId(/modal-click/i));
 
@@ -42,8 +39,6 @@ describe("add workout modal functionality", () => {
       reducer,
       <AddWorkout modal={true} />
     );
-
-    store.dispatch({ type: ADD_TOKEN, payload: "token" });
 
     expect(queryByTestId(/exit-modal/i)).toBeTruthy();
 
@@ -66,8 +61,6 @@ describe("add workout modal functionality", () => {
       <AddWorkout modal={true} />
     );
 
-    store.dispatch({ type: ADD_TOKEN, payload: "token" });
-
     const notes = getByPlaceholderText(/click to enter some notes.../i);
 
     fireEvent.change(notes, { target: { value: "test notes" } });
@@ -89,8 +82,6 @@ describe("add workout modal functionality", () => {
       <AddWorkout modal={true} />
     );
 
-    store.dispatch({ type: ADD_TOKEN, payload: "token" });
-
     const notes = getByPlaceholderText(/click to enter some notes.../i);
 
     fireEvent.change(notes, { target: { value: "test notes" } });
@@ -109,8 +100,6 @@ describe("add workout modal functionality", () => {
       reducer,
       <AddWorkout modal={true} />
     );
-
-    store.dispatch({ type: ADD_TOKEN, payload: "token" });
 
     const name = getByPlaceholderText(/e.g. squat/i);
     const weight = getByPlaceholderText(/lbs/i);
@@ -136,8 +125,6 @@ describe("add workout modal functionality", () => {
       <AddWorkout modal={true} />
     );
 
-    store.dispatch({ type: ADD_TOKEN, payload: "token" });
-
     const weight = getByPlaceholderText(/lbs/i);
     const sets = getByPlaceholderText(/# of sets/i);
     const reps = getByPlaceholderText(/# of reps/i);
@@ -158,8 +145,6 @@ describe("add workout modal functionality", () => {
       <AddWorkout modal={true} />
     );
 
-    store.dispatch({ type: ADD_TOKEN, payload: "token" });
-
     const name = getByPlaceholderText(/e.g. squat/i);
 
     fireEvent.focus(name);
@@ -175,8 +160,6 @@ describe("add workout modal functionality", () => {
       reducer,
       <AddWorkout modal={true} />
     );
-
-    store.dispatch({ type: ADD_TOKEN, payload: "token" });
 
     const name = container.querySelector('input[name="exercise"]');
 
@@ -205,8 +188,6 @@ describe("add workout modal functionality", () => {
       getByTestId,
       store
     } = wrapper(reducer, <AddWorkout modal={true} />);
-
-    store.dispatch({ type: ADD_TOKEN, payload: "token" });
 
     const weight = getByPlaceholderText(/lbs/i);
     const sets = getByPlaceholderText(/# of sets/i);
@@ -247,8 +228,6 @@ describe("add workout modal functionality", () => {
       <AddWorkout modal={true} />
     );
 
-    store.dispatch({ type: ADD_TOKEN, payload: "token" });
-
     const name = getByPlaceholderText(/e.g. squat/i);
     const weight = getByPlaceholderText(/lbs/i);
     const sets = getByPlaceholderText(/# of sets/i);
@@ -276,8 +255,6 @@ describe("add workout modal functionality", () => {
       reducer,
       <AddWorkout modal={true} />
     );
-
-    store.dispatch({ type: ADD_TOKEN, payload: "token" });
 
     const name = getByPlaceholderText(/e.g. squat/i);
     const weight = getByPlaceholderText(/lbs/i);

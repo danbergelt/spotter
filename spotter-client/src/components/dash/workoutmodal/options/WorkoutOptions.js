@@ -23,7 +23,7 @@ const WorkoutOptions = () => {
     <div className="add-workout-options-container">
       <h1 className="add-workout-options-title sub">ACTIONS</h1>
       <div className="add-workout-options-buttons">
-        <div onClick={openModal}>
+        <div data-testid="tags-modal" onClick={openModal}>
           <WorkoutOption text={"Tags"} icon={<FiTag className={iconClass} />} />
         </div>
         <TagsModal modal={modal} closeModal={closeModal} />
