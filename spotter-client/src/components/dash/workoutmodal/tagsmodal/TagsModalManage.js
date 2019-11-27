@@ -5,11 +5,13 @@ import adjust from "../../../../utils/darkenColorInJS";
 import axiosWithAuth from "../../../../utils/axiosWithAuth";
 import { fetchTags } from "../../../../actions/tagsActions";
 import { useHistory } from "react-router-dom";
+import { FiX } from "react-icons/fi";
 
 const TagsModalManage = ({ tags, setActive, setToDelete, fetchTags }) => {
   const [hover, setHover] = useState(null);
   const [update, setUpdate] = useState(null);
   const [updateInput, setUpdateInput] = useState("");
+  const [err, setErr] = useState("");
 
   const inputRef = useRef();
 
@@ -41,12 +43,16 @@ const TagsModalManage = ({ tags, setActive, setToDelete, fetchTags }) => {
   const handleSubmit = async e => {
     e.preventDefault();
     setUpdateInput("");
-    await axiosWithAuth().put(
-      `${process.env.REACT_APP_T_API}/api/auth/tags/${update}`,
-      { content: updateInput }
-    );
-    setUpdate(null);
-    fetchTags(history);
+    try {
+      await axiosWithAuth().put(
+        `${process.env.REACT_APP_T_API}/api/auth/tags/${update}`,
+        { content: updateInput }
+      );
+      setUpdate(null);
+      fetchTags(history);
+    } catch (error) {
+      setErr(error.response.data.error);
+    }
   };
 
   if (!tags.length) {
@@ -56,6 +62,17 @@ const TagsModalManage = ({ tags, setActive, setToDelete, fetchTags }) => {
   return (
     <>
       <div className="tag-manage-head">Manage</div>
+      {err.length ? (
+        <div className="tag-delete-err">
+          {err}
+          <div
+            onClick={() => setErr("")}
+            style={{ fontSize: "1.2rem", cursor: "pointer" }}
+          >
+            <FiX />
+          </div>
+        </div>
+      ) : null}
       {tags.map(tag => (
         <div key={tag._id}>
           <div className="tag-manage-container">

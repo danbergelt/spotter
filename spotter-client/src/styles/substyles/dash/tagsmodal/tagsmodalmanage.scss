@@ -56,7 +56,7 @@
   outline: 0;
 
   &:hover {
-    background: darken($gray3, 5%)
+    background: darken($gray3, 5%);
   }
 }
 
@@ -73,16 +73,6 @@
     margin: 1rem 0 2rem 0;
   }
 
-  .tag-delete-err {
-    width: 100%;
-    padding: 1rem;
-    font-size: 1.2rem;
-    display: flex;
-    justify-content: space-between;
-    background: rgba($danger, 0.5);
-    margin-bottom: 1rem;
-  }
-
   .tag-delete-submit {
     background: $danger;
     color: white;
@@ -97,4 +87,14 @@
       background: darken($danger, 10%);
     }
   }
+}
+
+.tag-delete-err {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  background: rgba($danger, 0.5);
+  margin-bottom: 1rem;
 }
