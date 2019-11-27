@@ -10,11 +10,12 @@ import {
 import WorkoutOption from "./WorkoutOption";
 import TagsModal from "../tagsmodal/TagsModal";
 
-import { connect } from 'react-redux';
-import { fetchTags } from '../../../../actions/tagsActions';
-import { useHistory } from 'react-router-dom';
+import { connect } from "react-redux";
+import { fetchTags } from "../../../../actions/tagsActions";
+import { useHistory } from "react-router-dom";
 
 const WorkoutOptions = ({ fetchTags }) => {
+  const [active, setActive] = useState(0);
 
   const history = useHistory();
 
@@ -24,12 +25,15 @@ const WorkoutOptions = ({ fetchTags }) => {
 
   const openModal = () => setModal(true);
 
-  const closeModal = () => setModal(false);
+  const closeModal = () => {
+    setModal(false);
+    setActive(0);
+  };
 
   const openTagsModal = () => {
     setModal(true);
     fetchTags(history);
-  }
+  };
 
   return (
     <div className="add-workout-options-container">
@@ -38,7 +42,12 @@ const WorkoutOptions = ({ fetchTags }) => {
         <div data-testid="tags-modal" onClick={openTagsModal}>
           <WorkoutOption text={"Tags"} icon={<FiTag className={iconClass} />} />
         </div>
-        <TagsModal modal={modal} closeModal={closeModal} />
+        <TagsModal
+          active={active}
+          setActive={setActive}
+          modal={modal}
+          closeModal={closeModal}
+        />
         <WorkoutOption
           text={"Template"}
           icon={<FiSave className={iconClass} />}
