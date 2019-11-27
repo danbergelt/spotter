@@ -1,6 +1,6 @@
 import React from "react";
-import Workouts from "../../components/dash/workouts/Workouts";
-import AddWorkout from "../../components/dash/workouts/AddWorkout";
+import WorkoutColumns from "../../components/dash/workouts/WorkoutColumns";
+import WorkoutModal from "../../components/dash/workouts/WorkoutModal";
 import { cleanup, fireEvent, wait } from "@testing-library/react";
 import wrapper from "../../__testUtils__/wrapper";
 import Modal from "react-modal";
@@ -19,7 +19,7 @@ describe("add workout modal functionality", () => {
     axios.post.mockResolvedValue(mockWorkoutRes);
     const { queryByPlaceholderText, getByTestId, queryByTestId, store } = wrapper(
       reducer,
-      <Workouts />
+      <WorkoutColumns />
     );
 
     fireEvent.click(getByTestId(/modal-click/i));
@@ -37,7 +37,7 @@ describe("add workout modal functionality", () => {
   test("can hold user-entered text in title and notes", () => {
     const { container, queryByTestId, getByPlaceholderText, store } = wrapper(
       reducer,
-      <AddWorkout modal={true} />
+      <WorkoutModal modal={true} />
     );
 
     expect(queryByTestId(/exit-modal/i)).toBeTruthy();
@@ -58,7 +58,7 @@ describe("add workout modal functionality", () => {
   test("edit notes focuses notes", () => {
     const { container, queryByText, getByPlaceholderText, store } = wrapper(
       reducer,
-      <AddWorkout modal={true} />
+      <WorkoutModal modal={true} />
     );
 
     const notes = getByPlaceholderText(/click to enter some notes.../i);
@@ -79,7 +79,7 @@ describe("add workout modal functionality", () => {
   test("trashcan empties notes", () => {
     const { container, getByTestId, getByPlaceholderText, store } = wrapper(
       reducer,
-      <AddWorkout modal={true} />
+      <WorkoutModal modal={true} />
     );
 
     const notes = getByPlaceholderText(/click to enter some notes.../i);
@@ -98,7 +98,7 @@ describe("add workout modal functionality", () => {
   test("exercise form inputs work", () => {
     const { getByPlaceholderText, store } = wrapper(
       reducer,
-      <AddWorkout modal={true} />
+      <WorkoutModal modal={true} />
     );
 
     const name = getByPlaceholderText(/e.g. squat/i);
@@ -122,7 +122,7 @@ describe("add workout modal functionality", () => {
   test("can't enter letters in number inputs", () => {
     const { getByPlaceholderText, store } = wrapper(
       reducer,
-      <AddWorkout modal={true} />
+      <WorkoutModal modal={true} />
     );
 
     const weight = getByPlaceholderText(/lbs/i);
@@ -142,7 +142,7 @@ describe("add workout modal functionality", () => {
   test("name is required", async () => {
     const { findByText, getByPlaceholderText, container, store } = wrapper(
       reducer,
-      <AddWorkout modal={true} />
+      <WorkoutModal modal={true} />
     );
 
     const name = getByPlaceholderText(/e.g. squat/i);
@@ -158,7 +158,7 @@ describe("add workout modal functionality", () => {
   test("40 character max on name field", async () => {
     const { findByText, container, store } = wrapper(
       reducer,
-      <AddWorkout modal={true} />
+      <WorkoutModal modal={true} />
     );
 
     const name = container.querySelector('input[name="exercise"]');
@@ -187,7 +187,7 @@ describe("add workout modal functionality", () => {
       getAllByText,
       getByTestId,
       store
-    } = wrapper(reducer, <AddWorkout modal={true} />);
+    } = wrapper(reducer, <WorkoutModal modal={true} />);
 
     const weight = getByPlaceholderText(/lbs/i);
     const sets = getByPlaceholderText(/# of sets/i);
@@ -225,7 +225,7 @@ describe("add workout modal functionality", () => {
   test("trashcan empties exercise inputs", () => {
     const { getByPlaceholderText, getByTestId, store } = wrapper(
       reducer,
-      <AddWorkout modal={true} />
+      <WorkoutModal modal={true} />
     );
 
     const name = getByPlaceholderText(/e.g. squat/i);
@@ -253,7 +253,7 @@ describe("add workout modal functionality", () => {
   test("submitted exercise renders on page", async () => {
     const { store, container, getByPlaceholderText, getByTestId, getByText } = wrapper(
       reducer,
-      <AddWorkout modal={true} />
+      <WorkoutModal modal={true} />
     );
 
     const name = getByPlaceholderText(/e.g. squat/i);

@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { fetchWorkouts } from "../../../actions/fetchWorkoutsActions";
 import { useHistory } from "react-router-dom";
 
-const Workouts = ({ data, fetchWorkouts }) => {
+const WorkoutColumns = ({ data, fetchWorkouts }) => {
   const history = useHistory();
 
   const { workouts } = data;
@@ -61,4 +61,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { fetchWorkouts })(Workouts);
+export default connect(mapStateToProps, { fetchWorkouts })(WorkoutColumns);

@@ -1,24 +1,27 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
+import { connect } from "react-redux";
 
 import TagsModalHead from "./TagsModalHead";
 import TagsModalCreate from "./TagsModalCreate";
+import TagsModalManage from "./TagsModalManage";
+import TagsModalDelete from "./TagsModalDelete";
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
-const TagsModal = ({ modal, closeModal }) => {
+const TagsModal = ({ modal, closeModal, active, setActive }) => {
+  const [toDelete, setToDelete] = useState(null);
+
   const customStyles = {
     overlay: {
       background: "transparent"
     },
     content: {
-      width: "300px",
+      width: "325px",
       height: "325px",
       marginLeft: "60.5vw"
     }
   };
-
-  const [active, setActive] = useState(0);
 
   return (
     <Modal
@@ -32,7 +35,15 @@ const TagsModal = ({ modal, closeModal }) => {
         active={active}
         setActive={setActive}
       />
+      {active === 3 && <TagsModalDelete toDelete={toDelete} setActive={setActive} />}
       {active === 2 && <TagsModalCreate />}
+      {active === 1 && (
+        <TagsModalManage
+          setActive={setActive}
+          active={active}
+          setToDelete={setToDelete}
+        />
+      )}
     </Modal>
   );
 };

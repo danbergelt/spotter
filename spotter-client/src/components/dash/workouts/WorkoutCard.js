@@ -1,7 +1,7 @@
 import React from "react";
 import { FiAlignLeft } from "react-icons/fi";
 
-const Workout = ({ data }) => {
+const WorkoutCard = ({ data }) => {
   return (
     <>
       <div data-testid="workout-title" className="workout-card-title">
@@ -25,4 +25,4 @@ const Workout = ({ data }) => {
   );
 };
 
-export default Workout;
+export default WorkoutCard;

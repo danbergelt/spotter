@@ -9,7 +9,7 @@ import {
   RESET_WORKOUT,
   resetWorkout,
   resetNotes
-} from "../../actions/addWorkoutActions";
+} from "../../actions/workoutActions";
 
 describe("add workout actions", () => {
   test("add workout title", () => {

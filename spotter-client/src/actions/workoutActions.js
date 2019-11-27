@@ -4,6 +4,7 @@ export const RESET_NOTES = "RESET_NOTES";
 export const ADD_EXERCISE = "ADD_EXERCISE";
 export const RESET_WORKOUT = "RESET_WORKOUT";
 
+
 export const addWorkoutTitle = title => {
   return { type: ADD_WORKOUT_TITLE, payload: title };
 };

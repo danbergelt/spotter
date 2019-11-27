@@ -4,15 +4,15 @@ import {
   RESET_NOTES,
   ADD_WORKOUT_NOTES,
   ADD_EXERCISE
-} from "../actions/addWorkoutActions";
+} from "../actions/workoutActions";
 
-const addWorkoutState = {
+const workoutState = {
   title: "",
   notes: "",
   exercises: []
 };
 
-export const addWorkoutReducer = (state = addWorkoutState, action) => {
+export const workoutReducer = (state = workoutState, action) => {
   switch (action.type) {
     case ADD_WORKOUT_TITLE:
       return {
