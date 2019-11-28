@@ -13,3 +13,18 @@ exports.getTemplatesByUserId = asyncHandler(async (req, res, next) => {
     .status(200)
     .json({ success: true, count: templates.length, templates });
 });
+
+// @desc --> add template
+// @route --> POST /api/auth/template
+// @access --> Private
+
+exports.addTemplate = asyncHandler(async (req, res, next) => {
+  req.body.user = req.user._id;
+
+  const template = await Template.create(req.body);
+
+  res.status(201).json({
+    success: true,
+    data: template
+  });
+});

@@ -1,10 +1,16 @@
 const express = require("express");
-const { getTemplatesByUserId } = require("../controllers/templates");
+const {
+  getTemplatesByUserId,
+  addTemplate
+} = require("../controllers/templates");
 
 const router = express.Router();
 
 const { protect } = require("../middleware/auth");
 
-router.route("/").get(protect, getTemplatesByUserId);
+router
+  .route("/")
+  .get(protect, getTemplatesByUserId)
+  .post(protect, addTemplate);
 
 module.exports = router;
