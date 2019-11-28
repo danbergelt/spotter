@@ -1,11 +1,13 @@
 import React from "react";
 import WorkoutColumns from "../../components/dash/workouts/WorkoutColumns";
+import WorkoutOptions from "../../components/dash/workoutmodal/options/WorkoutOptions";
 import TagsModal from "../../components/dash/workoutmodal/tagsmodal/TagsModal";
 import { cleanup, fireEvent } from "@testing-library/react";
 import wrapper from "../../__testUtils__/wrapper";
 import Modal from "react-modal";
 import axios from "axios";
 import mockWorkoutRes from "../../__testUtils__/mockWorkoutRes";
+import mockTagRes from "../../__testUtils__/mockTagRes";
 import reducer from "../../reducers/index";
 
 describe("tag modal functionalty", () => {
@@ -35,10 +37,19 @@ describe("tag modal functionalty", () => {
   });
 
   test("can switch between tabs", () => {
-    const { queryByPlaceholderText, getByText, queryByText } = wrapper(
+    const {
+      queryByPlaceholderText,
+      getByText,
+      queryByText,
+      getByTestId
+    } = wrapper(
       reducer,
-      <TagsModal modal={true} />
+      <WorkoutOptions>
+        <TagsModal modal={true} />
+      </WorkoutOptions>
     );
+
+    fireEvent.click(getByTestId(/tags-modal/i));
 
     expect(queryByPlaceholderText(/set tag name.../i)).toBeFalsy();
     expect(queryByText(/create tag/i)).toBeFalsy();
@@ -50,10 +61,14 @@ describe("tag modal functionalty", () => {
   });
 
   test("can set tag name", () => {
-    const { getByPlaceholderText, getByText, container } = wrapper(
+    const { getByPlaceholderText, getByText, container, getByTestId } = wrapper(
       reducer,
-      <TagsModal modal={true} />
+      <WorkoutOptions>
+        <TagsModal modal={true} />
+      </WorkoutOptions>
     );
+
+    fireEvent.click(getByTestId(/tags-modal/i));
 
     fireEvent.click(getByText(/create/i));
     const title = getByPlaceholderText(/set tag name.../i);
@@ -64,8 +79,12 @@ describe("tag modal functionalty", () => {
   test("can pick color", () => {
     const { getAllByLabelText, getByText, getByTestId } = wrapper(
       reducer,
-      <TagsModal modal={true} />
+      <WorkoutOptions>
+        <TagsModal modal={true} />
+      </WorkoutOptions>
     );
+
+    fireEvent.click(getByTestId(/tags-modal/i));
 
     fireEvent.click(getByText(/create/i));
 
@@ -80,10 +99,20 @@ describe("tag modal functionalty", () => {
 
   test("can create tag", async () => {
     axios.post.mockResolvedValue({ data: { success: true } });
-    const { getAllByLabelText, getByText, findByText, container } = wrapper(
+    const {
+      getAllByLabelText,
+      getByText,
+      findByText,
+      container,
+      getByTestId
+    } = wrapper(
       reducer,
-      <TagsModal modal={true} />
+      <WorkoutOptions>
+        <TagsModal modal={true} />
+      </WorkoutOptions>
     );
+
+    fireEvent.click(getByTestId(/tags-modal/i));
 
     fireEvent.click(getByText(/create/i));
 
@@ -98,10 +127,20 @@ describe("tag modal functionalty", () => {
 
   test("error message displays on rejected value", async () => {
     axios.post.mockRejectedValue({ response: { data: { error: "Rejected" } } });
-    const { getAllByLabelText, getByText, findByText, container } = wrapper(
+    const {
+      getAllByLabelText,
+      getByText,
+      findByText,
+      container,
+      getByTestId
+    } = wrapper(
       reducer,
-      <TagsModal modal={true} />
+      <WorkoutOptions>
+        <TagsModal modal={true} />
+      </WorkoutOptions>
     );
+
+    fireEvent.click(getByTestId(/tags-modal/i));
 
     fireEvent.click(getByText(/create/i));
 

@@ -44,7 +44,7 @@ const TagsModalManage = ({ tags, setActive, setToDelete, fetchTags }) => {
     e.preventDefault();
     setUpdateInput("");
     try {
-      await axiosWithAuth().put(
+      const res = await axiosWithAuth().put(
         `${process.env.REACT_APP_T_API}/api/auth/tags/${update}`,
         { content: updateInput }
       );
@@ -85,12 +85,14 @@ const TagsModalManage = ({ tags, setActive, setToDelete, fetchTags }) => {
                   ? { background: adjust(tag.color, -40), ...styles }
                   : { background: tag.color, ...styles }
               }
+              aria-label="tags-manage"
             >
               {tag.content}
             </div>
             <FiTrash
               onClick={() => handleDelete(tag._id)}
               className="tag-manage-delete"
+              data-testid="trash-tag"
             />
           </div>
           <div>
@@ -103,7 +105,7 @@ const TagsModalManage = ({ tags, setActive, setToDelete, fetchTags }) => {
                   value={updateInput}
                   onChange={e => setUpdateInput(e.target.value)}
                 />
-                <button className="tag-manage-update-submit" type="submit">
+                <button data-testid="save-tag" className="tag-manage-update-submit" type="submit">
                   Save
                 </button>
               </form>

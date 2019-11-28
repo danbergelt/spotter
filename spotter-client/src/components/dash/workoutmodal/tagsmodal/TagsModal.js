@@ -45,6 +45,9 @@ const TagsModal = ({ modal, closeModal, active, setActive }) => {
           setToDelete={setToDelete}
         />
       )}
+      {active === 0 && (
+        <div data-testid="add-tag"></div>
+      )}
     </Modal>
   );
 };
