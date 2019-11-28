@@ -29,7 +29,8 @@ const TemplateSchema = new Schema({
     type: String,
     required: [true, "Give your template a name"],
     trim: true,
-    maxlength: [20, "20 character max"]
+    maxlength: [20, "20 character max"],
+    unique: true
   },
   createdAt: {
     type: Date,

@@ -28,3 +28,19 @@ exports.addTemplate = asyncHandler(async (req, res, next) => {
     data: template
   });
 });
+
+// @desc --> edit template
+// @route --> PUT /api/auth/templates/:id
+// @access --> Private
+
+exports.editTemplate = asyncHandler(async (req, res, next) => {
+  let template = await Template.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true
+  });
+
+  res.status(200).json({
+    success: true,
+    data: template
+  });
+});
