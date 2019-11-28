@@ -17,9 +17,6 @@ const ExerciseForm = ({
         <div className="exercise-form-field-container">
           <div className="exercise-form-field-label">
             <label>Exercise</label>
-            {values.exercise !== "" && (
-              <p className="save-exercise-button">{<FiSave />}</p>
-            )}
           </div>
           {errors.exercise && touched.exercise && (
             <p className="error-exercise-form">{errors.exercise}</p>
