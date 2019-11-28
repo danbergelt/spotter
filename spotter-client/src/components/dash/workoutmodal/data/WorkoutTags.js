@@ -19,6 +19,7 @@ const WorkoutTags = ({ tags }) => {
         ) : (
           tagsInState.map(tag => (
             <div
+              data-testid="mapped-tag"
               style={{
                 background: tag.color,
                 minWidth: "40px",
