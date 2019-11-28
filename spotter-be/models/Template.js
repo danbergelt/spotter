@@ -25,6 +25,12 @@ const ExerciseSchema = new Schema({
 
 // Workout schema
 const TemplateSchema = new Schema({
+  name: {
+    type: String,
+    required: [true, "Give your template a name"],
+    trim: true,
+    maxlength: [20, "20 character max"]
+  },
   createdAt: {
     type: Date,
     default: Date.now

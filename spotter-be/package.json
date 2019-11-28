@@ -22,7 +22,7 @@
     "morgan": "^1.9.1"
   },
   "scripts": {
-    "test": "nodemon --exec 'mocha test/tests/integration/deleteTag.test.js'",
+    "test": "nodemon --exec 'mocha test/tests/unit/TEMPLATE_TemplateCreate.test.js'",
     "start": "NODE_ENV=production node index",
     "dev": "nodemon index"
   }

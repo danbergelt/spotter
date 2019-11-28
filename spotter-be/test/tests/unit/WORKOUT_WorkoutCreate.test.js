@@ -16,7 +16,6 @@ describe("Workout model creation", () => {
     template.user = _id;
   });
 
-  // Successful workout creation
   it("creates a workout", async () => {
     const workout = new Workout(template);
     await workout.save();
@@ -61,6 +60,11 @@ describe("Workout model creation", () => {
     await expect(workout.save()).to.be.rejectedWith(
       "Please add an exercise name"
     );
+  });
+
+  it("cannot create workout w/ tag with no tag id", async () => {
+    const workout = new Workout({ ...template, tags: { tag: undefined } });
+    await expect(workout.save()).to.be.rejectedWith("Tag must include tag ID");
   });
 
   it("cannot create exercise with long name", async () => {
