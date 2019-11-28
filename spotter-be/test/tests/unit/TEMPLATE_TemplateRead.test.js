@@ -1,9 +1,7 @@
 const assert = require("assert");
 const chai = require("chai");
-const expect = chai.expect;
 chai.use(require("chai-as-promised"));
 const Template = require("../../../models/Template");
-const User = require("../../../models/User");
 const { dbHelper } = require("../../utils/db");
 const { createUser } = require("../../utils/createUser");
 const { template } = require("../../utils/templateWorkoutTemplate");
