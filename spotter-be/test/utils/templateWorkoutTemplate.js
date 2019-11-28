@@ -1,6 +1,5 @@
 exports.template = {
   name: "Test Template",
-  date: "Jan 01 2020",
   title: "Workout",
   notes: "Notes for workout",
   exercises: [
