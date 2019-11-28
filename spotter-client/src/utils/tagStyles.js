@@ -5,7 +5,7 @@ const styles = {
   display: "flex",
   padding: "1rem",
   alignItems: "center",
-  fontSize: "1.3rem",
+  fontSize: "1.5rem",
   color: "white",
   cursor: "pointer"
 };

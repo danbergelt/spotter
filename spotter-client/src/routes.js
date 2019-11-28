@@ -18,14 +18,14 @@ const Routes = ({ token }) => {
         <Route exact path="/">
           {token ? <Redirect to="/dashboard" /> : <Home />}
         </Route>
-        <Route path="/login">
+        <Route exact path="/login">
           {token ? <Redirect to="/dashboard" /> : <LogIn />}
         </Route>
-        <Route path="/signup">
+        <Route exact path="/signup">
           {token ? <Redirect to="/dashboard" /> : <SignUp />}
         </Route>
-        <PrivateRoute path="/dashboard" component={Dashboard} />
-        <Route path="/500" component={ServerError} />
+        <PrivateRoute exact path="/dashboard" component={Dashboard} />
+        <Route exact path="/500" component={ServerError} />
         <Route component={NotFound} />
       </Switch>
     </Layout>

@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { connect } from "react-redux";
 import { FiTrash } from "react-icons/fi";
 import adjust from "../../../../utils/darkenColorInJS";
+import styles from "../../../../utils/tagStyles";
 import axiosWithAuth from "../../../../utils/axiosWithAuth";
 import { fetchTags } from "../../../../actions/tagsActions";
 import { useHistory } from "react-router-dom";
@@ -17,18 +18,6 @@ const TagsModalManage = ({ tags, setActive, setToDelete, fetchTags, updateTag })
   const inputRef = useRef();
 
   const history = useHistory();
-
-  const styles = {
-    width: "250px",
-    height: "35px",
-    borderRadius: "4px",
-    display: "flex",
-    padding: "1rem",
-    alignItems: "center",
-    fontSize: "1.3rem",
-    color: "white",
-    cursor: "pointer"
-  };
 
   useEffect(() => {
     if (update && update._id) {

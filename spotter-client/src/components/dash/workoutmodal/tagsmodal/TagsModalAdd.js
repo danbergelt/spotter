@@ -57,7 +57,7 @@ const TagsModalAdd = ({ tags, isLoading, toggleTag, onWorkout }) => {
                           key={activeT._id}
                           style={{
                             color: "white",
-                            fontSize: "1.75rem",
+                            fontSize: "1.5rem",
                             marginLeft: "auto"
                           }}
                         >

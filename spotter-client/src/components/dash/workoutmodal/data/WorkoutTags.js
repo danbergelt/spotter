@@ -4,8 +4,6 @@ import { connect } from "react-redux";
 const WorkoutTags = ({ tags }) => {
   const [tagsInState, setTagsInState] = useState([]);
 
-  console.log(tags);
-
   useEffect(() => {
     setTagsInState(tags);
   }, [tags]);
