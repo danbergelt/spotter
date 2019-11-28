@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useRef } from "react";
 import { FiStar } from "react-icons/fi";
 import ExerciseForm from "./ExerciseForm";
 import WorkoutExercise from "./WorkoutExercise";
 import { WorkoutDataConsumer } from "../../../../contexts/workoutDataContext";
 
 const WorkoutExercises = () => {
+
+  const inputRef = useRef(null);
+
   return (
     <WorkoutDataConsumer>
       {context => (
@@ -14,7 +17,7 @@ const WorkoutExercises = () => {
             <div className="workout-data-exercises-title">Exercises</div>
           </div>
           <div className="workout-data-exercises-content">
-            <ExerciseForm addExercise={context.addExercise} />
+            <ExerciseForm inputRef={inputRef} addExercise={context.addExercise} />
             <div className="workout-data-exercises-list">
               {context.exercises.map((exercise, i) => (
                 <WorkoutExercise key={i} i={i} exercise={exercise}/>

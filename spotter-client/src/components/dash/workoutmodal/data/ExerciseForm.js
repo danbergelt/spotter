@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import * as Yup from "yup";
 import { Form, Field, withFormik } from "formik";
 import { FiCheck, FiTrash, FiSave } from "react-icons/fi";
@@ -9,7 +9,8 @@ const ExerciseForm = ({
   values,
   addExercise,
   errors,
-  touched
+  touched,
+  inputRef
 }) => {
   return (
     <div className="exercise-form-container">
@@ -22,6 +23,7 @@ const ExerciseForm = ({
             <p className="error-exercise-form">{errors.exercise}</p>
           )}
           <Field
+            innerRef={inputRef}
             className="exercise-form-field"
             name="exercise"
             placeholder="e.g. squat"
@@ -114,8 +116,9 @@ const FormikExerciseForm = withFormik({
     reps: Yup.number().max(2000, "2000 lb limit"),
     sets: Yup.number().max(2000, "2000 lb limit")
   }),
-  handleSubmit(values, { props: { addExercise }, resetForm }) {
+  handleSubmit(values, { props: { addExercise, inputRef }, resetForm }) {
     resetForm();
+    inputRef.current.focus();
     addExercise(values);
   }
 })(ExerciseForm);
