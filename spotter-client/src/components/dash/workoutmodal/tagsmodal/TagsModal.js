@@ -5,6 +5,7 @@ import TagsModalHead from "./TagsModalHead";
 import TagsModalCreate from "./TagsModalCreate";
 import TagsModalManage from "./TagsModalManage";
 import TagsModalDelete from "./TagsModalDelete";
+import TagsModalAdd from "./TagsModalAdd";
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
@@ -46,7 +47,7 @@ const TagsModal = ({ modal, closeModal, active, setActive }) => {
         />
       )}
       {active === 0 && (
-        <div data-testid="add-tag"></div>
+        <TagsModalAdd />
       )}
     </Modal>
   );

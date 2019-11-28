@@ -44,7 +44,7 @@ const TagsModalManage = ({ tags, setActive, setToDelete, fetchTags }) => {
     e.preventDefault();
     setUpdateInput("");
     try {
-      const res = await axiosWithAuth().put(
+      await axiosWithAuth().put(
         `${process.env.REACT_APP_T_API}/api/auth/tags/${update}`,
         { content: updateInput }
       );
