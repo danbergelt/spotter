@@ -44,3 +44,18 @@ exports.editTemplate = asyncHandler(async (req, res, next) => {
     data: template
   });
 });
+
+// @desc --> delete template
+// @route --> DELETE /api/auth/template/:id
+// @access --> Private
+
+exports.deleteTemplate = asyncHandler(async (req, res, next) => {
+  let template = await Template.findById(req.params.id);
+
+  await template.remove();
+
+  res.status(200).json({
+    success: true,
+    data: "Template deleted"
+  });
+});
