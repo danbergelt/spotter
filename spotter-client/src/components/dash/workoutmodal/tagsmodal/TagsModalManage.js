@@ -6,8 +6,9 @@ import axiosWithAuth from "../../../../utils/axiosWithAuth";
 import { fetchTags } from "../../../../actions/tagsActions";
 import { useHistory } from "react-router-dom";
 import { FiX } from "react-icons/fi";
+import { updateTag } from '../../../../actions/workoutActions';
 
-const TagsModalManage = ({ tags, setActive, setToDelete, fetchTags }) => {
+const TagsModalManage = ({ tags, setActive, setToDelete, fetchTags, updateTag }) => {
   const [hover, setHover] = useState(null);
   const [update, setUpdate] = useState(null);
   const [updateInput, setUpdateInput] = useState("");
@@ -30,25 +31,26 @@ const TagsModalManage = ({ tags, setActive, setToDelete, fetchTags }) => {
   };
 
   useEffect(() => {
-    if (update && update.length) {
+    if (update && update._id) {
       inputRef.current.focus();
     }
   }, [update]);
 
-  const handleDelete = id => {
+  const handleDelete = tag => {
     setActive(3);
-    setToDelete(id);
+    setToDelete(tag);
   };
 
   const handleSubmit = async e => {
     e.preventDefault();
     setUpdateInput("");
     try {
-      await axiosWithAuth().put(
-        `${process.env.REACT_APP_T_API}/api/auth/tags/${update}`,
+      const res = await axiosWithAuth().put(
+        `${process.env.REACT_APP_T_API}/api/auth/tags/${update._id}`,
         { content: updateInput }
       );
       setUpdate(null);
+      updateTag(res.data.tag)
       fetchTags(history);
     } catch (error) {
       setErr(error.response.data.error);
@@ -77,11 +79,11 @@ const TagsModalManage = ({ tags, setActive, setToDelete, fetchTags }) => {
         <div key={tag._id}>
           <div className="tag-manage-container">
             <div
-              onClick={() => setUpdate(tag._id)}
-              onMouseEnter={() => setHover(tag.color)}
+              onClick={() => setUpdate(tag)}
+              onMouseEnter={() => setHover(tag._id)}
               onMouseLeave={() => setHover(null)}
               style={
-                tag.color === hover
+                tag._id === hover
                   ? { background: adjust(tag.color, -40), ...styles }
                   : { background: tag.color, ...styles }
               }
@@ -90,13 +92,13 @@ const TagsModalManage = ({ tags, setActive, setToDelete, fetchTags }) => {
               {tag.content}
             </div>
             <FiTrash
-              onClick={() => handleDelete(tag._id)}
+              onClick={() => handleDelete(tag)}
               className="tag-manage-delete"
               data-testid="trash-tag"
             />
           </div>
           <div>
-            {update === tag._id && (
+            {update && update._id === tag._id && (
               <form onSubmit={e => handleSubmit(e)}>
                 <input
                   ref={inputRef}
@@ -123,4 +125,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { fetchTags })(TagsModalManage);
+export default connect(mapStateToProps, { fetchTags, updateTag })(TagsModalManage);

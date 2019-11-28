@@ -4,8 +4,11 @@ import {
   RESET_NOTES,
   ADD_WORKOUT_NOTES,
   ADD_EXERCISE,
-  TOGGLE_TAG
+  TOGGLE_TAG,
+  UPDATE_TAG,
+  DELETE_TAG
 } from "../actions/workoutActions";
+import { find, isMatch, isEqual, omit } from "lodash";
 
 const workoutState = {
   title: "",
@@ -31,7 +34,8 @@ export const workoutReducer = (state = workoutState, action) => {
         ...state,
         title: "",
         notes: "",
-        exercises: []
+        exercises: [],
+        tags: []
       };
     case RESET_NOTES:
       return {
@@ -44,19 +48,34 @@ export const workoutReducer = (state = workoutState, action) => {
         exercises: [...state.exercises, action.payload]
       };
     case TOGGLE_TAG:
-      const testForMatches = state.tags.reduce((acc, el) => {
-        if (el._id === action.payload._id) {
-          acc.push(true);
-        } else {
-          acc.push(false);
-        }
-        return acc;
-      }, []);
+      const testForMatches = find(state.tags, t => {
+        return isMatch(t, action.payload);
+      });
       return {
         ...state,
-        tags: testForMatches.includes(true)
+        tags: testForMatches
           ? state.tags.filter(el => el._id !== action.payload._id)
           : [...state.tags, action.payload]
+      };
+    case DELETE_TAG:
+      return {
+        ...state,
+        tags: state.tags.filter(el => el._id !== action.payload._id)
+      };
+    case UPDATE_TAG:
+      const testForUpdates = find(state.tags, t => {
+        return isMatch(
+          omit(t, ["color", "content", "__v"]),
+          omit(action.payload, ["color", "content", "__v"])
+        );
+      });
+      return {
+        ...state,
+        tags: testForUpdates
+          ? state.tags.map(t =>
+              isEqual(t, testForUpdates) ? action.payload : t
+            )
+          : [...state.tags]
       };
     default:
       return state;

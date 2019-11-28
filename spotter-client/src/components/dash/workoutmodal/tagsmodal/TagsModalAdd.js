@@ -4,8 +4,9 @@ import Loader from "react-loader-spinner";
 import styles from "../../../../utils/tagStyles";
 import adjust from "../../../../utils/darkenColorInJS";
 import { toggleTag } from "../../../../actions/workoutActions";
+import { FiCheck } from "react-icons/fi";
 
-const TagsModalAdd = ({ tags, isLoading, toggleTag }) => {
+const TagsModalAdd = ({ tags, isLoading, toggleTag, onWorkout }) => {
   const [hover, setHover] = useState(null);
   if (isLoading) {
     return (
@@ -15,7 +16,7 @@ const TagsModalAdd = ({ tags, isLoading, toggleTag }) => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          height: "200px"
+          height: "200px",
         }}
         type="ThreeDots"
         color="#E9503F"
@@ -40,15 +41,30 @@ const TagsModalAdd = ({ tags, isLoading, toggleTag }) => {
               <div className="tag-add-container">
                 <div
                   onClick={() => toggleTag(tag)}
-                  onMouseEnter={() => setHover(tag.color)}
+                  onMouseEnter={() => setHover(tag._id)}
                   onMouseLeave={() => setHover(null)}
                   style={
-                    tag.color === hover
+                    tag._id === hover
                       ? { background: adjust(tag.color, -40), ...styles }
                       : { background: tag.color, ...styles }
                   }
                 >
                   {tag.content}
+                  {onWorkout.map(
+                    activeT =>
+                      activeT._id === tag._id && (
+                        <div
+                          key={activeT._id}
+                          style={{
+                            color: "white",
+                            fontSize: "1.75rem",
+                            marginLeft: "auto"
+                          }}
+                        >
+                          <FiCheck />
+                        </div>
+                      )
+                  )}
                 </div>
               </div>
             </div>
@@ -61,7 +77,8 @@ const TagsModalAdd = ({ tags, isLoading, toggleTag }) => {
 const mapStateToProps = state => {
   return {
     tags: state.tagsReducer.tags,
-    isLoading: state.tagsReducer.isLoading
+    isLoading: state.tagsReducer.isLoading,
+    onWorkout: state.workoutReducer.tags
   };
 };
 

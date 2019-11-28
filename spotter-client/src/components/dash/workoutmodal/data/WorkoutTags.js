@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 const WorkoutTags = ({ tags }) => {
-
   const [tagsInState, setTagsInState] = useState([]);
 
-  useEffect(() => {
-    setTagsInState(tags)
-  }, [tags]) 
+  console.log(tags);
 
+  useEffect(() => {
+    setTagsInState(tags);
+  }, [tags]);
 
   return (
     <div className="workout-data-tags">
@@ -19,7 +19,26 @@ const WorkoutTags = ({ tags }) => {
             No tags
           </p>
         ) : (
-          tagsInState.map(tag => <div key={tag._id}>{tag._id}</div>)
+          tagsInState.map(tag => (
+            <div
+              style={{
+                background: tag.color,
+                minWidth: "40px",
+                minHeight: "30px",
+                borderRadius: "4px",
+                padding: "0.75rem",
+                margin: "0.25rem",
+                color: "white",
+                fontSize: "1.3rem",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+              key={tag._id}
+            >
+              {tag.content}
+            </div>
+          ))
         )}
       </div>
     </div>
