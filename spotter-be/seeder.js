@@ -8,6 +8,7 @@ dotenv.config();
 const User = require("./models/User");
 const Workout = require("./models/Workout");
 const Tag = require("./models/Tag");
+const Template = require("./models/Template");
 
 // Connect to DB
 mongoose.connect(process.env.T_DB, {
@@ -44,6 +45,7 @@ const wipe = async () => {
     await User.deleteMany();
     await Tag.deleteMany();
     await Workout.deleteMany();
+    await Template.deleteMany();
     console.log("Data destroyed".red.inverse);
     process.exit();
   } catch (err) {
