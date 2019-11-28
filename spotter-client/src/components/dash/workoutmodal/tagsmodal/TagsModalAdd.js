@@ -16,7 +16,7 @@ const TagsModalAdd = ({ tags, isLoading, toggleTag, onWorkout }) => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          height: "200px",
+          height: "200px"
         }}
         type="ThreeDots"
         color="#E9503F"
@@ -35,41 +35,40 @@ const TagsModalAdd = ({ tags, isLoading, toggleTag, onWorkout }) => {
       <div className="tag-add-head" data-testid="add-tag">
         Add
       </div>
-      {tags.length
-        ? tags.map(tag => (
-            <div key={tag._id}>
-              <div className="tag-add-container">
-                <div
-                  onClick={() => toggleTag(tag)}
-                  onMouseEnter={() => setHover(tag._id)}
-                  onMouseLeave={() => setHover(null)}
-                  style={
-                    tag._id === hover
-                      ? { background: adjust(tag.color, -40), ...styles }
-                      : { background: tag.color, ...styles }
-                  }
-                >
-                  {tag.content}
-                  {onWorkout.map(
-                    activeT =>
-                      activeT._id === tag._id && (
-                        <div
-                          key={activeT._id}
-                          style={{
-                            color: "white",
-                            fontSize: "1.5rem",
-                            marginLeft: "auto"
-                          }}
-                        >
-                          <FiCheck />
-                        </div>
-                      )
-                  )}
-                </div>
-              </div>
+      {tags.map(tag => (
+        <div key={tag._id}>
+          <div className="tag-add-container">
+            <div
+              data-testid="tag-to-add"
+              onClick={() => toggleTag(tag)}
+              onMouseEnter={() => setHover(tag._id)}
+              onMouseLeave={() => setHover(null)}
+              style={
+                tag._id === hover
+                  ? { background: adjust(tag.color, -40), ...styles }
+                  : { background: tag.color, ...styles }
+              }
+            >
+              {tag.content}
+              {onWorkout.map(
+                activeT =>
+                  activeT._id === tag._id && (
+                    <div
+                      key={activeT._id}
+                      style={{
+                        color: "white",
+                        fontSize: "1.75rem",
+                        marginLeft: "auto"
+                      }}
+                    >
+                      <FiCheck />
+                    </div>
+                  )
+              )}
             </div>
-          ))
-        : null}
+          </div>
+        </div>
+      ))}
     </>
   );
 };

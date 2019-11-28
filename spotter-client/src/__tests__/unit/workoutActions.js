@@ -8,7 +8,13 @@ import {
   RESET_NOTES,
   RESET_WORKOUT,
   resetWorkout,
-  resetNotes
+  resetNotes,
+  TOGGLE_TAG,
+  toggleTag,
+  UPDATE_TAG,
+  updateTag,
+  DELETE_TAG,
+  deleteTag
 } from "../../actions/workoutActions";
 
 describe("add workout actions", () => {
@@ -51,5 +57,32 @@ describe("add workout actions", () => {
       type: RESET_WORKOUT
     };
     expect(resetWorkout()).toEqual(expectedAction);
+  });
+
+  test("toggle tag", () => {
+    const tag = { tag: "tag" };
+    const expectedAction = {
+      type: TOGGLE_TAG,
+      payload: tag
+    };
+    expect(toggleTag(tag)).toEqual(expectedAction);
+  });
+
+  test("delete tag", () => {
+    const tag = { tag: "tag" };
+    const expectedAction = {
+      type: DELETE_TAG,
+      payload: tag
+    };
+    expect(deleteTag(tag)).toEqual(expectedAction);
+  });
+
+  test("update tag", () => {
+    const tag = { tag: "tag" };
+    const expectedAction = {
+      type: UPDATE_TAG,
+      payload: tag
+    };
+    expect(updateTag(tag)).toEqual(expectedAction);
   });
 });

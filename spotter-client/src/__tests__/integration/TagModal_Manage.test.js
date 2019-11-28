@@ -2,6 +2,7 @@ import React from "react";
 import TagsModal from "../../components/dash/workoutmodal/tagsmodal/TagsModal";
 import WorkoutOptions from "../../components/dash/workoutmodal/options/WorkoutOptions";
 import mockTagRes from "../../__testUtils__/mockTagRes";
+import mockUpdateTagRes from "../../__testUtils__/mockUpdateTagRes";
 import { cleanup, fireEvent } from "@testing-library/react";
 import wrapper from "../../__testUtils__/wrapper";
 import Modal from "react-modal";
@@ -17,7 +18,7 @@ describe("tag modal manage functionality", () => {
   });
 
   test("modal displays default state if no tags", () => {
-    const { queryByText, getByText, getByTestId } = wrapper(
+    const { queryByText, getByText, getByTestId, debug } = wrapper(
       reducer,
       <WorkoutOptions>
         <TagsModal modal={true} />
@@ -62,6 +63,7 @@ describe("tag modal manage functionality", () => {
 
   test("can edit tag name", async () => {
     axios.get.mockResolvedValue(mockTagRes);
+    axios.put.mockResolvedValue(mockUpdateTagRes);
     const {
       getByText,
       getByTestId,

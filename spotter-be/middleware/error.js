@@ -15,7 +15,7 @@ const errorHandler = (err, req, res, next) => {
 
   // Dup field
   if (err.code === 11000) {
-    const message = "Duplicate field value detected";
+    const message = "Duplicate values detected, try again";
     error = new Err(message, 400);
   }
 
