@@ -23,7 +23,7 @@ const TemplateSave = ({ close, templateSave, workout }) => {
     content: {
       width: "250px",
       height: "170px",
-      marginLeft: "60.5vw",
+      marginLeft: "60vw",
       marginTop: "25vh"
     }
   };

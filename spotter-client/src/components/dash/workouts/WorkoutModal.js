@@ -11,7 +11,7 @@ import {
 import { WorkoutDataProvider } from "../../../contexts/workoutDataContext";
 
 // components
-import WorkoutTitle from "../workoutmodal/WorkoutTitle";
+import WorkoutTitle from "../workoutmodal/data/WorkoutTitle";
 import WorkoutContent from "../workoutmodal/WorkoutContent";
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");

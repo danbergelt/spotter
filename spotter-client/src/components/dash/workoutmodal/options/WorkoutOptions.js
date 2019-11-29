@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axiosWithAuth from "../../../../utils/axiosWithAuth";
 import {
   FiTag,
   FiPlusCircle,
@@ -10,6 +11,7 @@ import {
 import WorkoutOption from "./WorkoutOption";
 import TagsModal from "../tagsmodal/TagsModal";
 import TemplateSave from "../templatesave/TemplateSave";
+import FromTemplate from "../fromtemplate/FromTemplate";
 
 import { connect } from "react-redux";
 import { fetchTags } from "../../../../actions/tagsActions";
@@ -22,8 +24,11 @@ const WorkoutOptions = ({ fetchTags }) => {
   const [active, setActive] = useState(0);
   const [modal, setModal] = useState(false);
   const [templateSave, setTemplateSave] = useState(false);
+  const [fromTemplate, setFromTemplate] = useState(false);
+  const [templates, setTemplates] = useState([]);
+  const [templatesErr, setTemplatesErr] = useState("");
 
-  const openModal = () => setModal(true);
+  console.log(templates);
 
   const closeModal = () => {
     setModal(false);
@@ -41,6 +46,22 @@ const WorkoutOptions = ({ fetchTags }) => {
 
   const closeTemplateSaveModal = () => {
     setTemplateSave(false);
+  };
+
+  const openFromTemplateModal = async () => {
+    try {
+      const res = await axiosWithAuth().get(
+        `${process.env.REACT_APP_T_API}/api/auth/templates`
+      );
+      setTemplates(res.data.templates);
+    } catch (error) {
+      setTemplatesErr(error.response.data.error);
+    }
+    setFromTemplate(true);
+  };
+
+  const closeFromTemplateModal = () => {
+    setFromTemplate(false);
   };
 
   return (
@@ -67,8 +88,15 @@ const WorkoutOptions = ({ fetchTags }) => {
           close={closeTemplateSaveModal}
         />
         <WorkoutOption
+          action={openFromTemplateModal}
           text={"From Template"}
           icon={<FiPackage className={iconClass} />}
+        />
+        <FromTemplate
+          templates={templates}
+          err={templatesErr}
+          fromTemplate={fromTemplate}
+          close={closeFromTemplateModal}
         />
         <div className="add-workout-options-button delete">
           <FiDelete className={iconClass} /> Delete

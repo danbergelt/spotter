@@ -21,6 +21,15 @@ exports.getTemplatesByUserId = asyncHandler(async (req, res, next) => {
 exports.addTemplate = asyncHandler(async (req, res, next) => {
   req.body.user = req.user._id;
 
+  const templates = await Template.find({
+    name: req.body.name,
+    user: req.body.user
+  });
+
+  if (templates.length) {
+    return next(new Err("Template already exists", 400));
+  }
+
   const template = await Template.create(req.body);
 
   res.status(201).json({

@@ -18,8 +18,8 @@ const TagsModal = ({ modal, closeModal, active, setActive }) => {
     },
     content: {
       width: "325px",
-      height: "325px",
-      marginLeft: "60.5vw"
+      height: "330px",
+      marginLeft: "60vw"
     }
   };
 
