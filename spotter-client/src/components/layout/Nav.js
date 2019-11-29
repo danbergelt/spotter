@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { addToken } from "../../actions/addTokenActions";
 
 const Nav = ({ token, addToken }) => {
-
   const logOut = async () => {
     addToken(null);
     await axios.get(`${process.env.REACT_APP_T_API}/api/auth/logout`, {
@@ -26,20 +25,13 @@ const Nav = ({ token, addToken }) => {
             About
           </Link>
         )}
-        {!token && (
-          <Link to="/" className="spotter-nav-link">
-            Contact
-          </Link>
-        )}
-        {token && (
-          <Link
-            data-testid="dashboard"
-            className="spotter-nav-link dashboard"
-            to="/dashboard"
-          >
-            Dashboard{" "}
-          </Link>
-        )}
+        <Link
+          data-testid="dashboard"
+          className="spotter-nav-link"
+          to="/contact"
+        >
+          Contact
+        </Link>
         {token && (
           <Link
             data-testid="logout"
@@ -51,7 +43,11 @@ const Nav = ({ token, addToken }) => {
           </Link>
         )}
         {!token && (
-          <Link data-testid="login" className="spotter-nav-link" to="/login">
+          <Link
+            data-testid="login"
+            className="spotter-nav-link dashboard"
+            to="/login"
+          >
             Log In
           </Link>
         )}

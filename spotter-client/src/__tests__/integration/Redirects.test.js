@@ -35,10 +35,8 @@ describe("redirects and conditional rendering", () => {
     store.dispatch({ type: ADD_TOKEN, payload: "token" });
 
     expect(container.contains(getByText(/log out/i))).toBeTruthy();
-    expect(container.contains(getByText(/dashboard/i))).toBeTruthy();
     expect(container.contains(queryByText(/log in/i))).toBeFalsy();
     expect(container.contains(queryByText(/about/i))).toBeFalsy();
-    expect(container.contains(queryByText(/contact/i))).toBeFalsy();
     await wait(() => expect(mockAxios.post).toHaveBeenCalledTimes(1));
   });
 

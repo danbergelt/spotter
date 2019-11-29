@@ -35,7 +35,7 @@
     justify-content: space-between;
 
     .template-save-name {
-      padding: 0.6rem;
+      padding: 0.75rem;
       outline: none;
       border-radius: 4px;
       border: 1px solid $gray4;
@@ -58,6 +58,7 @@
     font-size: 1.3rem;
     cursor: pointer;
     outline: 0;
+    border: 0;
 
     &:hover {
       background: darken($info, 10%);
