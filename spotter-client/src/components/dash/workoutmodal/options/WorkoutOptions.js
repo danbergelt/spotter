@@ -9,19 +9,19 @@ import {
 
 import WorkoutOption from "./WorkoutOption";
 import TagsModal from "../tagsmodal/TagsModal";
+import TemplateSave from "../templatesave/TemplateSave";
 
 import { connect } from "react-redux";
 import { fetchTags } from "../../../../actions/tagsActions";
 import { useHistory } from "react-router-dom";
 
 const WorkoutOptions = ({ fetchTags }) => {
-  const [active, setActive] = useState(0);
-
   const history = useHistory();
-
   const iconClass = "add-workout-options-icon";
 
+  const [active, setActive] = useState(0);
   const [modal, setModal] = useState(false);
+  const [templateSave, setTemplateSave] = useState(false);
 
   const openModal = () => setModal(true);
 
@@ -33,6 +33,14 @@ const WorkoutOptions = ({ fetchTags }) => {
   const openTagsModal = () => {
     setModal(true);
     fetchTags(history);
+  };
+
+  const openTemplateSaveModal = () => {
+    setTemplateSave(true);
+  };
+
+  const closeTemplateSaveModal = () => {
+    setTemplateSave(false);
   };
 
   return (
@@ -49,8 +57,13 @@ const WorkoutOptions = ({ fetchTags }) => {
           closeModal={closeModal}
         />
         <WorkoutOption
+          action={openTemplateSaveModal}
           text={"Template"}
           icon={<FiSave className={iconClass} />}
+        />
+        <TemplateSave
+          templateSave={templateSave}
+          close={closeTemplateSaveModal}
         />
         <WorkoutOption
           text={"From Template"}

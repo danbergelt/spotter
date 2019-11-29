@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { FiTrash } from "react-icons/fi";
 import adjust from "../../../../utils/darkenColorInJS";
@@ -15,15 +15,7 @@ const TagsModalManage = ({ tags, setActive, setToDelete, fetchTags, updateTag })
   const [updateInput, setUpdateInput] = useState("");
   const [err, setErr] = useState("");
 
-  const inputRef = useRef();
-
   const history = useHistory();
-
-  useEffect(() => {
-    if (update && update._id) {
-      inputRef.current.focus();
-    }
-  }, [update]);
 
   const handleDelete = tag => {
     setActive(3);
@@ -90,7 +82,7 @@ const TagsModalManage = ({ tags, setActive, setToDelete, fetchTags, updateTag })
             {update && update._id === tag._id && (
               <form onSubmit={e => handleSubmit(e)}>
                 <input
-                  ref={inputRef}
+                  autoFocus
                   className="tag-manage-update-input"
                   placeholder="Update tag name..."
                   value={updateInput}
