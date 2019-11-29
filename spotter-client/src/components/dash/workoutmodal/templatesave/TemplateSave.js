@@ -10,13 +10,19 @@ const TemplateSave = ({ close, templateSave, workout }) => {
   const [tempName, setTempName] = useState("");
   const [message, setMessage] = useState({});
 
+  const closeHandler = () => {
+    close();
+    setMessage({});
+    setTempName("");
+  };
+
   const customStyles = {
     overlay: {
       background: "transparent"
     },
     content: {
       width: "250px",
-      height: "165px",
+      height: "170px",
       marginLeft: "60.5vw",
       marginTop: "25vh"
     }
@@ -31,7 +37,7 @@ const TemplateSave = ({ close, templateSave, workout }) => {
       return { ...el, name: el.exercise };
     });
     try {
-      const res = await axiosWithAuth().post(
+      await axiosWithAuth().post(
         `${process.env.REACT_APP_T_API}/api/auth/templates`,
         {
           name: tempName,
@@ -60,8 +66,11 @@ const TemplateSave = ({ close, templateSave, workout }) => {
       <div className="save-template-container">
         <div className="save-template-header">
           <div className="save-template-title">Save Template</div>
-          <div onClick={close} className="save-template-exit">
-            <FiX style={{ display: "flex", alignItems: "center" }} />
+          <div onClick={closeHandler} className="save-template-exit">
+            <FiX
+              data-testid="quit-template-save"
+              style={{ display: "flex", alignItems: "center" }}
+            />
           </div>
         </div>
         <form
@@ -100,6 +109,7 @@ const TemplateSave = ({ close, templateSave, workout }) => {
           </div>
         )}
         <button
+          data-testid="submit-template"
           className="template-save-submit"
           type="submit"
           form="save"

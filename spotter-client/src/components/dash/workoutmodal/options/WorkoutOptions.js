@@ -57,6 +57,7 @@ const WorkoutOptions = ({ fetchTags }) => {
           closeModal={closeModal}
         />
         <WorkoutOption
+          testing={"save-template"}
           action={openTemplateSaveModal}
           text={"Template"}
           icon={<FiSave className={iconClass} />}

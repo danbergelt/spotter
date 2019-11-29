@@ -32,18 +32,6 @@ describe("Nav routes", () => {
     expect(container.innerHTML).toMatch(/tracker/i);
   });
 
-  test("dashboard link works for logged-in users", () => {
-    axios.post.mockResolvedValue(mockWorkoutRes);
-    const { getByText, history, store } = wrapper(reducer, <Routes />);
-
-    store.dispatch({ type: ADD_TOKEN, payload: "token" });
-
-    fireEvent.click(getByText(/dashboard/i));
-    expect(history.location.pathname).toEqual("/dashboard");
-    expect(axios.post).toHaveBeenCalledTimes(1);
-    
-  });
-
   test("logout functionality works", () => {
     axios.post.mockResolvedValue(mockWorkoutRes);
     const { getByTestId, history, store } = wrapper(reducer, <Routes />);
