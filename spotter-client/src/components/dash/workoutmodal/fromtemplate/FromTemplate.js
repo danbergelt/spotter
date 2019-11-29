@@ -1,12 +1,23 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import { FiX } from "react-icons/fi";
+import { connect } from "react-redux";
+import { fromTemplate as generate } from "../../../../actions/workoutActions";
+import { isEmpty } from "lodash";
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
-const FromTemplate = ({ close, fromTemplate, templates, templatesErr }) => {
+const FromTemplate = ({
+  close,
+  fromTemplate,
+  templates,
+  templatesErr,
+  generate
+}) => {
   const [search, setSearch] = useState("");
-  const [active, setActive] = useState("");
+  const [active, setActive] = useState({});
+
+  console.log(isEmpty(active))
 
   const customStyles = {
     overlay: {
@@ -20,9 +31,15 @@ const FromTemplate = ({ close, fromTemplate, templates, templatesErr }) => {
     }
   };
 
+  const genHandler = template => {
+    generate(template);
+    close();
+    setActive({});
+  };
+
   const closeHandler = () => {
     close();
-    setActive("");
+    setActive({});
   };
 
   const filter = templates.filter(t => t.name.includes(search));
@@ -56,8 +73,10 @@ const FromTemplate = ({ close, fromTemplate, templates, templatesErr }) => {
             filter.length ? (
               filter.map(el => (
                 <div
-                  onClick={() => setActive(el._id)}
-                  className={el._id === active ? "template active" : "template"}
+                  onClick={() => setActive(el)}
+                  className={
+                    el._id === active._id ? "template active" : "template"
+                  }
                   key={el._id}
                 >
                   {el.name}
@@ -70,10 +89,15 @@ const FromTemplate = ({ close, fromTemplate, templates, templatesErr }) => {
             <div className="no-templates-found">No templates found</div>
           )}
         </div>
-        <div className="generate-template">Generate</div>
+        <div
+          onClick={() => (!isEmpty(active) ? genHandler(active) : null)}
+          className="generate-template"
+        >
+          Generate
+        </div>
       </div>
     </Modal>
   );
 };
 
-export default FromTemplate;
+export default connect(null, { generate })(FromTemplate);

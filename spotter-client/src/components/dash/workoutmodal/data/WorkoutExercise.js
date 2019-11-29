@@ -5,7 +5,7 @@ const WorkoutExercise = ({ exercise, i }) => {
   return (
     <div className={i % 2 === 0 ? "exercise-row even" : "exercise-row odd"}>
       <div className="exercise-results">
-        <div className="exercise-name">{exercise.exercise}</div>
+        <div className="exercise-name">{exercise.name}</div>
         <div className="exercise-stats">
           {exercise.weight && (
             <div className="exercise-stat">{exercise.weight} lbs</div>

@@ -76,7 +76,7 @@ describe("Register new user", () => {
             resTwo.body.success.should.equal(false);
             resTwo.should.have.status(400);
             resTwo.body.should.be.a("object");
-            resTwo.body.error.should.equal("Duplicate values detected, try again");
+            resTwo.body.error.should.equal("Duplicate detected, try again");
             done();
           })
       );

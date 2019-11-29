@@ -31,10 +31,7 @@ const TemplateSave = ({ close, templateSave, workout }) => {
   const handleSubmit = async e => {
     e.preventDefault();
     const transformed = workout.tags.map(el => {
-      return { tag: el._id };
-    });
-    const exs = workout.exercises.map(el => {
-      return { ...el, name: el.exercise };
+      return { tag: el._id, ...el };
     });
     try {
       await axiosWithAuth().post(
@@ -44,7 +41,7 @@ const TemplateSave = ({ close, templateSave, workout }) => {
           title: workout.title,
           tags: transformed,
           notes: workout.notes,
-          exercises: exs
+          exercises: workout.exercises
         }
       );
       setTempName("");
