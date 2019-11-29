@@ -1,8 +1,8 @@
 import React from "react";
 
-const WorkoutOption = ({ text, icon }) => {
+const WorkoutOption = ({ text, icon, action }) => {
   return (
-    <div className="add-workout-options-button">
+    <div onClick={action} className="add-workout-options-button">
       {icon} {text}
     </div>
   );

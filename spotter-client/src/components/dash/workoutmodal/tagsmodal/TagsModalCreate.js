@@ -65,6 +65,7 @@ const TagsModalCreate = ({ fetchTags }) => {
   return (
     <div className="tags-modal-create">
       <input
+        autoFocus
         value={name}
         onChange={e => setName(e.target.value)}
         placeholder="Set tag name..."
