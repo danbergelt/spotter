@@ -92,7 +92,7 @@ describe("DELETE Tag by tag id", () => {
       tId = _id;
       const workout = new Workout({
         ...template,
-        tags: { tag: _id },
+        tags: { ...tag },
         user: uId
       });
       const savedWorkout = await workout.save();

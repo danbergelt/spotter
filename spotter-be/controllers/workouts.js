@@ -2,13 +2,13 @@ const Workout = require("../models/Workout");
 const User = require("../models/User");
 const asyncHandler = require("../middleware/async");
 const Err = require("../utils/Err");
+const hex = require("is-hexcolor");
 
 // @desc --> get all workouts by user id
 // @route --> GET /api/auth/workouts
 // @access --> Private
 
 exports.getWorkoutsByUserId = asyncHandler(async (req, res, next) => {
-
   const pagination = {
     page: parseInt(req.query.page, 10) || 0,
     limit: parseInt(req.query.limit, 10) || 10
@@ -48,6 +48,12 @@ exports.workoutRangeByUserId = asyncHandler(async (req, res, next) => {
 
 exports.addWorkout = asyncHandler(async (req, res, next) => {
   req.body.user = req.user._id;
+
+  const colorValidate = req.body.tags.map(el => hex(el.color));
+
+  if (colorValidate.includes(false)) {
+    return next(new Err("Invalid color detected", 400));
+  }
 
   const workout = await Workout.create(req.body);
 

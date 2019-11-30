@@ -147,15 +147,15 @@ describe("add workout reducer", () => {
     expect(
       workoutReducer(undefined, {
         type: FROM_TEMPLATE,
-        payload: { title: "t", exercises: "e", tags: "tags", notes: "n" }
+        payload: { title: "t", exercises: [], tags: "tags", notes: "n" }
       })
-    ).toEqual({ title: "t", exercises: "e", tags: "tags", notes: "n" });
+    ).toEqual({ title: "t", exercises: [], tags: "tags", notes: "n" });
   });
 
   test("should handle DEL_EXERCISE", () => {
     expect(
       workoutReducer(
-        { exercises: [{ e: "e" }] },
+        { exercises: [{ e: {} }] },
         { type: DEL_EXERCISE, payload: 0 }
       )
     ).toEqual({ exercises: [] });

@@ -30,16 +30,13 @@ const TemplateSave = ({ close, templateSave, workout }) => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const transformed = workout.tags.map(el => {
-      return { tag: el._id, ...el };
-    });
     try {
       await axiosWithAuth().post(
         `${process.env.REACT_APP_T_API}/api/auth/templates`,
         {
           name: tempName,
           title: workout.title,
-          tags: transformed,
+          tags: workout.tags,
           notes: workout.notes,
           exercises: workout.exercises
         }

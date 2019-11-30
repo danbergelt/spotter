@@ -10,14 +10,13 @@ import {
   FROM_TEMPLATE,
   DEL_EXERCISE
 } from "../actions/workoutActions";
-import { find, isMatch, isEqual, omit } from "lodash";
+import { find, isMatch, isEqual, omit, pick, keys } from "lodash";
 
 const workoutState = {
   title: "",
   notes: "",
   exercises: [],
-  tags: [],
-  toEdit: {}
+  tags: []
 };
 
 export const workoutReducer = (state = workoutState, action) => {
@@ -51,9 +50,11 @@ export const workoutReducer = (state = workoutState, action) => {
         exercises: [...state.exercises, action.payload]
       };
     case TOGGLE_TAG:
+      console.log(state.tags, action.payload)
       const testForMatches = find(state.tags, t => {
-        return isMatch(t, action.payload);
+        return isMatch(t, omit(action.payload, ["__v", "user"]));
       });
+      console.log(testForMatches)
       return {
         ...state,
         tags: testForMatches
@@ -68,8 +69,8 @@ export const workoutReducer = (state = workoutState, action) => {
     case UPDATE_TAG:
       const testForUpdates = find(state.tags, t => {
         return isMatch(
-          omit(t, ["color", "content", "__v"]),
-          omit(action.payload, ["color", "content", "__v"])
+          omit(t, ["color", "content", "__v", "tag"]),
+          omit(action.payload, ["color", "content", "__v", "user"])
         );
       });
       return {
@@ -81,6 +82,15 @@ export const workoutReducer = (state = workoutState, action) => {
           : [...state.tags]
       };
     case FROM_TEMPLATE:
+      const exercises = {
+        name: null,
+        sets: null,
+        reps: null,
+        weight: null
+      };
+      action.payload.exercises = action.payload.exercises.map(el =>
+        pick(el, keys(exercises))
+      );
       return {
         ...state,
         title: action.payload.title,

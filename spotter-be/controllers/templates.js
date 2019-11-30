@@ -1,6 +1,7 @@
 const Template = require("../models/Template");
 const asyncHandler = require("../middleware/async");
 const Err = require("../utils/Err");
+const hex = require("is-hexcolor");
 
 // @desc --> get all templates by user id
 // @route --> GET /api/auth/templates
@@ -28,6 +29,12 @@ exports.addTemplate = asyncHandler(async (req, res, next) => {
 
   if (templates.length) {
     return next(new Err("Template already exists", 400));
+  }
+
+  const colorValidate = req.body.tags.map(el => hex(el.color));
+
+  if (colorValidate.includes(false)) {
+    return next(new Err("Invalid color detected", 400));
   }
 
   const template = await Template.create(req.body);

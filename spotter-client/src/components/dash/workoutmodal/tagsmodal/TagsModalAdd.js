@@ -7,6 +7,7 @@ import { toggleTag } from "../../../../actions/workoutActions";
 import { FiCheck } from "react-icons/fi";
 
 const TagsModalAdd = ({ tags, isLoading, toggleTag, onWorkout }) => {
+  console.log(onWorkout, tags)
   const [hover, setHover] = useState(null);
   if (isLoading) {
     return (
