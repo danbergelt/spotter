@@ -10,7 +10,10 @@ const ExerciseForm = ({
   addExercise,
   errors,
   touched,
-  inputRef
+  a,
+  b,
+  c,
+  d
 }) => {
   return (
     <div className="exercise-form-container">
@@ -23,7 +26,7 @@ const ExerciseForm = ({
             <p className="error-exercise-form">{errors.name}</p>
           )}
           <Field
-            innerRef={inputRef}
+            innerRef={a}
             className="exercise-form-field"
             name="name"
             placeholder="e.g. squat"
@@ -36,6 +39,7 @@ const ExerciseForm = ({
             <p className="error-exercise-form">{errors.weight}</p>
           )}
           <Field
+            innerRef={b}
             className="exercise-form-field"
             name="weight"
             placeholder="lbs"
@@ -48,6 +52,7 @@ const ExerciseForm = ({
             <p className="error-exercise-form">{errors.sets}</p>
           )}
           <Field
+            innerRef={c}
             className="exercise-form-field"
             name="sets"
             placeholder="# of sets"
@@ -60,6 +65,7 @@ const ExerciseForm = ({
             <p className="error-exercise-form">{errors.reps}</p>
           )}
           <Field
+            innerRef={d}
             className="exercise-form-field"
             name="reps"
             placeholder="# of reps"
@@ -116,9 +122,9 @@ const FormikExerciseForm = withFormik({
     reps: Yup.number().max(2000, "2000 lb limit"),
     sets: Yup.number().max(2000, "2000 lb limit")
   }),
-  handleSubmit(values, { props: { addExercise, inputRef }, resetForm }) {
+  handleSubmit(values, { props: { addExercise, a, b, c, d }, resetForm }) {
     resetForm();
-    inputRef.current.focus();
+    [a, b, c, d].forEach(ref => ref.current.blur());
     addExercise(values);
   }
 })(ExerciseForm);

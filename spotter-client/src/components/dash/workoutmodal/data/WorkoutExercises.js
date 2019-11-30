@@ -6,7 +6,11 @@ import { WorkoutDataConsumer } from "../../../../contexts/workoutDataContext";
 
 const WorkoutExercises = () => {
 
-  const inputRef = useRef(null);
+  // refs to handle blurring fields
+  const a = useRef(null);
+  const b = useRef(null);
+  const c = useRef(null);
+  const d = useRef(null);
 
   return (
     <WorkoutDataConsumer>
@@ -17,10 +21,16 @@ const WorkoutExercises = () => {
             <div className="workout-data-exercises-title">Exercises</div>
           </div>
           <div className="workout-data-exercises-content">
-            <ExerciseForm inputRef={inputRef} addExercise={context.addExercise} />
+            <ExerciseForm
+              a={a}
+              b={b}
+              c={c}
+              d={d}
+              addExercise={context.addExercise}
+            />
             <div className="workout-data-exercises-list">
               {context.exercises.map((exercise, i) => (
-                <WorkoutExercise key={i} i={i} exercise={exercise}/>
+                <WorkoutExercise key={i} i={i} exercise={exercise} />
               ))}
             </div>
           </div>

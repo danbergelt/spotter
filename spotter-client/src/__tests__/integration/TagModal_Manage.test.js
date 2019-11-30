@@ -27,7 +27,7 @@ describe("tag modal manage functionality", () => {
 
     store.dispatch({
       type: FETCH_TAGS_SUCCESS,
-      payload: [{ content: "content" }]
+      payload: [{ content: "content", _id: 1 }]
     });
 
     expect(getByText(/content/i)).toBeTruthy();

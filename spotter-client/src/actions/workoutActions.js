@@ -7,6 +7,7 @@ export const TOGGLE_TAG = "TOGGLE_TAG";
 export const UPDATE_TAG = "UPDATE_TAG";
 export const DELETE_TAG = "DELETE_TAG";
 export const FROM_TEMPLATE = "FROM_TEMPLATE";
+export const DEL_EXERCISE = "DEL_EXERCISE";
 
 export const addWorkoutTitle = title => {
   return { type: ADD_WORKOUT_TITLE, payload: title };
@@ -42,4 +43,8 @@ export const resetNotes = () => {
 
 export const fromTemplate = template => {
   return { type: FROM_TEMPLATE, payload: template };
+};
+
+export const delExercise = i => {
+  return { type: DEL_EXERCISE, payload: i };
 };

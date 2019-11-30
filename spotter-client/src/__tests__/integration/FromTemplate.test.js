@@ -73,10 +73,6 @@ describe("from template functionality", () => {
   test("can generate from template", async () => {
     axios.get.mockResolvedValue(mockTemplateRes);
 
-    const Wrapper = props => {
-      return <>{props.children}</>;
-    };
-
     const { getByTestId, container, getByText, queryByText, store, debug } = wrapper(
       reducer,
       <WorkoutModal modal={true} />

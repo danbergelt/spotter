@@ -12,7 +12,7 @@ const WorkoutTags = ({ tags }) => {
     <div className="workout-data-tags">
       <h1 className="workout-data-tags-head">TAGS</h1>
       <div className="workout-data-tags-container">
-        {!tags.length ? (
+        {!tagsInState.length ? (
           <p className="workout-data-tags-head" style={{ fontSize: "1.2rem" }}>
             No tags
           </p>

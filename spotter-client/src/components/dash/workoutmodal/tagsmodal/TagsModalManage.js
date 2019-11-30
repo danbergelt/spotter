@@ -7,9 +7,15 @@ import axiosWithAuth from "../../../../utils/axiosWithAuth";
 import { fetchTags } from "../../../../actions/tagsActions";
 import { useHistory } from "react-router-dom";
 import { FiX } from "react-icons/fi";
-import { updateTag } from '../../../../actions/workoutActions';
+import { updateTag } from "../../../../actions/workoutActions";
 
-const TagsModalManage = ({ tags, setActive, setToDelete, fetchTags, updateTag }) => {
+const TagsModalManage = ({
+  tags,
+  setActive,
+  setToDelete,
+  fetchTags,
+  updateTag
+}) => {
   const [hover, setHover] = useState(null);
   const [update, setUpdate] = useState(null);
   const [updateInput, setUpdateInput] = useState("");
@@ -31,7 +37,7 @@ const TagsModalManage = ({ tags, setActive, setToDelete, fetchTags, updateTag })
         { content: updateInput }
       );
       setUpdate(null);
-      updateTag(res.data.tag)
+      updateTag(res.data.tag);
       fetchTags(history);
     } catch (error) {
       setErr(error.response.data.error);
@@ -88,7 +94,11 @@ const TagsModalManage = ({ tags, setActive, setToDelete, fetchTags, updateTag })
                   value={updateInput}
                   onChange={e => setUpdateInput(e.target.value)}
                 />
-                <button data-testid="save-tag" className="tag-manage-update-submit" type="submit">
+                <button
+                  data-testid="save-tag"
+                  className="tag-manage-update-submit"
+                  type="submit"
+                >
                   Save
                 </button>
               </form>
@@ -106,4 +116,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { fetchTags, updateTag })(TagsModalManage);
+export default connect(mapStateToProps, { fetchTags, updateTag })(
+  TagsModalManage
+);
