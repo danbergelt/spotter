@@ -2,6 +2,9 @@ import React from "react";
 import * as Yup from "yup";
 import { Form, Field, withFormik } from "formik";
 import { FiCheck, FiTrash } from "react-icons/fi";
+import { connect } from "react-redux";
+import { handleEdit, resetQueue } from "../../../../actions/workoutActions";
+import { isEmpty } from "lodash";
 
 const ExerciseForm = ({
   handleReset,
@@ -12,8 +15,16 @@ const ExerciseForm = ({
   a,
   b,
   c,
-  d
+  d,
+  queued,
+  handleEdit,
+  resetQueue
 }) => {
+  const resetHandler = () => {
+    handleReset();
+    resetQueue();
+  };
+
   return (
     <div className="exercise-form-container">
       <Form className="exercise-form">
@@ -96,7 +107,7 @@ const ExerciseForm = ({
             data-testid="trash-exercise"
             className="exercise-form-button clear"
             type="button"
-            onClick={handleReset}
+            onClick={resetHandler}
           />
         </button>
       </Form>
@@ -105,12 +116,12 @@ const ExerciseForm = ({
 };
 
 const FormikExerciseForm = withFormik({
-  mapPropsToValues({ name, weight, sets, reps }) {
+  mapPropsToValues({ queued, name, weight, sets, reps }) {
     return {
-      name: name || "",
-      weight: weight || "",
-      sets: sets || "",
-      reps: reps || ""
+      name: (!isEmpty(queued) && queued.exercise.name) || name || "",
+      weight: (!isEmpty(queued) && queued.exercise.weight) || weight || "",
+      sets: (!isEmpty(queued) && queued.exercise.sets) || sets || "",
+      reps: (!isEmpty(queued) && queued.exercise.reps) || reps || ""
     };
   },
   validationSchema: Yup.object().shape({
@@ -122,13 +133,28 @@ const FormikExerciseForm = withFormik({
     sets: Yup.number().max(2000, "2000 lb limit")
   }),
   enableReinitialize: true,
-  handleSubmit(values, { props: { addExercise, a, b, c, d }, resetForm }) {
+  handleSubmit(
+    values,
+    { props: { addExercise, a, b, c, d, queued, handleEdit }, resetForm }
+  ) {
     resetForm();
 
     [a, b, c, d].forEach(ref => ref.current.blur());
 
-    addExercise(values);
+    if (isEmpty(queued)) {
+      addExercise(values);
+    } else {
+      handleEdit(values, queued.i);
+    }
   }
 })(ExerciseForm);
 
-export default FormikExerciseForm;
+const mapStateToProps = state => {
+  return {
+    queued: state.workoutReducer.queue
+  };
+};
+
+export default connect(mapStateToProps, { handleEdit, resetQueue })(
+  FormikExerciseForm
+);

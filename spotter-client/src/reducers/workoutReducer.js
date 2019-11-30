@@ -8,7 +8,10 @@ import {
   UPDATE_TAG,
   DELETE_TAG,
   FROM_TEMPLATE,
-  DEL_EXERCISE
+  DEL_EXERCISE,
+  QUEUE_EDIT,
+  HANDLE_EDIT,
+  RESET_QUEUE
 } from "../actions/workoutActions";
 import { find, isMatch, isEqual, omit, pick, keys } from "lodash";
 
@@ -16,7 +19,8 @@ const workoutState = {
   title: "",
   notes: "",
   exercises: [],
-  tags: []
+  tags: [],
+  queue: {}
 };
 
 export const workoutReducer = (state = workoutState, action) => {
@@ -50,11 +54,9 @@ export const workoutReducer = (state = workoutState, action) => {
         exercises: [...state.exercises, action.payload]
       };
     case TOGGLE_TAG:
-      console.log(state.tags, action.payload)
       const testForMatches = find(state.tags, t => {
         return isMatch(t, omit(action.payload, ["__v", "user"]));
       });
-      console.log(testForMatches)
       return {
         ...state,
         tags: testForMatches
@@ -102,6 +104,24 @@ export const workoutReducer = (state = workoutState, action) => {
       return {
         ...state,
         exercises: state.exercises.filter((_, i) => i !== action.payload)
+      };
+    case QUEUE_EDIT:
+      return {
+        ...state,
+        queue: action.payload
+      };
+    case HANDLE_EDIT:
+      return {
+        ...state,
+        queue: {},
+        exercises: state.exercises.map((exercise, i) =>
+          i === action.payload.i ? action.payload.exercise : exercise
+        )
+      };
+    case RESET_QUEUE:
+      return {
+        ...state,
+        queue: {}
       };
     default:
       return state;
