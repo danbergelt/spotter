@@ -49,7 +49,11 @@ exports.workoutRangeByUserId = asyncHandler(async (req, res, next) => {
 exports.addWorkout = asyncHandler(async (req, res, next) => {
   req.body.user = req.user._id;
 
-  const colorValidate = req.body.tags.map(el => hex(el.color));
+  let colorValidate = [];
+
+  if (req.body.tags && req.body.tags.length) {
+    colorValidate = req.body.tags.map(el => hex(el.color));
+  }
 
   if (colorValidate.includes(false)) {
     return next(new Err("Invalid color detected", 400));

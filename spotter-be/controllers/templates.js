@@ -31,7 +31,11 @@ exports.addTemplate = asyncHandler(async (req, res, next) => {
     return next(new Err("Template already exists", 400));
   }
 
-  const colorValidate = req.body.tags.map(el => hex(el.color));
+  let colorValidate = [];
+
+  if (req.body.tags && req.body.tags.length) {
+    colorValidate = req.body.tags.map(el => hex(el.color));
+  }
 
   if (colorValidate.includes(false)) {
     return next(new Err("Invalid color detected", 400));

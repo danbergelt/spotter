@@ -22,6 +22,7 @@ const TagSchema = new Schema({
 TagSchema.pre("findOneAndUpdate", async function(next) {
   const mod = await this.model.findOne(this.getQuery());
   const { content } = this._update;
+
   const templates = await Template.find({ "tags._id": mod._id });
   await Promise.all(
     templates.map(t =>

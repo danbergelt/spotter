@@ -28,12 +28,12 @@ describe("POST tag by user id", () => {
       .request(app)
       .post("/api/auth/tags")
       .set("Authorization", `Bearer ${token}`)
-      .send({ color: "red", content: "test", user: uId })
+      .send({ color: "#32a850", content: "test", user: uId })
       .end((err, res) => {
         should.exist(res);
         res.body.success.should.equal(true);
         res.should.have.status(201);
-        res.body.tag.color.should.equal("red");
+        res.body.tag.color.should.equal("#32a850");
         res.body.tag.content.should.equal("test");
         res.body.tag.user.should.equal(String(uId));
         done();
@@ -45,7 +45,7 @@ describe("POST tag by user id", () => {
       .request(app)
       .post("/api/auth/tags")
       .set("Authorization", `Bearer token`)
-      .send({ color: "red", content: "test", user: uId })
+      .send({ color: "#32a850", content: "test", user: uId })
       .end((err, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
@@ -59,7 +59,7 @@ describe("POST tag by user id", () => {
     chai
       .request(app)
       .post("/api/auth/tags")
-      .send({ color: "red", content: "test", user: uId })
+      .send({ color: "#32a850", content: "test", user: uId })
       .end((err, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
@@ -75,12 +75,12 @@ describe("POST tag by user id", () => {
       .request(app)
       .post("/api/auth/tags")
       .set("Authorization", `Bearer ${token}`)
-      .send({ color: "", content: "test", user: uId })
+      .send({ color: undefined, content: "test", user: uId })
       .end((err, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(400);
-        res.body.error.should.equal("Please add a tag color");
+        res.body.error.should.equal("Invalid color detected");
         done();
       });
   });
@@ -92,7 +92,7 @@ describe("POST tag by user id", () => {
       .post("/api/auth/tags")
       .set("Authorization", `Bearer ${token}`)
       .send({
-        color: "red",
+        color: "#32a850",
         content: "testjiojiojiojiojiojiojiojiojiojiojioj",
         user: uId
       })
@@ -108,7 +108,7 @@ describe("POST tag by user id", () => {
   describe("wrapper for testing custom duplicates check (no content)", () => {
     beforeEach(async () => {
       dbHelper(Tag);
-      await Tag.create({ color: "red", user: uId, content: "" });
+      await Tag.create({ color: "#32a850", user: uId, content: "" });
     });
 
     it("should not post duplicate tag (no content)", done => {
@@ -117,7 +117,7 @@ describe("POST tag by user id", () => {
         .request(app)
         .post("/api/auth/tags")
         .set("Authorization", `Bearer ${token}`)
-        .send({ color: "red", user: uId, content: "" })
+        .send({ color: "#32a850", user: uId, content: "" })
         .end((err, res) => {
           should.exist(res);
           res.body.success.should.equal(false);
@@ -133,7 +133,7 @@ describe("POST tag by user id", () => {
         .request(app)
         .post("/api/auth/tags")
         .set("Authorization", `Bearer ${token}`)
-        .send({ color: "red", content: "test", user: uId })
+        .send({ color: "#32a850", content: "test", user: uId })
         .end((err, res) => {
           should.exist(res);
           res.body.success.should.equal(true);
@@ -147,7 +147,7 @@ describe("POST tag by user id", () => {
   describe("wrapper for testing custom duplicates check (with content)", () => {
     beforeEach(async () => {
       dbHelper(Tag);
-      await Tag.create({ color: "red", content: "test", user: uId });
+      await Tag.create({ color: "#32a850", content: "test", user: uId });
     });
 
     it("should not post duplicate tag (with content)", done => {
@@ -156,7 +156,7 @@ describe("POST tag by user id", () => {
         .request(app)
         .post("/api/auth/tags")
         .set("Authorization", `Bearer ${token}`)
-        .send({ color: "red", content: "test", user: uId })
+        .send({ color: "#32a850", content: "test", user: uId })
         .end((err, res) => {
           should.exist(res);
           res.body.success.should.equal(false);
@@ -172,7 +172,7 @@ describe("POST tag by user id", () => {
         .request(app)
         .post("/api/auth/tags")
         .set("Authorization", `Bearer ${token}`)
-        .send({ color: "red", content: "test2", user: uId })
+        .send({ color: "#32a850", content: "test2", user: uId })
         .end((err, res) => {
           should.exist(res);
           res.body.success.should.equal(true);
@@ -188,7 +188,7 @@ describe("POST tag by user id", () => {
         .request(app)
         .post("/api/auth/tags")
         .set("Authorization", `Bearer ${token}`)
-        .send({ color: "red", user: uId })
+        .send({ color: "#32a850", user: uId })
         .end((err, res) => {
           should.exist(res);
           res.body.success.should.equal(true);
@@ -204,7 +204,7 @@ describe("POST tag by user id", () => {
         .request(app)
         .post("/api/auth/tags")
         .set("Authorization", `Bearer ${token}`)
-        .send({ color: "blue", content: "test", user: uId })
+        .send({ color: "#3432a8", content: "test", user: uId })
         .end((err, res) => {
           should.exist(res);
           res.body.success.should.equal(true);
@@ -220,7 +220,7 @@ describe("POST tag by user id", () => {
     beforeEach(async () => {
       const insert = [];
       for (let i = 0; i < 25; i++) {
-        insert.push({ color: "red", content: `${i}`, user: uId });
+        insert.push({ color: "#32a850", content: `${i}`, user: uId });
       }
       await Tag.insertMany(insert);
     });
@@ -231,7 +231,7 @@ describe("POST tag by user id", () => {
         .request(app)
         .post("/api/auth/tags")
         .set("Authorization", `Bearer ${token}`)
-        .send({ color: "red", content: "test", user: uId })
+        .send({ color: "#32a850", content: "test", user: uId })
         .end((err, res) => {
           should.exist(res);
           res.body.success.should.equal(false);

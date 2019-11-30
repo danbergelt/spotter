@@ -192,7 +192,7 @@ describe("POST templates by user id", () => {
           name: undefined
         }
       })
-        .end((err, res) => {
+      .end((err, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(400);
@@ -221,7 +221,7 @@ describe("POST templates by user id", () => {
   });
 
   it("should not post sets above 2000", done => {
-  const token = genToken(template.user);
+    const token = genToken(template.user);
     chai
       .request(app)
       .post(`/api/auth/templates`)
