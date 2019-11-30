@@ -8,9 +8,7 @@ import {
   UPDATE_TAG,
   DELETE_TAG,
   FROM_TEMPLATE,
-  DEL_EXERCISE,
-  EDIT_EXERCISE,
-  TRIGGER_EDIT_EXERCISE
+  DEL_EXERCISE
 } from "../actions/workoutActions";
 import { find, isMatch, isEqual, omit } from "lodash";
 

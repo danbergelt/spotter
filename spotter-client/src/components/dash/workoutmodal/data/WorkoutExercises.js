@@ -30,7 +30,7 @@ const WorkoutExercises = () => {
             />
             <div className="workout-data-exercises-list">
               {context.exercises.map((exercise, i) => (
-                <WorkoutExercise a={a} key={i} i={i} exercise={exercise} />
+                <WorkoutExercise key={i} i={i} exercise={exercise} />
               ))}
             </div>
           </div>

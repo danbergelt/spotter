@@ -3,7 +3,7 @@ import { FiArrowRight } from "react-icons/fi";
 import { connect } from "react-redux";
 import { delExercise } from "../../../../actions/workoutActions";
 
-const WorkoutExercise = ({ exercise, i, delExercise, a }) => {
+const WorkoutExercise = ({ exercise, i, delExercise }) => {
 
   return (
     exercise && (

@@ -8,8 +8,6 @@ export const UPDATE_TAG = "UPDATE_TAG";
 export const DELETE_TAG = "DELETE_TAG";
 export const FROM_TEMPLATE = "FROM_TEMPLATE";
 export const DEL_EXERCISE = "DEL_EXERCISE";
-export const EDIT_EXERCISE = "EDIT_EXERCISE";
-export const TRIGGER_EDIT_EXERCISE = "TRIGGER_EDIT_EXERCISE";
 
 export const addWorkoutTitle = title => {
   return { type: ADD_WORKOUT_TITLE, payload: title };
