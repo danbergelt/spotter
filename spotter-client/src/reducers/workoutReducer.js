@@ -79,7 +79,6 @@ export const workoutReducer = (state = workoutState, action) => {
           : [...state.tags]
       };
     case FROM_TEMPLATE:
-      console.log(action.payload)
       return {
         ...state,
         title: action.payload.title,

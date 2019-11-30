@@ -17,8 +17,6 @@ const FromTemplate = ({
   const [search, setSearch] = useState("");
   const [active, setActive] = useState({});
 
-  console.log(isEmpty(active))
-
   const customStyles = {
     overlay: {
       background: "transparent"
@@ -40,6 +38,7 @@ const FromTemplate = ({
   const closeHandler = () => {
     close();
     setActive({});
+    setSearch("");
   };
 
   const filter = templates.filter(t => t.name.includes(search));
@@ -56,7 +55,7 @@ const FromTemplate = ({
           <div className="from-template-title">Generate Template</div>
           <div onClick={closeHandler} className="from-template-exit">
             <FiX
-              data-testid="quit-template-save"
+              data-testid="quit-from"
               style={{ display: "flex", alignItems: "center" }}
             />
           </div>
@@ -92,6 +91,7 @@ const FromTemplate = ({
         <div
           onClick={() => (!isEmpty(active) ? genHandler(active) : null)}
           className="generate-template"
+          data-testid="generate-template"
         >
           Generate
         </div>

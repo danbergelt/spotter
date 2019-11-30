@@ -14,7 +14,9 @@ import {
   UPDATE_TAG,
   updateTag,
   DELETE_TAG,
-  deleteTag
+  deleteTag,
+  FROM_TEMPLATE,
+  fromTemplate
 } from "../../actions/workoutActions";
 
 describe("add workout actions", () => {
@@ -84,5 +86,14 @@ describe("add workout actions", () => {
       payload: tag
     };
     expect(updateTag(tag)).toEqual(expectedAction);
+  });
+
+  test("from template", () => {
+    const template = { template: "template" };
+    const expectedAction = {
+      type: FROM_TEMPLATE,
+      payload: template
+    };
+    expect(fromTemplate(template)).toEqual(expectedAction);
   });
 });

@@ -19,8 +19,8 @@ const ExerciseForm = ({
           <div className="exercise-form-field-label">
             <label>Exercise</label>
           </div>
-          {errors.exercise && touched.exercise && (
-            <p className="error-exercise-form">{errors.exercise}</p>
+          {errors.name && touched.name && (
+            <p className="error-exercise-form">{errors.name}</p>
           )}
           <Field
             innerRef={inputRef}

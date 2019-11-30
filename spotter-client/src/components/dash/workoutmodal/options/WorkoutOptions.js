@@ -28,8 +28,6 @@ const WorkoutOptions = ({ fetchTags }) => {
   const [templates, setTemplates] = useState([]);
   const [templatesErr, setTemplatesErr] = useState("");
 
-  console.log(templates);
-
   const closeModal = () => {
     setModal(false);
     setActive(0);
@@ -53,10 +51,9 @@ const WorkoutOptions = ({ fetchTags }) => {
       const res = await axiosWithAuth().get(
         `${process.env.REACT_APP_T_API}/api/auth/templates`
       );
-      console.log(res.data.templates)
       setTemplates(res.data.templates);
     } catch (error) {
-      setTemplatesErr(error.response.data.error);
+      if (error.response) setTemplatesErr(error.response.data.error);
     }
     setFromTemplate(true);
   };
