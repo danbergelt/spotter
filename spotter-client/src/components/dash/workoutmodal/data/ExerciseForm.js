@@ -1,10 +1,9 @@
-import React, { useRef } from "react";
+import React from "react";
 import * as Yup from "yup";
 import { Form, Field, withFormik } from "formik";
-import { FiCheck, FiTrash, FiSave } from "react-icons/fi";
+import { FiCheck, FiTrash } from "react-icons/fi";
 
 const ExerciseForm = ({
-  submitForm,
   handleReset,
   values,
   addExercise,
@@ -110,8 +109,8 @@ const FormikExerciseForm = withFormik({
     return {
       name: name || "",
       weight: weight || "",
-      reps: sets || "",
-      sets: reps || ""
+      sets: sets || "",
+      reps: reps || ""
     };
   },
   validationSchema: Yup.object().shape({
@@ -122,9 +121,12 @@ const FormikExerciseForm = withFormik({
     reps: Yup.number().max(2000, "2000 lb limit"),
     sets: Yup.number().max(2000, "2000 lb limit")
   }),
+  enableReinitialize: true,
   handleSubmit(values, { props: { addExercise, a, b, c, d }, resetForm }) {
     resetForm();
+
     [a, b, c, d].forEach(ref => ref.current.blur());
+
     addExercise(values);
   }
 })(ExerciseForm);

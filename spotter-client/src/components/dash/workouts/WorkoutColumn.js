@@ -35,7 +35,9 @@ const WorkoutColumn = ({ date, resetWorkout, i, workouts, resetTags }) => {
     <div className="week-workouts-column">
       <div className="week-workouts-day">
         <div className="week-workout-day-slug">{date.format("ddd")}</div>
-        <div className="week-workout-day-date">{date.format("MMM DD YYYY")}</div>
+        <div className="week-workout-day-date">
+          {date.format("MMM DD YYYY")}
+        </div>
       </div>
       <div
         data-testid={i === 0 && "modal-click"}
@@ -56,4 +58,6 @@ const WorkoutColumn = ({ date, resetWorkout, i, workouts, resetTags }) => {
   );
 };
 
-export default connect(null, { resetWorkout, resetTags })(WorkoutColumn);
+export default connect(null, { resetWorkout, resetTags })(
+  WorkoutColumn
+);

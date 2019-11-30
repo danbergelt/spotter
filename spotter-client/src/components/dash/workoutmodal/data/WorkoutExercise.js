@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { delExercise } from "../../../../actions/workoutActions";
 
 const WorkoutExercise = ({ exercise, i, delExercise }) => {
+
   return (
     exercise && (
       <div className={i % 2 === 0 ? "exercise-row even" : "exercise-row odd"}>
@@ -16,22 +17,25 @@ const WorkoutExercise = ({ exercise, i, delExercise }) => {
             {exercise.weight && exercise.reps && exercise.sets && (
               <FiArrowRight />
             )}
-            {exercise.reps && (
+            {exercise.sets && (
               <div style={{ paddingLeft: "1rem" }} className="exercise-stat">
-                {exercise.reps} reps
+                {exercise.sets} sets
               </div>
             )}
             {exercise.reps && exercise.sets && (
               <div className="exercise-stat">x</div>
             )}
-            {exercise.sets && (
-              <div className="exercise-stat">{exercise.sets} sets</div>
+            {exercise.reps && (
+              <div className="exercise-stat">{exercise.reps} reps</div>
             )}
           </div>
           <div className="exercise-actions">
-            <div className="exercise-del">Edit</div>
-            <div data-testid="del-ex" onClick={() => delExercise(i)} className="exercise-edit">
-              Del
+            <div
+              data-testid="del-ex"
+              onClick={() => delExercise(i)}
+              className="exercise-edit"
+            >
+              Delete
             </div>
           </div>
         </div>

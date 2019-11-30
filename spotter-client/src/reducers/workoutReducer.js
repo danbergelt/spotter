@@ -16,7 +16,8 @@ const workoutState = {
   title: "",
   notes: "",
   exercises: [],
-  tags: []
+  tags: [],
+  toEdit: {}
 };
 
 export const workoutReducer = (state = workoutState, action) => {
@@ -90,8 +91,8 @@ export const workoutReducer = (state = workoutState, action) => {
     case DEL_EXERCISE:
       return {
         ...state,
-        exercises: state.exercises.filter((_, i) => i !== action.payload )
-      }
+        exercises: state.exercises.filter((_, i) => i !== action.payload)
+      };
     default:
       return state;
   }
