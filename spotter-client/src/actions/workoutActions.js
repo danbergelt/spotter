@@ -8,6 +8,9 @@ export const UPDATE_TAG = "UPDATE_TAG";
 export const DELETE_TAG = "DELETE_TAG";
 export const FROM_TEMPLATE = "FROM_TEMPLATE";
 export const DEL_EXERCISE = "DEL_EXERCISE";
+export const QUEUE_EDIT = "QUEUE_EDIT";
+export const HANDLE_EDIT = "HANDLE_EDIT";
+export const RESET_QUEUE = "RESET_QUEUE";
 
 export const addWorkoutTitle = title => {
   return { type: ADD_WORKOUT_TITLE, payload: title };
@@ -47,4 +50,16 @@ export const fromTemplate = template => {
 
 export const delExercise = i => {
   return { type: DEL_EXERCISE, payload: i };
+};
+
+export const queueEdit = (exercise, i) => {
+  return { type: QUEUE_EDIT, payload: { exercise, i } };
+};
+
+export const handleEdit = (exercise, i) => {
+  return { type: HANDLE_EDIT, payload: { exercise, i } };
+};
+
+export const resetQueue = () => {
+  return { type: RESET_QUEUE };
 };

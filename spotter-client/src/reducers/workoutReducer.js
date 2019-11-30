@@ -8,16 +8,19 @@ import {
   UPDATE_TAG,
   DELETE_TAG,
   FROM_TEMPLATE,
-  DEL_EXERCISE
+  DEL_EXERCISE,
+  QUEUE_EDIT,
+  HANDLE_EDIT,
+  RESET_QUEUE
 } from "../actions/workoutActions";
-import { find, isMatch, isEqual, omit } from "lodash";
+import { find, isMatch, isEqual, omit, pick, keys } from "lodash";
 
 const workoutState = {
   title: "",
   notes: "",
   exercises: [],
   tags: [],
-  toEdit: {}
+  queue: {}
 };
 
 export const workoutReducer = (state = workoutState, action) => {
@@ -52,7 +55,7 @@ export const workoutReducer = (state = workoutState, action) => {
       };
     case TOGGLE_TAG:
       const testForMatches = find(state.tags, t => {
-        return isMatch(t, action.payload);
+        return isMatch(t, omit(action.payload, ["__v", "user"]));
       });
       return {
         ...state,
@@ -68,8 +71,8 @@ export const workoutReducer = (state = workoutState, action) => {
     case UPDATE_TAG:
       const testForUpdates = find(state.tags, t => {
         return isMatch(
-          omit(t, ["color", "content", "__v"]),
-          omit(action.payload, ["color", "content", "__v"])
+          omit(t, ["color", "content", "__v", "tag"]),
+          omit(action.payload, ["color", "content", "__v", "user"])
         );
       });
       return {
@@ -81,6 +84,15 @@ export const workoutReducer = (state = workoutState, action) => {
           : [...state.tags]
       };
     case FROM_TEMPLATE:
+      const exercises = {
+        name: null,
+        sets: null,
+        reps: null,
+        weight: null
+      };
+      action.payload.exercises = action.payload.exercises.map(el =>
+        pick(el, keys(exercises))
+      );
       return {
         ...state,
         title: action.payload.title,
@@ -92,6 +104,24 @@ export const workoutReducer = (state = workoutState, action) => {
       return {
         ...state,
         exercises: state.exercises.filter((_, i) => i !== action.payload)
+      };
+    case QUEUE_EDIT:
+      return {
+        ...state,
+        queue: action.payload
+      };
+    case HANDLE_EDIT:
+      return {
+        ...state,
+        queue: {},
+        exercises: state.exercises.map((exercise, i) =>
+          i === action.payload.i ? action.payload.exercise : exercise
+        )
+      };
+    case RESET_QUEUE:
+      return {
+        ...state,
+        queue: {}
       };
     default:
       return state;

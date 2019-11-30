@@ -1,9 +1,13 @@
 import React from "react";
 import { FiArrowRight } from "react-icons/fi";
 import { connect } from "react-redux";
-import { delExercise } from "../../../../actions/workoutActions";
+import { delExercise, queueEdit } from "../../../../actions/workoutActions";
 
-const WorkoutExercise = ({ exercise, i, delExercise }) => {
+const WorkoutExercise = ({ exercise, i, delExercise, queueEdit, a }) => {
+  const handleQueue = (exercise, i) => {
+    queueEdit(exercise, i);
+    a.current.focus();
+  };
 
   return (
     exercise && (
@@ -37,6 +41,12 @@ const WorkoutExercise = ({ exercise, i, delExercise }) => {
             >
               Delete
             </div>
+            <div
+              onClick={() => handleQueue(exercise, i)}
+              className="exercise-edit"
+            >
+              Edit
+            </div>
           </div>
         </div>
       </div>
@@ -44,4 +54,4 @@ const WorkoutExercise = ({ exercise, i, delExercise }) => {
   );
 };
 
-export default connect(null, { delExercise })(WorkoutExercise);
+export default connect(null, { delExercise, queueEdit })(WorkoutExercise);

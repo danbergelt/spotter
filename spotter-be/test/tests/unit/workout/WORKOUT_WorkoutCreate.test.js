@@ -62,11 +62,6 @@ describe("Workout model creation", () => {
     );
   });
 
-  it("cannot create workout w/ tag with no tag id", async () => {
-    const workout = new Workout({ ...template, tags: { tag: undefined } });
-    await expect(workout.save()).to.be.rejectedWith("Tag must include tag ID");
-  });
-
   it("cannot create exercise with long name", async () => {
     const workout = new Workout({
       ...template,

@@ -2,6 +2,7 @@ const app = require("../../../utils/index");
 const { dbHelper } = require("../../../utils/db");
 const Tag = require("../../../../models/Tag");
 const Workout = require("../../../../models/Workout");
+const Template = require("../../../../models/Template");
 const chaiHttp = require("chai-http");
 const chai = require("chai");
 const should = chai.should();
@@ -87,16 +88,22 @@ describe("DELETE Tag by tag id", () => {
   describe("cascade delete wrapper", () => {
     beforeEach(async () => {
       dbHelper(Tag);
-      const tag = new Tag({ color: "red", content: "content", user: uId });
+      const tag = new Tag({ color: "#F2B202", content: "content", user: uId });
       const { _id } = await tag.save();
       tId = _id;
       const workout = new Workout({
         ...template,
-        tags: { tag: _id },
+        tags: { ...tag },
         user: uId
       });
-      const savedWorkout = await workout.save();
-      return savedWorkout;
+      await workout.save();
+      const temp = new Template({
+        ...template,
+        tags: { ...tag },
+        user: uId,
+        name: "tname"
+      });
+      await temp.save();
     });
 
     it("should cascade delete tag from workout", done => {
@@ -115,6 +122,26 @@ describe("DELETE Tag by tag id", () => {
               res.body.success.should.equal(true);
               res.should.have.status(200);
               res.body.workouts[0].tags.length.should.equal(0);
+              done();
+            });
+        });
+    });
+    it("should cascade delete tag from template", done => {
+      const token = genToken(uId);
+      chai
+        .request(app)
+        .delete(`/api/auth/tags/${tId}`)
+        .set("Authorization", `Bearer ${token}`)
+        .end(() => {
+          return chai
+            .request(app)
+            .get("/api/auth/templates")
+            .set("Authorization", `Bearer ${token}`)
+            .end((err, res) => {
+              should.exist(res);
+              res.body.success.should.equal(true);
+              res.should.have.status(200);
+              res.body.templates[0].tags.length.should.equal(0);
               done();
             });
         });

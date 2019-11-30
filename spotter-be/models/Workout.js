@@ -45,11 +45,6 @@ const WorkoutSchema = new Schema({
   },
   tags: [
     {
-      tag: {
-        required: [true, "Tag must include tag ID"],
-        type: Schema.Types.ObjectId,
-        ref: "Tag"
-      },
       content: String,
       color: String
     }

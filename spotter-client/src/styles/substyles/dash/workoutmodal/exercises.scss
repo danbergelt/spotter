@@ -15,6 +15,18 @@
     .workout-data-exercises-title {
       padding: 1.25rem;
     }
+
+    .workout-data-exercises-editing {
+      font-size: 1.3rem;
+      padding: 0.75rem;
+      border-radius: 4px;
+      background: $gray4;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
   .workout-data-exercises-content {
     margin-top: 2rem;
@@ -130,13 +142,8 @@
             cursor: pointer;
             width: max-content;
 
-            .exercise-del {
-              &:hover {
-                transform: $hover-scale;
-              }
-            }
-
             .exercise-edit {
+              margin-right: 1rem;
 
               &:hover {
                 transform: $hover-scale;

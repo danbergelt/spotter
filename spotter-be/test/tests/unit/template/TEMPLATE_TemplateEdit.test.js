@@ -54,18 +54,6 @@ describe("template model edit", () => {
     ).to.be.rejectedWith("20 character max");
   });
 
-  it("cannot update template tag with no tag id", async () => {
-    const temp = new Template(template);
-    await temp.save();
-    await expect(
-      Template.findByIdAndUpdate(
-        temp._id,
-        { tags: { tag: undefined } },
-        { runValidators: true }
-      )
-    ).to.be.rejectedWith("Tag must include tag ID");
-  });
-
   it("cannot update to long title", async () => {
     const temp = new Template(template);
     await temp.save();

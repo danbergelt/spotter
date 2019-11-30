@@ -13,7 +13,7 @@ const WorkoutTags = ({ tags }) => {
       <h1 className="workout-data-tags-head">TAGS</h1>
       <div className="workout-data-tags-container">
         {!tagsInState.length ? (
-          <p className="workout-data-tags-head" style={{ fontSize: "1.2rem" }}>
+          <p className="workout-data-tags-head" style={{ fontSize: "1.2rem", margin: 0 }}>
             No tags
           </p>
         ) : (
@@ -26,7 +26,7 @@ const WorkoutTags = ({ tags }) => {
                 minHeight: "30px",
                 borderRadius: "4px",
                 padding: "0.75rem",
-                margin: "0.25rem",
+                margin: "0.25rem 0.25rem 0.25rem 0",
                 color: "white",
                 fontSize: "1.3rem",
                 display: "flex",

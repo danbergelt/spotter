@@ -1,6 +1,7 @@
 const Err = require("../utils/Err");
 const Tag = require("../models/Tag");
 const asyncHandler = require("../middleware/async");
+const hex = require("is-hexcolor");
 
 // @desc --> create tag
 // @route --> POST /api/auth/tags
@@ -33,6 +34,10 @@ exports.createTag = asyncHandler(async (req, res, next) => {
 
   if (tags.length >= 25) {
     return next(new Err("25 tag maximum", 400));
+  }
+
+  if (!hex(req.body.color)) {
+    return next(new Err("Invalid color detected", 400));
   }
 
   req.body.user = req.user._id;

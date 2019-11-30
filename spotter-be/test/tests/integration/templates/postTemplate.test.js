@@ -103,25 +103,6 @@ describe("POST templates by user id", () => {
       });
   });
 
-  it("should not post template with no tag id", done => {
-    const token = genToken(template.user);
-    chai
-      .request(app)
-      .post(`/api/auth/templates`)
-      .set("Authorization", `Bearer ${token}`)
-      .send({
-        ...template,
-        tags: [{ tag: undefined }]
-      })
-      .end((err, res) => {
-        should.exist(res);
-        res.body.success.should.equal(false);
-        res.should.have.status(400);
-        res.body.error.should.equal("Tag must include tag ID");
-        done();
-      });
-  });
-
   it("should not post template with long title", done => {
     const token = genToken(template.user);
     chai
@@ -211,7 +192,7 @@ describe("POST templates by user id", () => {
           name: undefined
         }
       })
-        .end((err, res) => {
+      .end((err, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(400);
@@ -240,7 +221,7 @@ describe("POST templates by user id", () => {
   });
 
   it("should not post sets above 2000", done => {
-  const token = genToken(template.user);
+    const token = genToken(template.user);
     chai
       .request(app)
       .post(`/api/auth/templates`)

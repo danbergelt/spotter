@@ -27,11 +27,6 @@ describe("template model creation", () => {
     await expect(temp.save()).to.be.rejectedWith("Give your template a name");
   });
 
-  it("cannot create template with no tag id", async () => {
-    const temp = new Template({ ...template, tags: { tag: undefined } });
-    await expect(temp.save()).to.be.rejectedWith("Tag must include tag ID");
-  });
-
   it("cannot create long name", async () => {
     const temp = new Template({
       ...template,
