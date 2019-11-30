@@ -2,11 +2,18 @@ import React, { useState, useEffect } from "react";
 import { FiPlusCircle } from "react-icons/fi";
 import WorkoutModal from "./WorkoutModal";
 import { connect } from "react-redux";
-import { resetWorkout } from "../../../actions/workoutActions";
+import { resetWorkout, resetQueue } from "../../../actions/workoutActions";
 import { resetTags } from "../../../actions/tagsActions";
 import WorkoutCard from "./WorkoutCard";
 
-const WorkoutColumn = ({ date, resetWorkout, i, workouts, resetTags }) => {
+const WorkoutColumn = ({
+  date,
+  resetWorkout,
+  i,
+  workouts,
+  resetTags,
+  resetQueue
+}) => {
   const [modal, setModal] = useState(false);
   const [workout, setWorkout] = useState([]);
 
@@ -18,6 +25,7 @@ const WorkoutColumn = ({ date, resetWorkout, i, workouts, resetTags }) => {
     setModal(false);
     resetWorkout();
     resetTags();
+    resetQueue();
   };
 
   useEffect(() => {
@@ -58,6 +66,6 @@ const WorkoutColumn = ({ date, resetWorkout, i, workouts, resetTags }) => {
   );
 };
 
-export default connect(null, { resetWorkout, resetTags })(
+export default connect(null, { resetWorkout, resetTags, resetQueue })(
   WorkoutColumn
 );

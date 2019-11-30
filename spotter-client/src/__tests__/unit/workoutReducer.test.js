@@ -18,7 +18,8 @@ describe("add workout reducer", () => {
       title: "",
       notes: "",
       tags: [],
-      exercises: []
+      exercises: [],
+      queue: {}
     });
   });
 
@@ -28,7 +29,13 @@ describe("add workout reducer", () => {
         type: ADD_WORKOUT_TITLE,
         payload: "title"
       })
-    ).toEqual({ title: "title", notes: "", tags: [], exercises: [] });
+    ).toEqual({
+      title: "title",
+      notes: "",
+      tags: [],
+      exercises: [],
+      queue: {}
+    });
   });
 
   test("should handle ADD_WORKOUT_NOTES", () => {
@@ -37,7 +44,13 @@ describe("add workout reducer", () => {
         type: ADD_WORKOUT_NOTES,
         payload: "notes"
       })
-    ).toEqual({ title: "", notes: "notes", tags: [], exercises: [] });
+    ).toEqual({
+      title: "",
+      notes: "notes",
+      tags: [],
+      exercises: [],
+      queue: {}
+    });
   });
 
   test("should handle RESET_WORKOUT", () => {
@@ -78,7 +91,8 @@ describe("add workout reducer", () => {
       title: "",
       notes: "",
       tags: [],
-      exercises: [{ name: "name" }]
+      exercises: [{ name: "name" }],
+      queue: {}
     });
   });
 
@@ -92,7 +106,8 @@ describe("add workout reducer", () => {
       title: "",
       notes: "",
       tags: [{ tag: "tag" }],
-      exercises: []
+      exercises: [],
+      queue: {}
     });
   });
 
@@ -107,7 +122,7 @@ describe("add workout reducer", () => {
         },
         { type: TOGGLE_TAG, payload: { tag: "tag" } }
       )
-    ).toEqual({ title: "", notes: "", tags: [], exercises: [] });
+    ).toEqual({ title: "", notes: "", tags: [], exercises: []});
   });
 
   test("should handle DELETE_TAG", () => {
@@ -149,7 +164,7 @@ describe("add workout reducer", () => {
         type: FROM_TEMPLATE,
         payload: { title: "t", exercises: [], tags: "tags", notes: "n" }
       })
-    ).toEqual({ title: "t", exercises: [], tags: "tags", notes: "n" });
+    ).toEqual({ title: "t", exercises: [], tags: "tags", notes: "n", queue: {} });
   });
 
   test("should handle DEL_EXERCISE", () => {

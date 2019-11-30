@@ -18,7 +18,13 @@ import {
   FROM_TEMPLATE,
   fromTemplate,
   DEL_EXERCISE,
-  delExercise
+  delExercise,
+  queueEdit,
+  QUEUE_EDIT,
+  handleEdit,
+  HANDLE_EDIT,
+  resetQueue,
+  RESET_QUEUE
 } from "../../actions/workoutActions";
 
 describe("add workout actions", () => {
@@ -106,5 +112,30 @@ describe("add workout actions", () => {
       payload: i
     };
     expect(delExercise(i)).toEqual(expectedAction);
+  });
+
+  test("queue exercise", () => {
+    const test = { exercise: "e", i: "1" };
+    const expectedAction = {
+      type: QUEUE_EDIT,
+      payload: test
+    };
+    expect(queueEdit("e", "1")).toEqual(expectedAction);
+  });
+
+  test("handle edit", () => {
+    const test = { exercise: "e", i: "1" };
+    const expectedAction = {
+      type: HANDLE_EDIT,
+      payload: test
+    };
+    expect(handleEdit("e", "1")).toEqual(expectedAction);
+  });
+
+  test("reset queue", () => {
+    const expectedAction = {
+      type: RESET_QUEUE
+    };
+    expect(resetQueue()).toEqual(expectedAction);
   });
 });
