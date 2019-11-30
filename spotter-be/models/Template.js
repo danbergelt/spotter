@@ -29,8 +29,7 @@ const TemplateSchema = new Schema({
     type: String,
     required: [true, "Give your template a name"],
     trim: true,
-    maxlength: [20, "20 character max"],
-    unique: true
+    maxlength: [20, "20 character max"]
   },
   createdAt: {
     type: Date,
@@ -47,7 +46,9 @@ const TemplateSchema = new Schema({
         required: [true, "Tag must include tag ID"],
         type: Schema.Types.ObjectId,
         ref: "Tag"
-      }
+      },
+      content: String,
+      color: String
     }
   ],
   notes: String,

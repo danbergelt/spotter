@@ -49,7 +49,9 @@ const WorkoutSchema = new Schema({
         required: [true, "Tag must include tag ID"],
         type: Schema.Types.ObjectId,
         ref: "Tag"
-      }
+      },
+      content: String,
+      color: String
     }
   ],
   notes: String,

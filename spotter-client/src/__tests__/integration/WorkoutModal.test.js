@@ -17,10 +17,12 @@ describe("add workout modal functionality", () => {
     // suppresses warning for rendering document.body directly in render function
     console.error = jest.fn();
     axios.post.mockResolvedValue(mockWorkoutRes);
-    const { queryByPlaceholderText, getByTestId, queryByTestId, store } = wrapper(
-      reducer,
-      <WorkoutColumns />
-    );
+    const {
+      queryByPlaceholderText,
+      getByTestId,
+      queryByTestId,
+      store
+    } = wrapper(reducer, <WorkoutColumns />);
 
     fireEvent.click(getByTestId(/modal-click/i));
 
@@ -161,7 +163,7 @@ describe("add workout modal functionality", () => {
       <WorkoutModal modal={true} />
     );
 
-    const name = container.querySelector('input[name="exercise"]');
+    const name = container.querySelector('input[name="name"]');
 
     expect(name).not.toBe(null);
 
@@ -251,10 +253,13 @@ describe("add workout modal functionality", () => {
   });
 
   test("submitted exercise renders on page", async () => {
-    const { store, container, getByPlaceholderText, getByTestId, getByText } = wrapper(
-      reducer,
-      <WorkoutModal modal={true} />
-    );
+    const {
+      store,
+      container,
+      getByPlaceholderText,
+      getByTestId,
+      getByText
+    } = wrapper(reducer, <WorkoutModal modal={true} />);
 
     const name = getByPlaceholderText(/e.g. squat/i);
     const weight = getByPlaceholderText(/lbs/i);

@@ -6,7 +6,8 @@ import {
   ADD_EXERCISE,
   TOGGLE_TAG,
   UPDATE_TAG,
-  DELETE_TAG
+  DELETE_TAG,
+  FROM_TEMPLATE
 } from "../actions/workoutActions";
 import { find, isMatch, isEqual, omit } from "lodash";
 
@@ -76,6 +77,14 @@ export const workoutReducer = (state = workoutState, action) => {
               isEqual(t, testForUpdates) ? action.payload : t
             )
           : [...state.tags]
+      };
+    case FROM_TEMPLATE:
+      return {
+        ...state,
+        title: action.payload.title,
+        exercises: action.payload.exercises,
+        notes: action.payload.notes,
+        tags: action.payload.tags
       };
     default:
       return state;

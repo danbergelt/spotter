@@ -1,16 +1,9 @@
-import Moment from "moment";
-import { extendMoment } from "moment-range";
-
-const moment = extendMoment(Moment);
-
-const mockWorkoutRes = {
+const mockTemplateRes = {
     data: {
-      workouts: [
+      templates: [
         {
           _id: "jfi289f289fj9jf289jf9",
-          date: moment()
-            .startOf("week")
-            .format("MMM DD YYYY"),
+          name: "test template",
           title: "Workout FOR TESTING",
           tags: [
             { tag: "jfio2jf2890fj892jf928", color: "red", content: "tag" },
@@ -29,4 +22,4 @@ const mockWorkoutRes = {
     }
 };
 
-export default mockWorkoutRes;
+export default mockTemplateRes;

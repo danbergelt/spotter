@@ -7,7 +7,8 @@ import {
   ADD_EXERCISE,
   TOGGLE_TAG,
   UPDATE_TAG,
-  DELETE_TAG
+  DELETE_TAG,
+  FROM_TEMPLATE
 } from "../../actions/workoutActions";
 
 describe("add workout reducer", () => {
@@ -139,5 +140,14 @@ describe("add workout reducer", () => {
       tags: [{ _id: "id", color: "new" }],
       exercises: []
     });
+  });
+
+  test("should handle FROM_TEMPLATE", () => {
+    expect(
+      workoutReducer(undefined, {
+        type: FROM_TEMPLATE,
+        payload: { title: "t", exercises: "e", tags: "tags", notes: "n" }
+      })
+    ).toEqual({ title: "t", exercises: "e", tags: "tags", notes: "n" });
   });
 });

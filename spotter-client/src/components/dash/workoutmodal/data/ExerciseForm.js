@@ -19,13 +19,13 @@ const ExerciseForm = ({
           <div className="exercise-form-field-label">
             <label>Exercise</label>
           </div>
-          {errors.exercise && touched.exercise && (
-            <p className="error-exercise-form">{errors.exercise}</p>
+          {errors.name && touched.name && (
+            <p className="error-exercise-form">{errors.name}</p>
           )}
           <Field
             innerRef={inputRef}
             className="exercise-form-field"
-            name="exercise"
+            name="name"
             placeholder="e.g. squat"
             type="text"
           />
@@ -100,16 +100,16 @@ const ExerciseForm = ({
 };
 
 const FormikExerciseForm = withFormik({
-  mapPropsToValues({ exercise, weight, sets, reps }) {
+  mapPropsToValues({ name, weight, sets, reps }) {
     return {
-      exercise: exercise || "",
+      name: name || "",
       weight: weight || "",
       reps: sets || "",
       sets: reps || ""
     };
   },
   validationSchema: Yup.object().shape({
-    exercise: Yup.string()
+    name: Yup.string()
       .required("Enter exercise name")
       .max(40, "40 character max"),
     weight: Yup.number().max(2000, "2000 lb limit"),
