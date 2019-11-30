@@ -90,7 +90,7 @@ export const workoutReducer = (state = workoutState, action) => {
     case DEL_EXERCISE:
       return {
         ...state,
-        exercises: state.exercises.map((el, i) => i !== action.payload && el)
+        exercises: state.exercises.filter((_, i) => i !== action.payload )
       }
     default:
       return state;

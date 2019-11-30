@@ -30,7 +30,7 @@ const WorkoutExercise = ({ exercise, i, delExercise }) => {
           </div>
           <div className="exercise-actions">
             <div className="exercise-del">Edit</div>
-            <div onClick={() => delExercise(i)} className="exercise-edit">
+            <div data-testid="del-ex" onClick={() => delExercise(i)} className="exercise-edit">
               Del
             </div>
           </div>

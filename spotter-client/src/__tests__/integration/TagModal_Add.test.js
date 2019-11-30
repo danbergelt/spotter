@@ -21,7 +21,7 @@ describe("add tag to workout functionality", () => {
     const { getByText, store } = wrapper(reducer, <TagsModalAdd />);
     store.dispatch({
       type: FETCH_TAGS_SUCCESS,
-      payload: [{ content: "content" }]
+      payload: [{ content: "content", _id: 1 }]
     });
     expect(getByText(/content/i)).toBeTruthy();
   });
@@ -51,7 +51,7 @@ describe("add tag to workout functionality", () => {
     expect(queryByTestId(/mapped-tag/i)).toBeFalsy();
   });
 
-  test("deleted tag cascades to workout", () => {
+  test("deleted tag cascades to workout", async () => {
     const Wrapper = props => {
       return <>{props.children}</>;
     };
@@ -78,7 +78,7 @@ describe("add tag to workout functionality", () => {
       payload: { content: "content", _id: 1 }
     });
 
-    expect(queryByTestId(/mapped-tag/i)).toBeFalsy();
+    await wait(() => expect(queryByTestId(/mapped-tag/i)).toBeFalsy());
   });
 
   test("updated tag cascades to workout", async () => {
@@ -101,7 +101,7 @@ describe("add tag to workout functionality", () => {
 
     expect(getByTestId(/tag-to-add/i)).toBeTruthy();
     fireEvent.click(getByTestId(/tag-to-add/i));
-    expect(queryByTestId(/mapped-tag/i)).toBeTruthy();
+    await wait(() => expect(queryByTestId(/mapped-tag/i)).toBeTruthy());
 
     store.dispatch({
       type: UPDATE_TAG,

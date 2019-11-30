@@ -16,7 +16,9 @@ import {
   DELETE_TAG,
   deleteTag,
   FROM_TEMPLATE,
-  fromTemplate
+  fromTemplate,
+  DEL_EXERCISE,
+  delExercise
 } from "../../actions/workoutActions";
 
 describe("add workout actions", () => {
@@ -95,5 +97,14 @@ describe("add workout actions", () => {
       payload: template
     };
     expect(fromTemplate(template)).toEqual(expectedAction);
+  });
+
+  test("del exercise", () => {
+    const i = { i: "1" };
+    const expectedAction = {
+      type: DEL_EXERCISE,
+      payload: i
+    };
+    expect(delExercise(i)).toEqual(expectedAction);
   });
 });
