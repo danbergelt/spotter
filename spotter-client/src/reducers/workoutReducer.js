@@ -8,7 +8,9 @@ import {
   UPDATE_TAG,
   DELETE_TAG,
   FROM_TEMPLATE,
-  DEL_EXERCISE
+  DEL_EXERCISE,
+  EDIT_EXERCISE,
+  TRIGGER_EDIT_EXERCISE
 } from "../actions/workoutActions";
 import { find, isMatch, isEqual, omit } from "lodash";
 
@@ -16,7 +18,8 @@ const workoutState = {
   title: "",
   notes: "",
   exercises: [],
-  tags: []
+  tags: [],
+  toEdit: {}
 };
 
 export const workoutReducer = (state = workoutState, action) => {
@@ -90,8 +93,8 @@ export const workoutReducer = (state = workoutState, action) => {
     case DEL_EXERCISE:
       return {
         ...state,
-        exercises: state.exercises.filter((_, i) => i !== action.payload )
-      }
+        exercises: state.exercises.filter((_, i) => i !== action.payload)
+      };
     default:
       return state;
   }
