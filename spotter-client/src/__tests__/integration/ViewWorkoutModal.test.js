@@ -1,0 +1,34 @@
+import React from "react";
+import WorkoutColumns from "../../components/dash/workouts/WorkoutColumns";
+import WorkoutModal from "../../components/dash/workouts/WorkoutModal";
+import { cleanup, fireEvent, wait } from "@testing-library/react";
+import wrapper from "../../__testUtils__/wrapper";
+import Modal from "react-modal";
+import axios from "axios";
+import mockWorkoutRes from "../../__testUtils__/mockWorkoutRes";
+import reducer from "../../reducers/index";
+
+describe("view workout modal functionality", () => {
+  // initial setup
+  afterEach(cleanup);
+  Modal.setAppElement(document.createElement("div"));
+
+  test("modal populates with saved workout when clicked", async () => {
+    axios.post.mockResolvedValue(mockWorkoutRes);
+
+    const {
+      queryAllByText,
+      queryByText,
+      getByText
+    } = wrapper(reducer, <WorkoutColumns />);
+
+    await wait(() => expect(queryByText(/workout for testing/i)).toBeTruthy());
+
+    fireEvent.click(getByText(/workout for testing/i));
+
+    expect(queryByText(/exercise2/i)).toBeTruthy();
+    expect(queryAllByText(/tag2/i)).toBeTruthy();
+    expect(queryByText(/workout for testing/i)).toBeTruthy();
+    expect(queryByText(/notes for workout/i)).toBeTruthy();
+  });
+});
