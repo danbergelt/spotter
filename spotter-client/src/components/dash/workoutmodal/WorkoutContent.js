@@ -2,11 +2,11 @@ import React from "react";
 import WorkoutData from "./data/WorkoutData";
 import WorkoutOptions from "./options/WorkoutOptions";
 
-const WorkoutContent = () => {
+const WorkoutContent = ({ closeModal, week }) => {
   return (
     <div className="workout-body-container">
       <WorkoutData />
-      <WorkoutOptions />
+      <WorkoutOptions closeParentModal={closeModal} week={week} />
     </div>
   );
 };

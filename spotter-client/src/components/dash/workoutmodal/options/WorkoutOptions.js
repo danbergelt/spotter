@@ -12,12 +12,19 @@ import WorkoutOption from "./WorkoutOption";
 import TagsModal from "../tagsmodal/TagsModal";
 import TemplateSave from "../templatesave/TemplateSave";
 import FromTemplate from "../fromtemplate/FromTemplate";
+import ConfirmDelete from "../options/ConfirmDelete";
 
 import { connect } from "react-redux";
 import { fetchTags } from "../../../../actions/tagsActions";
 import { useHistory } from "react-router-dom";
 
-const WorkoutOptions = ({ fetchTags }) => {
+const WorkoutOptions = ({
+  fetchTags,
+  closeParentModal,
+  ctx,
+  workoutId,
+  week
+}) => {
   const history = useHistory();
   const iconClass = "add-workout-options-icon";
 
@@ -25,17 +32,18 @@ const WorkoutOptions = ({ fetchTags }) => {
   const [modal, setModal] = useState(false);
   const [templateSave, setTemplateSave] = useState(false);
   const [fromTemplate, setFromTemplate] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const [templates, setTemplates] = useState([]);
   const [templatesErr, setTemplatesErr] = useState("");
-
-  const closeModal = () => {
-    setModal(false);
-    setActive(0);
-  };
 
   const openTagsModal = () => {
     setModal(true);
     fetchTags(history);
+  };
+
+  const closeTagsModal = () => {
+    setModal(false);
+    setActive(0);
   };
 
   const openTemplateSaveModal = () => {
@@ -62,6 +70,23 @@ const WorkoutOptions = ({ fetchTags }) => {
     setFromTemplate(false);
   };
 
+  const openConfirmDelete = () => {
+    setConfirmDelete(true);
+  };
+
+  const closeConfirmDelete = () => {
+    setConfirmDelete(false);
+  };
+
+  const delHandler = () => {
+    if (ctx === "add") {
+      closeParentModal();
+    }
+    if (ctx === "view") {
+      openConfirmDelete();
+    }
+  };
+
   return (
     <div className="add-workout-options-container">
       <h1 className="add-workout-options-title sub">ACTIONS</h1>
@@ -73,7 +98,7 @@ const WorkoutOptions = ({ fetchTags }) => {
           active={active}
           setActive={setActive}
           modal={modal}
-          closeModal={closeModal}
+          closeModal={closeTagsModal}
         />
         <WorkoutOption
           testing={"save-template"}
@@ -96,9 +121,16 @@ const WorkoutOptions = ({ fetchTags }) => {
           fromTemplate={fromTemplate}
           close={closeFromTemplateModal}
         />
-        <div className="add-workout-options-button delete">
+        <div onClick={delHandler} className="add-workout-options-button delete">
           <FiDelete className={iconClass} /> Delete
         </div>
+        <ConfirmDelete
+          week={week}
+          closeParentModal={closeParentModal}
+          workoutId={workoutId}
+          close={closeConfirmDelete}
+          confirmDelete={confirmDelete}
+        />
         <div className="add-workout-options-button publish">
           <FiPlusCircle className={iconClass} /> Save
         </div>
@@ -107,4 +139,11 @@ const WorkoutOptions = ({ fetchTags }) => {
   );
 };
 
-export default connect(null, { fetchTags })(WorkoutOptions);
+const mapStateToProps = state => {
+  return {
+    ctx: state.globalReducer.ctx,
+    workoutId: state.workoutReducer._id
+  };
+};
+
+export default connect(mapStateToProps, { fetchTags })(WorkoutOptions);

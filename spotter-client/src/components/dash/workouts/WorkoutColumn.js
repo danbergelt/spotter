@@ -19,7 +19,8 @@ const WorkoutColumn = ({
   resetTags,
   resetQueue,
   setCtx,
-  fromSaved
+  fromSaved,
+  week
 }) => {
   const [modal, setModal] = useState(false);
   const [workout, setWorkout] = useState([]);
@@ -65,7 +66,7 @@ const WorkoutColumn = ({
       >
         {<FiPlusCircle className="week-workouts-add-icon" />} Add Workout
       </div>
-      <WorkoutModal modal={modal} closeModal={closeModal} />
+      <WorkoutModal week={week} modal={modal} closeModal={closeModal} />
       <div>
         {workout.map(data => (
           <div
