@@ -34,7 +34,9 @@ const WorkoutModal = ({
   resetNotes,
   notes,
   addExercise,
-  exercises
+  exercises,
+  week,
+  date
 }) => {
   const context = {
     notes: notes,
@@ -57,7 +59,7 @@ const WorkoutModal = ({
           closeModal={closeModal}
         />
         <WorkoutDataProvider value={context}>
-          <WorkoutContent />
+          <WorkoutContent date={date} closeModal={closeModal} week={week} />
         </WorkoutDataProvider>
       </div>
     </Modal>
@@ -72,7 +74,9 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { addWorkoutTitle, addWorkoutNotes, resetNotes, addExercise  }
-)(WorkoutModal);
+export default connect(mapStateToProps, {
+  addWorkoutTitle,
+  addWorkoutNotes,
+  resetNotes,
+  addExercise
+})(WorkoutModal);

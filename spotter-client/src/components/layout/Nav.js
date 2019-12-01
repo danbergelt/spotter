@@ -67,7 +67,7 @@ const Nav = ({ token, addToken }) => {
 
 const mapStateToProps = state => {
   return {
-    token: state.tokenReducer.t
+    token: state.globalReducer.t
   };
 };
 

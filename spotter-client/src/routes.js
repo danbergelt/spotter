@@ -34,7 +34,7 @@ const Routes = ({ token }) => {
 
 const mapStateToProps = state => {
   return {
-    token: state.tokenReducer.t
+    token: state.globalReducer.t
   };
 };
 

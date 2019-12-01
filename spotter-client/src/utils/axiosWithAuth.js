@@ -3,7 +3,7 @@ import { store } from "./store";
 
 const axiosWithAuth = () => {
   const {
-    tokenReducer: { t }
+    globalReducer: { t }
   } = store.getState();
 
   return axios.create({

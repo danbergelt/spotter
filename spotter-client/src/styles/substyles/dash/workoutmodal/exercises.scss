@@ -24,7 +24,7 @@
       cursor: pointer;
 
       &:hover {
-        text-decoration: underline;
+        background: darken($gray4, 2.5%);
       }
     }
   }

@@ -48,7 +48,7 @@ const WorkoutColumns = ({ data, fetchWorkouts }) => {
       </div>
       <div className="week-workouts-days">
         {generateWeek(week).map((date, i) => (
-          <WorkoutColumn workouts={workouts} date={date} key={i} i={i} />
+          <WorkoutColumn workouts={workouts} date={date} key={i} i={i} week={week} />
         ))}
       </div>
     </div>

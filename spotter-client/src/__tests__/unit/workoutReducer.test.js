@@ -12,7 +12,8 @@ import {
   DEL_EXERCISE,
   QUEUE_EDIT,
   HANDLE_EDIT,
-  RESET_QUEUE
+  RESET_QUEUE,
+  FROM_SAVED
 } from "../../actions/workoutActions";
 
 describe("add workout reducer", () => {
@@ -22,7 +23,8 @@ describe("add workout reducer", () => {
       notes: "",
       tags: [],
       exercises: [],
-      queue: {}
+      queue: {},
+      _id: null
     });
   });
 
@@ -37,7 +39,8 @@ describe("add workout reducer", () => {
       notes: "",
       tags: [],
       exercises: [],
-      queue: {}
+      queue: {},
+      _id: null
     });
   });
 
@@ -52,7 +55,8 @@ describe("add workout reducer", () => {
       notes: "notes",
       tags: [],
       exercises: [],
-      queue: {}
+      queue: {},
+      _id: null
     });
   });
 
@@ -95,7 +99,8 @@ describe("add workout reducer", () => {
       notes: "",
       tags: [],
       exercises: [{ name: "name" }],
-      queue: {}
+      queue: {},
+      _id: null
     });
   });
 
@@ -110,7 +115,8 @@ describe("add workout reducer", () => {
       notes: "",
       tags: [{ tag: "tag" }],
       exercises: [],
-      queue: {}
+      queue: {},
+      _id: null
     });
   });
 
@@ -172,7 +178,8 @@ describe("add workout reducer", () => {
       exercises: [],
       tags: "tags",
       notes: "n",
-      queue: {}
+      queue: {},
+      _id: null
     });
   });
 
@@ -196,7 +203,8 @@ describe("add workout reducer", () => {
       exercises: [],
       tags: [],
       notes: "",
-      queue: { exercise: { name: "e" }, i: 1 }
+      queue: { exercise: { name: "e" }, i: 1 },
+      _id: null
     });
   });
 
@@ -239,6 +247,28 @@ describe("add workout reducer", () => {
       tags: [],
       notes: "",
       queue: {}
+    });
+  });
+
+  test("should handle FROM_SAVED", () => {
+    expect(
+      workoutReducer(undefined, {
+        type: FROM_SAVED,
+        payload: {
+          title: "",
+          exercises: [{ name: "e" }],
+          tags: [],
+          notes: "",
+          _id: 1
+        }
+      })
+    ).toEqual({
+      title: "",
+      exercises: [{ name: "e" }],
+      tags: [],
+      notes: "",
+      queue: {},
+      _id: 1
     });
   });
 });
