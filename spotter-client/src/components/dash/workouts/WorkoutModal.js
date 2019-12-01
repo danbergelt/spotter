@@ -35,7 +35,8 @@ const WorkoutModal = ({
   notes,
   addExercise,
   exercises,
-  week
+  week,
+  date
 }) => {
   const context = {
     notes: notes,
@@ -58,7 +59,7 @@ const WorkoutModal = ({
           closeModal={closeModal}
         />
         <WorkoutDataProvider value={context}>
-          <WorkoutContent closeModal={closeModal} week={week} />
+          <WorkoutContent date={date} closeModal={closeModal} week={week} />
         </WorkoutDataProvider>
       </div>
     </Modal>

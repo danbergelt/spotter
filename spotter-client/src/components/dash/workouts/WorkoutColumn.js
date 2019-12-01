@@ -66,7 +66,7 @@ const WorkoutColumn = ({
       >
         {<FiPlusCircle className="week-workouts-add-icon" />} Add Workout
       </div>
-      <WorkoutModal week={week} modal={modal} closeModal={closeModal} />
+      <WorkoutModal date={date} week={week} modal={modal} closeModal={closeModal} />
       <div>
         {workout.map(data => (
           <div

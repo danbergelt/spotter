@@ -68,7 +68,11 @@ const ConfirmDelete = ({
           action.
         </div>
         <div className="delete-btn-container">
-          <div onClick={deleteWorkout} className="delete-btn del">
+          <div
+            data-testid="conf-del"
+            onClick={deleteWorkout}
+            className="delete-btn del"
+          >
             Delete
           </div>
           <div onClick={close} className="delete-btn can">
