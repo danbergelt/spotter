@@ -9,7 +9,10 @@ import {
   UPDATE_TAG,
   DELETE_TAG,
   FROM_TEMPLATE,
-  DEL_EXERCISE
+  DEL_EXERCISE,
+  QUEUE_EDIT,
+  HANDLE_EDIT,
+  RESET_QUEUE
 } from "../../actions/workoutActions";
 
 describe("add workout reducer", () => {
@@ -18,7 +21,8 @@ describe("add workout reducer", () => {
       title: "",
       notes: "",
       tags: [],
-      exercises: []
+      exercises: [],
+      queue: {}
     });
   });
 
@@ -28,7 +32,13 @@ describe("add workout reducer", () => {
         type: ADD_WORKOUT_TITLE,
         payload: "title"
       })
-    ).toEqual({ title: "title", notes: "", tags: [], exercises: [] });
+    ).toEqual({
+      title: "title",
+      notes: "",
+      tags: [],
+      exercises: [],
+      queue: {}
+    });
   });
 
   test("should handle ADD_WORKOUT_NOTES", () => {
@@ -37,7 +47,13 @@ describe("add workout reducer", () => {
         type: ADD_WORKOUT_NOTES,
         payload: "notes"
       })
-    ).toEqual({ title: "", notes: "notes", tags: [], exercises: [] });
+    ).toEqual({
+      title: "",
+      notes: "notes",
+      tags: [],
+      exercises: [],
+      queue: {}
+    });
   });
 
   test("should handle RESET_WORKOUT", () => {
@@ -78,7 +94,8 @@ describe("add workout reducer", () => {
       title: "",
       notes: "",
       tags: [],
-      exercises: [{ name: "name" }]
+      exercises: [{ name: "name" }],
+      queue: {}
     });
   });
 
@@ -92,7 +109,8 @@ describe("add workout reducer", () => {
       title: "",
       notes: "",
       tags: [{ tag: "tag" }],
-      exercises: []
+      exercises: [],
+      queue: {}
     });
   });
 
@@ -149,7 +167,13 @@ describe("add workout reducer", () => {
         type: FROM_TEMPLATE,
         payload: { title: "t", exercises: [], tags: "tags", notes: "n" }
       })
-    ).toEqual({ title: "t", exercises: [], tags: "tags", notes: "n" });
+    ).toEqual({
+      title: "t",
+      exercises: [],
+      tags: "tags",
+      notes: "n",
+      queue: {}
+    });
   });
 
   test("should handle DEL_EXERCISE", () => {
@@ -159,5 +183,62 @@ describe("add workout reducer", () => {
         { type: DEL_EXERCISE, payload: 0 }
       )
     ).toEqual({ exercises: [] });
+  });
+
+  test("should handle QUEUE_EDIT", () => {
+    expect(
+      workoutReducer(undefined, {
+        type: QUEUE_EDIT,
+        payload: { exercise: { name: "e" }, i: 1 }
+      })
+    ).toEqual({
+      title: "",
+      exercises: [],
+      tags: [],
+      notes: "",
+      queue: { exercise: { name: "e" }, i: 1 }
+    });
+  });
+
+  test("should handle HANDLE_EDIT", () => {
+    expect(
+      workoutReducer(
+        {
+          title: "",
+          exercises: [{ name: "e" }],
+          tags: [],
+          notes: "",
+          queue: { exercise: { name: "e" }, i: 0 }
+        },
+        { type: HANDLE_EDIT, payload: { exercise: { name: "edited" }, i: 0 } }
+      )
+    ).toEqual({
+      title: "",
+      exercises: [{ name: "edited" }],
+      tags: [],
+      notes: "",
+      queue: {}
+    });
+  });
+
+  test("should handle RESET_QUEUE", () => {
+    expect(
+      workoutReducer(
+        {
+          title: "",
+          exercises: [{ name: "e" }],
+          tags: [],
+          notes: "",
+          queue: { exercise: { name: "e" }, i: 0 }
+        },
+        { type: RESET_QUEUE }
+      )
+    ).toEqual({
+      title: "",
+      exercises: [{ name: "e" }],
+      tags: [],
+      notes: "",
+      queue: {}
+    });
   });
 });
