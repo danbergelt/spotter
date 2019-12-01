@@ -41,9 +41,9 @@ const ConfirmDelete = ({
     await axiosWithAuth().delete(
       `${process.env.REACT_APP_T_API}/api/auth/workouts/${workoutId}`
     );
-    close();
-    closeParentModal();
     await reFetch();
+    close();
+    setTimeout(() => closeParentModal(), 50);
   };
 
   return (

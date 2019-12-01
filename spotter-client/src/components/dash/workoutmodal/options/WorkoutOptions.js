@@ -109,7 +109,7 @@ const WorkoutOptions = ({
           }
         );
         await reFetch();
-        setSaveMsg({ success: "Workout created" });
+        closeParentModal();
       } catch (err) {
         setSaveMsg({ error: err.response.data.error });
       }
@@ -189,7 +189,6 @@ const WorkoutOptions = ({
           <FiPlusCircle className={iconClass} />
           {ctx === "add" ? "Save" : "Update"}
         </div>
-        {saveMsg.success && <div className="save success">{saveMsg.success}</div>}
         {saveMsg.error && <div className="save error">{saveMsg.error}</div>}
       </div>
     </div>

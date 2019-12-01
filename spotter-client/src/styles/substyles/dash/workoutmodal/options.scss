@@ -54,19 +54,12 @@
     .save {
       width: 100%;
       padding: 1rem 0.5rem;
-      margin: 0.5rem 0;
       font-size: $p;
       display: flex;
     }
 
     .save.error {
       color: $danger;
-      font-weight: bold;
-    }
-
-    .save.success {
-      color: $success;
-      font-weight: bold;
     }
   }
 }
