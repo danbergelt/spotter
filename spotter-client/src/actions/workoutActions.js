@@ -11,6 +11,7 @@ export const DEL_EXERCISE = "DEL_EXERCISE";
 export const QUEUE_EDIT = "QUEUE_EDIT";
 export const HANDLE_EDIT = "HANDLE_EDIT";
 export const RESET_QUEUE = "RESET_QUEUE";
+export const FROM_SAVED = "FROM_SAVED";
 
 export const addWorkoutTitle = title => {
   return { type: ADD_WORKOUT_TITLE, payload: title };
@@ -62,4 +63,8 @@ export const handleEdit = (exercise, i) => {
 
 export const resetQueue = () => {
   return { type: RESET_QUEUE };
+};
+
+export const fromSaved = workout => {
+  return { type: FROM_SAVED, payload: workout };
 };

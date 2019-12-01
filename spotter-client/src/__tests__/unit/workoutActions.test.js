@@ -24,7 +24,9 @@ import {
   handleEdit,
   HANDLE_EDIT,
   resetQueue,
-  RESET_QUEUE
+  RESET_QUEUE,
+  fromSaved,
+  FROM_SAVED
 } from "../../actions/workoutActions";
 
 describe("add workout actions", () => {
@@ -137,5 +139,13 @@ describe("add workout actions", () => {
       type: RESET_QUEUE
     };
     expect(resetQueue()).toEqual(expectedAction);
+  });
+
+  test("set state from saved workout", () => {
+    const expectedAction = {
+      type: FROM_SAVED,
+      payload: "test"
+    };
+    expect(fromSaved("test")).toEqual(expectedAction);
   });
 });

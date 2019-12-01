@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import { FiPlusCircle } from "react-icons/fi";
 import WorkoutModal from "./WorkoutModal";
 import { connect } from "react-redux";
-import { resetWorkout, resetQueue } from "../../../actions/workoutActions";
+import { setCtx } from "../../../actions/ctxActions";
+import {
+  resetWorkout,
+  resetQueue,
+  fromSaved
+} from "../../../actions/workoutActions";
 import { resetTags } from "../../../actions/tagsActions";
 import WorkoutCard from "./WorkoutCard";
 
@@ -12,21 +17,12 @@ const WorkoutColumn = ({
   i,
   workouts,
   resetTags,
-  resetQueue
+  resetQueue,
+  setCtx,
+  fromSaved
 }) => {
   const [modal, setModal] = useState(false);
   const [workout, setWorkout] = useState([]);
-
-  const openModal = () => {
-    setModal(true);
-  };
-
-  const closeAddWorkoutModal = () => {
-    setModal(false);
-    resetWorkout();
-    resetTags();
-    resetQueue();
-  };
 
   useEffect(() => {
     const workout = workouts.filter(
@@ -35,9 +31,24 @@ const WorkoutColumn = ({
     setWorkout(workout);
   }, [workouts, date]);
 
-  // const closeModal = () => {
-  //   setModal(false);
-  // }
+  const openAddWorkoutModal = () => {
+    setCtx("add");
+    setModal(true);
+  };
+
+  const openViewModal = workout => {
+    setCtx("view");
+    fromSaved(workout);
+    setModal(true);
+  };
+
+  const closeModal = () => {
+    setModal(false);
+    resetWorkout();
+    resetTags();
+    resetQueue();
+    setCtx(null);
+  };
 
   return (
     <div className="week-workouts-column">
@@ -49,15 +60,19 @@ const WorkoutColumn = ({
       </div>
       <div
         data-testid={i === 0 && "modal-click"}
-        onClick={openModal}
+        onClick={openAddWorkoutModal}
         className="week-workouts-add-workout"
       >
         {<FiPlusCircle className="week-workouts-add-icon" />} Add Workout
       </div>
-      <WorkoutModal modal={modal} closeModal={closeAddWorkoutModal} />
+      <WorkoutModal modal={modal} closeModal={closeModal} />
       <div>
         {workout.map(data => (
-          <div className="workout-card-container" key={data._id}>
+          <div
+            className="workout-card-container"
+            onClick={() => openViewModal(data)}
+            key={data._id}
+          >
             <WorkoutCard data={data} />
           </div>
         ))}
@@ -66,6 +81,10 @@ const WorkoutColumn = ({
   );
 };
 
-export default connect(null, { resetWorkout, resetTags, resetQueue })(
-  WorkoutColumn
-);
+export default connect(null, {
+  resetWorkout,
+  resetTags,
+  resetQueue,
+  setCtx,
+  fromSaved
+})(WorkoutColumn);

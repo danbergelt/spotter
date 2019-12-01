@@ -22,7 +22,7 @@ const PrivateRoute = ({ token, component: Component, ...rest }) => {
 
 const mapStateToProps = state => {
   return {
-    token: state.tokenReducer.t
+    token: state.globalReducer.t
   }
 }
 

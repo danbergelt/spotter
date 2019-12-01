@@ -11,7 +11,8 @@ import {
   DEL_EXERCISE,
   QUEUE_EDIT,
   HANDLE_EDIT,
-  RESET_QUEUE
+  RESET_QUEUE,
+  FROM_SAVED
 } from "../actions/workoutActions";
 import { find, isMatch, isEqual, omit, pick, keys } from "lodash";
 
@@ -20,7 +21,8 @@ const workoutState = {
   notes: "",
   exercises: [],
   tags: [],
-  queue: {}
+  queue: {},
+  _id: null
 };
 
 export const workoutReducer = (state = workoutState, action) => {
@@ -122,6 +124,15 @@ export const workoutReducer = (state = workoutState, action) => {
       return {
         ...state,
         queue: {}
+      };
+    case FROM_SAVED:
+      return {
+        ...state,
+        _id: action.payload._id,
+        exercises: action.payload.exercises,
+        notes: action.payload.notes,
+        tags: action.payload.tags,
+        title: action.payload.title
       };
     default:
       return state;
