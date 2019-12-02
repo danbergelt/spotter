@@ -78,6 +78,8 @@
 
   .workout-data-notes-cancel {
     color: $danger;
+    position: relative;
+    top: 2px;
     cursor: pointer;
 
     &:hover {

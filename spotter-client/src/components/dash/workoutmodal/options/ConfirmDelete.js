@@ -2,62 +2,48 @@ import React from "react";
 import Modal from "react-modal";
 import { FiX } from "react-icons/fi";
 import axiosWithAuth from "../../../../utils/axiosWithAuth";
-import { generateWeek } from "../../../../utils/momentUtils";
 import { connect } from "react-redux";
 import { fetchWorkouts } from "../../../../actions/fetchWorkoutsActions";
 import { useHistory } from "react-router-dom";
+import { styles } from "./localutils/confirmDeleteStyles";
+import reFetch from "../../../../utils/reFetch";
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
 const ConfirmDelete = ({
+  dispatch,
+  types,
   close,
   confirmDelete,
   workoutId,
   closeParentModal,
-  week,
-  fetchWorkouts
+  week
 }) => {
-  const customStyles = {
-    overlay: {
-      background: "transparent"
-    },
-    content: {
-      width: "250px",
-      height: "175px",
-      marginLeft: "60vw",
-      marginTop: "35.5vh"
-    }
-  };
-
   const history = useHistory();
-
-  const reFetch = () => {
-    let range = generateWeek(week);
-    range = range.map(d => d.format("MMM DD YYYY"));
-    fetchWorkouts(range, history);
-  };
 
   const deleteWorkout = async () => {
     await axiosWithAuth().delete(
       `${process.env.REACT_APP_T_API}/api/auth/workouts/${workoutId}`
     );
-    await reFetch();
-    close();
+    await reFetch(week, history);
+    close(dispatch, types);
+    // hack-ish fix to smooth out reFetch shuddering - state updates slightly out of sync with UI
     setTimeout(() => closeParentModal(), 50);
   };
 
   return (
     <Modal
-      style={customStyles}
+      style={styles}
       isOpen={confirmDelete}
-      onRequestClose={close}
+      onRequestClose={() => close(dispatch, types)}
       contentLabel="Confirm Delete Workout"
     >
       <div className="delete-container">
         <div className="delete-head-container">
           <div className="delete-head">Delete Workout</div>
-          <div onClick={close} className="delete-exit">
+          <div onClick={() => close(dispatch, types)} className="delete-exit">
             <FiX
+              // inline styles for convenience
               data-testid="quit-template-save"
               style={{ display: "flex", alignItems: "center" }}
             />
@@ -75,7 +61,7 @@ const ConfirmDelete = ({
           >
             Delete
           </div>
-          <div onClick={close} className="delete-btn can">
+          <div onClick={() => close(dispatch, types)} className="delete-btn can">
             Cancel
           </div>
         </div>

@@ -4,6 +4,8 @@ import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
+// component for login + signup forms
+
 const SpotterForm = ({
   status,
   errors,

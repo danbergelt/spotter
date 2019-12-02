@@ -20,13 +20,18 @@
   margin: 1rem 0;
 
   .tag-manage-delete {
-    font-size: 1.75rem;
-    margin-left: 1rem;
+    background: $gray3;
+    font-size: 1.3rem;
+    border: 0;
     color: $gray1;
-
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    margin-left: 1rem;
+    cursor: pointer;
+    outline: 0;
+  
     &:hover {
-      transform: $hover-scale;
-      cursor: pointer;
+      background: darken($gray3, 5%);
     }
   }
 }

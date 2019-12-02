@@ -4,6 +4,8 @@ export const FETCH_WORKOUTS_START = "FETCH_WORKOUTS_START";
 export const FETCH_WORKOUTS_SUCCESS = "FETCH_WORKOUTS_SUCCESS";
 export const FETCH_WORKOUTS_ERROR = "FETCH_WORKOUT_ERROR";
 
+// fetches workouts based on range (e.g. week OR month)
+
 export const fetchWorkouts = (range, history) => {
   return dispatch => {
     dispatch({ type: FETCH_WORKOUTS_START });

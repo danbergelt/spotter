@@ -13,6 +13,9 @@ export const HANDLE_EDIT = "HANDLE_EDIT";
 export const RESET_QUEUE = "RESET_QUEUE";
 export const FROM_SAVED = "FROM_SAVED";
 
+// synchronous workout actions, i.e. adding workout information
+// kept in redux store to allow for global access and flexible functionality, despite being largely input data and synchronous
+
 export const addWorkoutTitle = title => {
   return { type: ADD_WORKOUT_TITLE, payload: title };
 };

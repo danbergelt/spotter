@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import axiosWithAuth from "../../../../utils/axiosWithAuth";
 import {
   FiTag,
@@ -8,6 +8,7 @@ import {
   FiPackage
 } from "react-icons/fi";
 
+// components
 import WorkoutOption from "./WorkoutOption";
 import TagsModal from "../tagsmodal/TagsModal";
 import TemplateSave from "../templatesave/TemplateSave";
@@ -18,159 +19,82 @@ import { connect } from "react-redux";
 import { fetchTags } from "../../../../actions/tagsActions";
 import { fetchWorkouts } from "../../../../actions/fetchWorkoutsActions";
 import { useHistory } from "react-router-dom";
-import { generateWeek } from "../../../../utils/momentUtils";
+
+import { reducer, types, initialState } from "./localutils/optionsReducer";
+import {
+  openTagsModal,
+  setTemplateSaveModal,
+  openFromTemplateModal,
+  closeFromTemplateModal,
+  closeConfirmDelete,
+  delHandler,
+  saveHandler
+} from "./localutils/optionsActions";
 
 const WorkoutOptions = ({
-  fetchTags,
   closeParentModal,
   ctx,
   workoutId,
   week,
   date,
-  workout,
-  fetchWorkouts
+  workout
 }) => {
   const history = useHistory();
   const iconClass = "add-workout-options-icon";
 
-  const [active, setActive] = useState(0);
-  const [modal, setModal] = useState(false);
-  const [templateSave, setTemplateSave] = useState(false);
-  const [fromTemplate, setFromTemplate] = useState(false);
-  const [confirmDelete, setConfirmDelete] = useState(false);
-  const [templates, setTemplates] = useState([]);
-  const [templatesErr, setTemplatesErr] = useState("");
-  const [saveMsg, setSaveMsg] = useState({});
-
-  const openTagsModal = () => {
-    setModal(true);
-    fetchTags(history);
-  };
-  const closeTagsModal = () => {
-    setModal(false);
-    setActive(0);
-  };
-
-  const openTemplateSaveModal = () => {
-    setTemplateSave(true);
-  };
-  const closeTemplateSaveModal = () => {
-    setTemplateSave(false);
-  };
-
-  const openFromTemplateModal = async () => {
-    try {
-      const res = await axiosWithAuth().get(
-        `${process.env.REACT_APP_T_API}/api/auth/templates`
-      );
-      setTemplates(res.data.templates);
-    } catch (error) {
-      if (error.response) setTemplatesErr(error.response.data.error);
-    }
-    setFromTemplate(true);
-  };
-  const closeFromTemplateModal = () => {
-    setFromTemplate(false);
-  };
-
-  const openConfirmDelete = () => {
-    setConfirmDelete(true);
-  };
-  const closeConfirmDelete = () => {
-    setConfirmDelete(false);
-  };
-
-  const delHandler = () => {
-    if (ctx === "add") {
-      closeParentModal();
-    }
-    if (ctx === "view") {
-      openConfirmDelete();
-    }
-  };
-
-  const reFetch = () => {
-    let range = generateWeek(week);
-    range = range.map(d => d.format("MMM DD YYYY"));
-    fetchWorkouts(range, history);
-  };
-
-  const saveHandler = async () => {
-    if (ctx === "add") {
-      try {
-        await axiosWithAuth().post(
-          `${process.env.REACT_APP_T_API}/api/auth/workouts`,
-          {
-            date: date.format("MMM DD YYYY"),
-            title: workout.title,
-            notes: workout.notes,
-            exercises: workout.exercises,
-            tags: workout.tags
-          }
-        );
-        await reFetch();
-        closeParentModal();
-      } catch (err) {
-        setSaveMsg({ error: err.response.data.error });
-      }
-    }
-
-    if (ctx === "view") {
-      try {
-        await axiosWithAuth().put(
-          `${process.env.REACT_APP_T_API}/api/auth/workouts/${workoutId}`,
-          {
-            title: workout.title,
-            notes: workout.notes,
-            exercises: workout.exercises,
-            tags: workout.tags
-          }
-        );
-        await reFetch();
-        setSaveMsg({ success: "Workout updated" });
-      } catch (err) {
-        setSaveMsg({ error: err.response.data.error });
-      }
-    }
-  };
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
     <div className="add-workout-options-container">
       <h1 className="add-workout-options-title sub">ACTIONS</h1>
       <div className="add-workout-options-buttons">
-        <div data-testid="tags-modal" onClick={openTagsModal}>
+        <div
+          data-testid="tags-modal"
+          onClick={() => openTagsModal(dispatch, types, history)}
+        >
           <WorkoutOption text={"Tags"} icon={<FiTag className={iconClass} />} />
         </div>
         <TagsModal
-          active={active}
-          setActive={setActive}
-          modal={modal}
-          closeModal={closeTagsModal}
+          state={state}
+          active={state.active}
+          types={types}
+          dispatch={dispatch}
+          modal={state.tagModal}
+          types={types}
+          dispatch={dispatch}
         />
         <WorkoutOption
+          dispatch={dispatch}
+          types={types}
           testing={"save-template"}
-          action={openTemplateSaveModal}
+          action={setTemplateSaveModal}
           text={"Template"}
           icon={<FiSave className={iconClass} />}
         />
         <TemplateSave
-          templateSave={templateSave}
-          close={closeTemplateSaveModal}
+          dispatch={dispatch}
+          types={types}
+          templateSave={state.templateSave}
+          close={setTemplateSaveModal}
         />
         <WorkoutOption
+          dispatch={dispatch}
+          types={types}
           action={openFromTemplateModal}
           text={"From Template"}
           icon={<FiPackage className={iconClass} />}
         />
         <FromTemplate
-          templates={templates}
-          err={templatesErr}
-          fromTemplate={fromTemplate}
+          dispatch={dispatch}
+          types={types}
+          templates={state.templates}
+          err={state.templatesErr}
+          fromTemplate={state.fromTemplate}
           close={closeFromTemplateModal}
         />
         <div
           data-testid="del-workout"
-          onClick={delHandler}
+          onClick={() => delHandler(dispatch, types, closeParentModal, ctx)}
           className="add-workout-options-button delete"
         >
           <FiDelete className={iconClass} /> Delete
@@ -179,17 +103,33 @@ const WorkoutOptions = ({
           week={week}
           closeParentModal={closeParentModal}
           workoutId={workoutId}
+          dispatch={dispatch}
+          types={types}
           close={closeConfirmDelete}
-          confirmDelete={confirmDelete}
+          confirmDelete={state.confirmDelete}
         />
         <div
-          onClick={saveHandler}
+          onClick={() =>
+            saveHandler({
+              dispatch,
+              types,
+              ctx,
+              workout,
+              closeParentModal,
+              workoutId,
+              week,
+              history,
+              date
+            })
+          }
           className="add-workout-options-button publish"
         >
           <FiPlusCircle className={iconClass} />
           {ctx === "add" ? "Save" : "Update"}
         </div>
-        {saveMsg.error && <div className="save error">{saveMsg.error}</div>}
+        {state.saveMsg.error && (
+          <div className="save error">{state.saveMsg.error}</div>
+        )}
       </div>
     </div>
   );

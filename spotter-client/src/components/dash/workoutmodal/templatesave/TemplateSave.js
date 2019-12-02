@@ -6,12 +6,12 @@ import { connect } from "react-redux";
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
-const TemplateSave = ({ close, templateSave, workout }) => {
+const TemplateSave = ({ dispatch, types, close, templateSave, workout }) => {
   const [tempName, setTempName] = useState("");
   const [message, setMessage] = useState({});
 
   const closeHandler = () => {
-    close();
+    close(dispatch, types, false);
     setMessage({});
     setTempName("");
   };

@@ -6,7 +6,13 @@ import axiosWithAuth from "../../../../utils/axiosWithAuth";
 import { FiX } from "react-icons/fi";
 import { deleteTag } from "../../../../actions/workoutActions";
 
-const TagsModalDelete = ({ fetchTags, toDelete, setActive, deleteTag: removeFromWorkout }) => {
+const TagsModalDelete = ({
+  fetchTags,
+  toDelete,
+  dispatch,
+  types,
+  deleteTag: removeFromWorkout
+}) => {
   const [err, setErr] = useState("");
   const history = useHistory();
 
@@ -16,8 +22,8 @@ const TagsModalDelete = ({ fetchTags, toDelete, setActive, deleteTag: removeFrom
         `${process.env.REACT_APP_T_API}/api/auth/tags/${toDelete._id}`
       );
       await fetchTags(history);
-      removeFromWorkout(toDelete)
-      setActive(0);
+      removeFromWorkout(toDelete);
+      dispatch({ type: types.SET_ACTIVE, payload: 0 });
     } catch (error) {
       setErr(error.response.data.error);
     }

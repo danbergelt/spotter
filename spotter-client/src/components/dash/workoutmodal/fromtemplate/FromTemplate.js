@@ -4,48 +4,41 @@ import { FiX } from "react-icons/fi";
 import { connect } from "react-redux";
 import { fromTemplate as generate } from "../../../../actions/workoutActions";
 import { isEmpty } from "lodash";
+import { styles } from "./styles";
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
 const FromTemplate = ({
+  dispatch,
+  types,
   close,
   fromTemplate,
   templates,
-  templatesErr,
-  generate
+  generate,
+  err
 }) => {
   const [search, setSearch] = useState("");
   const [active, setActive] = useState({});
 
-  const customStyles = {
-    overlay: {
-      background: "transparent"
-    },
-    content: {
-      width: "235px",
-      height: "325px",
-      marginLeft: "60vw",
-      marginTop: "30vh"
-    }
-  };
-
   const genHandler = template => {
     generate(template);
-    close();
+    close(dispatch, types);
     setActive({});
   };
 
   const closeHandler = () => {
-    close();
+    close(dispatch, types);
     setActive({});
     setSearch("");
   };
 
-  const filter = templates.filter(t => t.name.includes(search));
+  const filter = templates.filter(t =>
+    t.name.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <Modal
-      style={customStyles}
+      style={styles}
       isOpen={fromTemplate}
       onRequestClose={closeHandler}
       contentLabel="Generate Template"
@@ -55,6 +48,7 @@ const FromTemplate = ({
           <div className="from-template-title">Generate Template</div>
           <div onClick={closeHandler} className="from-template-exit">
             <FiX
+              // inline styles as a convenience
               data-testid="quit-from"
               style={{ display: "flex", alignItems: "center" }}
             />
@@ -68,6 +62,7 @@ const FromTemplate = ({
           className="from-template-search"
         />
         <div className="templates-container">
+          {/* if there are templates + if there are results from the search filter, display those templates */}
           {templates.length ? (
             filter.length ? (
               filter.map(el => (
@@ -87,6 +82,7 @@ const FromTemplate = ({
           ) : (
             <div className="no-templates-found">No templates found</div>
           )}
+          {err && <div className="no-templates-found">{err}</div>}
         </div>
         <div
           onClick={() => (!isEmpty(active) ? genHandler(active) : null)}

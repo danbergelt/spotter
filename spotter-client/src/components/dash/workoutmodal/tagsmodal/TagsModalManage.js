@@ -11,7 +11,8 @@ import { updateTag } from "../../../../actions/workoutActions";
 
 const TagsModalManage = ({
   tags,
-  setActive,
+  types,
+  dispatch,
   setToDelete,
   fetchTags,
   updateTag
@@ -24,7 +25,7 @@ const TagsModalManage = ({
   const history = useHistory();
 
   const handleDelete = tag => {
-    setActive(3);
+    dispatch({ type: types.SET_ACTIVE, payload: 3 });
     setToDelete(tag);
   };
 
@@ -78,11 +79,13 @@ const TagsModalManage = ({
             >
               {tag.content}
             </div>
-            <FiTrash
+            <div
               onClick={() => handleDelete(tag)}
               className="tag-manage-delete"
               data-testid="trash-tag"
-            />
+            >
+              Delete
+            </div>
           </div>
           <div>
             {update && update._id === tag._id && (

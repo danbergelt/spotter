@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Select from "react-select";
 
+// controls workout range (determines range of workouts fetch call) - need to add active range to global state
+
 const SubnavDropdown = () => {
   const options = [
     { value: "Week", label: "Week" },

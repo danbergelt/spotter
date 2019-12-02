@@ -9,7 +9,7 @@ import TagsModalAdd from "./TagsModalAdd";
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
-const TagsModal = ({ modal, closeModal, active, setActive }) => {
+const TagsModal = ({ state, modal, dispatch, types }) => {
   const [toDelete, setToDelete] = useState(null);
 
   const customStyles = {
@@ -26,27 +26,30 @@ const TagsModal = ({ modal, closeModal, active, setActive }) => {
   return (
     <Modal
       style={customStyles}
-      onRequestClose={closeModal}
+      onRequestClose={() => dispatch({type: types.CLOSE_TAG_MODAL})}
       contentLabel="Tags Modal"
       isOpen={modal}
     >
       <TagsModalHead
-        closeModal={closeModal}
-        active={active}
-        setActive={setActive}
+        state={state}
+        types={types}
+        dispatch={dispatch}
+        types={types}
+        dispatch={dispatch}
       />
-      {active === 3 && (
-        <TagsModalDelete toDelete={toDelete} setActive={setActive} />
+      {state.active === 3 && (
+        <TagsModalDelete toDelete={toDelete} dispatch={dispatch} types={types} />
       )}
-      {active === 2 && <TagsModalCreate />}
-      {active === 1 && (
+      {state.active === 2 && <TagsModalCreate />}
+      {state.active === 1 && (
         <TagsModalManage
-          setActive={setActive}
-          active={active}
+          dispatch={dispatch}
+          types={types}
+          active={state.active}
           setToDelete={setToDelete}
         />
       )}
-      {active === 0 && (
+      {state.active === 0 && (
         <TagsModalAdd />
       )}
     </Modal>

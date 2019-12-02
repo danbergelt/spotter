@@ -6,6 +6,8 @@ export const FETCH_TAGS_ERROR = "FETCH_TAGS_ERROR";
 
 export const RESET_TAGS = "RESET_TAGS";
 
+// fetches tags and resets tags list on modal close
+
 export const resetTags = () => {
   return { type: RESET_TAGS };
 };

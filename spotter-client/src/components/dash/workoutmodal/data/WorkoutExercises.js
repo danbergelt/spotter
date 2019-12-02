@@ -1,59 +1,44 @@
-import React, { useRef } from "react";
+import React from "react";
 import { FiStar } from "react-icons/fi";
 import ExerciseForm from "./ExerciseForm";
 import { connect } from "react-redux";
-import { resetQueue } from "../../../../actions/workoutActions";
+import { resetQueue, addExercise } from "../../../../actions/workoutActions";
 import WorkoutExercise from "./WorkoutExercise";
-import { WorkoutDataConsumer } from "../../../../contexts/workoutDataContext";
-import { isEmpty } from "lodash";
+import { isEmpty, times } from "lodash";
 
-const WorkoutExercises = ({ queued, resetQueue }) => {
+const WorkoutExercises = ({ queued, resetQueue, exercises, addExercise }) => {
   // refs to handle blurring fields
-  const a = useRef(null);
-  const b = useRef(null);
-  const c = useRef(null);
-  const d = useRef(null);
+  const refs = [];
+  times(4, i => (refs[i] = React.createRef()));
 
   return (
-    <WorkoutDataConsumer>
-      {context => (
-        <div className="workout-data-exercises">
-          <div className="workout-data-exercises-head">
-            <FiStar className="workout-data-exercises-icon" />
-            <div className="workout-data-exercises-title">Exercises</div>
-            {!isEmpty(queued) && (
-              <div
-                onClick={resetQueue}
-                className="workout-data-exercises-editing"
-              >
-                Clear
-              </div>
-            )}
+    <div className="workout-data-exercises">
+      <div className="workout-data-exercises-head">
+        <FiStar className="workout-data-exercises-icon" />
+        <div className="workout-data-exercises-title">Exercises</div>
+        {!isEmpty(queued) && (
+          <div onClick={resetQueue} className="workout-data-exercises-editing">
+            Clear
           </div>
-          <div className="workout-data-exercises-content">
-            <ExerciseForm
-              a={a}
-              b={b}
-              c={c}
-              d={d}
-              addExercise={context.addExercise}
-            />
-            <div className="workout-data-exercises-list">
-              {context.exercises.map((exercise, i) => (
-                <WorkoutExercise a={a} key={i} i={i} exercise={exercise} />
-              ))}
-            </div>
-          </div>
+        )}
+      </div>
+      <div className="workout-data-exercises-content">
+        <ExerciseForm refs={refs} addExercise={addExercise} />
+        <div className="workout-data-exercises-list">
+          {exercises.map((exercise, i) => (
+            <WorkoutExercise a={refs[0]} key={i} i={i} exercise={exercise} />
+          ))}
         </div>
-      )}
-    </WorkoutDataConsumer>
+      </div>
+    </div>
   );
 };
 
 const mapStateToProps = state => {
   return {
-    queued: state.workoutReducer.queue
+    queued: state.workoutReducer.queue,
+    exercises: state.workoutReducer.exercises
   };
 };
 
-export default connect(mapStateToProps, { resetQueue })(WorkoutExercises);
+export default connect(mapStateToProps, { resetQueue, addExercise })(WorkoutExercises);
