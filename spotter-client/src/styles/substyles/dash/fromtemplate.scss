@@ -1,30 +1,18 @@
 @import "../../variables.scss";
+@import "../../mixins.scss";
 
 .from-template-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  @include modalContainer;
 
   .from-template-header {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
+    @include modalHeader;
 
     .from-template-title {
-      font-size: 1.3rem;
-      color: $gray2;
+      @include modalTitle;
     }
 
     .from-template-exit {
-      font-size: $p;
-      border-radius: 50%;
-      padding: 0.5rem;
-
-      &:hover {
-        background: $gray3;
-        cursor: pointer;
-      }
+      @include modalExit;
     }
   }
 
@@ -61,7 +49,7 @@
     }
 
     .template.active {
-      border-left: 3px solid $primary;
+      border-left: 2px solid $primary;
 
       &:hover {
         background: $gray3;

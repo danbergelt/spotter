@@ -1,3 +1,5 @@
+// utility function to darken a CSS in JS hex code color
+
 function adjust(color, amount) {
   return (
     "#" +

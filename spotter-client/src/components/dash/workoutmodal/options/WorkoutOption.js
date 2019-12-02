@@ -1,9 +1,9 @@
 import React from "react";
 
-const WorkoutOption = ({ text, icon, action, testing }) => {
+const WorkoutOption = ({ dispatch, types, text, icon, action, testing }) => {
   return (
     <div
-      onClick={action}
+      onClick={() => action && action(dispatch, types, true)}
       data-testid={testing}
       className="add-workout-options-button"
     >

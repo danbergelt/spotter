@@ -1,9 +1,12 @@
 import React, { useState, useEffect, Profiler } from "react";
 import Loader from "react-loader-spinner";
 import axios from "axios";
-import Routes from "./Routes";
+import Routes from "./routes";
 import { connect } from "react-redux";
 import { addToken } from "./actions/addTokenActions";
+
+// this component renders in front of routes, checks for token, and returns proper authenticated data
+// also requests refresh token on each refresh
 
 const App = ({ addToken }) => {
   const [loading, setLoading] = useState(true);

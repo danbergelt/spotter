@@ -8,6 +8,8 @@ import mockWorkoutRes from "../../__testUtils__/mockWorkoutRes";
 import axios from "axios";
 import reducer from "../../reducers/index.js";
 import { ADD_TOKEN } from "../../actions/addTokenActions";
+import { FETCH_WORKOUTS_SUCCESS } from "../../actions/fetchWorkoutsActions";
+import WorkoutColumns from '../../components/dash/workouts/WorkoutColumns';
 
 describe("Weekly dash date settings", () => {
   afterEach(() => {
@@ -140,14 +142,20 @@ describe("Weekly dash date settings", () => {
   });
 
   it("fetches workouts and displays them", async () => {
-    axios.post.mockResolvedValue(mockWorkoutRes);
-    const { queryByTestId, history, store } = wrapper(reducer, <Routes />);
+    const { getByText, history, queryByText, store } = wrapper(
+      reducer,
+      <WorkoutColumns />
+    );
 
-    store.dispatch({ type: ADD_TOKEN, payload: "token" });
+    store.dispatch({
+      type: FETCH_WORKOUTS_SUCCESS,
+      payload: mockWorkoutRes.data.workouts
+    });
 
     history.push("/dashboard");
 
-    await wait(() => expect(queryByTestId(/workout-title/i)).toBeTruthy());
-    expect(axios.post).toHaveBeenCalledTimes(1);
+    await wait(() => {
+      expect(queryByText(/workout for testing/i)).toBeTruthy();
+    });
   });
 });

@@ -25,6 +25,8 @@ const workoutState = {
   _id: null
 };
 
+// contains active workout details to be shared globally
+
 export const workoutReducer = (state = workoutState, action) => {
   switch (action.type) {
     case ADD_WORKOUT_TITLE:

@@ -1,58 +1,25 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import { FiX } from "react-icons/fi";
-import axiosWithAuth from "../../../../utils/axiosWithAuth";
 import { connect } from "react-redux";
+import { styles } from "./styles";
+import { handleSubmit } from "./handleSubmit";
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
-const TemplateSave = ({ close, templateSave, workout }) => {
+const TemplateSave = ({ dispatch, types, close, templateSave, workout }) => {
   const [tempName, setTempName] = useState("");
   const [message, setMessage] = useState({});
 
   const closeHandler = () => {
-    close();
+    close(dispatch, types, false);
     setMessage({});
     setTempName("");
   };
 
-  const customStyles = {
-    overlay: {
-      background: "transparent"
-    },
-    content: {
-      width: "250px",
-      height: "170px",
-      marginLeft: "60vw",
-      marginTop: "25vh"
-    }
-  };
-
-  const handleSubmit = async e => {
-    e.preventDefault();
-    try {
-      await axiosWithAuth().post(
-        `${process.env.REACT_APP_T_API}/api/auth/templates`,
-        {
-          name: tempName,
-          title: workout.title,
-          tags: workout.tags,
-          notes: workout.notes,
-          exercises: workout.exercises
-        }
-      );
-      setTempName("");
-      setMessage({ success: "Template created" });
-    } catch (error) {
-      if (error.response) {
-        setMessage({ error: error.response.data.error });
-      }
-    }
-  };
-
   return (
     <Modal
-      style={customStyles}
+      style={styles}
       onRequestClose={close}
       contentLabel="Save Template"
       isOpen={templateSave}
@@ -70,7 +37,9 @@ const TemplateSave = ({ close, templateSave, workout }) => {
         <form
           id="save"
           className="template-form"
-          onSubmit={e => handleSubmit(e)}
+          onSubmit={e =>
+            handleSubmit(e, { tempName, workout, setTempName, setMessage })
+          }
         >
           <input
             autoFocus
@@ -107,7 +76,9 @@ const TemplateSave = ({ close, templateSave, workout }) => {
           className="template-save-submit"
           type="submit"
           form="save"
-          onClick={e => handleSubmit(e)}
+          onClick={e =>
+            handleSubmit(e, { tempName, workout, setTempName, setMessage })
+          }
         >
           Save
         </button>

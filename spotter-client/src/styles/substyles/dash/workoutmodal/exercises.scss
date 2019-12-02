@@ -116,8 +116,10 @@
         align-items: center;
 
         .exercise-results {
+          width: 100%;
           display: flex;
-          flex-direction: column;
+          justify-content: space-between;
+          align-items: flex-end;
 
           .exercise-name {
             font-size: 1.75rem;
@@ -136,7 +138,6 @@
           .exercise-actions {
             font-weight: normal;
             text-decoration: underline;
-            margin-top: 1rem;
             display: flex;
             font-size: 1.2rem;
             cursor: pointer;

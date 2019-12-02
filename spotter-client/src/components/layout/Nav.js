@@ -6,6 +6,7 @@ import { addToken } from "../../actions/addTokenActions";
 
 const Nav = ({ token, addToken }) => {
   const logOut = async () => {
+    // clears refresh token and access token
     addToken(null);
     await axios.get(`${process.env.REACT_APP_T_API}/api/auth/logout`, {
       withCredentials: true

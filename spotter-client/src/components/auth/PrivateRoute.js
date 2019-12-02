@@ -4,6 +4,8 @@ import { Route, Redirect } from "react-router-dom";
 
 import { connect } from 'react-redux';
 
+// authenticated route component
+
 const PrivateRoute = ({ token, component: Component, ...rest }) => {
   return (
     <>

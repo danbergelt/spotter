@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { FiTrash } from "react-icons/fi";
 import adjust from "../../../../utils/darkenColorInJS";
-import styles from "../../../../utils/tagStyles";
+import styles from "./tagStyles";
 import axiosWithAuth from "../../../../utils/axiosWithAuth";
 import { fetchTags } from "../../../../actions/tagsActions";
 import { useHistory } from "react-router-dom";
@@ -11,7 +10,8 @@ import { updateTag } from "../../../../actions/workoutActions";
 
 const TagsModalManage = ({
   tags,
-  setActive,
+  types,
+  dispatch,
   setToDelete,
   fetchTags,
   updateTag
@@ -24,7 +24,7 @@ const TagsModalManage = ({
   const history = useHistory();
 
   const handleDelete = tag => {
-    setActive(3);
+    dispatch({ type: types.SET_ACTIVE, payload: 3 });
     setToDelete(tag);
   };
 
@@ -78,11 +78,13 @@ const TagsModalManage = ({
             >
               {tag.content}
             </div>
-            <FiTrash
+            <div
               onClick={() => handleDelete(tag)}
               className="tag-manage-delete"
               data-testid="trash-tag"
-            />
+            >
+              Delete
+            </div>
           </div>
           <div>
             {update && update._id === tag._id && (

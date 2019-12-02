@@ -5,8 +5,10 @@ import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { connect } from "react-redux";
 import { fetchWorkouts } from "../../../actions/fetchWorkoutsActions";
 import { useHistory } from "react-router-dom";
+import reFetch from "../../../utils/reFetch";
 
-const WorkoutColumns = ({ data, fetchWorkouts }) => {
+const WorkoutColumns = ({ data, test, fetchWorkouts }) => {
+
   const history = useHistory();
 
   const { workouts } = data;
@@ -22,9 +24,7 @@ const WorkoutColumns = ({ data, fetchWorkouts }) => {
   };
 
   useEffect(() => {
-    let range = generateWeek(week);
-    range = range.map(d => d.format("MMM DD YYYY"));
-    fetchWorkouts(range, history);
+    reFetch(week, history);
   }, [week, fetchWorkouts, history]);
 
   return (
@@ -48,7 +48,13 @@ const WorkoutColumns = ({ data, fetchWorkouts }) => {
       </div>
       <div className="week-workouts-days">
         {generateWeek(week).map((date, i) => (
-          <WorkoutColumn workouts={workouts} date={date} key={i} i={i} week={week} />
+          <WorkoutColumn
+            workouts={workouts}
+            date={date}
+            key={i}
+            i={i}
+            week={week}
+          />
         ))}
       </div>
     </div>

@@ -1,27 +1,24 @@
 import React from "react";
 import * as Yup from "yup";
 import { Form, Field, withFormik } from "formik";
-import { FiCheck, FiTrash } from "react-icons/fi";
+import { FiPlus, FiTrash } from "react-icons/fi";
 import { connect } from "react-redux";
 import { handleEdit, resetQueue } from "../../../../actions/workoutActions";
 import { isEmpty } from "lodash";
 
 const ExerciseForm = ({
   handleReset,
-  values,
   addExercise,
   errors,
   touched,
-  a,
-  b,
-  c,
-  d,
+  refs,
   queued,
   handleEdit,
   resetQueue
 }) => {
   const resetHandler = () => {
     handleReset();
+    // resets edit queue - form relies on this information to determine type of action on submit (either edit or add)
     resetQueue();
   };
 
@@ -36,7 +33,7 @@ const ExerciseForm = ({
             <p className="error-exercise-form">{errors.name}</p>
           )}
           <Field
-            innerRef={a}
+            innerRef={refs[0]}
             className="exercise-form-field"
             name="name"
             placeholder="e.g. squat"
@@ -49,7 +46,7 @@ const ExerciseForm = ({
             <p className="error-exercise-form">{errors.weight}</p>
           )}
           <Field
-            innerRef={b}
+            innerRef={refs[1]}
             className="exercise-form-field"
             name="weight"
             placeholder="lbs"
@@ -62,7 +59,7 @@ const ExerciseForm = ({
             <p className="error-exercise-form">{errors.sets}</p>
           )}
           <Field
-            innerRef={c}
+            innerRef={refs[2]}
             className="exercise-form-field"
             name="sets"
             placeholder="# of sets"
@@ -75,7 +72,7 @@ const ExerciseForm = ({
             <p className="error-exercise-form">{errors.reps}</p>
           )}
           <Field
-            innerRef={d}
+            innerRef={refs[3]}
             className="exercise-form-field"
             name="reps"
             placeholder="# of reps"
@@ -92,7 +89,7 @@ const ExerciseForm = ({
           }}
           type="submit"
         >
-          <FiCheck className="exercise-form-button submit" />
+          <FiPlus className="exercise-form-button submit" />
         </button>
         <button
           style={{
@@ -135,11 +132,11 @@ const FormikExerciseForm = withFormik({
   enableReinitialize: true,
   handleSubmit(
     values,
-    { props: { addExercise, a, b, c, d, queued, handleEdit }, resetForm }
+    { props: { addExercise, refs, queued, handleEdit }, resetForm }
   ) {
     resetForm();
 
-    [a, b, c, d].forEach(ref => ref.current.blur());
+    refs.forEach(ref => ref.current.blur());
 
     if (isEmpty(queued)) {
       addExercise(values);

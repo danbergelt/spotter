@@ -11,6 +11,8 @@ const tagsState = {
   tags: {}
 };
 
+// for tags modal
+
 export const tagsReducer = (state = tagsState, action) => {
   switch (action.type) {
     case FETCH_TAGS_START:

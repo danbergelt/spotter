@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+// connects to DB + test DB for
+
 const connectDB = async () => {
   const conn = await mongoose.connect(process.env.DB, {
     useNewUrlParser: true,

@@ -1,31 +1,19 @@
 @import "../../variables.scss";
+@import "../../mixins.scss";
 
 .save-template-container {
-  display: flex;
-  flex-direction: column;
+  @include modalContainer;
   justify-content: space-between;
-  height: 100%;
 
   .save-template-header {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
+    @include modalHeader;
 
     .save-template-title {
-      font-size: 1.3rem;
-      color: $gray2;
+      @include modalTitle;
     }
 
     .save-template-exit {
-      font-size: $p;
-      border-radius: 50%;
-      padding: 0.5rem;
-
-      &:hover {
-        background: $gray3;
-        cursor: pointer;
-      }
+      @include modalExit;
     }
   }
 

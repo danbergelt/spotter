@@ -7,48 +7,44 @@ import TagsModalManage from "./TagsModalManage";
 import TagsModalDelete from "./TagsModalDelete";
 import TagsModalAdd from "./TagsModalAdd";
 
+import { styles } from "./localutils/tagsModalStyles";
+
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
-const TagsModal = ({ modal, closeModal, active, setActive }) => {
-  const [toDelete, setToDelete] = useState(null);
+const TagsModal = ({ state, modal, dispatch, types }) => {
 
-  const customStyles = {
-    overlay: {
-      background: "transparent"
-    },
-    content: {
-      width: "325px",
-      height: "330px",
-      marginLeft: "60vw"
-    }
-  };
+  // sets the selected tag to be queued for deletion
+  const [toDelete, setToDelete] = useState(null);
 
   return (
     <Modal
-      style={customStyles}
-      onRequestClose={closeModal}
+      style={styles}
+      onRequestClose={() => dispatch({ type: types.CLOSE_TAG_MODAL })}
       contentLabel="Tags Modal"
       isOpen={modal}
     >
       <TagsModalHead
-        closeModal={closeModal}
-        active={active}
-        setActive={setActive}
+        state={state}
+        dispatch={dispatch}
+        types={types}
       />
-      {active === 3 && (
-        <TagsModalDelete toDelete={toDelete} setActive={setActive} />
+      {state.active === 3 && (
+        <TagsModalDelete
+          toDelete={toDelete}
+          dispatch={dispatch}
+          types={types}
+        />
       )}
-      {active === 2 && <TagsModalCreate />}
-      {active === 1 && (
+      {state.active === 2 && <TagsModalCreate />}
+      {state.active === 1 && (
         <TagsModalManage
-          setActive={setActive}
-          active={active}
+          dispatch={dispatch}
+          types={types}
+          active={state.active}
           setToDelete={setToDelete}
         />
       )}
-      {active === 0 && (
-        <TagsModalAdd />
-      )}
+      {state.active === 0 && <TagsModalAdd />}
     </Modal>
   );
 };

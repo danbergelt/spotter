@@ -6,6 +6,7 @@ import wrapper from "../../__testUtils__/wrapper";
 import Modal from "react-modal";
 import axios from "axios";
 import mockWorkoutRes from "../../__testUtils__/mockWorkoutRes";
+import { FETCH_WORKOUTS_SUCCESS } from "../../actions/fetchWorkoutsActions";
 import reducer from "../../reducers/index";
 
 describe("view workout modal functionality", () => {
@@ -14,15 +15,18 @@ describe("view workout modal functionality", () => {
   Modal.setAppElement(document.createElement("div"));
 
   test("modal populates with saved workout when clicked", async () => {
-    axios.post.mockResolvedValue(mockWorkoutRes);
+    axios.post.mockResolvedValue({})
+    const { queryAllByText, queryByText, getByText, store, history } = wrapper(
+      reducer,
+      <WorkoutColumns />
+    );
 
-    const {
-      queryAllByText,
-      queryByText,
-      getByText
-    } = wrapper(reducer, <WorkoutColumns />);
+    store.dispatch({
+      type: FETCH_WORKOUTS_SUCCESS,
+      payload: mockWorkoutRes.data.workouts
+    });
 
-    await wait(() => expect(queryByText(/workout for testing/i)).toBeTruthy());
+    history.push("/dashboard")
 
     fireEvent.click(getByText(/workout for testing/i));
 
