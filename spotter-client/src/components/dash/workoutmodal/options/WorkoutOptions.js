@@ -1,5 +1,4 @@
-import React, { useState, useReducer } from "react";
-import axiosWithAuth from "../../../../utils/axiosWithAuth";
+import React, { useReducer } from "react";
 import {
   FiTag,
   FiPlusCircle,
@@ -15,11 +14,10 @@ import TemplateSave from "../templatesave/TemplateSave";
 import FromTemplate from "../fromtemplate/FromTemplate";
 import ConfirmDelete from "../options/ConfirmDelete";
 
+// helpers
 import { connect } from "react-redux";
 import { fetchTags } from "../../../../actions/tagsActions";
-import { fetchWorkouts } from "../../../../actions/fetchWorkoutsActions";
 import { useHistory } from "react-router-dom";
-
 import { reducer, types, initialState } from "./localutils/optionsReducer";
 import {
   openTagsModal,
@@ -41,8 +39,11 @@ const WorkoutOptions = ({
 }) => {
   const history = useHistory();
   const iconClass = "add-workout-options-icon";
-
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  // this component is a switchboard of sorts, serving as a central point for crucial modal functionailty
+  // since much of this state is localized and not very complex, opted for useReducer instead of Redux
+  // reducer && actions can be found in this directory's localutils folder
 
   return (
     <div className="add-workout-options-container">
@@ -60,8 +61,6 @@ const WorkoutOptions = ({
           types={types}
           dispatch={dispatch}
           modal={state.tagModal}
-          types={types}
-          dispatch={dispatch}
         />
         <WorkoutOption
           dispatch={dispatch}
@@ -143,6 +142,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { fetchTags, fetchWorkouts })(
+export default connect(mapStateToProps, { fetchTags })(
   WorkoutOptions
 );

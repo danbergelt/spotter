@@ -33,6 +33,7 @@ exports.addTemplate = asyncHandler(async (req, res, next) => {
 
   let colorValidate = [];
 
+  // map over the tags in the template and error out if invalid color detected
   if (req.body.tags && req.body.tags.length) {
     colorValidate = req.body.tags.map(el => hex(el.color));
   }

@@ -6,6 +6,8 @@ const tokenState = {
   ctx: null
 };
 
+// handles items such as access token, modal context, etc.
+
 export const globalReducer = (state = tokenState, action) => {
   switch (action.type) {
     case ADD_TOKEN:

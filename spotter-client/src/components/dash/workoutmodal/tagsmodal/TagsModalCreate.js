@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axiosWithAuth from "../../../../utils/axiosWithAuth";
-import styles from "../../../../styles/variables.scss";
+import { colors, colorStyles } from "./localutils/createTagStyles";
 import adjust from "../../../../utils/darkenColorInJS";
 import { FiCheck, FiX } from "react-icons/fi";
 import Loader from "react-loader-spinner";
@@ -11,36 +11,13 @@ import { useHistory } from "react-router-dom";
 const TagsModalCreate = ({ fetchTags }) => {
   const history = useHistory();
 
-  const colors = [
-    styles.primary,
-    styles.info,
-    styles.success,
-    "#E84579",
-    styles.warning,
-    styles.info2,
-    styles.success2,
-    styles.warning2,
-    styles.gray1,
-    styles.gray2
-  ];
-
-  const colorStyles = {
-    width: "38px",
-    height: "38px",
-    borderRadius: "100%",
-    cursor: "pointer",
-    margin: "0.5rem",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center"
-  };
-
   const [name, setName] = useState("");
   const [hover, setHover] = useState(null);
-  const [color, setColor] = useState(styles.primary);
+  const [color, setColor] = useState(colors.primary);
   const [message, setMessage] = useState({});
   const [loading, setLoading] = useState(false);
 
+  // was having issues with the store, otherwise this would be in an external file
   const submitTag = async () => {
     setLoading(true);
     try {

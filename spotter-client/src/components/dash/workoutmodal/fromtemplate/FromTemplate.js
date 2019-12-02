@@ -20,6 +20,7 @@ const FromTemplate = ({
   const [search, setSearch] = useState("");
   const [active, setActive] = useState({});
 
+  // handles state when new template is generated
   const genHandler = template => {
     generate(template);
     close(dispatch, types);
@@ -32,6 +33,7 @@ const FromTemplate = ({
     setSearch("");
   };
 
+  // search filter
   const filter = templates.filter(t =>
     t.name.toLowerCase().includes(search.toLowerCase())
   );

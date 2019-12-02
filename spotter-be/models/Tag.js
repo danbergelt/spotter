@@ -19,7 +19,9 @@ const TagSchema = new Schema({
   }
 });
 
+// cascade update tags 
 TagSchema.pre("findOneAndUpdate", async function(next) {
+  // getting model to update, and getting update content
   const mod = await this.model.findOne(this.getQuery());
   const { content } = this._update;
 
@@ -54,7 +56,7 @@ TagSchema.pre("findOneAndUpdate", async function(next) {
   next();
 });
 
-// Cascade remove tags from workouts when tag is deleted
+// cascade delete tags
 TagSchema.pre("remove", async function(next) {
   const tagId = this._id;
   const workouts = await Workout.find({ "tags._id": tagId });

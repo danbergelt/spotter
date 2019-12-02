@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
-import PrivateRoute from "./utils/PrivateRoute";
+import PrivateRoute from "./components/auth/PrivateRoute";
 import Layout from "./components/layout/Layout";
 import Home from "./pages/Home";
 import LogIn from "./pages/LogIn";
@@ -11,7 +11,6 @@ import ServerError from "./pages/ServerError";
 import { connect } from "react-redux";
 
 const Routes = ({ token }) => {
-
   return (
     <Layout>
       <Switch>

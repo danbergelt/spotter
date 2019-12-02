@@ -1,6 +1,8 @@
 import axios from "axios";
 import { store } from "./store";
 
+// gets token from memory, creates an axios instance sending the token, enables cookies
+
 const axiosWithAuth = () => {
   const {
     globalReducer: { t }

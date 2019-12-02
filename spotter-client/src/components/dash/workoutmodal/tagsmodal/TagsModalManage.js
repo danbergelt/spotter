@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { FiTrash } from "react-icons/fi";
 import adjust from "../../../../utils/darkenColorInJS";
-import styles from "../../../../utils/tagStyles";
+import styles from "./tagStyles";
 import axiosWithAuth from "../../../../utils/axiosWithAuth";
 import { fetchTags } from "../../../../actions/tagsActions";
 import { useHistory } from "react-router-dom";

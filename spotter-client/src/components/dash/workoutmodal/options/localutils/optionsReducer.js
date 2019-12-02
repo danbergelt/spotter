@@ -44,5 +44,7 @@ export const reducer = (state, action) => {
       return { ...state, templatesErr: action.payload };
     case types.SET_SAVE_MSG:
       return { ...state, saveMsg: action.payload };
+    default:
+      return state;
   }
 };

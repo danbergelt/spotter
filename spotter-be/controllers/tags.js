@@ -8,6 +8,8 @@ const hex = require("is-hexcolor");
 // @access --> Private
 
 exports.createTag = asyncHandler(async (req, res, next) => {
+
+  // checks for matches on tags with no content
   if (req.body.color && !req.body.content) {
     const tags = await Tag.find({
       user: req.user._id,
@@ -19,6 +21,7 @@ exports.createTag = asyncHandler(async (req, res, next) => {
     }
   }
 
+  // checks for matches on tags with content
   if (req.body.color && req.body.content) {
     const tags = await Tag.find({
       user: req.user._id,
@@ -32,10 +35,12 @@ exports.createTag = asyncHandler(async (req, res, next) => {
 
   const tags = await Tag.find({ user: req.user._id });
 
+  // Enforces a 25 tag maximum
   if (tags.length >= 25) {
     return next(new Err("25 tag maximum", 400));
   }
 
+  // validates hex code for color, so corrupt code is not rendered on FE
   if (!hex(req.body.color)) {
     return next(new Err("Invalid color detected", 400));
   }

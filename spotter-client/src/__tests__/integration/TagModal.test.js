@@ -7,6 +7,7 @@ import wrapper from "../../__testUtils__/wrapper";
 import Modal from "react-modal";
 import axios from "axios";
 import mockWorkoutRes from "../../__testUtils__/mockWorkoutRes";
+import TagsModalCreate from "../../components/dash/workoutmodal/tagsmodal/TagsModalCreate";
 import mockTagRes from "../../__testUtils__/mockTagRes";
 import reducer from "../../reducers/index";
 
@@ -79,18 +80,10 @@ describe("tag modal functionalty", () => {
   test("can pick color", () => {
     const { getAllByLabelText, getByText, getByTestId } = wrapper(
       reducer,
-      <WorkoutOptions>
-        <TagsModal modal={true} />
-      </WorkoutOptions>
+      <TagsModalCreate />
     );
 
-    fireEvent.click(getByTestId(/tags-modal/i));
-
-    fireEvent.click(getByText(/create/i));
-
     const colors = getAllByLabelText(/tag-colors/i);
-
-    expect(getByTestId(/selected-tag/i)).toEqual(colors[0]);
 
     fireEvent.click(colors[1]);
 
@@ -99,22 +92,10 @@ describe("tag modal functionalty", () => {
 
   test("can create tag", async () => {
     axios.post.mockResolvedValue({ data: { success: true } });
-    const {
-      getAllByLabelText,
-      getByText,
-      findByText,
-      container,
-      getByTestId
-    } = wrapper(
+    const { getAllByLabelText, getByText, findByText, container } = wrapper(
       reducer,
-      <WorkoutOptions>
-        <TagsModal modal={true} />
-      </WorkoutOptions>
+      <TagsModalCreate />
     );
-
-    fireEvent.click(getByTestId(/tags-modal/i));
-
-    fireEvent.click(getByText(/create/i));
 
     const colors = getAllByLabelText(/tag-colors/i);
     fireEvent.click(colors[1]);

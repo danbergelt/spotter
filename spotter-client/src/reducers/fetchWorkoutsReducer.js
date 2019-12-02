@@ -10,6 +10,8 @@ const fetchedWorkoutsState = {
   workouts: []
 };
 
+// populates dashboard
+
 export const fetchWorkoutsReducer = (state = fetchedWorkoutsState, action) => {
   switch (action.type) {
     case FETCH_WORKOUTS_START:

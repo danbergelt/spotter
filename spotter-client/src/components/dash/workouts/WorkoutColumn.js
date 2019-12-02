@@ -25,6 +25,7 @@ const WorkoutColumn = ({
   const [modal, setModal] = useState(false);
   const [workout, setWorkout] = useState([]);
 
+  // set this column's workout only when the workouts array and date changes - protection against memory leaks
   useEffect(() => {
     const workout = workouts.filter(
       el => el.date === date.format("MMM DD YYYY")
