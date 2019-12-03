@@ -1,19 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { tagStyles } from "./localutils/tagstyles";
 
-const WorkoutTags = ({ tags }) => {
-  const [tagsInState, setTagsInState] = useState([]);
+const WorkoutTags = () => {
 
-  useEffect(() => {
-    setTagsInState(tags);
-  }, [tags]);
+  const tags = useSelector(state => state.workoutReducer.tags)
 
   return (
     <div className="workout-data-tags">
       <h1 className="workout-data-tags-head">TAGS</h1>
       <div className="workout-data-tags-container">
-        {!tagsInState.length ? (
+        {!tags.length ? (
           <p
             className="workout-data-tags-head"
             style={{ fontSize: "1.2rem", margin: 0 }}
@@ -21,7 +18,7 @@ const WorkoutTags = ({ tags }) => {
             No tags
           </p>
         ) : (
-          tagsInState.map(tag => (
+          tags.map(tag => (
             <div
               data-testid="mapped-tag"
               style={tagStyles(tag.color)}
@@ -36,10 +33,4 @@ const WorkoutTags = ({ tags }) => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    tags: state.workoutReducer.tags
-  };
-};
-
-export default connect(mapStateToProps, {})(WorkoutTags);
+export default WorkoutTags;

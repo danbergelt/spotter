@@ -2,11 +2,13 @@ import React from "react";
 
 import { Route, Redirect } from "react-router-dom";
 
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 // authenticated route component
 
-const PrivateRoute = ({ token, component: Component, ...rest }) => {
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  const token = useSelector(state => state.globalReducer.t)
+  
   return (
     <>
       <Route
@@ -22,10 +24,4 @@ const PrivateRoute = ({ token, component: Component, ...rest }) => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    token: state.globalReducer.t
-  }
-}
-
-export default connect(mapStateToProps, null)(PrivateRoute);
+export default PrivateRoute;

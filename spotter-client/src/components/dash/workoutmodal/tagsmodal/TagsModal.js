@@ -12,22 +12,21 @@ import { styles } from "./localutils/tagsModalStyles";
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
 const TagsModal = ({ state, modal, dispatch, types }) => {
-
   // sets the selected tag to be queued for deletion
   const [toDelete, setToDelete] = useState(null);
 
   return (
     <Modal
-      style={styles}
+      style={
+        state.active === 3
+          ? { ...styles, content: { ...styles.content, height: "190px" } }
+          : styles
+      }
       onRequestClose={() => dispatch({ type: types.CLOSE_TAG_MODAL })}
       contentLabel="Tags Modal"
       isOpen={modal}
     >
-      <TagsModalHead
-        state={state}
-        dispatch={dispatch}
-        types={types}
-      />
+      <TagsModalHead state={state} dispatch={dispatch} types={types} />
       {state.active === 3 && (
         <TagsModalDelete
           toDelete={toDelete}

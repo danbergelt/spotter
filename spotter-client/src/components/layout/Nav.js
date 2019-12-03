@@ -1,10 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { addToken } from "../../actions/addTokenActions";
 
-const Nav = ({ token, addToken }) => {
+const Nav = ({ addToken }) => {
+
+  const token = useSelector(state => state.globalReducer.t)
+
   const logOut = async () => {
     // clears refresh token and access token
     addToken(null);
@@ -66,10 +69,4 @@ const Nav = ({ token, addToken }) => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    token: state.globalReducer.t
-  };
-};
-
-export default connect(mapStateToProps, { addToken })(Nav);
+export default connect(null, { addToken })(Nav);

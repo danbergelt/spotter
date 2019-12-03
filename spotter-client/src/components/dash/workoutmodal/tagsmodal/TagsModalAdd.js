@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import Loader from "react-loader-spinner";
 import styles from "./tagStyles";
 import adjust from "../../../../utils/darkenColorInJS";
@@ -7,7 +7,12 @@ import { toggleTag } from "../../../../actions/workoutActions";
 import { FiCheck } from "react-icons/fi";
 import { styles as lStyles } from "./localutils/loaderStyles";
 
-const TagsModalAdd = ({ tags, isLoading, toggleTag, onWorkout }) => {
+const TagsModalAdd = ({ toggleTag }) => {
+
+  const tags = useSelector(state => state.tagsReducer.tags)
+  const isLoading = useSelector(state => state.tagsReducer.isLoading)
+  const onWorkout = useSelector(state => state.workoutReducer.tags)
+
   const [hover, setHover] = useState(null);
   if (isLoading) {
     return (
@@ -69,12 +74,4 @@ const TagsModalAdd = ({ tags, isLoading, toggleTag, onWorkout }) => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    tags: state.tagsReducer.tags,
-    isLoading: state.tagsReducer.isLoading,
-    onWorkout: state.workoutReducer.tags
-  };
-};
-
-export default connect(mapStateToProps, { toggleTag })(TagsModalAdd);
+export default connect(null, { toggleTag })(TagsModalAdd);

@@ -8,9 +8,12 @@ import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import ServerError from "./pages/ServerError";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
-const Routes = ({ token }) => {
+const Routes = () => {
+
+  const token = useSelector(state => state.globalReducer.t)
+
   return (
     <Layout>
       <Switch>
@@ -31,10 +34,4 @@ const Routes = ({ token }) => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    token: state.globalReducer.t
-  };
-};
-
-export default connect(mapStateToProps, {})(Routes);
+export default Routes;
