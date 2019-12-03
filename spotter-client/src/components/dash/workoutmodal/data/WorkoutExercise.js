@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { FiArrowRight } from "react-icons/fi";
-import { connect } from "react-redux";
-import { delExercise, queueEdit } from "../../../../actions/workoutActions";
+import { useDispatch } from "react-redux";
+import { QUEUE_EDIT, DEL_EXERCISE } from "../../../../actions/workoutActions";
 
-const WorkoutExercise = ({ exercise, i, delExercise, queueEdit, a }) => {
+const WorkoutExercise = ({ exercise, i, a }) => {
+  const dispatch = useDispatch();
+
+  const delExercise = useCallback(i => {
+    dispatch({ type: DEL_EXERCISE, payload: i });
+  }, [dispatch]);
+
+  const queueEdit = useCallback((exercise, i) => {
+    dispatch({ type: QUEUE_EDIT, payload: { exercise, i } });
+  }, [dispatch]);
+
   const handleQueue = (exercise, i) => {
     queueEdit(exercise, i);
     a.current.focus();
@@ -56,4 +66,4 @@ const WorkoutExercise = ({ exercise, i, delExercise, queueEdit, a }) => {
   );
 };
 
-export default connect(null, { delExercise, queueEdit })(WorkoutExercise);
+export default WorkoutExercise;

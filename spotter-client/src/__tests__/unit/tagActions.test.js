@@ -1,6 +1,4 @@
 import {
-  resetTags,
-  RESET_TAGS,
   fetchTags,
   FETCH_TAGS_START,
   FETCH_TAGS_SUCCESS,
@@ -17,14 +15,6 @@ const mockStore = configureMockStore([thunk]);
 describe("tag actions", () => {
   afterEach(() => {
     jest.clearAllMocks();
-  });
-
-  test("can reset tags", () => {
-    const expectedAction = {
-      type: RESET_TAGS
-    };
-
-    expect(resetTags()).toEqual(expectedAction);
   });
 
   test("can fetch tags", async () => {

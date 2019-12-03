@@ -1,14 +1,28 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import { FiBookOpen, FiPlus, FiTrash } from "react-icons/fi";
-import { connect, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
-  addWorkoutNotes,
-  resetNotes
+  ADD_WORKOUT_NOTES,
+  RESET_NOTES
 } from "../../../../actions/workoutActions";
 
-const WorkoutNotes = ({ addWorkoutNotes, resetNotes}) => {
+const WorkoutNotes = () => {
+  const notes = useSelector(state => state.workoutReducer.notes);
+  const dispatch = useDispatch();
 
-  const notes = useSelector(state => state.workoutReducer.notes)
+  const addWorkoutNotes = useCallback(
+    val => {
+      dispatch({ type: ADD_WORKOUT_NOTES, payload: val });
+    },
+    [dispatch]
+  );
+
+  const resetNotes = useCallback(
+    reset => {
+      dispatch({ type: RESET_NOTES, payload: reset });
+    },
+    [dispatch]
+  );
 
   // i.e. save/delete
   const [actions, setActions] = useState(false);
@@ -57,6 +71,4 @@ const WorkoutNotes = ({ addWorkoutNotes, resetNotes}) => {
   );
 };
 
-export default connect(null, { addWorkoutNotes, resetNotes })(
-  WorkoutNotes
-);
+export default WorkoutNotes;

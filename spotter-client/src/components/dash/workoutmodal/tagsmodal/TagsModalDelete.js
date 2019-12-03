@@ -1,30 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { fetchTags } from "../../../../actions/tagsActions";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import axiosWithAuth from "../../../../utils/axiosWithAuth";
 import { FiX } from "react-icons/fi";
-import { deleteTag } from "../../../../actions/workoutActions";
+import { DELETE_TAG } from "../../../../actions/workoutActions";
 
-const TagsModalDelete = ({
-  fetchTags,
-  toDelete,
-  dispatch,
-  types,
-  deleteTag: removeFromWorkout
-}) => {
+const TagsModalDelete = ({ toDelete, dispatch, types }) => {
   const [err, setErr] = useState("");
   const history = useHistory();
+  const disp = useDispatch();
+
+  const removeFromWorkout = useCallback(
+    tag => {
+      disp({ type: DELETE_TAG, payload: tag });
+    },
+    [disp]
+  );
 
   const deleteTag = async () => {
     try {
       await axiosWithAuth().delete(
         `${process.env.REACT_APP_T_API}/api/auth/tags/${toDelete._id}`
       );
-      await fetchTags(history);
+      await disp(fetchTags(history));
       removeFromWorkout(toDelete);
       dispatch({ type: types.SET_ACTIVE, payload: 0 });
     } catch (error) {
+      console.log(error);
       setErr(error.response.data.error);
     }
   };
@@ -53,4 +56,4 @@ const TagsModalDelete = ({
   );
 };
 
-export default connect(null, { fetchTags, deleteTag })(TagsModalDelete);
+export default TagsModalDelete;

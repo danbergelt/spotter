@@ -5,10 +5,10 @@ import adjust from "../../../../utils/darkenColorInJS";
 import { FiCheck, FiX } from "react-icons/fi";
 import Loader from "react-loader-spinner";
 import { fetchTags } from "../../../../actions/tagsActions";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-const TagsModalCreate = ({ fetchTags }) => {
+const TagsModalCreate = () => {
   const history = useHistory();
 
   const [name, setName] = useState("");
@@ -16,6 +16,7 @@ const TagsModalCreate = ({ fetchTags }) => {
   const [color, setColor] = useState(colors[0]);
   const [message, setMessage] = useState({});
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   // was having issues with the store, otherwise this would be in an external file
   const submitTag = async () => {
@@ -31,7 +32,7 @@ const TagsModalCreate = ({ fetchTags }) => {
       setMessage({ success: "New tag created" });
       setLoading(false);
       setName("");
-      fetchTags(history);
+      dispatch(fetchTags(history));
     } catch (error) {
       setMessage(error.response.data);
       setLoading(false);
@@ -104,4 +105,4 @@ const TagsModalCreate = ({ fetchTags }) => {
   );
 };
 
-export default connect(null, { fetchTags })(TagsModalCreate);
+export default TagsModalCreate;
