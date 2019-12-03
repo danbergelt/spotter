@@ -8,10 +8,6 @@ export const RESET_TAGS = "RESET_TAGS";
 
 // fetches tags and resets tags list on modal close
 
-export const resetTags = () => {
-  return { type: RESET_TAGS };
-};
-
 export const fetchTags = history => {
   return async dispatch => {
     dispatch({ type: FETCH_TAGS_START });

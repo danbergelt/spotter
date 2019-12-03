@@ -1,21 +1,23 @@
-import React, { useState } from "react";
-import { connect, useSelector } from "react-redux";
+import React, { useState, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import adjust from "../../../../utils/darkenColorInJS";
 import styles from "./tagStyles";
 import axiosWithAuth from "../../../../utils/axiosWithAuth";
 import { fetchTags } from "../../../../actions/tagsActions";
 import { useHistory } from "react-router-dom";
 import { FiX } from "react-icons/fi";
-import { updateTag } from "../../../../actions/workoutActions";
+import { UPDATE_TAG } from "../../../../actions/workoutActions";
 
-const TagsModalManage = ({
-  types,
-  dispatch,
-  setToDelete,
-  fetchTags,
-  updateTag
-}) => {
+const TagsModalManage = ({ types, dispatch, setToDelete }) => {
   const tags = useSelector(state => state.tagsReducer.tags);
+  const disp = useDispatch();
+
+  const updateTag = useCallback(
+    tag => {
+      disp({ type: UPDATE_TAG, payload: tag });
+    },
+    [disp]
+  );
 
   const [hover, setHover] = useState(null);
   const [update, setUpdate] = useState(null);
@@ -39,7 +41,7 @@ const TagsModalManage = ({
       );
       setUpdate(null);
       updateTag(res.data.tag);
-      fetchTags(history);
+      disp(fetchTags(history));
     } catch (error) {
       setErr(error.response.data.error);
     }
@@ -113,4 +115,4 @@ const TagsModalManage = ({
   );
 };
 
-export default connect(null, { fetchTags, updateTag })(TagsModalManage);
+export default TagsModalManage;

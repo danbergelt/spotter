@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import Modal from "react-modal";
 import { FiX } from "react-icons/fi";
-import { connect } from "react-redux";
-import { fromTemplate as generate } from "../../../../actions/workoutActions";
+import { useDispatch } from "react-redux";
+import { FROM_TEMPLATE } from "../../../../actions/workoutActions";
 import { isEmpty } from "lodash";
 import { styles } from "./styles";
 import { deleteTemplate } from "../options/localutils/optionsActions";
@@ -15,11 +15,15 @@ const FromTemplate = ({
   close,
   fromTemplate,
   templates,
-  generate,
   err
 }) => {
   const [search, setSearch] = useState("");
   const [active, setActive] = useState({});
+
+  const disp = useDispatch();
+  const generate = useCallback(template => {
+    disp({type: FROM_TEMPLATE, payload: template})
+  }, [disp])
 
   // handles state when new template is generated
   const genHandler = template => {
@@ -107,4 +111,4 @@ const FromTemplate = ({
   );
 };
 
-export default connect(null, { generate })(FromTemplate);
+export default FromTemplate;

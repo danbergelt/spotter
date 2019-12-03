@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { connect, useSelector } from "react-redux";
-import { addToken } from "../../actions/addTokenActions";
+import { useSelector, useDispatch } from "react-redux";
+import { ADD_TOKEN } from "../../actions/addTokenActions";
 
-const Nav = ({ addToken }) => {
+const Nav = () => {
 
   const token = useSelector(state => state.globalReducer.t)
+
+  const dispatch = useDispatch();
+  const addToken = useCallback(t => {
+    dispatch({ type: ADD_TOKEN, payload: t})
+  }, [dispatch])
 
   const logOut = async () => {
     // clears refresh token and access token
@@ -69,4 +74,4 @@ const Nav = ({ addToken }) => {
   );
 };
 
-export default connect(null, { addToken })(Nav);
+export default Nav;

@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { FiX } from "react-icons/fi";
 import { FaCircle } from "react-icons/fa";
-import { connect, useSelector } from "react-redux";
-import { addWorkoutTitle } from "../../../../actions/workoutActions";
+import { useDispatch, useSelector } from "react-redux";
+import { ADD_WORKOUT_TITLE } from "../../../../actions/workoutActions";
 
-const WorkoutTitle = ({ closeModal, addWorkoutTitle }) => {
+const WorkoutTitle = ({ closeModal }) => {
+  const title = useSelector(state => state.workoutReducer.title);
 
-  const title = useSelector(state => state.workoutReducer.title)
+  const dispatch = useDispatch();
+
+  const addWorkoutTitle = useCallback(
+    val => {
+      dispatch({ type: ADD_WORKOUT_TITLE, payload: val });
+    },
+    [dispatch]
+  );
 
   return (
     <div className="workout-modal-head">
@@ -26,4 +34,4 @@ const WorkoutTitle = ({ closeModal, addWorkoutTitle }) => {
   );
 };
 
-export default connect(null, { addWorkoutTitle })(WorkoutTitle);
+export default WorkoutTitle;

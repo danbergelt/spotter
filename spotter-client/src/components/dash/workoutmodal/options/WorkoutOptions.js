@@ -15,8 +15,7 @@ import FromTemplate from "../fromtemplate/FromTemplate";
 import ConfirmDelete from "../options/ConfirmDelete";
 
 // helpers
-import { connect, useSelector } from "react-redux";
-import { fetchTags } from "../../../../actions/tagsActions";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { reducer, types, initialState } from "./localutils/optionsReducer";
 import {
@@ -131,4 +130,4 @@ const WorkoutOptions = ({ closeParentModal, week, date }) => {
   );
 };
 
-export default connect(null, { fetchTags })(WorkoutOptions);
+export default WorkoutOptions;

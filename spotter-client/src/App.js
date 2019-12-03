@@ -1,15 +1,23 @@
-import React, { useState, useEffect, Profiler } from "react";
+import React, { useState, useEffect, Profiler, useCallback } from "react";
 import Loader from "react-loader-spinner";
 import axios from "axios";
 import Routes from "./routes";
-import { connect } from "react-redux";
-import { addToken } from "./actions/addTokenActions";
+import { useDispatch } from "react-redux";
+import { ADD_TOKEN } from "./actions/addTokenActions";
 
 // this component renders in front of routes, checks for token, and returns proper authenticated data
 // also requests refresh token on each refresh
 
-const App = ({ addToken }) => {
+const App = () => {
   const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+
+  const addToken = useCallback(
+    t => {
+      dispatch({ type: ADD_TOKEN, payload: t });
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
     axios
@@ -46,9 +54,9 @@ const App = ({ addToken }) => {
     //     console.log(actualDuration)
     //   }
     // >
-      <Routes />
+    <Routes />
     // </Profiler>
   );
 };
 
-export default connect(null, { addToken })(App);
+export default App;

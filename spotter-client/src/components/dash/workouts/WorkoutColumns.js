@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import WorkoutColumn from "./WorkoutColumn";
 import { generateWeek, dashHead } from "../../../utils/momentUtils";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import { connect, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { fetchWorkouts } from "../../../actions/fetchWorkoutsActions";
 import { useHistory } from "react-router-dom";
 import reFetch from "../../../utils/reFetch";
 
-const WorkoutColumns = ({ fetchWorkouts }) => {
+const WorkoutColumns = () => {
 
   const data = useSelector(state => state.fetchWorkoutsReducer)
 
@@ -64,4 +64,4 @@ const WorkoutColumns = ({ fetchWorkouts }) => {
 };
 
 
-export default connect(null, { fetchWorkouts })(WorkoutColumns);
+export default WorkoutColumns;

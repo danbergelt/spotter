@@ -1,31 +1,46 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { FiPlusCircle } from "react-icons/fi";
 import WorkoutModal from "./WorkoutModal";
-import { connect } from "react-redux";
-import { setCtx } from "../../../actions/ctxActions";
+import { useDispatch } from "react-redux";
+import { MODAL_CTX } from "../../../actions/ctxActions";
 import {
-  resetWorkout,
-  resetQueue,
-  fromSaved
+  RESET_WORKOUT,
+  RESET_QUEUE,
+  FROM_SAVED
 } from "../../../actions/workoutActions";
-import { resetTags } from "../../../actions/tagsActions";
+import { RESET_TAGS } from "../../../actions/tagsActions";
 import WorkoutCard from "./WorkoutCard";
 
-const WorkoutColumn = ({
-  date,
-  resetWorkout,
-  i,
-  workouts,
-  resetTags,
-  resetQueue,
-  setCtx,
-  fromSaved,
-  week
-}) => {
+const WorkoutColumn = ({ date, i, workouts, week }) => {
   const [modal, setModal] = useState(false);
   const [workout, setWorkout] = useState([]);
 
-  // set this column's workout only when the workouts array and date changes - protection against memory leaks
+  const dispatch = useDispatch();
+
+  const setCtx = useCallback(ctx => {
+    dispatch({ type: MODAL_CTX, payload: ctx})
+  }, [dispatch])
+
+  const resetWorkout = useCallback(() => {
+    dispatch({ type: RESET_WORKOUT });
+  }, [dispatch]);
+
+  const resetQueue = useCallback(() => {
+    dispatch({ type: RESET_QUEUE });
+  }, [dispatch]);
+
+  const fromSaved = useCallback(
+    workout => {
+      dispatch({ type: FROM_SAVED, payload: workout });
+    },
+    [dispatch]
+  );
+
+  const resetTags = useCallback(() => {
+    dispatch({ type: RESET_TAGS})
+  }, [dispatch])
+
+  // set this column's workout only when the workouts array and date changes
   useEffect(() => {
     const workout = workouts.filter(
       el => el.date === date.format("MMM DD YYYY")
@@ -67,7 +82,12 @@ const WorkoutColumn = ({
       >
         {<FiPlusCircle className="week-workouts-add-icon" />} Add Workout
       </div>
-      <WorkoutModal date={date} week={week} modal={modal} closeModal={closeModal} />
+      <WorkoutModal
+        date={date}
+        week={week}
+        modal={modal}
+        closeModal={closeModal}
+      />
       <div>
         {workout.map(data => (
           <div
@@ -83,10 +103,4 @@ const WorkoutColumn = ({
   );
 };
 
-export default connect(null, {
-  resetWorkout,
-  resetTags,
-  resetQueue,
-  setCtx,
-  fromSaved
-})(WorkoutColumn);
+export default WorkoutColumn;

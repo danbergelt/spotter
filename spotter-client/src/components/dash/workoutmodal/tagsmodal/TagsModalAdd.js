@@ -1,17 +1,24 @@
-import React, { useState } from "react";
-import { connect, useSelector } from "react-redux";
+import React, { useState, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Loader from "react-loader-spinner";
 import styles from "./tagStyles";
 import adjust from "../../../../utils/darkenColorInJS";
-import { toggleTag } from "../../../../actions/workoutActions";
+import { TOGGLE_TAG } from "../../../../actions/workoutActions";
 import { FiCheck } from "react-icons/fi";
 import { styles as lStyles } from "./localutils/loaderStyles";
 
-const TagsModalAdd = ({ toggleTag }) => {
+const TagsModalAdd = () => {
+  const tags = useSelector(state => state.tagsReducer.tags);
+  const isLoading = useSelector(state => state.tagsReducer.isLoading);
+  const onWorkout = useSelector(state => state.workoutReducer.tags);
+  const dispatch = useDispatch();
 
-  const tags = useSelector(state => state.tagsReducer.tags)
-  const isLoading = useSelector(state => state.tagsReducer.isLoading)
-  const onWorkout = useSelector(state => state.workoutReducer.tags)
+  const toggleTag = useCallback(
+    tag => {
+      dispatch({ type: TOGGLE_TAG, payload: tag });
+    },
+    [dispatch]
+  );
 
   const [hover, setHover] = useState(null);
   if (isLoading) {
@@ -74,4 +81,4 @@ const TagsModalAdd = ({ toggleTag }) => {
   );
 };
 
-export default connect(null, { toggleTag })(TagsModalAdd);
+export default TagsModalAdd;

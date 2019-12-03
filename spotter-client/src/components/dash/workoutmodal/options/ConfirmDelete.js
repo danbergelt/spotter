@@ -2,8 +2,6 @@ import React from "react";
 import Modal from "react-modal";
 import { FiX } from "react-icons/fi";
 import axiosWithAuth from "../../../../utils/axiosWithAuth";
-import { connect } from "react-redux";
-import { fetchWorkouts } from "../../../../actions/fetchWorkoutsActions";
 import { useHistory } from "react-router-dom";
 import { styles } from "./localutils/confirmDeleteStyles";
 import reFetch from "../../../../utils/reFetch";
@@ -70,4 +68,4 @@ const ConfirmDelete = ({
   );
 };
 
-export default connect(null, { fetchWorkouts })(ConfirmDelete);
+export default ConfirmDelete;

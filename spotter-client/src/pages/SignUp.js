@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import { ReactComponent as SignUpLogo } from "../assets/spotter_register.svg";
 import Form from "../components/auth/Form";
-import { connect } from "react-redux";
-import { addToken } from "../actions/addTokenActions";
+import { useDispatch } from "react-redux";
+import { ADD_TOKEN } from "../actions/addTokenActions";
 
-const SignUp = ({ addToken }) => {
+const SignUp = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  const addToken = useCallback(
+    t => {
+      dispatch({ type: ADD_TOKEN, payload: t });
+    },
+    [dispatch]
+  );
 
   return (
     <Form
@@ -25,4 +33,4 @@ const SignUp = ({ addToken }) => {
   );
 };
 
-export default connect(null, { addToken })(SignUp);
+export default SignUp;
