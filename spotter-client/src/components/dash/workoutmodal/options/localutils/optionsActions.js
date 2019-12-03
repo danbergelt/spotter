@@ -108,3 +108,15 @@ export const saveHandler = params => {
     editWorkout(params);
   }
 };
+
+// delete template handler - deletes from DB and then forwards that deletion to memory
+export const deleteTemplate = async (id, dispatch, types) => {
+  try {
+    const res = await axiosWithAuth().delete(
+      `${process.env.REACT_APP_T_API}/api/auth/templates/${id}`
+    );
+    dispatch({ type: types.DELETE_TEMPLATE, payload: id });
+  } catch (error) {
+    console.log(error);
+  }
+};

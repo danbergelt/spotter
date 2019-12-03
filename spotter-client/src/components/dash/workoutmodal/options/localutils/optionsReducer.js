@@ -21,7 +21,8 @@ export const types = {
   SET_CONFIRM_DELETE: "SET_CONFIRM_DELETE",
   SET_TEMPLATES: "SET_TEMPLATES",
   SET_TEMPLATES_ERR: "SET_TEMPLATES_ERR",
-  SET_SAVE_MSG: "SET_SAVE_MSG"
+  SET_SAVE_MSG: "SET_SAVE_MSG",
+  DELETE_TEMPLATE: "DELETE_TEMPLATE"
 };
 
 export const reducer = (state, action) => {
@@ -44,6 +45,8 @@ export const reducer = (state, action) => {
       return { ...state, templatesErr: action.payload };
     case types.SET_SAVE_MSG:
       return { ...state, saveMsg: action.payload };
+    case types.DELETE_TEMPLATE:
+      return {...state, templates: state.templates.filter(el => el._id !== action.payload)}
     default:
       return state;
   }

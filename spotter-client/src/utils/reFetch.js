@@ -6,6 +6,7 @@ import { fetchWorkouts } from "../actions/fetchWorkoutsActions";
 
 const reFetch = (week, history) => {
   let range = generateWeek(week);
+  // console.log(store.getState())
   range = range.map(d => d.format("MMM DD YYYY"));
   store.dispatch(fetchWorkouts(range, history));
 };

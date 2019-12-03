@@ -33,3 +33,20 @@
     cursor: pointer;
   }
 }
+
+@mixin templateButton {
+  width: 100%;
+  padding: 0.6rem;
+  background: $info;
+  border-radius: 4px;
+  text-align: center;
+  color: white;
+  font-size: 1.3rem;
+  cursor: pointer;
+  outline: 0;
+  border: 0;
+
+  &:hover {
+    background: darken($info, 10%);
+  }
+}

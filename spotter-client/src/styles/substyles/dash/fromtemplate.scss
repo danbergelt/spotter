@@ -34,25 +34,38 @@
     overflow: auto;
     height: 60%;
 
-    .template {
-      background: $gray3;
-      color: $gray1;
-      padding: 1rem;
-      margin: 1rem;
-      font-size: 1.3rem;
-      border-radius: 4px;
+    .template-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-      &:hover {
-        background: $gray4;
-        cursor: pointer;
-      }
-    }
-
-    .template.active {
-      border-left: 2px solid $primary;
-
-      &:hover {
+      .template {
+        width: 100%;
         background: $gray3;
+        color: $gray1;
+        padding: 1rem;
+        margin: 1rem;
+        font-size: 1.3rem;
+        border-radius: 4px;
+
+        &:hover {
+          background: $gray4;
+          cursor: pointer;
+        }
+      }
+
+      .template.active {
+        border-left: 2px solid $primary;
+
+        &:hover {
+          background: $gray3;
+        }
+      }
+
+      .template-delete {
+        font-size: 1.4rem;
+        color: $danger;
+        cursor: pointer;
       }
     }
 
@@ -81,19 +94,6 @@
 
   .generate-template {
     margin-top: 2rem;
-    width: 100%;
-    padding: 0.6rem;
-    background: $info;
-    border-radius: 4px;
-    text-align: center;
-    color: white;
-    font-size: 1.3rem;
-    cursor: pointer;
-    outline: 0;
-    border: 0;
-
-    &:hover {
-      background: darken($info, 10%);
-    }
+    @include templateButton;
   }
 }

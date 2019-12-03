@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { fromTemplate as generate } from "../../../../actions/workoutActions";
 import { isEmpty } from "lodash";
 import { styles } from "./styles";
+import { deleteTemplate } from "../options/localutils/optionsActions";
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
@@ -68,14 +69,22 @@ const FromTemplate = ({
           {templates.length ? (
             filter.length ? (
               filter.map(el => (
-                <div
-                  onClick={() => setActive(el)}
-                  className={
-                    el._id === active._id ? "template active" : "template"
-                  }
-                  key={el._id}
-                >
-                  {el.name}
+                <div key={el._id} className="template-container">
+                  <div
+                    onClick={() => setActive(el)}
+                    className={
+                      el._id === active._id ? "template active" : "template"
+                    }
+                  >
+                    {el.name}
+                  </div>
+                  <div
+                    onClick={() => deleteTemplate(el._id, dispatch, types)}
+                    className="template-delete"
+                    data-testid="template-delete"
+                  >
+                    <FiX />
+                  </div>
                 </div>
               ))
             ) : (
