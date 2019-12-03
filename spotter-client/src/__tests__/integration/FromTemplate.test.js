@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { FETCH_WORKOUTS_SUCCESS } from "../../actions/fetchWorkoutsActions";
+import { act } from "react-dom/test-utils";
 import WorkoutModal from "../../components/dash/workouts/WorkoutModal";
 import WorkoutOptions from "../../components/dash/workoutmodal/options/WorkoutOptions";
 import { cleanup, fireEvent, wait } from "@testing-library/react";
@@ -73,10 +74,14 @@ describe("from template functionality", () => {
   test("can generate from template", async () => {
     axios.get.mockResolvedValue(mockTemplateRes);
 
-    const { getByTestId, container, getByText, queryByText, store, debug } = wrapper(
-      reducer,
-      <WorkoutModal modal={true} />
-    );
+    const {
+      getByTestId,
+      container,
+      getByText,
+      queryByText,
+      store,
+      debug
+    } = wrapper(reducer, <WorkoutModal modal={true} />);
 
     store.dispatch({
       type: FETCH_WORKOUTS_SUCCESS,
@@ -91,10 +96,25 @@ describe("from template functionality", () => {
     expect(queryByText(/workout for testing/i)).toBeFalsy();
     fireEvent.click(getByText(/test template/i));
     fireEvent.click(getByTestId(/generate-template/i));
-    expect(container.innerHTML).toMatch("Workout FOR TESTING")
+    expect(container.innerHTML).toMatch("Workout FOR TESTING");
     expect(queryByText(/tag2/i)).toBeTruthy();
     expect(queryByText(/notes for workout/i)).toBeTruthy();
     expect(queryByText(/exercise2/i)).toBeTruthy();
+  });
 
+  test("can delete template", async () => {
+    axios.get.mockResolvedValue(mockTemplateRes);
+    axios.delete.mockResolvedValue({});
+    const { getByText, getByTestId, queryByText } = wrapper(
+      reducer,
+      <WorkoutOptions />
+    );
+    fireEvent.click(getByText(/from template/i));
+    await wait(() => expect(axios.get).toHaveBeenCalledTimes(1));
+    expect(getByText(/test template/i)).toBeTruthy();
+    act(() => {
+      fireEvent.click(getByTestId(/template-delete/i));
+    });
+    await wait(() => expect(queryByText(/test template/i)).toBeFalsy());
   });
 });

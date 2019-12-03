@@ -20,7 +20,7 @@ const TemplateSave = ({ dispatch, types, close, templateSave, workout }) => {
   return (
     <Modal
       style={styles}
-      onRequestClose={close}
+      onRequestClose={closeHandler}
       contentLabel="Save Template"
       isOpen={templateSave}
     >

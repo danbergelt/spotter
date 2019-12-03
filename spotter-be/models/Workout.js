@@ -39,7 +39,7 @@ const WorkoutSchema = new Schema({
   },
   title: {
     type: String,
-    required: [true, "Please add a workout title"],
+    required: [true, "Please add a title"],
     maxlength: [50, "Title cannot be longer than 50 characters"],
     trim: true
   },

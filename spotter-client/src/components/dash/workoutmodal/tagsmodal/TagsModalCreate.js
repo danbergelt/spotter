@@ -13,7 +13,7 @@ const TagsModalCreate = ({ fetchTags }) => {
 
   const [name, setName] = useState("");
   const [hover, setHover] = useState(null);
-  const [color, setColor] = useState(colors.primary);
+  const [color, setColor] = useState(colors[0]);
   const [message, setMessage] = useState({});
   const [loading, setLoading] = useState(false);
 
