@@ -1,22 +1,26 @@
 import React from "react";
 import * as Yup from "yup";
-import { Form, Field, withFormik } from "formik";
+import { Form, Field, withFormik, Formik } from "formik";
 import { FiPlus, FiTrash } from "react-icons/fi";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { handleEdit, resetQueue } from "../../../../actions/workoutActions";
 import { isEmpty } from "lodash";
 
-const ExerciseForm = ({
-  handleReset,
-  addExercise,
-  errors,
-  touched,
-  refs,
-  queued,
-  handleEdit,
-  resetQueue
-}) => {
-  const resetHandler = () => {
+// Form validation schema
+const ValidationSchema = Yup.object().shape({
+  name: Yup.string()
+    .required("Enter exercise name")
+    .max(40, "40 character max"),
+  weight: Yup.number().max(2000, "2000 lb limit"),
+  reps: Yup.number().max(2000, "2000 lb limit"),
+  sets: Yup.number().max(2000, "2000 lb limit")
+});
+
+const ExerciseForm = ({ addExercise, refs, resetQueue, handleEdit}) => {
+
+  const queued = useSelector(state => state.workoutReducer.queue);
+
+  const resetHandler = handleReset => {
     handleReset();
     // resets edit queue - form relies on this information to determine type of action on submit (either edit or add)
     resetQueue();
@@ -24,6 +28,35 @@ const ExerciseForm = ({
 
   return (
     <div className="exercise-form-container">
+    <Formik
+      initialValues={{
+        name: (!isEmpty(queued) && queued.exercise.name) || "",
+        weight: (!isEmpty(queued) && queued.exercise.weight) || "",
+        sets: (!isEmpty(queued) && queued.exercise.sets) || "",
+        reps: (!isEmpty(queued) && queued.exercise.reps) || ""
+      }}
+      validationSchema={ValidationSchema}
+      enableReinitialize={true}
+      onSubmit={(
+        values,
+        { resetForm }
+      ) => {
+        resetForm();
+
+        refs.forEach(ref => ref.current.blur());
+
+        if (isEmpty(queued)) {
+          addExercise(values);
+        } else {
+          handleEdit(values, queued.i);
+        }
+      }}
+    >
+      {({
+        handleReset,
+        errors,
+        touched
+      }) => (
       <Form className="exercise-form">
         <div className="exercise-form-field-container">
           <div className="exercise-form-field-label">
@@ -104,54 +137,14 @@ const ExerciseForm = ({
             data-testid="trash-exercise"
             className="exercise-form-button clear"
             type="button"
-            onClick={resetHandler}
+            onClick={() => resetHandler(handleReset)}
           />
         </button>
       </Form>
-    </div>
-  );
+      )}
+    </Formik>
+  </div>
+  )
 };
 
-const FormikExerciseForm = withFormik({
-  mapPropsToValues({ queued, name, weight, sets, reps }) {
-    return {
-      name: (!isEmpty(queued) && queued.exercise.name) || name || "",
-      weight: (!isEmpty(queued) && queued.exercise.weight) || weight || "",
-      sets: (!isEmpty(queued) && queued.exercise.sets) || sets || "",
-      reps: (!isEmpty(queued) && queued.exercise.reps) || reps || ""
-    };
-  },
-  validationSchema: Yup.object().shape({
-    name: Yup.string()
-      .required("Enter exercise name")
-      .max(40, "40 character max"),
-    weight: Yup.number().max(2000, "2000 lb limit"),
-    reps: Yup.number().max(2000, "2000 lb limit"),
-    sets: Yup.number().max(2000, "2000 lb limit")
-  }),
-  enableReinitialize: true,
-  handleSubmit(
-    values,
-    { props: { addExercise, refs, queued, handleEdit }, resetForm }
-  ) {
-    resetForm();
-
-    refs.forEach(ref => ref.current.blur());
-
-    if (isEmpty(queued)) {
-      addExercise(values);
-    } else {
-      handleEdit(values, queued.i);
-    }
-  }
-})(ExerciseForm);
-
-const mapStateToProps = state => {
-  return {
-    queued: state.workoutReducer.queue
-  };
-};
-
-export default connect(mapStateToProps, { handleEdit, resetQueue })(
-  FormikExerciseForm
-);
+export default connect(null, { handleEdit, resetQueue })(ExerciseForm);

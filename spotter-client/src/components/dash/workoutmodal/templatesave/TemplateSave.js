@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import { FiX } from "react-icons/fi";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { styles } from "./styles";
 import { handleSubmit } from "./handleSubmit";
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
-const TemplateSave = ({ dispatch, types, close, templateSave, workout }) => {
+const TemplateSave = ({ dispatch, types, close, templateSave }) => {
+  const workout = useSelector(state => state.workoutReducer);
+
   const [tempName, setTempName] = useState("");
   const [message, setMessage] = useState({});
 
@@ -87,10 +89,4 @@ const TemplateSave = ({ dispatch, types, close, templateSave, workout }) => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    workout: state.workoutReducer
-  };
-};
-
-export default connect(mapStateToProps, {})(TemplateSave);
+export default TemplateSave;

@@ -1,12 +1,15 @@
 import React from "react";
 import { FiStar } from "react-icons/fi";
 import ExerciseForm from "./ExerciseForm";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { resetQueue, addExercise } from "../../../../actions/workoutActions";
 import WorkoutExercise from "./WorkoutExercise";
 import { isEmpty, times } from "lodash";
 
-const WorkoutExercises = ({ queued, resetQueue, exercises, addExercise }) => {
+const WorkoutExercises = ({ resetQueue, addExercise }) => {
+  const queued = useSelector(state => state.workoutReducer.queue);
+  const exercises = useSelector(state => state.workoutReducer.exercises);
+
   // refs to handle blurring fields
   const refs = [];
   times(4, i => (refs[i] = React.createRef()));
@@ -34,11 +37,4 @@ const WorkoutExercises = ({ queued, resetQueue, exercises, addExercise }) => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    queued: state.workoutReducer.queue,
-    exercises: state.workoutReducer.exercises
-  };
-};
-
-export default connect(mapStateToProps, { resetQueue, addExercise })(WorkoutExercises);
+export default connect(null, { resetQueue, addExercise })(WorkoutExercises);

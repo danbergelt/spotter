@@ -1,10 +1,13 @@
 import React from "react";
 import { FiX } from "react-icons/fi";
 import { FaCircle } from "react-icons/fa";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { addWorkoutTitle } from "../../../../actions/workoutActions";
 
-const WorkoutTitle = ({ closeModal, title, addWorkoutTitle }) => {
+const WorkoutTitle = ({ closeModal, addWorkoutTitle }) => {
+
+  const title = useSelector(state => state.workoutReducer.title)
+
   return (
     <div className="workout-modal-head">
       <div className="workout-modal-head-left">
@@ -23,10 +26,4 @@ const WorkoutTitle = ({ closeModal, title, addWorkoutTitle }) => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    title: state.workoutReducer.title
-  };
-};
-
-export default connect(mapStateToProps, { addWorkoutTitle })(WorkoutTitle);
+export default connect(null, { addWorkoutTitle })(WorkoutTitle);

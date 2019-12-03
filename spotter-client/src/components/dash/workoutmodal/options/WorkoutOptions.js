@@ -15,7 +15,7 @@ import FromTemplate from "../fromtemplate/FromTemplate";
 import ConfirmDelete from "../options/ConfirmDelete";
 
 // helpers
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { fetchTags } from "../../../../actions/tagsActions";
 import { useHistory } from "react-router-dom";
 import { reducer, types, initialState } from "./localutils/optionsReducer";
@@ -29,14 +29,11 @@ import {
   saveHandler
 } from "./localutils/optionsActions";
 
-const WorkoutOptions = ({
-  closeParentModal,
-  ctx,
-  workoutId,
-  week,
-  date,
-  workout
-}) => {
+const WorkoutOptions = ({ closeParentModal, week, date }) => {
+  
+  const ctx = useSelector(state => state.globalReducer.ctx);
+  const workoutId = useSelector(state => state.workoutReducer._id);
+  const workout = useSelector(state => state.workoutReducer);
   const history = useHistory();
   const iconClass = "add-workout-options-icon";
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -134,14 +131,4 @@ const WorkoutOptions = ({
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    ctx: state.globalReducer.ctx,
-    workoutId: state.workoutReducer._id,
-    workout: state.workoutReducer
-  };
-};
-
-export default connect(mapStateToProps, { fetchTags })(
-  WorkoutOptions
-);
+export default connect(null, { fetchTags })(WorkoutOptions);

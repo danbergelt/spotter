@@ -1,12 +1,15 @@
 import React, { useState, useRef } from "react";
 import { FiBookOpen, FiPlus, FiTrash } from "react-icons/fi";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import {
   addWorkoutNotes,
   resetNotes
 } from "../../../../actions/workoutActions";
 
-const WorkoutNotes = ({ notes, addWorkoutNotes, resetNotes}) => {
+const WorkoutNotes = ({ addWorkoutNotes, resetNotes}) => {
+
+  const notes = useSelector(state => state.workoutReducer.notes)
+
   // i.e. save/delete
   const [actions, setActions] = useState(false);
 
@@ -54,12 +57,6 @@ const WorkoutNotes = ({ notes, addWorkoutNotes, resetNotes}) => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    notes: state.workoutReducer.notes
-  };
-};
-
-export default connect(mapStateToProps, { addWorkoutNotes, resetNotes })(
+export default connect(null, { addWorkoutNotes, resetNotes })(
   WorkoutNotes
 );

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import adjust from "../../../../utils/darkenColorInJS";
 import styles from "./tagStyles";
 import axiosWithAuth from "../../../../utils/axiosWithAuth";
@@ -9,13 +9,14 @@ import { FiX } from "react-icons/fi";
 import { updateTag } from "../../../../actions/workoutActions";
 
 const TagsModalManage = ({
-  tags,
   types,
   dispatch,
   setToDelete,
   fetchTags,
   updateTag
 }) => {
+  const tags = useSelector(state => state.tagsReducer.tags);
+
   const [hover, setHover] = useState(null);
   const [update, setUpdate] = useState(null);
   const [updateInput, setUpdateInput] = useState("");
@@ -112,12 +113,4 @@ const TagsModalManage = ({
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    tags: state.tagsReducer.tags
-  };
-};
-
-export default connect(mapStateToProps, { fetchTags, updateTag })(
-  TagsModalManage
-);
+export default connect(null, { fetchTags, updateTag })(TagsModalManage);
