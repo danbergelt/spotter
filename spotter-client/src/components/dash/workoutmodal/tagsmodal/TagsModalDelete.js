@@ -5,17 +5,18 @@ import { useHistory } from "react-router-dom";
 import axiosWithAuth from "../../../../utils/axiosWithAuth";
 import { FiX } from "react-icons/fi";
 import { DELETE_TAG } from "../../../../actions/workoutActions";
+import { SET_ACTIVE } from '../../../../actions/optionsActions';
 
-const TagsModalDelete = ({ toDelete, dispatch, types }) => {
+const TagsModalDelete = ({ toDelete }) => {
   const [err, setErr] = useState("");
   const history = useHistory();
-  const disp = useDispatch();
+  const dispatch = useDispatch();
 
   const removeFromWorkout = useCallback(
     tag => {
-      disp({ type: DELETE_TAG, payload: tag });
+      dispatch({ type: DELETE_TAG, payload: tag });
     },
-    [disp]
+    [dispatch]
   );
 
   const deleteTag = async () => {
@@ -23,11 +24,10 @@ const TagsModalDelete = ({ toDelete, dispatch, types }) => {
       await axiosWithAuth().delete(
         `${process.env.REACT_APP_T_API}/api/auth/tags/${toDelete._id}`
       );
-      await disp(fetchTags(history));
+      await dispatch(fetchTags(history));
       removeFromWorkout(toDelete);
-      dispatch({ type: types.SET_ACTIVE, payload: 0 });
+      dispatch({ type: SET_ACTIVE, payload: 0 });
     } catch (error) {
-      console.log(error);
       setErr(error.response.data.error);
     }
   };

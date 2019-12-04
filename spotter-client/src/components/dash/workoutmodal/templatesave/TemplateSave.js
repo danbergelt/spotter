@@ -7,14 +7,15 @@ import { handleSubmit } from "./handleSubmit";
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
-const TemplateSave = ({ dispatch, types, close, templateSave }) => {
+const TemplateSave = ({ close }) => {
   const workout = useSelector(state => state.workoutReducer);
+  const templateSave = useSelector(state => state.optionsReducer.templateSave)
 
   const [tempName, setTempName] = useState("");
   const [message, setMessage] = useState({});
 
   const closeHandler = () => {
-    close(dispatch, types, false);
+    close(false);
     setMessage({});
     setTempName("");
   };

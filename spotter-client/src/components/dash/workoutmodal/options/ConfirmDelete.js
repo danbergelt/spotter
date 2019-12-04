@@ -1,22 +1,16 @@
-import React from "react";
+import React, { useCallback } from "react";
 import Modal from "react-modal";
 import { FiX } from "react-icons/fi";
 import axiosWithAuth from "../../../../utils/axiosWithAuth";
 import { useHistory } from "react-router-dom";
 import { styles } from "./localutils/confirmDeleteStyles";
 import reFetch from "../../../../utils/reFetch";
+import { useSelector, useDispatch } from "react-redux";
+import { SET_CONFIRM_DELETE } from "../../../../actions/optionsActions";
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
-const ConfirmDelete = ({
-  dispatch,
-  types,
-  close,
-  confirmDelete,
-  workoutId,
-  closeParentModal,
-  week
-}) => {
+const ConfirmDelete = ({ workoutId, closeParentModal, week }) => {
   const history = useHistory();
 
   const deleteWorkout = async () => {
@@ -24,22 +18,30 @@ const ConfirmDelete = ({
       `${process.env.REACT_APP_T_API}/api/auth/workouts/${workoutId}`
     );
     await reFetch(week, history);
-    close(dispatch, types);
+    close();
     // hack-ish fix to smooth out reFetch shuddering - state updates slightly out of sync with UI
     setTimeout(() => closeParentModal(), 50);
   };
+
+  const dispatch = useDispatch();
+  const close = useCallback(() => {
+    dispatch({ type: SET_CONFIRM_DELETE, payload: false });
+  });
+  const confirmDelete = useSelector(
+    state => state.optionsReducer.confirmDelete
+  );
 
   return (
     <Modal
       style={styles}
       isOpen={confirmDelete}
-      onRequestClose={() => close(dispatch, types)}
+      onRequestClose={close}
       contentLabel="Confirm Delete Workout"
     >
       <div className="delete-container">
         <div className="delete-head-container">
           <div className="delete-head">Delete Workout</div>
-          <div onClick={() => close(dispatch, types)} className="delete-exit">
+          <div onClick={close} className="delete-exit">
             <FiX
               // inline styles for convenience
               data-testid="quit-template-save"
@@ -59,7 +61,7 @@ const ConfirmDelete = ({
           >
             Delete
           </div>
-          <div onClick={() => close(dispatch, types)} className="delete-btn can">
+          <div onClick={close} className="delete-btn can">
             Cancel
           </div>
         </div>
