@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { FiPlusCircle } from "react-icons/fi";
 import WorkoutModal from "./WorkoutModal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { MODAL_CTX } from "../../../actions/ctxActions";
 import {
   RESET_WORKOUT,
@@ -11,15 +11,21 @@ import {
 import { RESET_TAGS } from "../../../actions/tagsActions";
 import WorkoutCard from "./WorkoutCard";
 
-const WorkoutColumn = ({ date, i, workouts, week }) => {
+const WorkoutColumn = ({ date, i, week }) => {
   const [modal, setModal] = useState(false);
   const [workout, setWorkout] = useState([]);
 
+  const data = useSelector(state => state.fetchWorkoutsReducer);
+  const { workouts } = data;
+
   const dispatch = useDispatch();
 
-  const setCtx = useCallback(ctx => {
-    dispatch({ type: MODAL_CTX, payload: ctx})
-  }, [dispatch])
+  const setCtx = useCallback(
+    ctx => {
+      dispatch({ type: MODAL_CTX, payload: ctx });
+    },
+    [dispatch]
+  );
 
   const resetWorkout = useCallback(() => {
     dispatch({ type: RESET_WORKOUT });
@@ -37,16 +43,17 @@ const WorkoutColumn = ({ date, i, workouts, week }) => {
   );
 
   const resetTags = useCallback(() => {
-    dispatch({ type: RESET_TAGS})
-  }, [dispatch])
+    dispatch({ type: RESET_TAGS });
+  }, [dispatch]);
 
   // set this column's workout only when the workouts array and date changes
   useEffect(() => {
     const workout = workouts.filter(
       el => el.date === date.format("MMM DD YYYY")
     );
+    console.log(workout);
     setWorkout(workout);
-  }, [workouts, date]);
+  }, [workouts]);
 
   const openAddWorkoutModal = () => {
     setCtx("add");

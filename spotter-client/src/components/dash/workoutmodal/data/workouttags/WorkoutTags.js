@@ -1,10 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { tagStyles } from "./localutils/tagstyles";
+import Tag from "./Tag";
 
 const WorkoutTags = () => {
-
-  const tags = useSelector(state => state.workoutReducer.tags)
+  const tags = useSelector(state => state.workoutReducer.tags);
 
   return (
     <div className="workout-data-tags">
@@ -18,15 +17,7 @@ const WorkoutTags = () => {
             No tags
           </p>
         ) : (
-          tags.map(tag => (
-            <div
-              data-testid="mapped-tag"
-              style={tagStyles(tag.color)}
-              key={tag._id}
-            >
-              {tag.content.toUpperCase()}
-            </div>
-          ))
+          tags.map(tag => <Tag key={tag._id} tag={tag} />)
         )}
       </div>
     </div>

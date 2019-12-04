@@ -1,6 +1,6 @@
 import React from "react";
 
-const WorkoutOption = ({ text, icon, action, testing }) => {
+const WorkoutOption = React.memo(({ text, icon, action, testing }) => {
   return (
     <div
       onClick={() => action && action(true)}
@@ -10,6 +10,6 @@ const WorkoutOption = ({ text, icon, action, testing }) => {
       {icon} {text}
     </div>
   );
-};
+});
 
 export default WorkoutOption;

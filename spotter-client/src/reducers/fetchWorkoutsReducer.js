@@ -1,7 +1,8 @@
 import {
   FETCH_WORKOUTS_START,
   FETCH_WORKOUTS_SUCCESS,
-  FETCH_WORKOUTS_ERROR
+  FETCH_WORKOUTS_ERROR,
+  DELETE_WORKOUT
 } from "../actions/fetchWorkoutsActions";
 
 const fetchedWorkoutsState = {
@@ -31,6 +32,11 @@ export const fetchWorkoutsReducer = (state = fetchedWorkoutsState, action) => {
         isLoading: false,
         err: action.payload
       };
+    case DELETE_WORKOUT:
+      return {
+        ...state,
+        workouts: state.workouts.filter(workout => workout._id !== action.payload)
+      }
     default:
       return state;
   }

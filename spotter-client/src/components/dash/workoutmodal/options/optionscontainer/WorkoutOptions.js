@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
-import axiosWithAuth from '../../../../utils/axiosWithAuth';
-import reFetch from '../../../../utils/reFetch';
+import axiosWithAuth from "../../../../../utils/axiosWithAuth";
+import reFetch from "../../../../../utils/reFetch";
 import {
   FiTag,
   FiPlusCircle,
@@ -11,10 +11,10 @@ import {
 
 // components
 import WorkoutOption from "./WorkoutOption";
-import TagsModal from "../tagsmodal/TagsModal";
-import TemplateSave from "../templatesave/TemplateSave";
-import FromTemplate from "../fromtemplate/FromTemplate";
-import ConfirmDelete from "../options/ConfirmDelete";
+import TagsModal from "../../tagsmodal/TagsModal";
+import TemplateSave from "../../templatesave/TemplateSave";
+import FromTemplate from "../../fromtemplate/FromTemplate";
+import ConfirmDelete from "../confirmdelete/ConfirmDelete";
 
 // helpers
 import { useSelector, useDispatch } from "react-redux";
@@ -27,14 +27,15 @@ import {
   SET_TEMPLATES,
   SET_TEMPLATES_ERR,
   SET_FROM_TEMPLATE
-} from "../../../../actions/optionsActions";
-import { fetchTags } from "../../../../actions/tagsActions";
+} from "../../../../../actions/optionsActions";
+import { fetchTags } from "../../../../../actions/tagsActions";
+import { saveWorkout } from "./calls";
 
 const WorkoutOptions = ({ closeParentModal, week, date }) => {
   const ctx = useSelector(state => state.globalReducer.ctx);
   const workoutId = useSelector(state => state.workoutReducer._id);
   const workout = useSelector(state => state.workoutReducer);
-  const saveMsg = useSelector(state => state.optionsReducer.saveMsg)
+  const saveMsg = useSelector(state => state.optionsReducer.saveMsg);
   const dispatch = useDispatch();
   const openTagsModal = useCallback(() => {
     dispatch({ type: OPEN_TAG_MODAL });
@@ -65,29 +66,26 @@ const WorkoutOptions = ({ closeParentModal, week, date }) => {
     dispatch({ type: SET_FROM_TEMPLATE, payload: true });
   }, [dispatch]);
 
+  const saveWorkoutErr = useCallback(
+    err => {
+      dispatch({
+        type: SET_SAVE_MSG,
+        payload: { error: err.response.data.error }
+      });
+    },
+    [dispatch]
+  );
+
   const saveHandler = async () => {
     if (ctx === "add") {
-      try {
-        await axiosWithAuth().post(
-          `${process.env.REACT_APP_T_API}/api/auth/workouts`,
-          {
-            date: date.format("MMM DD YYYY"),
-            title: workout.title,
-            notes: workout.notes,
-            exercises: workout.exercises,
-            tags: workout.tags
-          }
-        );
-        // refetch updated list of workouts
-        await reFetch(week, history);
-        // close modal and return to dashboard
-        closeParentModal();
-      } catch (err) {
-        dispatch({
-          type: SET_SAVE_MSG,
-          payload: { error: err.response.data.error }
-        });
-      }
+      saveWorkout(
+        date,
+        workout,
+        closeParentModal,
+        saveWorkoutErr,
+        week,
+        history
+      );
     }
 
     if (ctx === "view") {
@@ -164,9 +162,7 @@ const WorkoutOptions = ({ closeParentModal, week, date }) => {
           <FiPlusCircle className={iconClass} />
           {ctx === "add" ? "Save" : "Update"}
         </div>
-        {saveMsg.error && (
-          <div className="save error">{saveMsg.error}</div>
-        )}
+        {saveMsg.error && <div className="save error">{saveMsg.error}</div>}
       </div>
     </div>
   );

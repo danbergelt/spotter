@@ -1,45 +1,26 @@
-import React, { useCallback } from "react";
-import * as Yup from "yup";
+import React from "react";
 import { Form, Field, Formik } from "formik";
 import { FiPlus, FiTrash } from "react-icons/fi";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  HANDLE_EDIT,
-  RESET_QUEUE,
-  ADD_EXERCISE
-} from "../../../../actions/workoutActions";
 import { isEmpty } from "lodash";
+import { ValidationSchema } from "./validation";
+import {
+  RESET_QUEUE,
+  ADD_EXERCISE,
+  HANDLE_EDIT
+} from "../../../../../actions/workoutActions";
 
 // Form validation schema
-const ValidationSchema = Yup.object().shape({
-  name: Yup.string()
-    .required("Enter exercise name")
-    .max(40, "40 character max"),
-  weight: Yup.number().max(2000, "2000 lb limit"),
-  reps: Yup.number().max(2000, "2000 lb limit"),
-  sets: Yup.number().max(2000, "2000 lb limit")
-});
 
 const ExerciseForm = ({ refs }) => {
   const queued = useSelector(state => state.workoutReducer.queue);
+
   const dispatch = useDispatch();
-
-  const handleEdit = useCallback((exercise, i) => {
-    dispatch({ type: HANDLE_EDIT, payload: { exercise, i } });
-  }, [dispatch]);
-
-  const resetQueue = useCallback(() => {
-    dispatch({ type: RESET_QUEUE });
-  }, [dispatch]);
-
-  const addExercise = useCallback(exercise => {
-    dispatch({ type: ADD_EXERCISE, payload: exercise });
-  }, [dispatch]);
 
   const resetHandler = handleReset => {
     handleReset();
     // resets edit queue - form relies on this information to determine type of action on submit (either edit or add)
-    resetQueue();
+    dispatch({ type: RESET_QUEUE });
   };
 
   return (
@@ -59,9 +40,12 @@ const ExerciseForm = ({ refs }) => {
           refs.forEach(ref => ref.current.blur());
 
           if (isEmpty(queued)) {
-            addExercise(values);
+            dispatch({ type: ADD_EXERCISE, payload: values });
           } else {
-            handleEdit(values, queued.i);
+            dispatch({
+              type: HANDLE_EDIT,
+              payload: { exercise: values, i: queued.i }
+            });
           }
         }}
       >

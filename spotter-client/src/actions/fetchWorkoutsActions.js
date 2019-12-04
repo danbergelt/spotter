@@ -3,6 +3,7 @@ import axiosWithAuth from "../utils/axiosWithAuth";
 export const FETCH_WORKOUTS_START = "FETCH_WORKOUTS_START";
 export const FETCH_WORKOUTS_SUCCESS = "FETCH_WORKOUTS_SUCCESS";
 export const FETCH_WORKOUTS_ERROR = "FETCH_WORKOUT_ERROR";
+export const DELETE_WORKOUT = "DELETE_WORKOUT";
 
 // fetches workouts based on range (e.g. week OR month)
 

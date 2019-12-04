@@ -1,4 +1,4 @@
-exports.styles = {
+export const styles = {
   overlay: {
     background: "transparent"
   },

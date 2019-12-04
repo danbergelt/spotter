@@ -1,18 +1,16 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { FiStar } from "react-icons/fi";
-import ExerciseForm from "./ExerciseForm";
+import ExerciseForm from "../exerciseform/ExerciseForm";
 import { useSelector, useDispatch } from "react-redux";
-import { RESET_QUEUE } from "../../../../actions/workoutActions";
+import { RESET_QUEUE } from "../../../../../actions/workoutActions";
 import WorkoutExercise from "./WorkoutExercise";
 import { isEmpty, times } from "lodash";
 
 const WorkoutExercises = () => {
   const queued = useSelector(state => state.workoutReducer.queue);
   const exercises = useSelector(state => state.workoutReducer.exercises);
+
   const dispatch = useDispatch();
-  const resetQueue = useCallback(() => {
-    dispatch({ type: RESET_QUEUE });
-  }, [dispatch]);
 
   // refs to handle blurring fields
   const refs = [];
@@ -24,7 +22,10 @@ const WorkoutExercises = () => {
         <FiStar className="workout-data-exercises-icon" />
         <div className="workout-data-exercises-title">Exercises</div>
         {!isEmpty(queued) && (
-          <div onClick={resetQueue} className="workout-data-exercises-editing">
+          <div
+            onClick={() => dispatch({ type: RESET_QUEUE })}
+            className="workout-data-exercises-editing"
+          >
             Clear
           </div>
         )}
