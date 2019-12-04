@@ -15,7 +15,7 @@ describe("template save modal functionality", () => {
   Modal.setAppElement(document.createElement("div"));
 
   test("Can open and close save template modal", () => {
-    const { getByTestId, queryByPlaceholderText } = wrapper(
+    const { getByTestId, queryByPlaceholderText, debug } = wrapper(
       reducer,
       <WorkoutOptions />
     );
@@ -32,10 +32,12 @@ describe("template save modal functionality", () => {
   });
 
   test("can type in template save input", () => {
-    const { getByPlaceholderText, container } = wrapper(
+    const { getByPlaceholderText, container, store } = wrapper(
       reducer,
-      <TemplateSave templateSave={true} />
+      <TemplateSave />
     );
+
+    store.dispatch({ type: "SET_TEMPLATE_SAVE", payload: true });
 
     const input = getByPlaceholderText(/template name/i);
 
@@ -47,10 +49,12 @@ describe("template save modal functionality", () => {
   test("can submit template", async () => {
     axios.post.mockResolvedValue({ resolved: "resolved" });
 
-    const { getByPlaceholderText, getByTestId, getByText } = wrapper(
+    const { getByPlaceholderText, getByTestId, getByText, store } = wrapper(
       reducer,
-      <TemplateSave templateSave={true} />
+      <TemplateSave />
     );
+
+    store.dispatch({ type: "SET_TEMPLATE_SAVE", payload: true });
 
     const input = getByPlaceholderText(/template name/i);
 
@@ -64,10 +68,12 @@ describe("template save modal functionality", () => {
 
   test("can show error message on submit", async () => {
     axios.post.mockRejectedValue({ response: { data: { error: "bad req" } } });
-    const { getByPlaceholderText, getByTestId, getByText } = wrapper(
+    const { getByPlaceholderText, getByTestId, getByText, store } = wrapper(
       reducer,
-      <TemplateSave templateSave={true} />
+      <TemplateSave />
     );
+
+    store.dispatch({ type: "SET_TEMPLATE_SAVE", payload: true });
 
     const input = getByPlaceholderText(/template name/i);
 
@@ -81,10 +87,13 @@ describe("template save modal functionality", () => {
 
   test("resets state on close", async () => {
     axios.post.mockRejectedValue({ response: { data: { error: "bad req" } } });
-    const { queryByText, container, getByPlaceholderText, getByTestId, getByText } = wrapper(
-      reducer,
-      <WorkoutOptions />
-    );
+    const {
+      queryByText,
+      container,
+      getByPlaceholderText,
+      getByTestId,
+      getByText
+    } = wrapper(reducer, <WorkoutOptions />);
 
     fireEvent.click(getByTestId(/save-template/i));
 
