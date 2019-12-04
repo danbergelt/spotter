@@ -1,39 +1,45 @@
 import React, { useState, useCallback } from "react";
+import axiosWithAuth from '../../../../utils/axiosWithAuth'
 import Modal from "react-modal";
 import { FiX } from "react-icons/fi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FROM_TEMPLATE } from "../../../../actions/workoutActions";
 import { isEmpty } from "lodash";
 import { styles } from "./styles";
-import { deleteTemplate } from "../options/localutils/optionsActions";
+import {
+  SET_FROM_TEMPLATE,
+  DELETE_TEMPLATE
+} from "../../../../actions/optionsActions";
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
-const FromTemplate = ({
-  dispatch,
-  types,
-  close,
-  fromTemplate,
-  templates,
-  err
-}) => {
+const FromTemplate = () => {
   const [search, setSearch] = useState("");
   const [active, setActive] = useState({});
+  const fromTemplate = useSelector(state => state.optionsReducer.fromTemplate);
+  const err = useSelector(state => state.optionsReducer.templatesErr);
+  const templates = useSelector(state => state.optionsReducer.templates)
+  const dispatch = useDispatch();
+  const generate = useCallback(
+    template => {
+      dispatch({ type: FROM_TEMPLATE, payload: template });
+    },
+    [dispatch]
+  );
 
-  const disp = useDispatch();
-  const generate = useCallback(template => {
-    disp({type: FROM_TEMPLATE, payload: template})
-  }, [disp])
+  const close = useCallback(() => {
+    dispatch({ type: SET_FROM_TEMPLATE, payload: false });
+  }, [dispatch]);
 
   // handles state when new template is generated
   const genHandler = template => {
     generate(template);
-    close(dispatch, types);
+    close();
     setActive({});
   };
 
   const closeHandler = () => {
-    close(dispatch, types);
+    close();
     setActive({});
     setSearch("");
   };
@@ -42,6 +48,17 @@ const FromTemplate = ({
   const filter = templates.filter(t =>
     t.name.toLowerCase().includes(search.toLowerCase())
   );
+
+  const deleteTemplate = async id => {
+    try {
+      await axiosWithAuth().delete(
+        `${process.env.REACT_APP_T_API}/api/auth/templates/${id}`
+      );
+      dispatch({ type: DELETE_TEMPLATE, payload: id });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Modal
@@ -83,7 +100,7 @@ const FromTemplate = ({
                     {el.name}
                   </div>
                   <div
-                    onClick={() => deleteTemplate(el._id, dispatch, types)}
+                    onClick={() => deleteTemplate(el._id)}
                     className="template-delete"
                     data-testid="template-delete"
                   >

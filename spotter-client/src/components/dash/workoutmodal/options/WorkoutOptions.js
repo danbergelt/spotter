@@ -1,4 +1,6 @@
-import React, { useReducer } from "react";
+import React, { useCallback } from "react";
+import axiosWithAuth from '../../../../utils/axiosWithAuth';
+import reFetch from '../../../../utils/reFetch';
 import {
   FiTag,
   FiPlusCircle,
@@ -15,81 +17,137 @@ import FromTemplate from "../fromtemplate/FromTemplate";
 import ConfirmDelete from "../options/ConfirmDelete";
 
 // helpers
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { reducer, types, initialState } from "./localutils/optionsReducer";
 import {
-  openTagsModal,
-  setTemplateSaveModal,
-  openFromTemplateModal,
-  closeFromTemplateModal,
-  closeConfirmDelete,
-  delHandler,
-  saveHandler
-} from "./localutils/optionsActions";
+  OPEN_TAG_MODAL,
+  SET_SAVE_MSG,
+  SET_CONFIRM_DELETE,
+  SET_TEMPLATE_SAVE,
+  SET_TEMPLATES,
+  SET_TEMPLATES_ERR,
+  SET_FROM_TEMPLATE
+} from "../../../../actions/optionsActions";
+import { fetchTags } from "../../../../actions/tagsActions";
 
 const WorkoutOptions = ({ closeParentModal, week, date }) => {
-  
   const ctx = useSelector(state => state.globalReducer.ctx);
   const workoutId = useSelector(state => state.workoutReducer._id);
   const workout = useSelector(state => state.workoutReducer);
+  const saveMsg = useSelector(state => state.optionsReducer.saveMsg)
+  const dispatch = useDispatch();
+  const openTagsModal = useCallback(() => {
+    dispatch({ type: OPEN_TAG_MODAL });
+    dispatch(fetchTags(history));
+  });
+  const setTemplateSaveModal = useCallback(
+    status => {
+      dispatch({ type: SET_TEMPLATE_SAVE, payload: status });
+    },
+    [dispatch]
+  );
   const history = useHistory();
   const iconClass = "add-workout-options-icon";
-  const [state, dispatch] = useReducer(reducer, initialState);
 
-  // this component is a switchboard of sorts, serving as a central point for crucial modal functionailty
-  // since much of this state is localized and not very complex, opted for useReducer instead of Redux
-  // reducer && actions can be found in this directory's localutils folder
+  const openFromTemplateModal = useCallback(async () => {
+    try {
+      const res = await axiosWithAuth().get(
+        `${process.env.REACT_APP_T_API}/api/auth/templates`
+      );
+      dispatch({ type: SET_TEMPLATES, payload: res.data.templates });
+    } catch (error) {
+      if (error.response)
+        dispatch({
+          type: SET_TEMPLATES_ERR,
+          payload: error.response.data.error
+        });
+    }
+    dispatch({ type: SET_FROM_TEMPLATE, payload: true });
+  }, [dispatch]);
+
+  const saveHandler = async () => {
+    if (ctx === "add") {
+      try {
+        await axiosWithAuth().post(
+          `${process.env.REACT_APP_T_API}/api/auth/workouts`,
+          {
+            date: date.format("MMM DD YYYY"),
+            title: workout.title,
+            notes: workout.notes,
+            exercises: workout.exercises,
+            tags: workout.tags
+          }
+        );
+        // refetch updated list of workouts
+        await reFetch(week, history);
+        // close modal and return to dashboard
+        closeParentModal();
+      } catch (err) {
+        dispatch({
+          type: SET_SAVE_MSG,
+          payload: { error: err.response.data.error }
+        });
+      }
+    }
+
+    if (ctx === "view") {
+      try {
+        await axiosWithAuth().put(
+          `${process.env.REACT_APP_T_API}/api/auth/workouts/${workoutId}`,
+          {
+            title: workout.title,
+            notes: workout.notes,
+            exercises: workout.exercises,
+            tags: workout.tags
+          }
+        );
+        // refetch updated list of workouts
+        await reFetch(week, history);
+        // close modal and return to dashboard
+        closeParentModal();
+      } catch (err) {
+        dispatch({
+          type: SET_SAVE_MSG,
+          payload: { error: err.response.data.error }
+        });
+      }
+    }
+  };
+
+  // delete workout helper
+  const delHandler = () => {
+    if (ctx === "add") {
+      closeParentModal();
+    }
+    if (ctx === "view") {
+      dispatch({ type: SET_CONFIRM_DELETE, payload: true });
+    }
+  };
 
   return (
     <div className="add-workout-options-container">
       <h1 className="add-workout-options-title sub">ACTIONS</h1>
       <div className="add-workout-options-buttons">
-        <div
-          data-testid="tags-modal"
-          onClick={() => openTagsModal(dispatch, types, history)}
-        >
+        <div data-testid="tags-modal" onClick={openTagsModal}>
           <WorkoutOption text={"Tags"} icon={<FiTag className={iconClass} />} />
         </div>
-        <TagsModal
-          state={state}
-          active={state.active}
-          types={types}
-          dispatch={dispatch}
-          modal={state.tagModal}
-        />
+        <TagsModal />
         <WorkoutOption
-          dispatch={dispatch}
-          types={types}
           testing={"save-template"}
           action={setTemplateSaveModal}
           text={"Template"}
           icon={<FiSave className={iconClass} />}
         />
-        <TemplateSave
-          dispatch={dispatch}
-          types={types}
-          templateSave={state.templateSave}
-          close={setTemplateSaveModal}
-        />
+        <TemplateSave close={setTemplateSaveModal} />
         <WorkoutOption
-          dispatch={dispatch}
-          types={types}
           action={openFromTemplateModal}
           text={"From Template"}
           icon={<FiPackage className={iconClass} />}
         />
-        <FromTemplate
-          dispatch={dispatch}
-          types={types}
-          templates={state.templates}
-          err={state.templatesErr}
-          fromTemplate={state.fromTemplate}
-          close={closeFromTemplateModal}
-        />
+        <FromTemplate />
         <div
           data-testid="del-workout"
-          onClick={() => delHandler(dispatch, types, closeParentModal, ctx)}
+          onClick={delHandler}
           className="add-workout-options-button delete"
         >
           <FiDelete className={iconClass} /> Delete
@@ -98,32 +156,16 @@ const WorkoutOptions = ({ closeParentModal, week, date }) => {
           week={week}
           closeParentModal={closeParentModal}
           workoutId={workoutId}
-          dispatch={dispatch}
-          types={types}
-          close={closeConfirmDelete}
-          confirmDelete={state.confirmDelete}
         />
         <div
-          onClick={() =>
-            saveHandler({
-              dispatch,
-              types,
-              ctx,
-              workout,
-              closeParentModal,
-              workoutId,
-              week,
-              history,
-              date
-            })
-          }
+          onClick={saveHandler}
           className="add-workout-options-button publish"
         >
           <FiPlusCircle className={iconClass} />
           {ctx === "add" ? "Save" : "Update"}
         </div>
-        {state.saveMsg.error && (
-          <div className="save error">{state.saveMsg.error}</div>
+        {saveMsg.error && (
+          <div className="save error">{saveMsg.error}</div>
         )}
       </div>
     </div>

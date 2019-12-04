@@ -1,38 +1,46 @@
-import React from "react";
+import React, { useCallback } from "react";
+import { useDispatch } from 'react-redux'
 import { FiX } from "react-icons/fi";
+import { SET_ACTIVE } from '../../../../actions/optionsActions';
 
-const TagsModalHead = ({ state, types, dispatch }) => {
+const TagsModalHead = ({ active, closeTagModal }) => {
+  const dispatch = useDispatch();
+
+  const setActive = useCallback(id => {
+    dispatch({ type: SET_ACTIVE, payload: id})
+  }, [dispatch])
+
   return (
     <div data-testid="tags-modal-head" className="tags-modal-head-container">
       <div className="tags-modal-head-tabs">
         <div
           className={
-            state.active === 0 ? "tags-modal-tab-active" : "tags-modal-tab-not-active"
+            active === 0 ? "tags-modal-tab-active" : "tags-modal-tab-not-active"
           }
-          onClick={() => dispatch({type: types.SET_ACTIVE, payload: 0})}
+          onClick={() => setActive(0)}
         >
           Add
         </div>
         <div
           className={
-            state.active === 1 ? "tags-modal-tab-active" : "tags-modal-tab-not-active"
+            active === 1 ? "tags-modal-tab-active" : "tags-modal-tab-not-active"
           }
-          onClick={() => dispatch({type: types.SET_ACTIVE, payload: 1})}
+          onClick={() => setActive(1)}
         >
           Manage
         </div>
         <div
           className={
-            state.active === 2 ? "tags-modal-tab-active" : "tags-modal-tab-not-active"
+            active === 2 ? "tags-modal-tab-active" : "tags-modal-tab-not-active"
           }
-          onClick={() => dispatch({type: types.SET_ACTIVE, payload: 2})}
+          onClick={() => setActive(2)}
         >
           Create
         </div>
       </div>
       <div
         data-testid="close-tag-modal"
-        onClick={() => dispatch({ type: types.CLOSE_TAG_MODAL })}
+        onClick={closeTagModal}
         className="tags-modal-head-exit"
       >
         <FiX />

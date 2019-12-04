@@ -7,16 +7,17 @@ import { fetchTags } from "../../../../actions/tagsActions";
 import { useHistory } from "react-router-dom";
 import { FiX } from "react-icons/fi";
 import { UPDATE_TAG } from "../../../../actions/workoutActions";
+import { SET_ACTIVE } from '../../../../actions/optionsActions';
 
-const TagsModalManage = ({ types, dispatch, setToDelete }) => {
+const TagsModalManage = ({ setToDelete }) => {
   const tags = useSelector(state => state.tagsReducer.tags);
-  const disp = useDispatch();
+  const dispatch = useDispatch();
 
   const updateTag = useCallback(
     tag => {
-      disp({ type: UPDATE_TAG, payload: tag });
+      dispatch({ type: UPDATE_TAG, payload: tag });
     },
-    [disp]
+    [dispatch]
   );
 
   const [hover, setHover] = useState(null);
@@ -27,7 +28,7 @@ const TagsModalManage = ({ types, dispatch, setToDelete }) => {
   const history = useHistory();
 
   const handleDelete = tag => {
-    dispatch({ type: types.SET_ACTIVE, payload: 3 });
+    dispatch({ type: SET_ACTIVE, payload: 3 });
     setToDelete(tag);
   };
 
@@ -41,7 +42,7 @@ const TagsModalManage = ({ types, dispatch, setToDelete }) => {
       );
       setUpdate(null);
       updateTag(res.data.tag);
-      disp(fetchTags(history));
+      dispatch(fetchTags(history));
     } catch (error) {
       setErr(error.response.data.error);
     }
