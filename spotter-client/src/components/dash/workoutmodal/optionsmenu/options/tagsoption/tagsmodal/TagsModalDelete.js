@@ -1,11 +1,11 @@
 import React, { useState, useCallback } from "react";
-import { fetchTags } from "../../../../actions/tagsActions";
+import { fetchTags } from "../../../../../../../actions/tagsActions";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import axiosWithAuth from "../../../../utils/axiosWithAuth";
+import axiosWithAuth from "../../../../../../../utils/axiosWithAuth";
 import { FiX } from "react-icons/fi";
-import { DELETE_TAG } from "../../../../actions/workoutActions";
-import { SET_ACTIVE } from '../../../../actions/optionsActions';
+import { DELETE_TAG } from "../../../../../../../actions/workoutActions";
+import { SET_ACTIVE } from '../../../../../../../actions/optionsActions';
 
 const TagsModalDelete = ({ toDelete }) => {
   const [err, setErr] = useState("");

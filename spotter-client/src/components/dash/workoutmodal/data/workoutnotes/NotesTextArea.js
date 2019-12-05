@@ -1,17 +1,24 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { ADD_WORKOUT_NOTES } from "../../../../../actions/workoutActions";
+import TextareaAutosize from "react-textarea-autosize";
 
-const NotesTextArea = React.memo(({ notes, onAdd, notesRef, setActions }) => {
+const NotesTextArea = ({ notes, notesRef, setActions }) => {
+  const dispatch = useDispatch();
+
   return (
-    <textarea
-      ref={notesRef}
+    <TextareaAutosize
+      inputRef={notesRef}
       onFocus={() => setActions(true)}
       onBlur={() => setActions(false)}
       value={notes}
-      onChange={e => onAdd(e.target.value)}
+      onChange={e =>
+        dispatch({ type: ADD_WORKOUT_NOTES, payload: e.target.value })
+      }
       className="workout-data-notes-content"
       placeholder="Click to enter some notes..."
     />
   );
-});
+};
 
 export default NotesTextArea;

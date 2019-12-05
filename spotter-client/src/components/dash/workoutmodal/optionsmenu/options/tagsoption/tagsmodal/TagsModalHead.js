@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { useDispatch } from 'react-redux'
 import { FiX } from "react-icons/fi";
-import { SET_ACTIVE } from '../../../../actions/optionsActions';
+import { SET_ACTIVE } from '../../../../../../../actions/optionsActions';
 
 const TagsModalHead = ({ active, closeTagModal }) => {
   const dispatch = useDispatch();

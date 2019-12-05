@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import axiosWithAuth from "../../../../utils/axiosWithAuth";
+import axiosWithAuth from "../../../../../../../utils/axiosWithAuth";
 import { colors, colorStyles } from "./localutils/createTagStyles";
-import adjust from "../../../../utils/darkenColorInJS";
+import adjust from "../../../../../../../utils/darkenColorInJS";
 import { FiCheck, FiX } from "react-icons/fi";
 import Loader from "react-loader-spinner";
-import { fetchTags } from "../../../../actions/tagsActions";
+import { fetchTags } from "../../../../../../../actions/tagsActions";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 

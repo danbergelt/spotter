@@ -1,6 +1,6 @@
 import React from "react";
 import { FiX } from "react-icons/fi";
-import axiosWithAuth from "../../../../utils/axiosWithAuth";
+import axiosWithAuth from "../../../../../../utils/axiosWithAuth";
 
 const Template = React.memo(({ onDelete, active, template, setActive }) => {
   const deleteTemplate = async () => {

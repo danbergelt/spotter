@@ -6,7 +6,7 @@ import TagsModalCreate from "./TagsModalCreate";
 import TagsModalManage from "./TagsModalManage";
 import TagsModalDelete from "./TagsModalDelete";
 import TagsModalAdd from "./TagsModalAdd";
-import { CLOSE_TAG_MODAL } from "../../../../actions/optionsActions";
+import { CLOSE_TAG_MODAL } from "../../../../../../../actions/optionsActions";
 import { styles } from "./localutils/tagsModalStyles";
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");

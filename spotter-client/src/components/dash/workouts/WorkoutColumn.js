@@ -10,6 +10,7 @@ import {
 } from "../../../actions/workoutActions";
 import { RESET_TAGS } from "../../../actions/tagsActions";
 import WorkoutCard from "./WorkoutCard";
+import { SET_SAVE_MSG } from "../../../actions/optionsActions";
 
 const WorkoutColumn = ({ date, i, week }) => {
   const [modal, setModal] = useState(false);
@@ -51,7 +52,6 @@ const WorkoutColumn = ({ date, i, week }) => {
     const workout = workouts.filter(
       el => el.date === date.format("MMM DD YYYY")
     );
-    console.log(workout);
     setWorkout(workout);
   }, [workouts]);
 
@@ -72,6 +72,7 @@ const WorkoutColumn = ({ date, i, week }) => {
     resetTags();
     resetQueue();
     setCtx(null);
+    dispatch({ type: SET_SAVE_MSG, payload: "" });
   };
 
   return (

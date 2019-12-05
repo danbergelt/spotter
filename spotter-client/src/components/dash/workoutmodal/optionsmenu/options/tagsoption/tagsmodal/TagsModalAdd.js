@@ -2,8 +2,8 @@ import React, { useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Loader from "react-loader-spinner";
 import styles from "./tagStyles";
-import adjust from "../../../../utils/darkenColorInJS";
-import { TOGGLE_TAG } from "../../../../actions/workoutActions";
+import adjust from "../../../../../../../utils/darkenColorInJS";
+import { TOGGLE_TAG } from "../../../../../../../actions/workoutActions";
 import { FiCheck } from "react-icons/fi";
 import { styles as lStyles } from "./localutils/loaderStyles";
 

@@ -1,13 +1,13 @@
 import React, { useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import adjust from "../../../../utils/darkenColorInJS";
+import adjust from "../../../../../../../utils/darkenColorInJS";
 import styles from "./tagStyles";
-import axiosWithAuth from "../../../../utils/axiosWithAuth";
-import { fetchTags } from "../../../../actions/tagsActions";
+import axiosWithAuth from "../../../../../../../utils/axiosWithAuth";
+import { fetchTags } from "../../../../../../../actions/tagsActions";
 import { useHistory } from "react-router-dom";
 import { FiX } from "react-icons/fi";
-import { UPDATE_TAG } from "../../../../actions/workoutActions";
-import { SET_ACTIVE } from '../../../../actions/optionsActions';
+import { UPDATE_TAG } from "../../../../../../../actions/workoutActions";
+import { SET_ACTIVE } from '../../../../../../../actions/optionsActions';
 
 const TagsModalManage = ({ setToDelete }) => {
   const tags = useSelector(state => state.tagsReducer.tags);
