@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import WorkoutColumn from "./WorkoutColumn";
 import { generateWeek, dashHead } from "../../../utils/momentUtils";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import { useSelector } from "react-redux";
-import { fetchWorkouts } from "../../../actions/fetchWorkoutsActions";
 import { useHistory } from "react-router-dom";
 import reFetch from "../../../utils/reFetch";
 
@@ -22,7 +20,7 @@ const WorkoutColumns = () => {
 
   useEffect(() => {
     reFetch(week, history);
-  }, [week, fetchWorkouts, history]);
+  }, [week, history]);
 
   return (
     <div className="week-workouts-container">

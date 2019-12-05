@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { FiPlusCircle } from "react-icons/fi";
-import WorkoutModal from "./WorkoutModal";
+import React, { useState, useCallback } from "react";
+import WorkoutColumnContent from "./WorkoutColumnContent";
+import WorkoutModal from "../workoutmodal/WorkoutModal";
 import { useDispatch, useSelector } from "react-redux";
 import { MODAL_CTX } from "../../../actions/ctxActions";
 import {
@@ -14,82 +14,38 @@ import { SET_SAVE_MSG } from "../../../actions/optionsActions";
 
 const WorkoutColumn = ({ date, i, week }) => {
   const [modal, setModal] = useState(false);
-  const [workout, setWorkout] = useState([]);
-
-  const data = useSelector(state => state.fetchWorkoutsReducer);
-  const { workouts } = data;
-
+  const workouts = useSelector(state => state.fetchWorkoutsReducer.workouts);
   const dispatch = useDispatch();
 
-  const setCtx = useCallback(
-    ctx => {
-      dispatch({ type: MODAL_CTX, payload: ctx });
-    },
-    [dispatch]
-  );
-
-  const resetWorkout = useCallback(() => {
-    dispatch({ type: RESET_WORKOUT });
-  }, [dispatch]);
-
-  const resetQueue = useCallback(() => {
-    dispatch({ type: RESET_QUEUE });
-  }, [dispatch]);
-
-  const fromSaved = useCallback(
-    workout => {
-      dispatch({ type: FROM_SAVED, payload: workout });
-    },
-    [dispatch]
-  );
-
-  const resetTags = useCallback(() => {
-    dispatch({ type: RESET_TAGS });
-  }, [dispatch]);
-
   // set this column's workout only when the workouts array and date changes
-  useEffect(() => {
-    const workout = workouts.filter(
-      el => el.date === date.format("MMM DD YYYY")
-    );
-    setWorkout(workout);
-  }, [workouts]);
 
-  const openAddWorkoutModal = () => {
-    setCtx("add");
+  const openAddWorkoutModal = useCallback(() => {
+    dispatch({ type: MODAL_CTX, payload: "add" });
     setModal(true);
-  };
+  }, [dispatch]);
 
   const openViewModal = workout => {
-    setCtx("view");
-    fromSaved(workout);
+    dispatch({ type: MODAL_CTX, payload: "view" });
+    dispatch({ type: FROM_SAVED, payload: workout });
     setModal(true);
   };
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setModal(false);
-    resetWorkout();
-    resetTags();
-    resetQueue();
-    setCtx(null);
+    dispatch({ type: RESET_WORKOUT });
+    dispatch({ type: RESET_TAGS });
+    dispatch({ type: RESET_QUEUE });
+    dispatch({ type: MODAL_CTX, payload: null });
     dispatch({ type: SET_SAVE_MSG, payload: "" });
-  };
+  }, [dispatch]);
 
   return (
     <div className="week-workouts-column">
-      <div className="week-workouts-day">
-        <div className="week-workout-day-slug">{date.format("ddd")}</div>
-        <div className="week-workout-day-date">
-          {date.format("MMM DD YYYY")}
-        </div>
-      </div>
-      <div
-        data-testid={i === 0 && "modal-click"}
-        onClick={openAddWorkoutModal}
-        className="week-workouts-add-workout"
-      >
-        {<FiPlusCircle className="week-workouts-add-icon" />} Add Workout
-      </div>
+      <WorkoutColumnContent
+        date={date}
+        i={i}
+        openAddWorkoutModal={openAddWorkoutModal}
+      />
       <WorkoutModal
         date={date}
         week={week}
@@ -97,15 +53,18 @@ const WorkoutColumn = ({ date, i, week }) => {
         closeModal={closeModal}
       />
       <div>
-        {workout.map(data => (
-          <div
-            className="workout-card-container"
-            onClick={() => openViewModal(data)}
-            key={data._id}
-          >
-            <WorkoutCard data={data} />
-          </div>
-        ))}
+        {/* filter workouts for workouts matching this date */}
+        {workouts
+          .filter(el => el.date === date.format("MMM DD YYYY"))
+          .map(data => (
+            <div
+              className="workout-card-container"
+              onClick={() => openViewModal(data)}
+              key={data._id}
+            >
+              <WorkoutCard data={data} />
+            </div>
+          ))}
       </div>
     </div>
   );

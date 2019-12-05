@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import ConfirmDelete from "./confirmdelete/ConfirmDelete";
 import { SET_CONFIRM_DELETE } from "../../../../../../actions/optionsActions";
 
-const DeleteWorkout = ({
+const DeleteWorkout = React.memo(({
   closeParentModal,
   week,
   workoutId,
@@ -38,6 +38,6 @@ const DeleteWorkout = ({
       />
     </>
   );
-};
+});
 
 export default DeleteWorkout;
