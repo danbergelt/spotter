@@ -8,12 +8,7 @@ import { useHistory } from "react-router-dom";
 import reFetch from "../../../utils/reFetch";
 
 const WorkoutColumns = () => {
-
-  const data = useSelector(state => state.fetchWorkoutsReducer)
-
   const history = useHistory();
-
-  const { workouts } = data;
 
   const [week, setWeek] = useState(0);
 
@@ -50,18 +45,11 @@ const WorkoutColumns = () => {
       </div>
       <div className="week-workouts-days">
         {generateWeek(week).map((date, i) => (
-          <WorkoutColumn
-            workouts={workouts}
-            date={date}
-            key={i}
-            i={i}
-            week={week}
-          />
+          <WorkoutColumn date={date} key={i} i={i} week={week} />
         ))}
       </div>
     </div>
   );
 };
-
 
 export default WorkoutColumns;

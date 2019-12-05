@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { FiX } from "react-icons/fi";
 import { FaCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,13 +9,6 @@ const WorkoutTitle = ({ closeModal }) => {
 
   const dispatch = useDispatch();
 
-  const addWorkoutTitle = useCallback(
-    val => {
-      dispatch({ type: ADD_WORKOUT_TITLE, payload: val });
-    },
-    [dispatch]
-  );
-
   return (
     <div className="workout-modal-head">
       <div className="workout-modal-head-left">
@@ -23,7 +16,9 @@ const WorkoutTitle = ({ closeModal }) => {
         <input
           placeholder={"Click to enter a title..."}
           value={title}
-          onChange={e => addWorkoutTitle(e.target.value)}
+          onChange={e =>
+            dispatch({ type: ADD_WORKOUT_TITLE, payload: e.target.value })
+          }
           className="workout-title"
         />
       </div>

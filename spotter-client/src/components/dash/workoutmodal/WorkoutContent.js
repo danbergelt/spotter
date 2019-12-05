@@ -1,6 +1,6 @@
 import React from "react";
 import WorkoutData from "./data/WorkoutData";
-import WorkoutOptions from "./options/WorkoutOptions";
+import WorkoutOptions from "./optionsmenu/optionscontainer/WorkoutOptions";
 
 const WorkoutContent = ({ closeModal, week, date }) => {
   return (

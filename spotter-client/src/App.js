@@ -48,14 +48,14 @@ const App = () => {
   }
 
   return (
-    // <Profiler
-    //   id="app"
-    //   onRender={(a, b, actualDuration, baseDuration) =>
-    //     console.log(actualDuration)
-    //   }
-    // >
+    <Profiler
+      id="app"
+      onRender={(a, b, actualDuration, baseDuration) =>
+        console.log(actualDuration)
+      }
+    >
     <Routes />
-    // </Profiler>
+    </Profiler>
   );
 };
 
