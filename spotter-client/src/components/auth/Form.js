@@ -6,7 +6,7 @@ import axios from "axios";
 
 // component for login + signup forms
 
-const SpotterForm = ({
+const SpotterForm = React.memo(({
   status,
   errors,
   touched,
@@ -56,7 +56,7 @@ const SpotterForm = ({
       </div>
     </div>
   );
-};
+});
 
 const FormikForm = withFormik({
   mapPropsToValues({ email, password }) {

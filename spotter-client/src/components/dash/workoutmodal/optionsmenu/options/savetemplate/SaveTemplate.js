@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import Modal from "react-modal";
 import { useSelector } from "react-redux";
 import { styles } from "./utils/styles";
@@ -25,7 +25,7 @@ const SaveTemplate = React.memo(({ close }) => {
     setTempName("");
   };
 
-  const handleSubmit = useCallback(async e => {
+  const handleSubmit = async e => {
     e.preventDefault();
     try {
       await axiosWithAuth().post(
@@ -45,7 +45,7 @@ const SaveTemplate = React.memo(({ close }) => {
         setMessage({ error: error.response.data.error });
       }
     }
-  });
+  };
 
   return (
     <Modal

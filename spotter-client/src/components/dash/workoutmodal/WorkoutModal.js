@@ -1,12 +1,12 @@
 import React from "react";
 import Modal from "react-modal";
-import WorkoutTitle from "../workoutmodal/data/WorkoutTitle";
-import WorkoutContent from "../workoutmodal/WorkoutContent";
-import { mStyles } from './modalStyles';
+import WorkoutTitle from "./data/WorkoutTitle";
+import WorkoutContent from "./data/WorkoutContent";
+import { mStyles } from '../workouts/modalStyles';
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
-const WorkoutModal = ({ modal, closeModal, week, date }) => {
+const WorkoutModal = React.memo(({ modal, closeModal, week, date }) => {
   return (
     <Modal
       contentLabel="Add Workout Modal"
@@ -20,6 +20,6 @@ const WorkoutModal = ({ modal, closeModal, week, date }) => {
       </div>
     </Modal>
   );
-};
+});
 
 export default WorkoutModal;

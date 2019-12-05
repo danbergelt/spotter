@@ -2,13 +2,13 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 // components
-import TagsOption from "../options/tagsoption/TagsOption";
-import SaveTemplateOption from "../options/savetemplate/SaveTemplateOption";
-import FromTemplateOption from "../options/fromtemplate/FromTemplateOption";
-import DeleteWorkout from "../options/deleteworkout/DeleteWorkout";
-import SaveWorkout from "../options/saveworkout/SaveWorkout";
+import TagsOption from "./options/tagsoption/TagsOption";
+import SaveTemplateOption from "./options/savetemplate/SaveTemplateOption";
+import FromTemplateOption from "./options/fromtemplate/FromTemplateOption";
+import DeleteWorkout from "./options/deleteworkout/DeleteWorkout";
+import SaveWorkout from "./options/saveworkout/SaveWorkout";
 
-const WorkoutOptions = ({ closeParentModal, week, date }) => {
+const WorkoutOptions = React.memo(({ closeParentModal, week, date }) => {
   const iconClass = "add-workout-options-icon";
   const ctx = useSelector(state => state.globalReducer.ctx);
   const workoutId = useSelector(state => state.workoutReducer._id);
@@ -38,6 +38,6 @@ const WorkoutOptions = ({ closeParentModal, week, date }) => {
       </div>
     </div>
   );
-};
+});
 
 export default WorkoutOptions;

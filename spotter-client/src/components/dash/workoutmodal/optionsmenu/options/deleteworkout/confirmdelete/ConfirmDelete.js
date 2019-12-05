@@ -9,7 +9,7 @@ import ConfirmDeleteBody from "./ConfirmDeleteBody";
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
-const ConfirmDelete = ({ workoutId, closeParentModal, week }) => {
+const ConfirmDelete = React.memo(({ workoutId, closeParentModal, week }) => {
   const confirmDelete = useSelector(
     state => state.optionsReducer.confirmDelete
   );
@@ -46,6 +46,6 @@ const ConfirmDelete = ({ workoutId, closeParentModal, week }) => {
       </div>
     </Modal>
   );
-};
+});
 
 export default ConfirmDelete;

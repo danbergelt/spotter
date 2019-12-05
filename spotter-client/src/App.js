@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Profiler, useCallback } from "react";
+import React, { useState, useEffect, Profiler } from "react";
 import Loader from "react-loader-spinner";
 import axios from "axios";
 import Routes from "./routes";
@@ -12,23 +12,16 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
-  const addToken = useCallback(
-    t => {
-      dispatch({ type: ADD_TOKEN, payload: t });
-    },
-    [dispatch]
-  );
-
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_T_API}/api/auth/refresh`, {
         withCredentials: true
       })
       .then(res => {
-        addToken(res.data.token);
+        dispatch({ type: ADD_TOKEN, payload: res.data.token });
         setLoading(false);
       });
-  }, [addToken]);
+  }, [dispatch]);
 
   if (loading) {
     return (
@@ -54,7 +47,7 @@ const App = () => {
         console.log(actualDuration)
       }
     >
-    <Routes />
+      <Routes />
     </Profiler>
   );
 };
