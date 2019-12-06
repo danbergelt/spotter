@@ -18,7 +18,7 @@ const Tags = ({ iconClass }) => {
 
   return (
     <>
-      <div onClick={openTagsModal} className="add-workout-options-button">
+      <div onClick={openTagsModal} className="add-workout-options-button" data-testid="tags-modal">
         <FiTag className={iconClass} /> Tags
       </div>
       <TagsModal />

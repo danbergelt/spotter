@@ -1,7 +1,6 @@
 import React from "react";
 import WorkoutColumns from "../../components/dash/workouts/WorkoutColumns";
-import WorkoutModal from "../../components/dash/workouts/WorkoutModal";
-import { cleanup, fireEvent, wait } from "@testing-library/react";
+import { cleanup, fireEvent } from "@testing-library/react";
 import wrapper from "../../__testUtils__/wrapper";
 import Modal from "react-modal";
 import axios from "axios";
