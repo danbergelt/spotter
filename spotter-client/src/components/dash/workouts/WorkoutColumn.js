@@ -11,6 +11,7 @@ import {
 import { RESET_TAGS } from "../../../actions/tagsActions";
 import WorkoutCard from "./WorkoutCard";
 import { SET_SAVE_MSG } from "../../../actions/optionsActions";
+import { useHistory } from 'react-router-dom';
 
 const WorkoutColumn = ({ date, i, week }) => {
   const [modal, setModal] = useState(false);
