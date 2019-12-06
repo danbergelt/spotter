@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
-import TemplateSave from "../../components/dash/workoutmodal/templatesave/TemplateSave";
-import WorkoutOptions from "../../components/dash/workoutmodal/options/WorkoutOptions";
+import SaveTemplate from "../../components/dash/workoutmodal/optionsmenu/options/savetemplate/SaveTemplate";
+import WorkoutOptions from "../../components/dash/workoutmodal/optionsmenu/WorkoutOptions";
 import { cleanup, fireEvent, wait } from "@testing-library/react";
 import wrapper from "../../__testUtils__/wrapper";
 import Modal from "react-modal";
@@ -34,7 +34,7 @@ describe("template save modal functionality", () => {
   test("can type in template save input", () => {
     const { getByPlaceholderText, container, store } = wrapper(
       reducer,
-      <TemplateSave />
+      <SaveTemplate />
     );
 
     store.dispatch({ type: "SET_TEMPLATE_SAVE", payload: true });
@@ -51,7 +51,7 @@ describe("template save modal functionality", () => {
 
     const { getByPlaceholderText, getByTestId, getByText, store } = wrapper(
       reducer,
-      <TemplateSave />
+      <SaveTemplate />
     );
 
     store.dispatch({ type: "SET_TEMPLATE_SAVE", payload: true });
@@ -70,7 +70,7 @@ describe("template save modal functionality", () => {
     axios.post.mockRejectedValue({ response: { data: { error: "bad req" } } });
     const { getByPlaceholderText, getByTestId, getByText, store } = wrapper(
       reducer,
-      <TemplateSave />
+      <SaveTemplate />
     );
 
     store.dispatch({ type: "SET_TEMPLATE_SAVE", payload: true });

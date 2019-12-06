@@ -1,7 +1,5 @@
 import React from "react";
-import TagsModalManage from "../../components/dash/workoutmodal/tagsmodal/TagsModalManage";
-import TagsModalDelete from "../../components/dash/workoutmodal/tagsmodal/TagsModalDelete";
-import mockTagRes from "../../__testUtils__/mockTagRes";
+import TagsModalManage from "../../components/dash/workoutmodal/optionsmenu/options/tagsoption/tagsmodal/TagsModalManage";
 import { FETCH_TAGS_SUCCESS } from "../../actions/tagsActions";
 import { cleanup, fireEvent } from "@testing-library/react";
 import wrapper from "../../__testUtils__/wrapper";

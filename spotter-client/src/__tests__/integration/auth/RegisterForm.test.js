@@ -1,14 +1,14 @@
 import React from "react";
-import Login from "../../pages/LogIn";
+import SignUp from "../../../pages/SignUp";
 import axios from "axios";
-import wrapper from '../../__testUtils__/wrapper';
 import { cleanup, fireEvent, wait } from "@testing-library/react";
+import wrapper from '../../../__testUtils__/wrapper';
 
-describe("Login validation", () => {
+describe("Register validation", () => {
   afterEach(cleanup);
-  
-  test("login page renders empty inputs", () => {
-    const { getByPlaceholderText } = wrapper(() => {}, <Login />)
+
+  test("register page renders with empty inputs", () => {
+    const { getByPlaceholderText } = wrapper(() => {}, <SignUp />)
 
     const email = getByPlaceholderText(/name@email.com/i);
     const password = getByPlaceholderText(/password/i);
@@ -18,7 +18,7 @@ describe("Login validation", () => {
   });
 
   test("fields can be typed in", () => {
-    const { getByPlaceholderText } = wrapper(() => {}, <Login />)
+    const { getByPlaceholderText } = wrapper(() => {}, <SignUp />)
 
     const email = getByPlaceholderText(/name@email.com/i);
     const password = getByPlaceholderText(/password/i);
@@ -35,8 +35,8 @@ describe("Login validation", () => {
     expect(password.getAttribute("value")).toBe("testinginputs");
   });
 
-  test("login page renders yup vals on touched fields", async () => {
-    const { container, getByPlaceholderText, findByText } = wrapper(() => {}, <Login />);
+  test("register page renders yup vals on touched fields", async () => {
+    const { container, getByPlaceholderText, findByText } = wrapper(() => {}, <SignUp />)
 
     const email = getByPlaceholderText(/name@email.com/i);
     const password = getByPlaceholderText(/password/i);
@@ -54,13 +54,13 @@ describe("Login validation", () => {
     expect(container.contains(pVal)).toBeTruthy();
   });
 
-  test("login attempt with invalid credentials", async () => {
+  test("register attempt with invalid credentials", async () => {
     // mock err response
     axios.post.mockRejectedValue({
       response: { data: { error: "Test reject" } }
     });
 
-    const { container, getByPlaceholderText, findByText, getByTestId } = wrapper(() => {}, <Login />)
+    const { container, getByPlaceholderText, findByText, getByTestId } = wrapper(() => {}, <SignUp />)
 
     fireEvent.change(getByPlaceholderText(/name@email.com/i), {
       target: { value: "bademail@email.com" }
@@ -79,12 +79,12 @@ describe("Login validation", () => {
     axios.post.mockClear();
   });
 
-  test("successful login", async () => {
+  test("successful registration", async () => {
     axios.post.mockResolvedValue({
       data: { token: "test-token" }
     });
 
-    const { getByPlaceholderText, getByTestId, history } = wrapper(() => {}, <Login />)
+    const { getByPlaceholderText, getByTestId, history } = wrapper(() => {}, <SignUp />)
 
     fireEvent.change(getByPlaceholderText(/name@email.com/i), {
       target: { value: "goodemail@email.com" }

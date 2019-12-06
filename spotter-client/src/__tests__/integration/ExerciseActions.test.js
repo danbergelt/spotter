@@ -1,7 +1,6 @@
 import React from "react";
-import axios from "axios";
 import { FROM_TEMPLATE } from "../../actions/workoutActions";
-import WorkoutModal from "../../components/dash/workouts/WorkoutModal";
+import WorkoutModal from "../../components/dash/workoutmodal/WorkoutModal";
 import { cleanup, fireEvent, wait } from "@testing-library/react";
 import mockTemplateRes from "../../__testUtils__/mockTemplateRes";
 import wrapper from "../../__testUtils__/wrapper";
