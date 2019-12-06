@@ -1,6 +1,6 @@
 import Moment from "moment";
 import { extendMoment } from "moment-range";
-import { generateWeek, dashHead } from "../../utils/momentUtils";
+import { generateWeek, dashHead } from "../../../utils/momentUtils";
 
 const moment = extendMoment(Moment);
 

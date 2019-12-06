@@ -6,6 +6,8 @@ import { mStyles } from '../workouts/modalStyles';
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
+// component for both adding a workout and viewing a saved workout
+// populates with appropriate content depending on global modal context (found in global store)
 const WorkoutModal = React.memo(({ modal, closeModal, week, date }) => {
   return (
     <Modal

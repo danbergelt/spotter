@@ -3,6 +3,7 @@ import { isEmpty } from "lodash";
 import { useDispatch } from "react-redux";
 import { FROM_TEMPLATE } from "../../../../../../actions/workoutActions";
 
+// button that does the generating
 const GenerateTemplate = ({ active, setActive, set }) => {
 
   const dispatch = useDispatch();

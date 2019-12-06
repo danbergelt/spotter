@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import ConfirmDelete from "./confirmdelete/ConfirmDelete";
 import { SET_CONFIRM_DELETE } from "../../../../../../actions/optionsActions";
 
+// delete workout option container
 const DeleteWorkout = React.memo(({
   closeParentModal,
   week,
@@ -13,6 +14,7 @@ const DeleteWorkout = React.memo(({
 }) => {
   const dispatch = useDispatch();
 
+  // references global modal context to determine action of delete workout button
   const delHandler = () => {
     if (ctx === "add") {
       closeParentModal();

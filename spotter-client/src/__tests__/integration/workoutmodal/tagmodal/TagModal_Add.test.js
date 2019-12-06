@@ -1,12 +1,12 @@
 import React from "react";
-import { FETCH_TAGS_SUCCESS } from "../../actions/tagsActions";
-import { DELETE_TAG, UPDATE_TAG } from "../../actions/workoutActions";
-import TagsModalAdd from "../../components/dash/workoutmodal/optionsmenu/options/tagsoption/tagsmodal/TagsModalAdd";
-import WorkoutTags from "../../components/dash/workoutmodal/data/workouttags/WorkoutTags";
+import { FETCH_TAGS_SUCCESS } from "../../../../actions/tagsActions";
+import { DELETE_TAG, UPDATE_TAG } from "../../../../actions/workoutActions";
+import TagsModalAdd from "../../../../components/dash/workoutmodal/optionsmenu/options/tagsoption/tagsmodal/TagsModalAdd";
+import WorkoutTags from "../../../../components/dash/workoutmodal/data/workouttags/WorkoutTags";
 import { cleanup, fireEvent, wait } from "@testing-library/react";
-import wrapper from "../../__testUtils__/wrapper";
+import wrapper from "../../../../__testUtils__/wrapper";
 import Modal from "react-modal";
-import reducer from "../../reducers/index";
+import reducer from "../../../../reducers/index";
 
 describe("add tag to workout functionality", () => {
   afterEach(cleanup);

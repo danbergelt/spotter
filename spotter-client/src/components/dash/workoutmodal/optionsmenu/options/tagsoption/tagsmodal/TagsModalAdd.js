@@ -7,6 +7,7 @@ import { TOGGLE_TAG } from "../../../../../../../actions/workoutActions";
 import { FiCheck } from "react-icons/fi";
 import { styles as lStyles } from "./localutils/loaderStyles";
 
+// tab - add tag to current workout 
 const TagsModalAdd = () => {
   const tags = useSelector(state => state.tagsReducer.tags);
   const isLoading = useSelector(state => state.tagsReducer.isLoading);
@@ -21,6 +22,7 @@ const TagsModalAdd = () => {
   );
 
   const [hover, setHover] = useState(null);
+  
   if (isLoading) {
     return (
       <Loader
@@ -42,6 +44,7 @@ const TagsModalAdd = () => {
       <div className="tag-add-head" data-testid="add-tag">
         Add
       </div>
+      {/* map list of created tags */}
       {tags.map(tag => (
         <div key={tag._id}>
           <div className="tag-add-container">
@@ -58,6 +61,7 @@ const TagsModalAdd = () => {
               }
             >
               {tag.content}
+              {/* if the tag is on a workout, insert a check so the user is notified in-modal*/}
               {onWorkout.map(
                 activeT =>
                   activeT._id === tag._id && (

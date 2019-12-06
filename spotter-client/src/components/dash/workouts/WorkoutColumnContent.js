@@ -1,6 +1,8 @@
 import React from "react";
 import { FiPlusCircle } from "react-icons/fi";
 
+// includes the add workout button and date details (e.g. --> day of week, month, etc.)
+
 const WorkoutColumnContent = React.memo(({ date, openAddWorkoutModal, i }) => {
   return (
     <>

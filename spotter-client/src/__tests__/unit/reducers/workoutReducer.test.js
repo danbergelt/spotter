@@ -1,4 +1,4 @@
-import { workoutReducer } from "../../reducers/workoutReducer";
+import { workoutReducer } from "../../../reducers/workoutReducer";
 import {
   ADD_WORKOUT_TITLE,
   RESET_WORKOUT,
@@ -14,7 +14,7 @@ import {
   HANDLE_EDIT,
   RESET_QUEUE,
   FROM_SAVED
-} from "../../actions/workoutActions";
+} from "../../../actions/workoutActions";
 
 describe("add workout reducer", () => {
   test("should return initial state", () => {

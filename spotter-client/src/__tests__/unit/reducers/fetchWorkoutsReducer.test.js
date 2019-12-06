@@ -1,9 +1,9 @@
-import { fetchWorkoutsReducer } from "../../reducers/fetchWorkoutsReducer";
+import { fetchWorkoutsReducer } from "../../../reducers/fetchWorkoutsReducer";
 import {
   FETCH_WORKOUTS_START,
   FETCH_WORKOUTS_SUCCESS,
   FETCH_WORKOUTS_ERROR
-} from "../../actions/fetchWorkoutsActions";
+} from "../../../actions/fetchWorkoutsActions";
 
 describe("fetch workout reducer tests", () => {
   test("should return initial state", () => {

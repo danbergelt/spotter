@@ -1,14 +1,14 @@
 import React from "react";
-import WorkoutColumns from "../../components/dash/workouts/WorkoutColumns";
-import WorkoutOptions from "../../components/dash/workoutmodal/optionsmenu/WorkoutOptions";
-import TagsModal from "../../components/dash/workoutmodal/optionsmenu/options/tagsoption/tagsmodal/TagsModal";
+import WorkoutColumns from "../../../../components/dash/workouts/WorkoutColumns";
+import WorkoutOptions from "../../../../components/dash/workoutmodal/optionsmenu/WorkoutOptions";
+import TagsModal from "../../../../components/dash/workoutmodal/optionsmenu/options/tagsoption/tagsmodal/TagsModal";
 import { cleanup, fireEvent } from "@testing-library/react";
-import wrapper from "../../__testUtils__/wrapper";
+import wrapper from "../../../../__testUtils__/wrapper";
 import Modal from "react-modal";
 import axios from "axios";
-import mockWorkoutRes from "../../__testUtils__/mockWorkoutRes";
-import TagsModalCreate from "../../components/dash/workoutmodal/optionsmenu/options/tagsoption/tagsmodal/TagsModalCreate";
-import reducer from "../../reducers/index";
+import mockWorkoutRes from "../../../../__testUtils__/mockWorkoutRes";
+import TagsModalCreate from "../../../../components/dash/workoutmodal/optionsmenu/options/tagsoption/tagsmodal/TagsModalCreate";
+import reducer from "../../../../reducers/index";
 
 describe("tag modal functionalty", () => {
   afterEach(cleanup);

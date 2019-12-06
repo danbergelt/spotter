@@ -4,6 +4,7 @@ import SaveTemplate from "./SaveTemplate";
 import { FiSave } from "react-icons/fi";
 import { SET_TEMPLATE_SAVE } from '../../../../../../actions/optionsActions';
 
+// option button container, click to trigger opening of save-template modal
 const SaveTemplateOption = React.memo(({ iconClass }) => {
   const dispatch = useDispatch();
 

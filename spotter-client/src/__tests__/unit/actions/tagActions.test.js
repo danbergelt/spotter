@@ -3,11 +3,11 @@ import {
   FETCH_TAGS_START,
   FETCH_TAGS_SUCCESS,
   FETCH_TAGS_ERROR
-} from "../../actions/tagsActions";
+} from "../../../actions/tagsActions";
 import configureMockStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import axios from "axios";
-import mockTagRes from "../../__testUtils__/mockTagRes";
+import mockTagRes from "../../../__testUtils__/mockTagRes";
 import { createMemoryHistory } from "history";
 
 const mockStore = configureMockStore([thunk]);

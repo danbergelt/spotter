@@ -9,6 +9,7 @@ import ConfirmDeleteBody from "./ConfirmDeleteBody";
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
+// a modal that provides a layer of protection before deleting a workout
 const ConfirmDelete = React.memo(({ workoutId, closeParentModal, week }) => {
   const confirmDelete = useSelector(
     state => state.optionsReducer.confirmDelete

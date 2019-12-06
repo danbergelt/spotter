@@ -5,6 +5,7 @@ import { saveWorkout, editWorkout } from "./calls";
 import { SET_SAVE_MSG } from "../../../../../../actions/optionsActions";
 import { useHistory } from "react-router-dom";
 
+// Save or Edit workout depending on global modal context
 const SaveWorkout = React.memo(
   ({ date, workoutId, week, closeParentModal, ctx, iconClass }) => {
     const saveMsg = useSelector(state => state.optionsReducer.saveMsg);

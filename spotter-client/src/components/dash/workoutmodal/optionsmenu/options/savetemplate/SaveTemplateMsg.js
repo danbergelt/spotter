@@ -1,7 +1,7 @@
 import React from "react";
 import { FiX } from "react-icons/fi";
 
-  // displays err on bad req, succ on good req
+  // displays err on bad API req, success on good API req
 
 const SaveTemplateMsg = ({ errOrSucc, setMessage, message }) => {
 

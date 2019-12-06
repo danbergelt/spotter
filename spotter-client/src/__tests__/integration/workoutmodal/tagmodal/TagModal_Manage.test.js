@@ -1,11 +1,11 @@
 import React from "react";
-import TagsModalManage from "../../components/dash/workoutmodal/optionsmenu/options/tagsoption/tagsmodal/TagsModalManage";
-import { FETCH_TAGS_SUCCESS } from "../../actions/tagsActions";
+import TagsModalManage from "../../../../components/dash/workoutmodal/optionsmenu/options/tagsoption/tagsmodal/TagsModalManage";
+import { FETCH_TAGS_SUCCESS } from "../../../../actions/tagsActions";
 import { cleanup, fireEvent } from "@testing-library/react";
-import wrapper from "../../__testUtils__/wrapper";
+import wrapper from "../../../../__testUtils__/wrapper";
 import Modal from "react-modal";
 import axios from "axios";
-import reducer from "../../reducers/index";
+import reducer from "../../../../reducers/index";
 import { act } from "react-dom/test-utils";
 
 describe("tag modal manage functionality", () => {

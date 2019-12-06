@@ -8,6 +8,7 @@ import { fetchTags } from "../../../../../../../actions/tagsActions";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
+// tab - create tag
 const TagsModalCreate = () => {
   const history = useHistory();
 
@@ -18,7 +19,6 @@ const TagsModalCreate = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-  // was having issues with the store, otherwise this would be in an external file
   const submitTag = async () => {
     setLoading(true);
     try {

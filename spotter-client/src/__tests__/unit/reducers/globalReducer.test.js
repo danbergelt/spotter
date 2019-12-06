@@ -1,6 +1,6 @@
-import { globalReducer } from "../../reducers/globalReducer";
-import { ADD_TOKEN } from "../../actions/addTokenActions";
-import { MODAL_CTX } from "../../actions/ctxActions";
+import { globalReducer } from "../../../reducers/globalReducer";
+import { ADD_TOKEN } from "../../../actions/addTokenActions";
+import { MODAL_CTX } from "../../../actions/ctxActions";
 
 describe("global reducer", () => {
   test("should return initial state", () => {

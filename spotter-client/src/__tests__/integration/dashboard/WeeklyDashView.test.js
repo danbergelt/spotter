@@ -1,15 +1,15 @@
 import React from "react";
-import Routes from "../../routes";
+import Routes from "../../../routes";
 import Moment from "moment";
 import { extendMoment } from "moment-range";
 import { cleanup, fireEvent, wait } from "@testing-library/react";
-import wrapper from "../../__testUtils__/wrapper";
-import mockWorkoutRes from "../../__testUtils__/mockWorkoutRes";
+import wrapper from "../../../__testUtils__/wrapper";
+import mockWorkoutRes from "../../../__testUtils__/mockWorkoutRes";
 import axios from "axios";
-import reducer from "../../reducers/index.js";
-import { ADD_TOKEN } from "../../actions/addTokenActions";
-import { FETCH_WORKOUTS_SUCCESS } from "../../actions/fetchWorkoutsActions";
-import WorkoutColumns from '../../components/dash/workouts/WorkoutColumns';
+import reducer from "../../../reducers/index.js";
+import { ADD_TOKEN } from "../../../actions/addTokenActions";
+import { FETCH_WORKOUTS_SUCCESS } from "../../../actions/fetchWorkoutsActions";
+import WorkoutColumns from '../../../components/dash/workouts/WorkoutColumns';
 
 describe("Weekly dash date settings", () => {
   afterEach(() => {

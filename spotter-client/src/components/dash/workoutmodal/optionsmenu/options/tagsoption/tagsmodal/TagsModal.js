@@ -11,6 +11,7 @@ import { styles } from "./localutils/tagsModalStyles";
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
+// modal for tags manager
 const TagsModal = () => {
   // sets the selected tag to be queued for deletion
   const [toDelete, setToDelete] = useState(null);
@@ -25,6 +26,7 @@ const TagsModal = () => {
   return (
     <Modal
       style={
+        // modifies styles for delete message
         active === 3
           ? { ...styles, content: { ...styles.content, height: "190px" } }
           : styles

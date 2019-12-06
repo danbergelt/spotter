@@ -1,12 +1,12 @@
 import React from "react";
-import WorkoutColumns from "../../components/dash/workouts/WorkoutColumns";
+import WorkoutColumns from "../../../../components/dash/workouts/WorkoutColumns";
 import { cleanup, fireEvent } from "@testing-library/react";
-import wrapper from "../../__testUtils__/wrapper";
+import wrapper from "../../../../__testUtils__/wrapper";
 import Modal from "react-modal";
 import axios from "axios";
-import mockWorkoutRes from "../../__testUtils__/mockWorkoutRes";
-import { FETCH_WORKOUTS_SUCCESS } from "../../actions/fetchWorkoutsActions";
-import reducer from "../../reducers/index";
+import mockWorkoutRes from "../../../../__testUtils__/mockWorkoutRes";
+import { FETCH_WORKOUTS_SUCCESS } from "../../../../actions/fetchWorkoutsActions";
+import reducer from "../../../../reducers/index";
 
 describe("view workout modal functionality", () => {
   // initial setup

@@ -1,13 +1,13 @@
 import configureMockStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import axios from "axios";
-import mockWorkoutRes from "../../__testUtils__/mockWorkoutRes";
+import mockWorkoutRes from "../../../__testUtils__/mockWorkoutRes";
 import {
   fetchWorkouts,
   FETCH_WORKOUTS_START,
   FETCH_WORKOUTS_SUCCESS,
   FETCH_WORKOUTS_ERROR
-} from "../../actions/fetchWorkoutsActions";
+} from "../../../actions/fetchWorkoutsActions";
 import { createMemoryHistory } from "history";
 
 const mockStore = configureMockStore([thunk]);
