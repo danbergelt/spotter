@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import axiosWithAuth from "../../../../../../../utils/axiosWithAuth";
-import { colors, colorStyles } from "./localutils/createTagStyles";
-import adjust from "../../../../../../../utils/darkenColorInJS";
-import { FiCheck, FiX } from "react-icons/fi";
+import axiosWithAuth from "../../../../../../../../utils/axiosWithAuth";
+import { colors } from "../localutils/createTagStyles";
 import Loader from "react-loader-spinner";
-import { fetchTags } from "../../../../../../../actions/tagsActions";
+import Message from "./Message";
+import { fetchTags } from "../../../../../../../../actions/tagsActions";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import Color from "./Color";
 
 // tab - create tag
 const TagsModalCreate = () => {
@@ -51,48 +51,21 @@ const TagsModalCreate = () => {
       />
       <div className="tags-modal-colors">
         {colors.map(c => (
-          <div
+          <Color
             key={c}
-            style={
-              c === hover && c !== color
-                ? { ...colorStyles, background: adjust(c, -40) }
-                : { ...colorStyles, background: c }
-            }
-            onClick={() => setColor(c)}
-            onMouseEnter={() => setHover(c)}
-            onMouseLeave={() => setHover(null)}
-            data-testid={c === color && "selected-tag"}
-            aria-label="tag-colors"
-          >
-            {c === color && (
-              <div className="active-tag-color">
-                <FiCheck />
-              </div>
-            )}
-          </div>
+            color={color}
+            c={c}
+            hover={hover}
+            setHover={setHover}
+            setColor={setColor}
+          />
         ))}
       </div>
       {message.error && (
-        <div className="tag-creation failure">
-          {message.error}
-          <div
-            onClick={() => setMessage("")}
-            style={{ fontSize: "1.2rem", cursor: "pointer" }}
-          >
-            <FiX />
-          </div>
-        </div>
+        <Message message={message.error} setMessage={setMessage} />
       )}
       {message.success && (
-        <div className="tag-creation success">
-          {message.success}
-          <div
-            onClick={() => setMessage("")}
-            style={{ fontSize: "1.2rem", cursor: "pointer" }}
-          >
-            <FiX />
-          </div>
-        </div>
+        <Message message={message.success} setMessage={setMessage} />
       )}
       <div onClick={submitTag} className="tags-modal-create-submit">
         {loading ? (

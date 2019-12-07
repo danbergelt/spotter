@@ -7,7 +7,7 @@ import wrapper from "../../../../__testUtils__/wrapper";
 import Modal from "react-modal";
 import axios from "axios";
 import mockWorkoutRes from "../../../../__testUtils__/mockWorkoutRes";
-import TagsModalCreate from "../../../../components/dash/workoutmodal/optionsmenu/options/tagsoption/tagsmodal/TagsModalCreate";
+import TagsModalCreate from "../../../../components/dash/workoutmodal/optionsmenu/options/tagsoption/tagsmodal/create/TagsModalCreate";
 import reducer from "../../../../reducers/index";
 
 describe("tag modal functionalty", () => {

@@ -1,11 +1,11 @@
 import React, { useState, useCallback } from "react";
 import Modal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
-import TagsModalHead from "./TagsModalHead";
-import TagsModalCreate from "./TagsModalCreate";
-import TagsModalManage from "./TagsModalManage";
-import TagsModalDelete from "./TagsModalDelete";
-import TagsModalAdd from "./TagsModalAdd";
+import TagsModalHead from "./head/TagsModalHead";
+import TagsModalCreate from "./create/TagsModalCreate";
+import TagsModalManage from "./manage/TagsModalManage";
+import TagsModalDelete from "./delete/TagsModalDelete";
+import TagsModalAdd from "./add/TagsModalAdd";
 import { CLOSE_TAG_MODAL } from "../../../../../../../actions/optionsActions";
 import { styles } from "./localutils/tagsModalStyles";
 
