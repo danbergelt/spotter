@@ -1,12 +1,15 @@
 import React from "react";
 import { FiX } from "react-icons/fi";
 
-  // displays err on bad API req, success on good API req
-
-const SaveTemplateMsg = ({ errOrSucc, setMessage, message }) => {
-
+const Message = ({ message, setMessage }) => {
   return (
-    <div className={errOrSucc}>
+    <div
+      className={
+        message !== "New tag created"
+          ? "tag-creation failure"
+          : "tag-creation success"
+      }
+    >
       {message}
       <div
         onClick={() => setMessage("")}
@@ -18,4 +21,4 @@ const SaveTemplateMsg = ({ errOrSucc, setMessage, message }) => {
   );
 };
 
-export default SaveTemplateMsg;
+export default Message;

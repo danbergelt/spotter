@@ -8,6 +8,7 @@ import FromTemplateOption from "./options/fromtemplate/FromTemplateOption";
 import DeleteWorkout from "./options/deleteworkout/DeleteWorkout";
 import SaveWorkout from "./options/saveworkout/SaveWorkout";
 
+// container for sidebar menu on workout modal 
 const WorkoutOptions = React.memo(({ closeParentModal, week, date }) => {
   const iconClass = "add-workout-options-icon";
   const ctx = useSelector(state => state.globalReducer.ctx);

@@ -18,6 +18,7 @@ const WorkoutColumns = () => {
     setWeek(week - 1);
   };
 
+  // refetches data upon dashboard state change
   useEffect(() => {
     reFetch(week, history);
   }, [week, history]);

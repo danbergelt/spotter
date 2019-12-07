@@ -9,17 +9,18 @@ import GenerateTemplate from "./GenerateTemplate";
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
-// body of from template modal
+// body for template generator
 
 const FromTemplate = () => {
   const [search, setSearch] = useState("");
   const [active, setActive] = useState({});
 
+  // true/false modal state
   const fromTemplate = useSelector(state => state.optionsReducer.fromTemplate);
 
   const dispatch = useDispatch();
 
-  // handles state when modal is closed
+  // resets state when modal is closed
   const closeHandler = () => {
     dispatch({ type: SET_FROM_TEMPLATE, payload: false });
     setActive({});

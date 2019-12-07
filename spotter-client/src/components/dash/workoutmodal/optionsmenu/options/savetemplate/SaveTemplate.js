@@ -25,6 +25,7 @@ const SaveTemplate = React.memo(({ close }) => {
     setTempName("");
   };
 
+  // API call to save template for later use
   const handleSubmit = async e => {
     e.preventDefault();
     try {

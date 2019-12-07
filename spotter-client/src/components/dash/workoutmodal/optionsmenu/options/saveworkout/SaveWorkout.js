@@ -1,10 +1,12 @@
 import React from "react";
 import { FiPlusCircle } from "react-icons/fi";
 import { useSelector, useDispatch } from "react-redux";
-import { saveWorkout, editWorkout } from "./calls";
 import { SET_SAVE_MSG } from "../../../../../../actions/optionsActions";
 import { useHistory } from "react-router-dom";
+import axiosWithAuth from "../../../../../../utils/axiosWithAuth";
+import reFetch from "../../../../../../utils/reFetch";
 
+// Save or Edit workout depending on global modal context
 const SaveWorkout = React.memo(
   ({ date, workoutId, week, closeParentModal, ctx, iconClass }) => {
     const saveMsg = useSelector(state => state.optionsReducer.saveMsg);
@@ -12,40 +14,59 @@ const SaveWorkout = React.memo(
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const saveWorkoutErr = err => {
-      dispatch({
-        type: SET_SAVE_MSG,
-        payload: { error: err.response.data.error }
-      });
-    };
-
     const saveHandler = async () => {
       if (ctx === "add") {
-        saveWorkout(
-          date,
-          workout,
-          closeParentModal,
-          saveWorkoutErr,
-          week,
-          history
-        );
+        try {
+          await axiosWithAuth().post(
+            `${process.env.REACT_APP_T_API}/api/auth/workouts`,
+            {
+              date: date.format("MMM DD YYYY"),
+              title: workout.title,
+              notes: workout.notes,
+              exercises: workout.exercises,
+              tags: workout.tags
+            }
+          );
+          // refetch updated list of workouts
+          await reFetch(week, history);
+          // // close modal and return to dashboard
+          closeParentModal();
+        } catch (err) {
+          dispatch({
+            type: SET_SAVE_MSG,
+            payload: { error: err.response.data.error }
+          });
+        }
       }
 
       if (ctx === "view") {
-        editWorkout(
-          workoutId,
-          workout,
-          week,
-          history,
-          closeParentModal,
-          saveWorkoutErr
-        );
+        try {
+          await axiosWithAuth().put(
+            `${process.env.REACT_APP_T_API}/api/auth/workouts/${workoutId}`,
+            {
+              title: workout.title,
+              notes: workout.notes,
+              exercises: workout.exercises,
+              tags: workout.tags
+            }
+          );
+          // refetch updated list of workouts
+          await reFetch(week, history);
+          // close modal and return to dashboard
+          closeParentModal();
+        } catch (err) {
+          dispatch({
+            type: SET_SAVE_MSG,
+            payload: { error: err.response.data.error }
+          });
+        }
       }
     };
 
     return (
       <>
         <div
+          data-testid="save-workout"
           onClick={saveHandler}
           className="add-workout-options-button publish"
         >

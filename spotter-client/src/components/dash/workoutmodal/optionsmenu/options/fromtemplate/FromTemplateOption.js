@@ -9,11 +9,12 @@ import {
 } from "../../../../../../actions/optionsActions";
 import axiosWithAuth from "../../../../../../utils/axiosWithAuth";
 
-// option to open from template modal, triggers an API call to fetch all templates
+// menu option to open from-template modal, triggers an API call to fetch all templates
 
 const FromTemplateOption = ({ iconClass }) => {
   const dispatch = useDispatch();
 
+  // API call that provides a selection of templates to choose from
   const openFromTemplateModal = async () => {
     try {
       const res = await axiosWithAuth().get(

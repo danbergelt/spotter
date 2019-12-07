@@ -14,6 +14,7 @@ const WorkoutTitle = ({ closeModal }) => {
       <div className="workout-modal-head-left">
         <FaCircle className="workout-spotter-logo" />
         <input
+          data-testid="inp"
           placeholder={"Click to enter a title..."}
           value={title}
           onChange={e =>

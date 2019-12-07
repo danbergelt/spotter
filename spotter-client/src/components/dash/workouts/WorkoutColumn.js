@@ -17,8 +17,6 @@ const WorkoutColumn = ({ date, i, week }) => {
   const workouts = useSelector(state => state.fetchWorkoutsReducer.workouts);
   const dispatch = useDispatch();
 
-  // set this column's workout only when the workouts array and date changes
-
   const openAddWorkoutModal = useCallback(() => {
     dispatch({ type: MODAL_CTX, payload: "add" });
     setModal(true);
@@ -30,6 +28,7 @@ const WorkoutColumn = ({ date, i, week }) => {
     setModal(true);
   };
 
+  // resets state in various parts of application upon workout modal close 
   const closeModal = useCallback(() => {
     setModal(false);
     dispatch({ type: RESET_WORKOUT });
