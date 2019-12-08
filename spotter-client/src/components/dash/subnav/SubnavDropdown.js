@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import Select from "react-select";
+import { SET_SCOPE } from "../../../actions/timeScopeActions";
+import { useDispatch, useSelector } from "react-redux";
 
 // controls workout range (determines range of workouts fetch call) - need to add active range to global state
 
@@ -9,11 +11,9 @@ const SubnavDropdown = () => {
     { value: "Month", label: "Month" }
   ];
 
-  const [option, setOption] = useState(options[0]);
+  const scope = useSelector(state => state.globalReducer.scope);
 
-  const handleChange = selectedOption => {
-    setOption(selectedOption);
-  };
+  const dispatch = useDispatch();
 
   const customStyles = {
     control: (provided, state) => ({
@@ -46,9 +46,11 @@ const SubnavDropdown = () => {
         className="subnav-menu-icon left dropdown"
         styles={customStyles}
         options={options}
-        value={option}
-        onChange={handleChange}
-        defaultValue={option}
+        value={scope}
+        onChange={selectedOption =>
+          dispatch({ type: SET_SCOPE, payload: selectedOption })
+        }
+        defaultValue={scope}
         isSearchable={false}
         theme={theme => ({
           ...theme,
