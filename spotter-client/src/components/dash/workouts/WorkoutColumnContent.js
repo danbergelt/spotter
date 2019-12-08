@@ -6,11 +6,12 @@ import { FiPlusCircle } from "react-icons/fi";
 const WorkoutColumnContent = React.memo(({ date, openAddWorkoutModal, i }) => {
   return (
     <>
-      <div className="week-workouts-day">
+      <div
+        className="week-workouts-day"
+        data-testid={date.format("MMM DD YYYY")}
+      >
         <div className="week-workout-day-slug">{date.format("ddd")}</div>
-        <div className="week-workout-day-date">
-          {date.format("D") == 1 ? date.format("MMM D") : date.format("D")}
-        </div>
+        <div className="week-workout-day-date">{date.format("D")}</div>
       </div>
       <div
         data-testid={i === 0 && "modal-click"}

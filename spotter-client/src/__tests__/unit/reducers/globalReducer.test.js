@@ -11,7 +11,8 @@ describe("global reducer", () => {
       scope: {
         label: "Week",
         value: "Week"
-      }
+      },
+      date: 0
     });
   });
 
@@ -27,7 +28,8 @@ describe("global reducer", () => {
       scope: {
         label: "Week",
         value: "Week"
-      }
+      },
+      date: 0
     });
   });
 
@@ -43,7 +45,8 @@ describe("global reducer", () => {
       scope: {
         label: "Week",
         value: "Week"
-      }
+      },
+      date: 0
     });
   });
 
@@ -59,7 +62,8 @@ describe("global reducer", () => {
       scope: {
         label: "test",
         value: "test"
-      }
+      },
+      date: 0
     });
   });
 });

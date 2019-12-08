@@ -69,10 +69,8 @@ const WorkoutGrid = () => {
             openViewModal={openViewModal}
             key={date.format("MMM DD YYYY")}
             date={date}
-            month={month}
-            modal={modal}
             i={i}
-            closeModal={closeModal}
+            workouts={workouts}
           />
         ))}
         <WorkoutModal

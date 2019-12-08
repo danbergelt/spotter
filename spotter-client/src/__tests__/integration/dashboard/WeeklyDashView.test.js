@@ -25,7 +25,7 @@ describe("Weekly dash date settings", () => {
       container,
       getByText,
       getByTestId,
-      queryByText,
+      queryByTestId,
       history,
       store
     } = wrapper(reducer, <Routes />);
@@ -37,7 +37,7 @@ describe("Weekly dash date settings", () => {
     expect(container.contains(getByText(/week/i))).toBeTruthy();
     expect(
       container.contains(
-        getByText(
+        queryByTestId(
           moment()
             .startOf("week")
             .format("MMM DD YYYY")
@@ -49,7 +49,7 @@ describe("Weekly dash date settings", () => {
 
     expect(
       container.contains(
-        getByText(
+        queryByTestId(
           moment()
             .add(-1, "weeks")
             .startOf("week")
@@ -59,7 +59,7 @@ describe("Weekly dash date settings", () => {
     ).toBeTruthy();
     expect(
       container.contains(
-        queryByText(
+        queryByTestId(
           moment()
             .startOf("week")
             .format("MMM DD YYYY")
@@ -68,11 +68,11 @@ describe("Weekly dash date settings", () => {
     ).toBeFalsy();
     expect(
       container.contains(
-        queryByText(
+        queryByTestId(
           moment()
             .add(-2, "weeks")
             .startOf("week")
-            .format("MMM DD")
+            .format("MMM DD YYYY")
         )
       )
     ).toBeFalsy();
@@ -86,7 +86,7 @@ describe("Weekly dash date settings", () => {
       container,
       getByText,
       getByTestId,
-      queryByText,
+      queryByTestId,
       history,
       store
     } = wrapper(reducer, <Routes />);
@@ -98,7 +98,7 @@ describe("Weekly dash date settings", () => {
     expect(container.contains(getByText(/week/i))).toBeTruthy();
     expect(
       container.contains(
-        getByText(
+        queryByTestId(
           moment()
             .startOf("week")
             .format("MMM DD YYYY")
@@ -110,7 +110,7 @@ describe("Weekly dash date settings", () => {
 
     expect(
       container.contains(
-        getByText(
+        queryByTestId(
           moment()
             .add(1, "weeks")
             .startOf("week")
@@ -120,7 +120,7 @@ describe("Weekly dash date settings", () => {
     ).toBeTruthy();
     expect(
       container.contains(
-        queryByText(
+        queryByTestId(
           moment()
             .startOf("week")
             .format("MMM DD YYYY")
@@ -129,7 +129,7 @@ describe("Weekly dash date settings", () => {
     ).toBeFalsy();
     expect(
       container.contains(
-        queryByText(
+        queryByTestId(
           moment()
             .add(2, "weeks")
             .startOf("week")

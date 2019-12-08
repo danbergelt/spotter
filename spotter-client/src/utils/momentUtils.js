@@ -35,12 +35,14 @@ export const dashHead = num => {
 // Used for generating days of month in dashboard
 
 export const generateMonth = num => {
+
   const start = moment()
     .add(num, "months")
     .startOf("month");
   const end = moment()
     .add(num, "months")
     .endOf("month");
+
   const range = moment.range(start, end);
 
   const days = [];
