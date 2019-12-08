@@ -1,12 +1,10 @@
 import React from "react";
 import TagsModalManage from "../../../../components/dash/workoutmodal/optionsmenu/options/tagsoption/tagsmodal/manage/TagsModalManage";
 import { FETCH_TAGS_SUCCESS } from "../../../../actions/tagsActions";
-import { cleanup, fireEvent } from "@testing-library/react";
+import { cleanup } from "@testing-library/react";
 import wrapper from "../../../../__testUtils__/wrapper";
 import Modal from "react-modal";
-import axios from "axios";
 import reducer from "../../../../reducers/index";
-import { act } from "react-dom/test-utils";
 
 describe("tag modal manage functionality", () => {
   Modal.setAppElement(document.createElement("div"));
@@ -47,48 +45,5 @@ describe("tag modal manage functionality", () => {
     });
 
     expect(getByText(/changed/i)).toBeTruthy();
-  });
-
-  test("tag name error checking", async () => {
-    axios.put.mockRejectedValue({ response: { data: { error: "Rejected" } } });
-    const { store, queryByText, getByTestId, getByText } = wrapper(
-      reducer,
-      <TagsModalManage />
-    );
-
-    store.dispatch({
-      type: FETCH_TAGS_SUCCESS,
-      payload: [{ content: "content", _id: 1 }]
-    });
-
-    expect(getByText(/content/i)).toBeTruthy();
-    fireEvent.click(getByText(/content/i));
-
-    // reject response, display message on screen
-    await act(async () => {
-      fireEvent.click(getByTestId(/save-tag/i));
-    });
-    expect(queryByText(/Rejected/i)).toBeTruthy();
-  });
-
-  test("delete a tag", async () => {
-    const { getByText, store, queryByText } = wrapper(
-      reducer,
-      <TagsModalManage />
-    );
-
-    store.dispatch({
-      type: FETCH_TAGS_SUCCESS,
-      payload: [{ content: "content", _id: 1 }]
-    });
-
-    expect(getByText(/content/i)).toBeTruthy();
-
-    store.dispatch({
-      type: FETCH_TAGS_SUCCESS,
-      payload: []
-    });
-
-    expect(queryByText(/no tags found/i)).toBeTruthy();
   });
 });
