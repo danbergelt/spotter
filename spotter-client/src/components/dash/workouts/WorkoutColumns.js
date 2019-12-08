@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import WorkoutColumn from "./WorkoutColumn";
 import { generateWeek, dashHead } from "../../../utils/momentUtils";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import DashControls from './DashControls';
 import { useHistory } from "react-router-dom";
 import reFetch from "../../../utils/reFetch";
 
@@ -24,30 +24,14 @@ const WorkoutColumns = () => {
   }, [week, history]);
 
   return (
-    <div className="week-workouts-container">
-      <div className="week-workouts-head">
-        <div className="week-workouts-icons">
-          <FiChevronLeft
-            style={{ fontSize: "2.75rem" }}
-            data-testid="back"
-            onClick={dec}
-            className="week-workouts-head-icon"
-          />
-          <FiChevronRight
-            style={{ fontSize: "2.75rem" }}
-            data-testid="forward"
-            onClick={inc}
-            className="week-workouts-head-icon"
-          />
-        </div>
-        {dashHead(week)}
-      </div>
+    <>
+      <DashControls inc={inc} dec={dec} time={week} month={dashHead}/>
       <div className="week-workouts-days">
         {generateWeek(week).map((date, i) => (
           <WorkoutColumn date={date} key={i} i={i} week={week} />
         ))}
       </div>
-    </div>
+    </>
   );
 };
 

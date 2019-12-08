@@ -2,14 +2,13 @@ import React from "react";
 import Routes from "../../../routes";
 import Moment from "moment";
 import { extendMoment } from "moment-range";
-import { cleanup, fireEvent, wait } from "@testing-library/react";
+import { cleanup, fireEvent } from "@testing-library/react";
 import wrapper from "../../../__testUtils__/wrapper";
 import mockWorkoutRes from "../../../__testUtils__/mockWorkoutRes";
 import axios from "axios";
 import reducer from "../../../reducers/index.js";
+import { SET_SCOPE } from '../../../actions/timeScopeActions';
 import { ADD_TOKEN } from "../../../actions/addTokenActions";
-import { FETCH_WORKOUTS_SUCCESS } from "../../../actions/fetchWorkoutsActions";
-import WorkoutColumns from '../../../components/dash/workouts/WorkoutColumns';
 
 describe("Weekly dash date settings", () => {
   afterEach(() => {
@@ -31,15 +30,19 @@ describe("Weekly dash date settings", () => {
     } = wrapper(reducer, <Routes />);
 
     store.dispatch({ type: ADD_TOKEN, payload: "token" });
+    store.dispatch({
+      type: SET_SCOPE,
+      payload: { value: "Month", label: "Month" }
+    });
 
     history.push("/dashboard");
 
-    expect(container.contains(getByText(/week/i))).toBeTruthy();
+    expect(container.contains(getByText(/month/i))).toBeTruthy();
     expect(
       container.contains(
         getByText(
           moment()
-            .startOf("week")
+            .startOf("month")
             .format("MMM DD YYYY")
         )
       )
@@ -51,8 +54,8 @@ describe("Weekly dash date settings", () => {
       container.contains(
         getByText(
           moment()
-            .add(-1, "weeks")
-            .startOf("week")
+            .add(-1, "months")
+            .startOf("month")
             .format("MMM DD YYYY")
         )
       )
@@ -61,7 +64,7 @@ describe("Weekly dash date settings", () => {
       container.contains(
         queryByText(
           moment()
-            .startOf("week")
+            .startOf("month")
             .format("MMM DD YYYY")
         )
       )
@@ -70,14 +73,12 @@ describe("Weekly dash date settings", () => {
       container.contains(
         queryByText(
           moment()
-            .add(-2, "weeks")
-            .startOf("week")
+            .add(-2, "months")
+            .startOf("monnth")
             .format("MMM DD")
         )
       )
     ).toBeFalsy();
-
-    expect(axios.post).toHaveBeenCalledTimes(2);
   });
 
   it("can go forward in time", () => {
@@ -92,15 +93,19 @@ describe("Weekly dash date settings", () => {
     } = wrapper(reducer, <Routes />);
 
     store.dispatch({ type: ADD_TOKEN, payload: "token" });
+    store.dispatch({
+      type: SET_SCOPE,
+      payload: { value: "Month", label: "Month" }
+    });
 
     history.push("/dashboard");
 
-    expect(container.contains(getByText(/week/i))).toBeTruthy();
+    expect(container.contains(getByText(/month/i))).toBeTruthy();
     expect(
       container.contains(
         getByText(
           moment()
-            .startOf("week")
+            .startOf("month")
             .format("MMM DD YYYY")
         )
       )
@@ -112,8 +117,8 @@ describe("Weekly dash date settings", () => {
       container.contains(
         getByText(
           moment()
-            .add(1, "weeks")
-            .startOf("week")
+            .add(1, "months")
+            .startOf("month")
             .format("MMM DD YYYY")
         )
       )
@@ -122,7 +127,7 @@ describe("Weekly dash date settings", () => {
       container.contains(
         queryByText(
           moment()
-            .startOf("week")
+            .startOf("month")
             .format("MMM DD YYYY")
         )
       )
@@ -131,31 +136,11 @@ describe("Weekly dash date settings", () => {
       container.contains(
         queryByText(
           moment()
-            .add(2, "weeks")
-            .startOf("week")
+            .add(2, "months")
+            .startOf("month")
             .format("MMM DD YYYY")
         )
       )
     ).toBeFalsy();
-
-    expect(axios.post).toHaveBeenCalledTimes(2);
-  });
-
-  it("fetches workouts and displays them", async () => {
-    const { history, queryByText, store } = wrapper(
-      reducer,
-      <WorkoutColumns />
-    );
-
-    store.dispatch({
-      type: FETCH_WORKOUTS_SUCCESS,
-      payload: mockWorkoutRes.data.workouts
-    });
-
-    history.push("/dashboard");
-
-    await wait(() => {
-      expect(queryByText(/workout for testing/i)).toBeTruthy();
-    });
   });
 });

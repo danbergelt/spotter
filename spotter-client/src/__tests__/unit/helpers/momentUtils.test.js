@@ -1,6 +1,11 @@
 import Moment from "moment";
 import { extendMoment } from "moment-range";
-import { generateWeek, dashHead } from "../../../utils/momentUtils";
+import {
+  generateWeek,
+  dashHead,
+  generateMonth,
+  monthDashHead
+} from "../../../utils/momentUtils";
 
 const moment = extendMoment(Moment);
 
@@ -43,8 +48,62 @@ describe("moment utils", () => {
   });
 
   test("dashHead", () => {
-    expect(dashHead(0)).toMatch(moment().startOf('day').format("MMMM"))
-    expect(dashHead(-4)).toMatch(moment().add(-4, 'weeks').startOf('week').format("MMMM"))
-    expect(dashHead(4)).toMatch(moment().add(4, 'weeks').startOf('week').format("MMMM"))
-  })
+    expect(dashHead(0)).toMatch(
+      moment()
+        .startOf("day")
+        .format("MMMM")
+    );
+    expect(dashHead(-4)).toMatch(
+      moment()
+        .add(-4, "weeks")
+        .startOf("week")
+        .format("MMMM")
+    );
+    expect(dashHead(4)).toMatch(
+      moment()
+        .add(4, "weeks")
+        .startOf("week")
+        .format("MMMM")
+    );
+  });
+
+  test("generate month", () => {
+    expect(generateMonth(0)[0].format("MMM DD")).toEqual(
+      moment()
+        .startOf("month")
+        .format("MMM DD")
+    );
+    expect(generateMonth(-1)[0].format("MMM DD")).toEqual(
+      moment()
+        .add(-1, "months")
+        .startOf("month")
+        .format("MMM DD")
+    );
+    expect(generateMonth(1)[0].format("MMM DD")).toEqual(
+      moment()
+        .add(1, "months")
+        .startOf("month")
+        .format("MMM DD")
+    );
+  });
+
+  test("monthly dashHead", () => {
+    expect(monthDashHead(0)).toMatch(
+      moment()
+        .startOf("month")
+        .format("MMMM")
+    );
+    expect(monthDashHead(-4)).toMatch(
+      moment()
+        .add(-4, "months")
+        .startOf("month")
+        .format("MMMM")
+    );
+    expect(monthDashHead(4)).toMatch(
+      moment()
+        .add(4, "months")
+        .startOf("month")
+        .format("MMMM")
+    );
+  });
 });
