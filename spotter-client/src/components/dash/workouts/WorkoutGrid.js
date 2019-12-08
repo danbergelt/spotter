@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { generateMonth, monthDashHead } from "../../../utils/momentUtils";
 import DashControls from "./DashControls";
 import GridDay from "./GridDay";
@@ -13,9 +13,16 @@ import {
 } from "../../../actions/workoutActions";
 import WorkoutModal from "../workoutmodal/WorkoutModal";
 import { SET_DATE } from "../../../actions/timeScopeActions";
+import { useHistory } from 'react-router-dom';
+import reFetch from '../../../utils/reFetch';
 
 const WorkoutGrid = () => {
   const [month, setMonth] = useState(0);
+  const history = useHistory();
+
+  useEffect(() => {
+    reFetch(month, history, scope.value);
+  }, [month, history]);
 
   const inc = () => {
     setMonth(month + 1);
@@ -27,6 +34,7 @@ const WorkoutGrid = () => {
 
   const [modal, setModal] = useState(false);
   const workouts = useSelector(state => state.fetchWorkoutsReducer.workouts);
+  const scope = useSelector(state => state.globalReducer.scope);
   const dispatch = useDispatch();
 
   const openAddWorkoutModal = useCallback(

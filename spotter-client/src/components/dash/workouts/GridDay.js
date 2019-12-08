@@ -16,7 +16,7 @@ const GridDay = React.memo(
                 <FiPlusCircle />
               </div>
             </div>
-            <div>{date.format("D")}</div>
+            {date.format("D")}
           </>
         ) : (
           <>
@@ -29,7 +29,7 @@ const GridDay = React.memo(
                 <FiPlusCircle />
               </div>
             </div>
-            <div>{date.format("D")}</div>
+            {date.format("D")}
           </>
         )}
         {workouts

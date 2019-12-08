@@ -31,11 +31,12 @@ const WorkoutColumns = () => {
 
   // refetches data upon dashboard state change
   useEffect(() => {
-    reFetch(week, history);
+    reFetch(week, history, scope.value);
   }, [week, history]);
 
   const [modal, setModal] = useState(false);
   const workouts = useSelector(state => state.fetchWorkoutsReducer.workouts);
+  const scope = useSelector(state => state.globalReducer.scope);
   const dispatch = useDispatch();
 
   const openAddWorkoutModal = useCallback(date => {
