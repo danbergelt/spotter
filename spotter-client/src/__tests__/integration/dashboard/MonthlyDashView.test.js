@@ -38,6 +38,7 @@ describe("Weekly dash date settings", () => {
     history.push("/dashboard");
 
     expect(container.contains(getByText(/month/i))).toBeTruthy();
+    
     expect(
       container.contains(
         getByText(

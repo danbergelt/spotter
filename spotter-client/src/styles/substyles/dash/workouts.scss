@@ -23,6 +23,9 @@
       }
     }
   }
+  .workouts-month-indicator{
+    color: $gray1;
+  }
 }
 
 .week-workouts-days {
@@ -73,5 +76,28 @@
   }
   .week-workouts-column:nth-of-type(-n + 6) .week-workouts-day {
     border-right: 1px solid $gray3;
+  }
+}
+
+.month-workout-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin: 2rem 0 6rem 0;
+
+  .month-grid-day {
+    height: 115px;
+    @include monthBorders;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: $gray2;
+    font-size: 1.3rem;
+    cursor: pointer;
+
+    .month-grid-day-of-week {
+      color: $gray1;
+      margin-bottom: 1rem;
+    }
   }
 }

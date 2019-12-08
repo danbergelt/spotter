@@ -7,7 +7,6 @@ import { SET_CONFIRM_DELETE } from "../../../../../../actions/optionsActions";
 // delete workout option container
 const DeleteWorkout = React.memo(({
   closeParentModal,
-  week,
   workoutId,
   ctx,
   iconClass
@@ -34,7 +33,6 @@ const DeleteWorkout = React.memo(({
         <FiDelete className={iconClass} /> Delete
       </div>
       <ConfirmDelete
-        week={week}
         closeParentModal={closeParentModal}
         workoutId={workoutId}
       />

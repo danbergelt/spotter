@@ -9,7 +9,7 @@ const WorkoutColumnContent = React.memo(({ date, openAddWorkoutModal, i }) => {
       <div className="week-workouts-day">
         <div className="week-workout-day-slug">{date.format("ddd")}</div>
         <div className="week-workout-day-date">
-          {date.format("MMM DD YYYY")}
+          {date.format("D") == 1 ? date.format("MMM D") : date.format("D")}
         </div>
       </div>
       <div

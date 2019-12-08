@@ -50,3 +50,52 @@
     background: darken($info, 10%);
   }
 }
+
+@mixin monthBorders {
+  &:nth-child(1) {
+    border: 1px solid $gray4;
+  }
+  &:nth-child(8),
+  &:nth-child(15),
+  &:nth-child(22),
+  &:nth-child(29),
+  &:nth-child(14),
+  &:nth-child(21),
+  &:nth-child(28) {
+    border-left: 1px solid $gray4;
+    border-bottom: 1px solid $gray4;
+    border-right: 1px solid $gray4;
+  }
+  &:nth-child(7) {
+    border: 1px solid $gray4;
+  }
+  &:nth-child(n + 2):nth-child(-n + 6) {
+    border-top: 1px solid $gray4;
+    border-bottom: 1px solid $gray4;
+  }
+  &:nth-child(n + 2):nth-child(-n + 5) {
+    border-right: 1px solid $gray4;
+  }
+  &:nth-child(n + 9):nth-child(-n + 13) {
+    border-bottom: 1px solid $gray4;
+  }
+  &:nth-child(n + 9):nth-child(-n + 12) {
+    border-right: 1px solid $gray4;
+  }
+  &:nth-child(n + 16):nth-child(-n + 20) {
+    border-bottom: 1px solid $gray4;
+  }
+  &:nth-child(n + 16):nth-child(-n + 19) {
+    border-right: 1px solid $gray4;
+  }
+  &:nth-child(n + 23):nth-child(-n + 27) {
+    border-bottom: 1px solid $gray4;
+  }
+  &:nth-child(n + 23):nth-child(-n + 26) {
+    border-right: 1px solid $gray4;
+  }
+  &:nth-child(n + 30) {
+    border-right: 1px solid $gray4;
+    border-bottom: 1px solid $gray4;
+  }
+}
