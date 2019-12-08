@@ -41,14 +41,16 @@ const App = () => {
   }
 
   return (
-    <Profiler
-      id="app"
-      onRender={(a, b, actualDuration, baseDuration) =>
-        console.log(actualDuration)
-      }
-    >
-      <Routes />
-    </Profiler>
+    <div className="app-container">
+      <Profiler
+        id="app"
+        onRender={(a, b, actualDuration, baseDuration) =>
+          console.log(actualDuration)
+        }
+      >
+        <Routes />
+      </Profiler>
+    </div>
   );
 };
 

@@ -29,18 +29,20 @@ export const dashHead = num => {
   return moment()
     .add(num, "weeks")
     .startOf("week")
-    .format("MMMM");
+    .format("MMMM YYYY");
 };
 
 // Used for generating days of month in dashboard
 
 export const generateMonth = num => {
+
   const start = moment()
     .add(num, "months")
     .startOf("month");
   const end = moment()
     .add(num, "months")
     .endOf("month");
+
   const range = moment.range(start, end);
 
   const days = [];
@@ -58,5 +60,5 @@ export const monthDashHead = num => {
   return moment()
     .add(num, "months")
     .startOf("month")
-    .format("MMMM");
+    .format("MMMM YYYY");
 };

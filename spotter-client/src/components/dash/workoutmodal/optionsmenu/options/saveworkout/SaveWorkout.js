@@ -8,11 +8,12 @@ import reFetch from "../../../../../../utils/reFetch";
 
 // Save or Edit workout depending on global modal context
 const SaveWorkout = React.memo(
-  ({ date, workoutId, week, closeParentModal, ctx, iconClass }) => {
+  ({ workoutId, time, closeParentModal, ctx, iconClass }) => {
     const saveMsg = useSelector(state => state.optionsReducer.saveMsg);
     const workout = useSelector(state => state.workoutReducer);
     const dispatch = useDispatch();
     const history = useHistory();
+    const date = useSelector(state => state.globalReducer.date);
 
     const saveHandler = async () => {
       if (ctx === "add") {
@@ -28,7 +29,7 @@ const SaveWorkout = React.memo(
             }
           );
           // refetch updated list of workouts
-          await reFetch(week, history);
+          await reFetch(time, history);
           // // close modal and return to dashboard
           closeParentModal();
         } catch (err) {
@@ -51,7 +52,7 @@ const SaveWorkout = React.memo(
             }
           );
           // refetch updated list of workouts
-          await reFetch(week, history);
+          await reFetch(time, history);
           // close modal and return to dashboard
           closeParentModal();
         } catch (err) {

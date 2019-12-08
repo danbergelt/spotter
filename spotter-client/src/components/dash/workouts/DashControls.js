@@ -18,7 +18,7 @@ const DashControls = ({ inc, dec, time, month }) => {
           className="workouts-head-icon"
         />
       </div>
-      {month(time)}
+      <div className="workouts-month-indicator">{month(time)}</div>
     </div>
   );
 };

@@ -8,8 +8,8 @@ import FromTemplateOption from "./options/fromtemplate/FromTemplateOption";
 import DeleteWorkout from "./options/deleteworkout/DeleteWorkout";
 import SaveWorkout from "./options/saveworkout/SaveWorkout";
 
-// container for sidebar menu on workout modal 
-const WorkoutOptions = React.memo(({ closeParentModal, week, date }) => {
+// container for sidebar menu on workout modal
+const WorkoutOptions = React.memo(({ closeParentModal, time }) => {
   const iconClass = "add-workout-options-icon";
   const ctx = useSelector(state => state.globalReducer.ctx);
   const workoutId = useSelector(state => state.workoutReducer._id);
@@ -22,17 +22,15 @@ const WorkoutOptions = React.memo(({ closeParentModal, week, date }) => {
         <SaveTemplateOption iconClass={iconClass} />
         <FromTemplateOption iconClass={iconClass} />
         <DeleteWorkout
-          week={week}
           closeParentModal={closeParentModal}
           workoutId={workoutId}
           ctx={ctx}
           iconClass={iconClass}
         />
         <SaveWorkout
-          week={week}
+          time={time}
           closeParentModal={closeParentModal}
           workoutId={workoutId}
-          date={date}
           ctx={ctx}
           iconClass={iconClass}
         />
