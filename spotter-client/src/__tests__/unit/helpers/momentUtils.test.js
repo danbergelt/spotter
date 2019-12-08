@@ -71,18 +71,21 @@ describe("moment utils", () => {
     expect(generateMonth(0)[0].format("MMM DD")).toEqual(
       moment()
         .startOf("month")
+        .startOf("week")
         .format("MMM DD")
     );
     expect(generateMonth(-1)[0].format("MMM DD")).toEqual(
       moment()
         .add(-1, "months")
         .startOf("month")
+        .startOf("week")
         .format("MMM DD")
     );
     expect(generateMonth(1)[0].format("MMM DD")).toEqual(
       moment()
         .add(1, "months")
         .startOf("month")
+        .startOf("week")
         .format("MMM DD")
     );
   });
