@@ -6,6 +6,7 @@ exports.styles = {
     width: "235px",
     height: "325px",
     marginLeft: "60vw",
-    marginTop: "30vh"
+    marginTop: "23vh",
+    animation: "fadein 5s"
   }
 };

@@ -1,28 +1,34 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { generateMonth, monthDashHead } from "../../../utils/momentUtils";
-import DashControls from "./DashControls";
+import { generateMonth, monthDashHead } from "../../../../utils/momentUtils";
+import DashControls from "../DashControls";
 import GridDay from "./GridDay";
 import { useSelector, useDispatch } from "react-redux";
-import { SET_SAVE_MSG } from "../../../actions/optionsActions";
-import { RESET_TAGS } from "../../../actions/tagsActions";
-import { MODAL_CTX } from "../../../actions/ctxActions";
+import { SET_SAVE_MSG } from "../../../../actions/optionsActions";
+import { RESET_TAGS } from "../../../../actions/tagsActions";
+import { MODAL_CTX } from "../../../../actions/ctxActions";
 import {
   RESET_WORKOUT,
   RESET_QUEUE,
   FROM_SAVED
-} from "../../../actions/workoutActions";
-import WorkoutModal from "../workoutmodal/WorkoutModal";
-import { SET_DATE } from "../../../actions/timeScopeActions";
-import { useHistory } from 'react-router-dom';
-import reFetch from '../../../utils/reFetch';
+} from "../../../../actions/workoutActions";
+import WorkoutModal from "../../workoutmodal/WorkoutModal";
+import { SET_DATE } from "../../../../actions/timeScopeActions";
+import { useHistory } from "react-router-dom";
+import reFetch from "../../../../utils/reFetch";
 
 const WorkoutGrid = () => {
-  const [month, setMonth] = useState(0);
   const history = useHistory();
+  const dispatch = useDispatch();
+  const [month, setMonth] = useState(0);
+  const [modal, setModal] = useState(false);
+  const [popover, setPopover] = useState(false);
+  const workouts = useSelector(state => state.fetchWorkoutsReducer.workouts);
+  const scope = useSelector(state => state.globalReducer.scope);
 
+  // fetches up-to-date list of workouts on re-render
   useEffect(() => {
     reFetch(month, history, scope.value);
-  }, [month, history]);
+  }, [month, history, scope.value]);
 
   const inc = () => {
     setMonth(month + 1);
@@ -32,11 +38,8 @@ const WorkoutGrid = () => {
     setMonth(month - 1);
   };
 
-  const [modal, setModal] = useState(false);
-  const workouts = useSelector(state => state.fetchWorkoutsReducer.workouts);
-  const scope = useSelector(state => state.globalReducer.scope);
-  const dispatch = useDispatch();
 
+  // opens modal to add a new workout
   const openAddWorkoutModal = useCallback(
     date => {
       dispatch({ type: SET_DATE, payload: date });
@@ -46,6 +49,7 @@ const WorkoutGrid = () => {
     [dispatch]
   );
 
+  // opens modal to view a saved workout
   const openViewModal = useCallback(
     workout => {
       dispatch({ type: MODAL_CTX, payload: "view" });
@@ -54,8 +58,6 @@ const WorkoutGrid = () => {
     },
     [dispatch]
   );
-
-  const date = useSelector(state => state.globalReducer.date)
 
   // resets state in various parts of application upon workout modal close
   const closeModal = useCallback(() => {
@@ -79,14 +81,11 @@ const WorkoutGrid = () => {
             date={date}
             i={i}
             workouts={workouts}
+            popover={popover}
+            setPopover={setPopover}
           />
         ))}
-        <WorkoutModal
-          date={date}
-          time={month}
-          modal={modal}
-          closeModal={closeModal}
-        />
+        <WorkoutModal time={month} modal={modal} closeModal={closeModal} />
       </div>
     </>
   );

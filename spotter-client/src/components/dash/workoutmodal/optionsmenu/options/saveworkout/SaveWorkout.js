@@ -17,6 +17,7 @@ const SaveWorkout = React.memo(
     const scope = useSelector(state => state.globalReducer.scope);
 
     const saveHandler = async () => {
+      // if user is adding a new workout
       if (ctx === "add") {
         try {
           await axiosWithAuth().post(
@@ -41,6 +42,7 @@ const SaveWorkout = React.memo(
         }
       }
 
+      // if user is editing a saved workout
       if (ctx === "view") {
         try {
           await axiosWithAuth().put(

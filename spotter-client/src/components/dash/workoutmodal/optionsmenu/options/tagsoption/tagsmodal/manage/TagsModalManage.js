@@ -24,24 +24,28 @@ const TagsModalManage = ({ setToDelete }) => {
       dispatch({ type: SET_ACTIVE, payload: 3 });
       setToDelete(tag);
     },
-    [dispatch]
+    [dispatch, setToDelete]
   );
 
-  const handleSubmit = useCallback(async e => {
-    e.preventDefault();
-    setUpdateInput("");
-    try {
-      const res = await axiosWithAuth().put(
-        `${process.env.REACT_APP_T_API}/api/auth/tags/${update._id}`,
-        { content: updateInput }
-      );
-      setUpdate(null);
-      dispatch({ type: UPDATE_TAG, payload: res.data.tag });
-      dispatch(fetchTags(history));
-    } catch (error) {
-      setErr(error.response.data.error);
-    }
-  }, [updateInput, dispatch]);
+  const handleSubmit = useCallback(
+    async e => {
+      e.preventDefault();
+      setUpdateInput("");
+      try {
+        const res = await axiosWithAuth().put(
+          `${process.env.REACT_APP_T_API}/api/auth/tags/${update &&
+            update._id}`,
+          { content: updateInput }
+        );
+        setUpdate(null);
+        dispatch({ type: UPDATE_TAG, payload: res.data.tag });
+        dispatch(fetchTags(history));
+      } catch (error) {
+        setErr(error.response.data.error);
+      }
+    },
+    [updateInput, dispatch, history, update]
+  );
 
   if (!tags.length) {
     return <div className="no-tags-found">No tags found</div>;
