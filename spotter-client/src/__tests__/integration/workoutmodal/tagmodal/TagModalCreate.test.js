@@ -1,5 +1,5 @@
 import React from "react";
-import WorkoutColumns from "../../../../components/dash/workouts/WorkoutColumns";
+import WorkoutColumns from "../../../../components/dash/workouts/week/WorkoutColumns";
 import WorkoutOptions from "../../../../components/dash/workoutmodal/optionsmenu/WorkoutOptions";
 import TagsModal from "../../../../components/dash/workoutmodal/optionsmenu/options/tagsoption/tagsmodal/TagsModal";
 import { cleanup, fireEvent } from "@testing-library/react";

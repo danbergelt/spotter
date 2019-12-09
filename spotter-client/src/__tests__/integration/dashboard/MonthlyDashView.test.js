@@ -1,11 +1,12 @@
 import React from "react";
 import Routes from "../../../routes";
-import WorkoutGrid from "../../../components/dash/workouts/WorkoutGrid";
+import WorkoutGrid from "../../../components/dash/workouts/month/WorkoutGrid";
 import Moment from "moment";
 import { extendMoment } from "moment-range";
-import { cleanup, fireEvent } from "@testing-library/react";
+import { cleanup, fireEvent, wait } from "@testing-library/react";
 import wrapper from "../../../__testUtils__/wrapper";
 import mockWorkoutRes from "../../../__testUtils__/mockWorkoutRes";
+import mockMultipleWorkouts from "../../../__testUtils__/mockMultipleWorkouts";
 import axios from "axios";
 import Modal from "react-modal";
 import reducer from "../../../reducers/index.js";
@@ -151,7 +152,7 @@ describe("Weekly dash date settings", () => {
   });
 
   it("fetches workouts and displays them", async () => {
-    axios.post.mockResolvedValue({})
+    axios.post.mockResolvedValue({});
     const { queryByText, store } = wrapper(reducer, <WorkoutGrid />);
 
     store.dispatch({
@@ -163,7 +164,7 @@ describe("Weekly dash date settings", () => {
   });
 
   it("opens add workout modal", () => {
-    axios.post.mockResolvedValue({})
+    axios.post.mockResolvedValue({});
     const { store, getByTestId } = wrapper(reducer, <WorkoutGrid />);
 
     fireEvent.click(getByTestId(/add-for-testing/i));
@@ -172,7 +173,7 @@ describe("Weekly dash date settings", () => {
   });
 
   it("opens view workout modal", () => {
-    axios.post.mockResolvedValue({})
+    axios.post.mockResolvedValue({});
     const { store, getByText } = wrapper(reducer, <WorkoutGrid />);
 
     store.dispatch({
@@ -183,5 +184,30 @@ describe("Weekly dash date settings", () => {
     fireEvent.click(getByText(/workout for testing/i));
 
     expect(store.getState().globalReducer.ctx).toEqual("view");
+  });
+
+  it("handles multiple workouts", () => {
+    axios.post.mockResolvedValue({});
+
+    const { store, getByText, queryByText, getByTestId } = wrapper(reducer, <WorkoutGrid />);
+
+    store.dispatch({
+      type: FETCH_WORKOUTS_SUCCESS,
+      payload: mockMultipleWorkouts.data.workouts
+    });
+
+    fireEvent.click(getByText(/view more/i));
+
+    expect(queryByText(/workout for testing 2/i)).toBeTruthy();
+
+    fireEvent.click(getByTestId(/close-popover/i));
+
+    wait(() => expect(queryByText(/workout for testing 2/i)).toBeFalsy());
+
+    fireEvent.click(getByText(/view more/i));
+
+    fireEvent.click(getByText(/workout for testing 2/i));
+
+    wait(() => expect(queryByText(/notes for testing 2/i)).toBeTruthy())
   });
 });

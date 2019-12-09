@@ -10,7 +10,7 @@ const ViewMoreContent = React.memo(
 
     return (
       <>
-        <div className="close-popover" onClick={() => setPopover(false)}>
+        <div data-testid="close-popover" className="close-popover" onClick={() => setPopover(false)}>
           <FiX />
         </div>
         {workouts.map(workout => (
