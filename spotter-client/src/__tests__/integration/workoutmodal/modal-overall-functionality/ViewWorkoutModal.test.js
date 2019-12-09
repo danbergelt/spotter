@@ -1,5 +1,5 @@
 import React from "react";
-import WorkoutColumns from "../../../../components/dash/workouts/WorkoutColumns";
+import WorkoutColumns from "../../../../components/dash/workouts/week/WorkoutColumns";
 import { cleanup, fireEvent } from "@testing-library/react";
 import wrapper from "../../../../__testUtils__/wrapper";
 import Modal from "react-modal";

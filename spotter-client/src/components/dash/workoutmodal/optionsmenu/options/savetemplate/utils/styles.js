@@ -6,6 +6,6 @@ export const styles = {
     width: "250px",
     height: "170px",
     marginLeft: "60vw",
-    marginTop: "25vh"
+    marginTop: "18vh"
   }
 }

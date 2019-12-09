@@ -1,7 +1,7 @@
 import { globalReducer } from "../../../reducers/globalReducer";
 import { ADD_TOKEN } from "../../../actions/addTokenActions";
 import { MODAL_CTX } from "../../../actions/ctxActions";
-import { SET_SCOPE } from "../../../actions/timeScopeActions";
+import { SET_SCOPE, SET_DATE } from "../../../actions/timeScopeActions";
 
 describe("global reducer", () => {
   test("should return initial state", () => {
@@ -64,6 +64,23 @@ describe("global reducer", () => {
         value: "test"
       },
       date: 0
+    });
+  });
+
+  test("should handle SET_DATE", () => {
+    expect(
+      globalReducer(undefined, {
+        type: SET_DATE,
+        payload: { date: "date" }
+      })
+    ).toEqual({
+      ctx: null,
+      t: null,
+      scope: {
+        label: "Week",
+        value: "Week"
+      },
+      date: { date: "date" }
     });
   });
 });

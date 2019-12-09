@@ -9,7 +9,7 @@ import axios from "axios";
 import reducer from "../../../reducers/index.js";
 import { ADD_TOKEN } from "../../../actions/addTokenActions";
 import { FETCH_WORKOUTS_SUCCESS } from "../../../actions/fetchWorkoutsActions";
-import WorkoutColumns from '../../../components/dash/workouts/WorkoutColumns';
+import WorkoutColumns from '../../../components/dash/workouts/week/WorkoutColumns';
 
 describe("Weekly dash date settings", () => {
   afterEach(() => {
