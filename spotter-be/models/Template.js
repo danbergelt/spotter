@@ -37,7 +37,7 @@ const TemplateSchema = new Schema({
   },
   title: {
     type: String,
-    maxlength: [50, "Title cannot be longer than 50 characters"],
+    maxlength: [25, "Title cannot be longer than 25 characters"],
     trim: true
   },
   tags: [

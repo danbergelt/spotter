@@ -43,7 +43,7 @@ describe("template model creation", () => {
         "kfiopwjciowcjiowcjiowcjiojciowjfiowjciojwiofjweiofjeiowjfioecnionconco2cho"
     });
     await expect(temp.save()).to.be.rejectedWith(
-      "Title cannot be longer than 50 characters"
+      "Title cannot be longer than 25 characters"
     );
   });
 

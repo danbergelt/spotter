@@ -66,7 +66,7 @@ describe("template model edit", () => {
         },
         { runValidators: true }
       )
-    ).to.be.rejectedWith("Title cannot be longer than 50 characters");
+    ).to.be.rejectedWith("Title cannot be longer than 25 characters");
   });
 
   it("cannot update exercise to long name", async () => {

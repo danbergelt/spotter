@@ -33,9 +33,9 @@ const Nav = () => {
         <Link
           data-testid="dashboard"
           className="spotter-nav-link"
-          to="/contact"
+          to="/settings"
         >
-          Contact
+          Settings
         </Link>
         {token && (
           <Link

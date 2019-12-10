@@ -68,7 +68,7 @@ describe("Workout model update functionality", () => {
         { title: undefined },
         { runValidators: true }
       )
-    ).to.be.rejectedWith("Please add a workout title");
+    ).to.be.rejectedWith("Please add a title");
   });
 
   it("cannot update a workout title to invalid length", async () => {
@@ -83,7 +83,7 @@ describe("Workout model update functionality", () => {
         },
         { runValidators: true }
       )
-    ).to.be.rejectedWith("Title cannot be longer than 50 characters");
+    ).to.be.rejectedWith("Title cannot be longer than 25 characters");
   });
 
   it("cannot update an exercise to nothing", async () => {

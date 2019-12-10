@@ -10,8 +10,15 @@ const ViewMoreContent = React.memo(
 
     return (
       <>
-        <div data-testid="close-popover" className="close-popover" onClick={() => setPopover(false)}>
-          <FiX />
+        <div className="popover-head">
+          {date.format("MMM D")}
+          <div
+            data-testid="close-popover"
+            onClick={() => setPopover(false)}
+            className="close-popover"
+          >
+            <FiX />
+          </div>
         </div>
         {workouts.map(workout => (
           <div

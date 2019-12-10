@@ -50,7 +50,7 @@ describe("POST templates by user id", () => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(401);
-        res.body.error.should.equal("Access denied, try refreshing");
+        res.body.error.should.equal("Connection lost, try refreshing");
         done();
       });
   });
@@ -119,7 +119,7 @@ describe("POST templates by user id", () => {
         res.body.success.should.equal(false);
         res.should.have.status(400);
         res.body.error.should.equal(
-          "Title cannot be longer than 50 characters"
+          "Title cannot be longer than 25 characters"
         );
         done();
       });
