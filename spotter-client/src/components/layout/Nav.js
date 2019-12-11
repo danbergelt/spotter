@@ -30,13 +30,15 @@ const Nav = () => {
             About
           </Link>
         )}
-        <Link
-          data-testid="dashboard"
-          className="spotter-nav-link"
-          to="/settings"
-        >
-          Settings
-        </Link>
+        {token && (
+          <Link
+            data-testid="dashboard"
+            className="spotter-nav-link"
+            to="/settings"
+          >
+            Settings
+          </Link>
+        )}
         {token && (
           <Link
             data-testid="logout"
