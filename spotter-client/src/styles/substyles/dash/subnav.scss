@@ -4,24 +4,20 @@
 .subnav-container {
   display: flex;
   padding-top: 2rem;
-  font-size: 1.3rem;
+  font-size: $p;
 
   .subnav-menu {
     color: $gray1;
     @include flex-center;
 
-    .subnav-menu-icon.left:last-child {
-      font-size: 1.6rem;
-      cursor: pointer;
-      color: $gray1;
-      margin-right: 3rem;
-      padding: 0.9rem;
-      border-radius: 50%;
-
-      &:hover {
-        background: $gray3;
-      }
-    }
+    // .subnav-menu-icon.left:last-child {
+    //   font-size: 1.3rem;
+    //   cursor: pointer;
+    //   color: white;
+    //   padding: 0.5rem 1.25rem;
+    //   background: $primary;
+    //   border-radius: 4px;
+    // }
 
     .subnav-menu-icon.left.dropdown {
       width: 88px;

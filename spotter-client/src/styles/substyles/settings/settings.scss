@@ -1,0 +1,53 @@
+@import "../../variables.scss";
+
+.settings-container {
+  margin: 0rem 20rem;
+
+  .settings-section {
+    margin-top: 4rem;
+
+    .settings-head {
+      border-bottom: 1px solid $gray4;
+      padding-bottom: 1rem;
+      color: $gray1;
+      font-size: 2.25rem;
+    }
+
+    .settings-action {
+      margin-top: 0.5rem;
+      padding: 1.5rem;
+      font-size: $p;
+      color: $gray1;
+      cursor: pointer;
+      text-decoration: underline;
+      border-radius: 4px;
+
+      &:hover {
+        background: $gray3;
+      }
+    }
+
+    .settings-del-confirm {
+      padding: 1.5rem;
+      font-size: $p;
+      color: $gray2;
+
+      #del-account-danger {
+        color: $danger;
+      }
+
+      .delete-account {
+        background: $danger;
+        padding: 1rem;
+        color: white;
+        width: max-content;
+        margin-top: 2rem;
+        cursor: pointer;
+
+        &:hover {
+          background: darken($primary, 15%);
+        }
+      }
+    }
+  }
+}

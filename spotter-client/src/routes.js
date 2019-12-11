@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import LogIn from "./pages/LogIn";
 import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
+import Settings from './pages/Settings';
 import NotFound from "./pages/NotFound";
 import ServerError from "./pages/ServerError";
 import { useSelector } from "react-redux";
@@ -27,6 +28,7 @@ const Routes = () => {
           {token ? <Redirect to="/dashboard" /> : <SignUp />}
         </Route>
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
+        <PrivateRoute exact path="/settings" component={Settings} />
         <Route exact path="/500" component={ServerError} />
         <Route component={NotFound} />
       </Switch>

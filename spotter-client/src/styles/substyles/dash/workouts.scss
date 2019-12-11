@@ -31,7 +31,7 @@
 .week-workouts-days {
   display: flex;
   margin-top: 2rem;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   color: $gray1;
 
   .week-workouts-column {
@@ -82,12 +82,12 @@
 .month-workout-days {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  margin: 2rem 0 6rem 0;
+  margin: 3rem 0 6rem 0;
 
   .month-grid-day {
     height: 11.25rem;
     @include monthBorders;
-    padding: 1rem;
+    padding: 0.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -137,7 +137,7 @@
       background: $danger;
       text-align: center;
       font-size: 1.2rem;
-      padding: 0.5rem;
+      padding: 0.33rem;
       cursor: pointer;
 
       &:hover {
@@ -151,7 +151,7 @@
       border-radius: 8px;
       text-align: center;
       font-size: 1.2rem;
-      padding: 0.25rem;
+      padding: 0.33rem;
       cursor: pointer;
 
       &:hover {
@@ -163,31 +163,37 @@
 
 .view-more-popup {
   background: white;
-  width: 150px;
-  height: 175px;
+  width: 175px;
+  height: 200px;
   box-shadow: 0 4px 12px 0px rgba(0, 0, 0, 0.25);
   padding: 1rem;
   display: flex;
   flex-direction: column;
+  overflow: auto;
 
-  .close-popover {
-    color: $gray1;
+  .popover-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     font-size: 1.3rem;
-    align-self: flex-end;
-    cursor: pointer;
-    padding: 0.5rem;
-    border-radius: 100%;
     margin-bottom: 1rem;
+    color: $gray2;
 
-    &:hover {
-      background: $gray3;
+    .close-popover {
+      color: $gray1;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 100%;
+
+      &:hover {
+        background: $gray3;
+      }
     }
   }
 
   .view-more-workouts-container {
     display: flex;
     flex-direction: column;
-    overflow: auto;
     align-items: center;
 
     .view-more-workout {
