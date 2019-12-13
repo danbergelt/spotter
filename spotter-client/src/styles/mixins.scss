@@ -100,3 +100,23 @@
     border-left: 1px solid $gray4;
   }
 }
+
+@mixin popoverHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: $gray2;
+}
+
+@mixin closePopover {
+  color: $gray1;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 100%;
+
+  &:hover {
+    background: $gray3;
+  }
+}

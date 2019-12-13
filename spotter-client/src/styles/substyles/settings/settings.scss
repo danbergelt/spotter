@@ -1,7 +1,8 @@
 @import "../../variables.scss";
+@import "../../mixins.scss";
 
 .settings-container {
-  margin: 0rem 20rem;
+  margin: 0rem 15rem;
 
   .settings-section {
     margin-top: 4rem;
@@ -48,6 +49,22 @@
           background: darken($primary, 15%);
         }
       }
+    }
+  }
+}
+
+.change-password-popup {
+  background: white;
+  width: 275px;
+  height: 225px;
+  box-shadow: $box;
+  padding: 1rem;
+
+  .popover-head {
+    @include popoverHead;
+
+    .close-popover {
+      @include closePopover;
     }
   }
 }
