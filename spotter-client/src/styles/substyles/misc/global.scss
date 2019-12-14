@@ -62,14 +62,18 @@ html {
 // reset ends here
 
 body {
-  margin: 0rem 15rem;
+  margin: 0rem 10rem;
 
   @media(max-width: 1000px) {
-    margin: 0rem 10rem;
+    margin: 0rem 7.5rem;
   }
 
   @media(max-width: 800px) {
     margin: 0rem 5rem;
+  }
+
+  @media(max-width: 500px) {
+    margin: 0rem 2.5rem;
   }
 }
 
