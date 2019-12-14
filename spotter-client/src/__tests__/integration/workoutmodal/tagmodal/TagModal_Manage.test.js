@@ -4,7 +4,7 @@ import { FETCH_TAGS_SUCCESS } from "../../../../actions/tagsActions";
 import { cleanup } from "@testing-library/react";
 import wrapper from "../../../../__testUtils__/wrapper";
 import Modal from "react-modal";
-import reducer from "../../../../reducers/index";
+import { reducer } from "../../../../reducers/index";
 
 describe("tag modal manage functionality", () => {
   Modal.setAppElement(document.createElement("div"));

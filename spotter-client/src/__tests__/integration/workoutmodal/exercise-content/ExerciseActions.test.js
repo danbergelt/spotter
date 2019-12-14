@@ -5,7 +5,7 @@ import { cleanup, fireEvent, wait } from "@testing-library/react";
 import mockTemplateRes from "../../../../__testUtils__/mockTemplateRes";
 import wrapper from "../../../../__testUtils__/wrapper";
 import Modal from "react-modal";
-import reducer from "../../../../reducers/index";
+import { reducer } from "../../../../reducers/index";
 
 describe("exercise actions", () => {
   afterEach(() => {

@@ -6,7 +6,7 @@ import WorkoutTags from "../../../../components/dash/workoutmodal/data/workoutta
 import { cleanup, fireEvent, wait } from "@testing-library/react";
 import wrapper from "../../../../__testUtils__/wrapper";
 import Modal from "react-modal";
-import reducer from "../../../../reducers/index";
+import { reducer } from "../../../../reducers/index";
 
 describe("add tag to workout functionality", () => {
   afterEach(cleanup);

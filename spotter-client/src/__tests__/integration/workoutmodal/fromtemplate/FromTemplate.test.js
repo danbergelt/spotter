@@ -8,7 +8,7 @@ import { cleanup, fireEvent, wait } from "@testing-library/react";
 import mockTemplateRes from "../../../../__testUtils__/mockTemplateRes";
 import wrapper from "../../../../__testUtils__/wrapper";
 import Modal from "react-modal";
-import reducer from "../../../../reducers/index";
+import { reducer } from "../../../../reducers/index";
 
 describe("from template functionality", () => {
   afterEach(() => {
@@ -27,7 +27,7 @@ describe("from template functionality", () => {
     );
 
     expect(queryByPlaceholderText(/search.../i)).toBeFalsy();
-    fireEvent.click(getByText(/from template/i));
+    fireEvent.click(getByText(/load template/i));
     await wait(() => expect(axios.get).toHaveBeenCalledTimes(1));
     expect(queryByPlaceholderText(/search.../i)).toBeTruthy();
     fireEvent.click(getByTestId(/quit-from/i));
@@ -41,7 +41,7 @@ describe("from template functionality", () => {
       <WorkoutOptions />
     );
 
-    fireEvent.click(getByText(/from template/i));
+    fireEvent.click(getByText(/load template/i));
 
     await wait(() => expect(axios.get).toHaveBeenCalledTimes(1));
 
@@ -59,7 +59,7 @@ describe("from template functionality", () => {
       <WorkoutOptions />
     );
 
-    fireEvent.click(getByText(/from template/i));
+    fireEvent.click(getByText(/load template/i));
 
     await wait(() => expect(axios.get).toHaveBeenCalledTimes(1));
     expect(getByText(/test template/i)).toBeTruthy();
@@ -88,7 +88,7 @@ describe("from template functionality", () => {
       payload: { exercises: [], tags: [] }
     });
 
-    fireEvent.click(getByText(/from template/i));
+    fireEvent.click(getByText(/load template/i));
 
     await wait(() => expect(axios.get).toHaveBeenCalledTimes(1));
     expect(getByText(/test template/i)).toBeTruthy();
@@ -109,7 +109,7 @@ describe("from template functionality", () => {
       reducer,
       <WorkoutOptions />
     );
-    fireEvent.click(getByText(/from template/i));
+    fireEvent.click(getByText(/load template/i));
     await wait(() => expect(axios.get).toHaveBeenCalledTimes(1));
     expect(getByText(/test template/i)).toBeTruthy();
     act(() => {

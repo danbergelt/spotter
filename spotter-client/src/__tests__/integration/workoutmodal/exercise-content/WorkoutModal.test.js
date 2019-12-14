@@ -6,7 +6,7 @@ import wrapper from "../../../../__testUtils__/wrapper";
 import Modal from "react-modal";
 import axios from "axios";
 import mockWorkoutRes from "../../../../__testUtils__/mockWorkoutRes";
-import reducer from "../../../../reducers/index";
+import { reducer } from "../../../../reducers/index";
 
 describe("add workout modal functionality", () => {
   // initial setup

@@ -2,7 +2,7 @@ import React from "react";
 import PrivateRoute from "../../../components/auth/PrivateRoute";
 import Dashboard from "../../../pages/Dashboard";
 import wrapper from "../../../__testUtils__/wrapper";
-import reducer from "../../../reducers/index";
+import{ reducer } from "../../../reducers/index";
 import { ADD_TOKEN } from "../../../actions/addTokenActions";
 import axios from 'axios';
 
