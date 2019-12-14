@@ -7,7 +7,7 @@ import axios from "axios";
 import mockWorkoutRes from "../../../__testUtils__/mockWorkoutRes";
 import { FETCH_WORKOUTS_SUCCESS } from "../../../actions/fetchWorkoutsActions";
 import { wait } from "@testing-library/react";
-import reducer from "../../../reducers/index";
+import { reducer } from "../../../reducers/index";
 import { act } from "react-dom/test-utils";
 
 describe("can close modal on delete click", () => {

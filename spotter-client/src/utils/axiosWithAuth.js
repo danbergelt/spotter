@@ -1,5 +1,5 @@
 import axios from "axios";
-import { store } from "./store";
+import { store } from "../reducers/index";
 
 // gets token from memory, creates an axios instance sending the token, enables cookies
 

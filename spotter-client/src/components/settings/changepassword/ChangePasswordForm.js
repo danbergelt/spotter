@@ -26,7 +26,7 @@ const ChangePasswordForm = () => {
               <Field
                 className="inp-component"
                 name="oldPassword"
-                type="string"
+                type="password"
               />
             </div>
             <div className="change-password-inp">
@@ -34,7 +34,7 @@ const ChangePasswordForm = () => {
               <Field
                 className="inp-component"
                 name="newPassword"
-                type="string"
+                type="password"
               />
             </div>
             <div className="change-password-inp">
@@ -42,7 +42,7 @@ const ChangePasswordForm = () => {
               <Field
                 className="inp-component"
                 name="confirmPassword"
-                type="string"
+                type="password"
               />
             </div>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between"}}>

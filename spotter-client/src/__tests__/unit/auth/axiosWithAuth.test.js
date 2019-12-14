@@ -1,5 +1,5 @@
 import axiosWithAuth from "../../../utils/axiosWithAuth";
-import { store } from '../../../utils/store';
+import { store } from '../../../reducers/index';
 import { ADD_TOKEN } from '../../../actions/addTokenActions';
 
 jest.unmock("axios");

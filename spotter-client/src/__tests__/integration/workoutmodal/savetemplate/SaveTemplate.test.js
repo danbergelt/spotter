@@ -5,7 +5,7 @@ import WorkoutOptions from "../../../../components/dash/workoutmodal/optionsmenu
 import { cleanup, fireEvent, wait } from "@testing-library/react";
 import wrapper from "../../../../__testUtils__/wrapper";
 import Modal from "react-modal";
-import reducer from "../../../../reducers/index";
+import { reducer } from "../../../../reducers/index";
 
 describe("template save modal functionality", () => {
   afterEach(() => {

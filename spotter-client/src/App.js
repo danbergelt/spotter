@@ -20,7 +20,8 @@ const App = () => {
       .then(res => {
         dispatch({ type: ADD_TOKEN, payload: res.data.token });
         setLoading(false);
-      });
+      })
+      .catch(err => console.log(err.response))
   }, [dispatch]);
 
   if (loading) {

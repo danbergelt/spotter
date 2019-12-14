@@ -4,8 +4,8 @@ import { fireEvent, cleanup } from "@testing-library/react";
 import wrapper from "../../../__testUtils__/wrapper";
 import axios from "axios";
 import mockWorkoutRes from "../../../__testUtils__/mockWorkoutRes";
-import reducer from "../../../reducers/index";
-import { ADD_TOKEN } from '../../../actions/addTokenActions';
+import { reducer } from "../../../reducers/index";
+import { ADD_TOKEN } from "../../../actions/addTokenActions";
 
 describe("Nav routes", () => {
   afterEach(() => {
@@ -41,5 +41,15 @@ describe("Nav routes", () => {
     fireEvent.click(getByTestId(/logout/i));
     expect(history.location.pathname).toEqual("/login");
     expect(axios.post).toHaveBeenCalledTimes(1);
+  });
+
+  test("can navigate to settings page", () => {
+    axios.post.mockResolvedValue(mockWorkoutRes);
+    const { getByTestId, history, store } = wrapper(reducer, <Routes />);
+
+    store.dispatch({ type: ADD_TOKEN, payload: "token" });
+
+    fireEvent.click(getByTestId(/settings/i));
+    expect(history.location.pathname).toEqual("/settings");
   });
 });
