@@ -43,6 +43,10 @@ export const generateMonth = num => {
     .add(num, "months")
     .endOf("month");
 
+  let leftover = 34 - Number(end.diff(start, 'days'))
+
+  end.add(leftover, 'days');
+  
   const range = moment.range(start, end);
 
   const days = [];

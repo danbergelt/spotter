@@ -5,7 +5,7 @@ const FromTemplateHead = ({ closeHandler, search, setSearch }) => {
   return (
     <>
       <div className="from-template-header">
-        <div className="from-template-title">Generate Template</div>
+        <div className="from-template-title">Load Template</div>
         <div onClick={closeHandler} className="from-template-exit">
           <FiX
             // inline styles as a convenience

@@ -37,7 +37,7 @@ const FromTemplateOption = ({ iconClass }) => {
         onClick={openFromTemplateModal}
         className="add-workout-options-button"
       >
-        <FiPackage className={iconClass} /> From Template
+        <FiPackage className={iconClass} /> Load Template
       </div>
       <FromTemplate />
     </>

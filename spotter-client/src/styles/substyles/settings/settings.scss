@@ -2,7 +2,7 @@
 @import "../../mixins.scss";
 
 .settings-container {
-  margin: 0rem 15rem;
+  margin: 0rem 25rem;
 
   .settings-section {
     margin-top: 4rem;
@@ -56,15 +56,76 @@
 .change-password-popup {
   background: white;
   width: 275px;
-  height: 225px;
+  height: 250px;
   box-shadow: $box;
   padding: 1rem;
 
-  .popover-head {
-    @include popoverHead;
+  .change-password-container {
+    height: 100%;
 
-    .close-popover {
-      @include closePopover;
+    .popover-head {
+      @include popoverHead;
+      justify-content: flex-end;
+      font-size: 1.5rem;
+      margin-bottom: 0;
+
+      .close-popover {
+        @include closePopover;
+      }
+    }
+
+    .change-password-form {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .change-password-inp {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1rem;
+
+        .change-password-label {
+          color: $gray2;
+          font-size: 1.2rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .inp-component {
+          padding: 0.75rem;
+          border: 1px solid $gray4;
+          border-radius: 4px;
+          outline: 0;
+
+          &:hover {
+            background: $gray3;
+          }
+
+          &:focus {
+            border: 1px solid $primary;
+          }
+        }
+      }
+
+      .change-password-button {
+        color: white;
+        background: $primary;
+        border-radius: 4px;
+        font-size: 1.3rem;
+        padding: 0.33rem 1rem;
+        cursor: pointer;
+        border: 0;
+        outline: 0;
+
+        &:hover{
+          background: $primary-hover;
+        }
+      }
+
+      .change-password-err {
+        margin-right: 2rem;
+        color: $danger;
+        font-size: 1.3rem;
+      }
     }
   }
 }

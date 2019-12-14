@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ChangePassword from "../components/settings/ChangePassword";
+import ChangePassword from "../components/settings/changepassword/ChangePassword";
 
 const Settings = () => {
   const [changePassword, setChangePassword] = useState(false);
