@@ -6,7 +6,7 @@ import wrapper from "../../../__testUtils__/wrapper";
 import { reducer } from "../../../reducers/index";
 import { ADD_TOKEN } from "../../../actions/addTokenActions";
 
-describe("Nav routes", () => {
+describe("Change password", () => {
   afterEach(cleanup);
 
   test("can open change password popover", () => {
