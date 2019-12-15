@@ -96,8 +96,6 @@ exports.refresh = asyncHandler(async (req, res, next) => {
     return res.send({ success: false, token: null });
   }
 
-  console.log("test")
-
   refreshToken(
     res,
     genToken(user._id, process.env.REF_SECRET, process.env.REF_EXPIRE)
