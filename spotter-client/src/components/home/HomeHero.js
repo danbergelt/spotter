@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <section className="home-hero-container">
+    <section className="home-hero-container" style={{ margin: 0 }}>
       <div className="home-hero-main">
         <p className="home-hero-main-text">
           A{" "}
@@ -15,8 +16,15 @@ const Hero = () => {
           Stop living in Excel. Track your lifts, and have fun doing it.
         </div>
       </div>
-      <p className="home-hero-reg">Sign up</p>
-      <p className="home-hero-alt-signin">Already have an account? <span className="home-hero-alt-signin-link">Sign in.</span></p>
+      <Link to="/signup" className="home-hero-reg">
+        Sign up
+      </Link>
+      <p className="home-hero-alt-signin">
+        Already have an account?{" "}
+        <Link to="/login" className="home-hero-alt-signin-link">
+          Sign in.
+        </Link>
+      </p>
     </section>
   );
 };

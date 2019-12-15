@@ -18,7 +18,7 @@ const Nav = () => {
   };
 
   return (
-    <nav className="spotter-nav">
+    <nav className="spotter-nav spacer">
       <div className="spotter-nav-head">
         <Link data-testid="spotter" className="spotter-nav-head-logo" to={"/"}>
           spotter<span className="spot">.</span>

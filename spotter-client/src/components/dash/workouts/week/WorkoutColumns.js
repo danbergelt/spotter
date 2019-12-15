@@ -66,7 +66,7 @@ const WorkoutColumns = () => {
   }, [dispatch]);
 
   return (
-    <>
+    <div className="spacer">
       <DashControls inc={inc} dec={dec} time={week} month={dashHead} />
       <div className="week-workouts-days">
         {generateWeek(week).map((date, i) => (
@@ -82,7 +82,7 @@ const WorkoutColumns = () => {
         ))}
       </div>
       <WorkoutModal time={week} modal={modal} closeModal={closeModal} />
-    </>
+    </div>
   );
 };
 

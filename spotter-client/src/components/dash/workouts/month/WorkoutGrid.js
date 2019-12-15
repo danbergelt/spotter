@@ -70,7 +70,7 @@ const WorkoutGrid = () => {
   }, [dispatch]);
 
   return (
-    <>
+    <div className="spacer">
       <DashControls inc={inc} dec={dec} time={month} month={monthDashHead} />
       <div className="month-workout-days">
         {generateMonth(month).map((date, i) => (
@@ -87,7 +87,7 @@ const WorkoutGrid = () => {
         ))}
         <WorkoutModal time={month} modal={modal} closeModal={closeModal} />
       </div>
-    </>
+    </div>
   );
 };
 
