@@ -2,7 +2,6 @@
 @import "../../mixins.scss";
 
 .settings-container {
-
   .settings-section {
     margin-top: 4rem;
 
@@ -115,7 +114,7 @@
         border: 0;
         outline: 0;
 
-        &:hover{
+        &:hover {
           background: $primary-hover;
         }
       }
@@ -123,6 +122,12 @@
       .change-password-err {
         margin-right: 2rem;
         color: $danger;
+        font-size: 1.3rem;
+      }
+      
+      .change-password-succ {
+        margin-right: 2rem;
+        color: $success;
         font-size: 1.3rem;
       }
     }
