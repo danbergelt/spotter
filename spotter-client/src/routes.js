@@ -4,16 +4,16 @@ import PrivateRoute from "./components/auth/PrivateRoute";
 import Layout from "./components/layout/Layout";
 import Home from "./pages/Home";
 import LogIn from "./pages/LogIn";
+import Prs from "./pages/Prs";
 import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
-import Settings from './pages/Settings';
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import ServerError from "./pages/ServerError";
 import { useSelector } from "react-redux";
 
 const Routes = () => {
-
-  const token = useSelector(state => state.globalReducer.t)
+  const token = useSelector(state => state.globalReducer.t);
 
   return (
     <Layout>
@@ -29,6 +29,7 @@ const Routes = () => {
         </Route>
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
         <PrivateRoute exact path="/settings" component={Settings} />
+        <PrivateRoute exact path="/prs" component={Prs} />
         <Route exact path="/500" component={ServerError} />
         <Route component={NotFound} />
       </Switch>
