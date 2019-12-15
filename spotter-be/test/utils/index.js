@@ -10,6 +10,7 @@ const users = require("../../routes/users");
 const workouts = require("../../routes/workouts");
 const tags = require("../../routes/tags");
 const templates = require("../../routes/templates");
+const auth = require("../../routes/auth");
 
 // Connect to DB and run server
 const app = express();
@@ -22,6 +23,7 @@ app.use("/api/auth", users);
 app.use("/api/auth/workouts", workouts);
 app.use("/api/auth/tags", tags);
 app.use("/api/auth/templates", templates);
+app.use("/api/auth/user", auth);
 
 // Error handling
 app.use(errorHandler);
