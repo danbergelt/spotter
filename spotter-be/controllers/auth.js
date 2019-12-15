@@ -8,6 +8,7 @@ const asyncHandler = require("../middleware/async");
 // @access --> Private
 
 exports.changePassword = asyncHandler(async (req, res, next) => {
+
   const { oldPassword, newPassword, confirmPassword } = req.body;
 
   if (!oldPassword || !newPassword || !confirmPassword) {

@@ -1,6 +1,7 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import { ValidationSchema } from "./ValidationSchema";
+import axiosWithAuth from "../../../utils/axiosWithAuth";
 
 const ChangePasswordForm = () => {
   return (
@@ -14,12 +15,22 @@ const ChangePasswordForm = () => {
           confirmPassword: ""
         }}
         validationSchema={ValidationSchema}
-        onSubmit={(values, { resetForm }) => {
+        onSubmit={async (values, { resetForm, setStatus }) => {
           resetForm();
-          console.log(values);
+          try {
+            const res = await axiosWithAuth().put(
+              `${process.env.REACT_APP_T_API}/api/auth/user/password`,
+              {
+                ...values
+              }
+            );
+            setStatus(res.data);
+          } catch (error) {
+            setStatus(error.response.data);
+          }
         }}
       >
-        {({ errors, touched }) => (
+        {({ errors, touched, status }) => (
           <Form>
             <div className="change-password-inp">
               <label className="change-password-label">Old Password</label>
@@ -48,12 +59,30 @@ const ChangePasswordForm = () => {
                 type="password"
               />
             </div>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between"}}>
-              <button data-testid="save" className="change-password-button" type="submit">
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between"
+              }}
+            >
+              <button
+                data-testid="save"
+                className="change-password-button"
+                type="submit"
+              >
                 Save
               </button>
               {errors.confirmPassword && touched.confirmPassword && (
-                <div className="change-password-err">{errors.confirmPassword}</div>
+                <div className="change-password-err">
+                  {errors.confirmPassword}
+                </div>
+              )}
+              {status && status.error && (
+                <div className="change-password-err">{status.error}</div>
+              )}
+              {status && status.data && (
+                <div className="change-password-succ">{status.data}</div>
               )}
             </div>
           </Form>
