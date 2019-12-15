@@ -3,7 +3,7 @@ import SubnavDropdown from "./SubnavDropdown";
 
 const SubNav = () => {
   return (
-    <div className="subnav-container">
+    <div className="subnav-container spacer">
       <div className="subnav-menu left">
         <SubnavDropdown />
         {/* <div className="subnav-menu-icon left">

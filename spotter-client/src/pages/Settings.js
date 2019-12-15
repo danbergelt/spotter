@@ -5,7 +5,7 @@ const Settings = () => {
   const [changePassword, setChangePassword] = useState(false);
 
   return (
-    <div className="settings-container">
+    <div className="settings-container spacer">
       <div className="settings-section">
         <div className="settings-head">Account Settings</div>
         <ChangePassword
