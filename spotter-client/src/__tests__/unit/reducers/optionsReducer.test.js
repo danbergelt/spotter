@@ -9,13 +9,15 @@ import {
   SET_CONFIRM_DELETE,
   SET_FROM_TEMPLATE,
   SET_TEMPLATE_SAVE,
-  SET_ACTIVE
+  SET_ACTIVE,
+  SET_EXERCISES
 } from "../../../actions/optionsActions";
 
 const state = {
   active: 0,
   confirmDelete: false,
   fromTemplate: false,
+  exercises: false,
   saveMsg: {},
   tagModal: false,
   templateSave: false,
@@ -117,5 +119,14 @@ describe("options reducer", () => {
         payload: 2
       })
     ).toEqual({ ...state, active: 2 });
+  });
+
+  test("should handle SET_EXERCISES", () => {
+    expect(
+      optionsReducer(state, {
+        type: SET_EXERCISES,
+        payload: false
+      })
+    ).toEqual({ ...state, exercises: false });
   });
 });
