@@ -15,11 +15,12 @@ const TagSchema = new Schema({
   user: {
     type: Schema.ObjectId,
     ref: "User",
-    required: [true, "User ID is required"]
+    required: [true, "User ID is required"],
+    immutable: true
   }
 });
 
-// cascade update tags 
+// cascade update tags
 TagSchema.pre("findOneAndUpdate", async function(next) {
   // getting model to update, and getting update content
   const mod = await this.model.findOne(this.getQuery());

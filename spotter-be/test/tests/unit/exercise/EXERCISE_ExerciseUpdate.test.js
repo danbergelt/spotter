@@ -58,23 +58,4 @@ describe("Exercise model update", () => {
       )
     ).to.be.rejectedWith("40 character limit on exercise name");
   });
-
-  it("cannot update a user to undefined", async () => {
-    const { _id } = await createUser();
-    const exercise = new Exercise({
-      name: "exercise",
-      pr: 100,
-      user: _id
-    });
-    await exercise.save();
-    await expect(
-      Exercise.findByIdAndUpdate(
-        exercise._id,
-        {
-          user: undefined
-        },
-        { runValidators: true }
-      )
-    ).to.be.rejectedWith("User validation failed");
-  });
 });

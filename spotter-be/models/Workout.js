@@ -54,7 +54,8 @@ const WorkoutSchema = new Schema({
   user: {
     type: Schema.ObjectId,
     ref: "User",
-    required: true
+    required: true,
+    immutable: true
   }
 });
 

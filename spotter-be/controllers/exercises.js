@@ -22,7 +22,7 @@ exports.createExercise = asyncHandler(async (req, res, next) => {
 
   res.status(201).json({
     success: true,
-    data: createdExercise
+    exercise: createdExercise
   });
 });
 
@@ -38,7 +38,7 @@ exports.updateExercise = asyncHandler(async (req, res, next) => {
 
   res.status(201).json({
     success: true,
-    data: exercise
+    exercise
   });
 });
 

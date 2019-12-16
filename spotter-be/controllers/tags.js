@@ -59,7 +59,9 @@ exports.createTag = asyncHandler(async (req, res, next) => {
 // @access --> Private
 
 exports.deleteTag = asyncHandler(async (req, res, next) => {
-  await Tag.findByIdAndDelete(req.params.id);
+  const tag = await Tag.findById(req.params.id);
+
+  await tag.remove();
 
   res.status(200).json({
     success: true,
