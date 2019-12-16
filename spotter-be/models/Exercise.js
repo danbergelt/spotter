@@ -5,14 +5,14 @@ const ExerciseSchema = new Schema({
   name: {
     type: String,
     required: [true, "Please add an exercise name"],
-    maxlength: [40, "Exercise name cannot be longer than 40 characters"]
+    maxlength: [40, "40 character limit on exercise name"]
   },
   pr: Number,
   prDate: Date,
   user: {
     type: Schema.ObjectId,
     ref: "User",
-    required: true
+    required: [true, "User validation failed"]
   },
   createdAt: {
     type: Date,
