@@ -19,7 +19,8 @@ const ExerciseSchema = new Schema({
   user: {
     type: Schema.ObjectId,
     ref: "User",
-    required: [true, "User validation failed"]
+    required: [true, "User validation failed"],
+    immutable: true
   },
   createdAt: {
     type: Date,
