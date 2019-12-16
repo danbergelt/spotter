@@ -14,7 +14,6 @@ describe("Exercise model update", () => {
     const exercise = new Exercise({
       name: "exercise",
       pr: 100,
-      prDate: Date.now(),
       user: _id
     });
     await exercise.save();
@@ -28,7 +27,6 @@ describe("Exercise model update", () => {
     const exercise = new Exercise({
       name: "exercise",
       pr: 100,
-      prDate: Date.now(),
       user: _id
     });
     await exercise.save();
@@ -46,7 +44,6 @@ describe("Exercise model update", () => {
     const exercise = new Exercise({
       name: "exercise",
       pr: 100,
-      prDate: Date.now(),
       user: _id
     });
     await exercise.save();
@@ -67,7 +64,6 @@ describe("Exercise model update", () => {
     const exercise = new Exercise({
       name: "exercise",
       pr: 100,
-      prDate: Date.now(),
       user: _id
     });
     await exercise.save();

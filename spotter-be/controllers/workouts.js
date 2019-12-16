@@ -88,9 +88,7 @@ exports.editWorkout = asyncHandler(async (req, res, next) => {
 // @access --> Private
 
 exports.deleteWorkout = asyncHandler(async (req, res, next) => {
-  let workout = await Workout.findById(req.params.id);
-
-  await workout.remove();
+  await Workout.findByIdAndDelete(req.params.id);
 
   res.status(200).json({
     success: true,

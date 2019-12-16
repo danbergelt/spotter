@@ -13,7 +13,6 @@ describe("Exercise model read", () => {
     const exercise = new Exercise({
       name: "exercise",
       pr: 100,
-      prDate: Date.now(),
       user: _id
     });
     await exercise.save();

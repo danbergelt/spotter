@@ -8,7 +8,6 @@ const hex = require("is-hexcolor");
 // @access --> Private
 
 exports.createTag = asyncHandler(async (req, res, next) => {
-
   // checks for matches on tags with no content
   if (req.body.color && !req.body.content) {
     const tags = await Tag.find({
@@ -60,13 +59,7 @@ exports.createTag = asyncHandler(async (req, res, next) => {
 // @access --> Private
 
 exports.deleteTag = asyncHandler(async (req, res, next) => {
-  let tag = await Tag.findById(req.params.id);
-
-  if (!tag) {
-    return next(new Err("Could not delete tag", 400));
-  }
-
-  await tag.remove();
+  await Tag.findByIdAndDelete(req.params.id);
 
   res.status(200).json({
     success: true,
