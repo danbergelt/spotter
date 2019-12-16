@@ -21,7 +21,7 @@ const WorkoutGrid = () => {
   const dispatch = useDispatch();
   const [month, setMonth] = useState(0);
   const [modal, setModal] = useState(false);
-  const [popover, setPopover] = useState(false);
+  const [popover, setPopover] = useState({ open: false, id: null });
   const workouts = useSelector(state => state.fetchWorkoutsReducer.workouts);
   const scope = useSelector(state => state.globalReducer.scope);
 
@@ -37,7 +37,6 @@ const WorkoutGrid = () => {
   const dec = () => {
     setMonth(month - 1);
   };
-
 
   // opens modal to add a new workout
   const openAddWorkoutModal = useCallback(

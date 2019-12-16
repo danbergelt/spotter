@@ -7,9 +7,11 @@ const PopoverContainer = React.memo(
     return (
       <Popover
         containerClassName={"view-more-popup"}
-        isOpen={popover}
+        isOpen={
+          popover.open === true && popover.id === date.format("MMM DD YYYY")
+        }
         position={"top"}
-        onClickOutside={() => setPopover(false)}
+        onClickOutside={() => setPopover({ open: false, id: null })}
         content={
           <ViewMoreContent
             setPopover={setPopover}
