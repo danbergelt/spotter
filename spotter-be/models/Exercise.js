@@ -1,6 +1,12 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+// helper schema
+const AllPrsSchema = new Schema({
+  pr: Number,
+  prDate: String
+});
+
 const ExerciseSchema = new Schema({
   name: {
     type: String,
@@ -8,7 +14,8 @@ const ExerciseSchema = new Schema({
     maxlength: [40, "40 character limit on exercise name"]
   },
   pr: Number,
-  prDate: Date,
+  prDate: String,
+  allPrs: AllPrsSchema,
   user: {
     type: Schema.ObjectId,
     ref: "User",
