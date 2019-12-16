@@ -15,7 +15,7 @@ const ExerciseSchema = new Schema({
   },
   pr: Number,
   prDate: String,
-  allPrs: AllPrsSchema,
+  allPrs: [AllPrsSchema],
   user: {
     type: Schema.ObjectId,
     ref: "User",

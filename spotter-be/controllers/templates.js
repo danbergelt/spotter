@@ -71,9 +71,7 @@ exports.editTemplate = asyncHandler(async (req, res, next) => {
 // @access --> Private
 
 exports.deleteTemplate = asyncHandler(async (req, res, next) => {
-  let template = await Template.findById(req.params.id);
-
-  await template.remove();
+  await Template.findByIdAndDelete(req.params.id);
 
   res.status(200).json({
     success: true,
