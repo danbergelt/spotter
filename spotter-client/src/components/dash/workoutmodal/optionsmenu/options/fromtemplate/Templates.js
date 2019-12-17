@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import Template from "./Template";
 import { useDispatch, useSelector } from "react-redux";
 import { DELETE_TEMPLATE } from "../../../../../../actions/optionsActions";
+import axiosWithAuth from "../../../../../../utils/axiosWithAuth";
 
 // templates container
 
@@ -9,7 +10,10 @@ const Templates = ({ setActive, active, search }) => {
   const dispatch = useDispatch();
 
   const deleteTemplate = useCallback(
-    id => {
+    async id => {
+      await axiosWithAuth().delete(
+        `${process.env.REACT_APP_T_API}/api/auth/templates/${id}`
+      );
       dispatch({ type: DELETE_TEMPLATE, payload: id });
     },
     [dispatch]
@@ -32,7 +36,7 @@ const Templates = ({ setActive, active, search }) => {
           filter.map(template => (
             <Template
               setActive={setActive}
-              onDelete={deleteTemplate}
+              deleteTemplate={deleteTemplate}
               key={template._id}
               template={template}
               active={active}

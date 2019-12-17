@@ -47,7 +47,7 @@ const WorkoutGrid = () => {
       setModal(true);
       fetchExercises(history);
     },
-    [dispatch]
+    [dispatch, history]
   );
 
   // opens modal to view a saved workout
@@ -58,7 +58,7 @@ const WorkoutGrid = () => {
       setModal(true);
       fetchExercises(history);
     },
-    [dispatch]
+    [dispatch, history]
   );
 
   // resets state in various parts of application upon workout modal close

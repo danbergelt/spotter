@@ -3,16 +3,14 @@ import Modal from "react-modal";
 import { useSelector } from "react-redux";
 import { styles } from "./styles";
 import ExercisesHead from "./ExercisesHead";
-import Exercise from "./Exercise";
+import ManageExercises from "./ManageExercises";
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
 const Exercises = React.memo(({ setExercisesModal }) => {
   const modalState = useSelector(state => state.optionsReducer.exercises);
-
   const exercises = useSelector(state => state.fetchExercisesReducer.exercises);
-
-  const [active, setActive] = useState({});
+  const [tab, setTab] = useState(0);
 
   return (
     <Modal
@@ -22,17 +20,12 @@ const Exercises = React.memo(({ setExercisesModal }) => {
       onRequestClose={() => setExercisesModal(false)}
     >
       <div className="exercises-container">
-        <ExercisesHead setExercisesModal={setExercisesModal} />
-        {!exercises.length && <div>No exercises found</div>}
-        {exercises.map(exercise => (
-          <div key={exercise._id} className="exercises">
-            <Exercise
-              exercise={exercise}
-              active={active}
-              setActive={setActive}
-            />
-          </div>
-        ))}
+        <ExercisesHead
+          tab={tab}
+          setTab={setTab}
+          setExercisesModal={setExercisesModal}
+        />
+        {tab === 0 && <ManageExercises exercises={exercises} />}
       </div>
     </Modal>
   );
