@@ -16,6 +16,7 @@ describe("can update workout", () => {
 
   test("can update workout", async () => {
     axios.post.mockResolvedValue({});
+    axios.get.mockResolvedValue({});
     const { queryAllByText, getByTestId, getByText, store, history } = wrapper(
       reducer,
       <WorkoutColumns />
@@ -40,8 +41,7 @@ describe("can update workout", () => {
 
     store.dispatch({
       type: FETCH_WORKOUTS_SUCCESS,
-      payload: [{...mockWorkoutRes.data.workouts[0], title: "testing input"}]
-
+      payload: [{ ...mockWorkoutRes.data.workouts[0], title: "testing input" }]
     });
 
     expect(getByText(/testing input/i)).toBeTruthy();

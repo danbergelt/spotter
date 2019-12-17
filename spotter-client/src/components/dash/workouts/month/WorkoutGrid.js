@@ -15,6 +15,7 @@ import WorkoutModal from "../../workoutmodal/WorkoutModal";
 import { SET_DATE } from "../../../../actions/timeScopeActions";
 import { useHistory } from "react-router-dom";
 import reFetch from "../../../../utils/reFetch";
+import { fetchExercises } from "../../../../actions/fetchExercisesActions";
 
 const WorkoutGrid = () => {
   const history = useHistory();
@@ -44,6 +45,7 @@ const WorkoutGrid = () => {
       dispatch({ type: SET_DATE, payload: date });
       dispatch({ type: MODAL_CTX, payload: "add" });
       setModal(true);
+      fetchExercises(history);
     },
     [dispatch]
   );
@@ -54,6 +56,7 @@ const WorkoutGrid = () => {
       dispatch({ type: MODAL_CTX, payload: "view" });
       dispatch({ type: FROM_SAVED, payload: workout });
       setModal(true);
+      fetchExercises(history);
     },
     [dispatch]
   );

@@ -1,7 +1,7 @@
 import React from "react";
 import { FiX } from "react-icons/fi";
 
-const FromTemplateHead = ({ closeHandler, search, setSearch }) => {
+const FromTemplateHead = React.memo(({ closeHandler, search, setSearch }) => {
   return (
     <>
       <div className="from-template-header">
@@ -23,6 +23,6 @@ const FromTemplateHead = ({ closeHandler, search, setSearch }) => {
       />
     </>
   );
-};
+});
 
 export default FromTemplateHead;

@@ -16,6 +16,7 @@ describe("tag modal functionalty", () => {
 
   test("open and close tag modal functionality", () => {
     console.error = jest.fn();
+    axios.get.mockResolvedValue({})
     axios.post.mockResolvedValue(mockWorkoutRes);
     const { queryByPlaceholderText, getByTestId, queryByTestId } = wrapper(
       reducer,

@@ -17,6 +17,7 @@ describe("can close modal on delete click", () => {
 
   test("can close modal on delete click", async () => {
     axios.post.mockResolvedValue({});
+    axios.get.mockResolvedValue({});
     const { store, history, getByTestId, queryByText } = wrapper(
       reducer,
       <WorkoutColumns />

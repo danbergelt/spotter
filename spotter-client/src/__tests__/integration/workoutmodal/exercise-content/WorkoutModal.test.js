@@ -17,6 +17,7 @@ describe("add workout modal functionality", () => {
     // suppresses warning for rendering document.body directly in render function
     console.error = jest.fn();
     axios.post.mockResolvedValue(mockWorkoutRes);
+    axios.get.mockResolvedValue({})
     const {
       queryByPlaceholderText,
       getByTestId,

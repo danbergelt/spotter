@@ -1,4 +1,4 @@
-exports.styles = {
+export const styles = {
   overlay: {
     background: "transparent"
   },
@@ -6,6 +6,6 @@ exports.styles = {
     width: "235px",
     height: "325px",
     marginLeft: "60vw",
-    marginTop: "23vh"
+    marginTop: "29.5vh"
   }
 };
