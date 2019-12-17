@@ -3,7 +3,7 @@ export const styles = {
     background: "transparent"
   },
   content: {
-    width: "235px",
+    width: "275px",
     height: "325px",
     marginLeft: "60vw",
     marginTop: "29.5vh"

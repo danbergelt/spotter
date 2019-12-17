@@ -1,13 +1,35 @@
 import React, { useState } from "react";
 import { FiX } from "react-icons/fi";
 
-const ExercisesHead = React.memo(({ setExercisesModal }) => {
-  const [add, setAdd] = useState("");
-
+const ExercisesHead = React.memo(({ setExercisesModal, tab, setTab }) => {
   return (
     <>
       <div className="exercises-header">
-        <div className="exercises-title">Save Exercises</div>
+        <div
+          style={{
+            display: "flex",
+            width: "55%",
+            marginBottom: "1rem",
+            justifyContent: "space-between"
+          }}
+        >
+          <div
+            onClick={() => setTab(0)}
+            className={
+              tab === 0 ? "exercises-title" : "exercises-title-not-active"
+            }
+          >
+            Manage
+          </div>
+          <div
+            onClick={() => setTab(1)}
+            className={
+              tab === 1 ? "exercises-title" : "exercises-title-not-active"
+            }
+          >
+            Create
+          </div>
+        </div>
         <div
           onClick={() => setExercisesModal(false)}
           className="exercises-exit"
@@ -18,16 +40,6 @@ const ExercisesHead = React.memo(({ setExercisesModal }) => {
             style={{ display: "flex", alignItems: "center" }}
           />
         </div>
-      </div>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <input
-          autoFocus
-          value={add}
-          onChange={e => setAdd(e.target.value)}
-          placeholder="Add exercise"
-          className="exercises-add"
-        />
-        <div className="btn-exercise">Save</div>
       </div>
     </>
   );
