@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import Modal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { styles } from "./styles";
@@ -21,11 +21,11 @@ const FromTemplate = () => {
   const dispatch = useDispatch();
 
   // resets state when modal is closed
-  const closeHandler = () => {
+  const closeHandler = useCallback(() => {
     dispatch({ type: SET_FROM_TEMPLATE, payload: false });
     setActive({});
     setSearch("");
-  };
+  }, [dispatch]);
 
   return (
     <Modal

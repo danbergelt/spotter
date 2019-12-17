@@ -14,6 +14,7 @@ describe("view workout modal functionality", () => {
   Modal.setAppElement(document.createElement("div"));
 
   test("modal populates with saved workout when clicked", async () => {
+    axios.get.mockResolvedValue({})
     axios.post.mockResolvedValue({})
     const { queryAllByText, queryByText, getByText, store, history } = wrapper(
       reducer,

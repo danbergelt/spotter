@@ -15,13 +15,14 @@ import WorkoutModal from "../../workoutmodal/WorkoutModal";
 import { SET_DATE } from "../../../../actions/timeScopeActions";
 import { useHistory } from "react-router-dom";
 import reFetch from "../../../../utils/reFetch";
+import { fetchExercises } from "../../../../actions/fetchExercisesActions";
 
 const WorkoutGrid = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [month, setMonth] = useState(0);
   const [modal, setModal] = useState(false);
-  const [popover, setPopover] = useState(false);
+  const [popover, setPopover] = useState({ open: false, id: null });
   const workouts = useSelector(state => state.fetchWorkoutsReducer.workouts);
   const scope = useSelector(state => state.globalReducer.scope);
 
@@ -38,13 +39,13 @@ const WorkoutGrid = () => {
     setMonth(month - 1);
   };
 
-
   // opens modal to add a new workout
   const openAddWorkoutModal = useCallback(
     date => {
       dispatch({ type: SET_DATE, payload: date });
       dispatch({ type: MODAL_CTX, payload: "add" });
       setModal(true);
+      fetchExercises(history);
     },
     [dispatch]
   );
@@ -55,6 +56,7 @@ const WorkoutGrid = () => {
       dispatch({ type: MODAL_CTX, payload: "view" });
       dispatch({ type: FROM_SAVED, payload: workout });
       setModal(true);
+      fetchExercises(history);
     },
     [dispatch]
   );

@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import TagsOption from "./options/tagsoption/TagsOption";
 import SaveTemplateOption from "./options/savetemplate/SaveTemplateOption";
 import FromTemplateOption from "./options/fromtemplate/FromTemplateOption";
+import ExerciseOption from "./options/exercises/ExerciseOption";
 import DeleteWorkout from "./options/deleteworkout/DeleteWorkout";
 import SaveWorkout from "./options/saveworkout/SaveWorkout";
 
@@ -21,6 +22,7 @@ const WorkoutOptions = React.memo(({ closeParentModal, time }) => {
         <TagsOption iconClass={iconClass} />
         <SaveTemplateOption iconClass={iconClass} />
         <FromTemplateOption iconClass={iconClass} />
+        <ExerciseOption iconClass={iconClass} />
         <DeleteWorkout
           closeParentModal={closeParentModal}
           workoutId={workoutId}

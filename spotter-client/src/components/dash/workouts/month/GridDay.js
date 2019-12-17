@@ -39,7 +39,7 @@ const GridDay = React.memo(
           .map(
             (data, i) =>
               i === 0 && (
-                <div style={{width: "100%"}} key={data._id}>
+                <div style={{ width: "100%" }} key={data._id}>
                   <GridWorkout
                     data={data}
                     openViewModal={openViewModal}
@@ -55,7 +55,12 @@ const GridDay = React.memo(
                       date={date}
                     >
                       <div
-                        onClick={() => setPopover(true)}
+                        onClick={() =>
+                          setPopover({
+                            open: true,
+                            id: date.format("MMM DD YYYY")
+                          })
+                        }
                         className="grid-view-more"
                       >
                         View More

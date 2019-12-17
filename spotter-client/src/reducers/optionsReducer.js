@@ -8,7 +8,8 @@ import {
   SET_TEMPLATES,
   SET_TEMPLATES_ERR,
   SET_TEMPLATE_SAVE,
-  DELETE_TEMPLATE
+  DELETE_TEMPLATE,
+  SET_EXERCISES
 } from "../actions/optionsActions";
 
 const optionsState = {
@@ -17,6 +18,7 @@ const optionsState = {
   templateSave: false,
   fromTemplate: false,
   confirmDelete: false,
+  exercises: false,
   templates: [],
   templatesErr: "",
   saveMsg: {}
@@ -34,6 +36,8 @@ export const optionsReducer = (state = optionsState, action) => {
       return { ...state, templateSave: action.payload };
     case SET_FROM_TEMPLATE:
       return { ...state, fromTemplate: action.payload };
+    case SET_EXERCISES:
+      return { ...state, exercises: action.payload };
     case SET_CONFIRM_DELETE:
       return { ...state, confirmDelete: action.payload };
     case SET_TEMPLATES:

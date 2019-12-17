@@ -4,7 +4,7 @@ import { FiX } from "react-icons/fi";
 const ViewMoreContent = React.memo(
   ({ setPopover, workouts, openViewModal, date }) => {
     const handlePopover = workout => {
-      setPopover(false);
+      setPopover({ open: false, id: null });
       openViewModal(workout, date);
     };
 
@@ -14,26 +14,28 @@ const ViewMoreContent = React.memo(
           {date.format("MMM D")}
           <div
             data-testid="close-popover"
-            onClick={() => setPopover(false)}
+            onClick={() => setPopover({ open: false, id: null })}
             className="close-popover"
           >
             <FiX />
           </div>
         </div>
-        {workouts.map(workout => (
-          <div
-            onClick={() => handlePopover(workout)}
-            className="view-more-workouts-container"
-            key={workout._id}
-          >
+        {workouts
+          .filter(el => el.date === date.format("MMM DD YYYY"))
+          .map(workout => (
             <div
-              style={{ background: workout.tags[0] && workout.tags[0].color }}
-              className="view-more-workout"
+              onClick={() => handlePopover(workout)}
+              className="view-more-workouts-container"
+              key={workout._id}
             >
-              {workout.title}
+              <div
+                style={{ background: workout.tags[0] && workout.tags[0].color }}
+                className="view-more-workout"
+              >
+                {workout.title}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </>
     );
   }

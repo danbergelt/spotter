@@ -15,6 +15,7 @@ import {
   FROM_SAVED
 } from "../../../../actions/workoutActions";
 import { RESET_TAGS } from "../../../../actions/tagsActions";
+import { fetchExercises } from "../../../../actions/fetchExercisesActions";
 
 const WorkoutColumns = () => {
   const history = useHistory();
@@ -43,17 +44,22 @@ const WorkoutColumns = () => {
       dispatch({ type: SET_DATE, payload: date });
       dispatch({ type: MODAL_CTX, payload: "add" });
       setModal(true);
+      dispatch(fetchExercises(history));
     },
     [dispatch]
   );
 
   // opens modal to view a saved workout
-  const openViewModal = useCallback((workout, date) => {
-    dispatch({ type: SET_DATE, payload: date });
-    dispatch({ type: MODAL_CTX, payload: "view" });
-    dispatch({ type: FROM_SAVED, payload: workout });
-    setModal(true);
-  }, [dispatch]);
+  const openViewModal = useCallback(
+    (workout, date) => {
+      dispatch({ type: SET_DATE, payload: date });
+      dispatch({ type: MODAL_CTX, payload: "view" });
+      dispatch({ type: FROM_SAVED, payload: workout });
+      setModal(true);
+      dispatch(fetchExercises(history));
+    },
+    [dispatch]
+  );
 
   // resets state in various parts of application upon workout modal close
   const closeModal = useCallback(() => {
