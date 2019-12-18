@@ -3,10 +3,10 @@
 
 .save-template-container {
   @include modalContainer;
-  justify-content: space-between;
 
   .save-template-header {
     @include modalHeader;
+    margin-bottom: 1rem;
 
     .save-template-title {
       @include modalTitle;
@@ -20,7 +20,7 @@
   .template-form {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    margin-bottom: 1rem;
 
     .template-save-name {
       padding: 0.75rem;
@@ -42,9 +42,9 @@
 
   .template-save {
     width: 100%;
-    padding: 0.5rem;
-    margin: 0.5rem 0;
-    font-size: 1rem;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    font-size: 1.2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;

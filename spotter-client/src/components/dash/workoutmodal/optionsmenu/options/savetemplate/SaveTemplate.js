@@ -62,6 +62,7 @@ const SaveTemplate = React.memo(({ close }) => {
           tempName={tempName}
           setTempName={setTempName}
         />
+        <SaveTemplateBtn handleSubmit={handleSubmit} />
         {message.error && (
           <SaveTemplateMsg
             errOrSucc={"template-save error"}
@@ -76,7 +77,6 @@ const SaveTemplate = React.memo(({ close }) => {
             setMessage={setMessage}
           />
         )}
-        <SaveTemplateBtn handleSubmit={handleSubmit} />
       </div>
     </Modal>
   );

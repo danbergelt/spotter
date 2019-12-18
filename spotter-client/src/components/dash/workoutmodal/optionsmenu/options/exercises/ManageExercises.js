@@ -1,14 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
+import { useDispatch } from "react-redux";
+import axiosWithAuth from "../../../../../../utils/axiosWithAuth";
 import Exercise from "./Exercise";
+import { DELETE_SAVED_EXERCISE } from "../../../../../../actions/fetchExercisesActions";
 
 const ManageExercises = ({ exercises }) => {
   const [search, setSearch] = useState("");
-  const [active, setActive] = useState({});
+
+  const dispatch = useDispatch();
 
   // search filter
   const filter = exercises.filter(e =>
     e.name.toLowerCase().includes(search.toLowerCase())
   );
+
+  const deleteExercise = async id => {
+    await axiosWithAuth().delete(
+      `${process.env.REACT_APP_T_API}/api/auth/exercises/${id}`
+    );
+    dispatch({ type: DELETE_SAVED_EXERCISE, payload: id });
+  };
 
   return (
     <>
@@ -21,23 +32,28 @@ const ManageExercises = ({ exercises }) => {
           className="exercises-add"
         />
       </div>
-      {!exercises.length && (
-        <div
-          style={{ fontSize: "1.3rem", textAlign: "center", marginTop: "1rem" }}
-        >
-          No exercises found
-        </div>
-      )}
-      {filter.length ? (
-        exercises.map(exercise => (
-          <div key={exercise._id} className="exercises">
-            <Exercise
-              exercise={exercise}
-              active={active}
-              setActive={setActive}
-            />
+      {exercises.length ? (
+        filter.length ? (
+          <div className="exercises">
+            {filter.map(exercise => (
+              <Exercise
+                key={exercise._id}
+                deleteExercise={deleteExercise}
+                exercise={exercise}
+              />
+            ))}
           </div>
-        ))
+        ) : (
+          <div
+            style={{
+              fontSize: "1.3rem",
+              textAlign: "center",
+              marginTop: "1rem"
+            }}
+          >
+            No exercises found
+          </div>
+        )
       ) : (
         <div
           style={{ fontSize: "1.3rem", textAlign: "center", marginTop: "1rem" }}
