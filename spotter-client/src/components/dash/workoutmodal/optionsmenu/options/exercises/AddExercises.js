@@ -42,7 +42,7 @@ const AddExercises = ({ msg, setMsg }) => {
           placeholder="Create exercise..."
           className="exercises-add"
         />
-        <button className="btn-exercise">Create</button>
+        <button data-testid="create-exercise" className="btn-exercise">Create</button>
       </form>
       {msg.error && (
         <SaveExerciseMsg

@@ -20,10 +20,12 @@
     "jwt-decode": "^2.2.0",
     "mocha": "^6.2.2",
     "mongoose": "^5.7.4",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "nyc": "^14.1.1"
   },
   "scripts": {
     "test": "nodemon --exec 'mocha test/tests/**/**/*.test.js'",
+    "coverage": "nyc --reporter=lcov npm run test",
     "start": "NODE_ENV=production node index",
     "dev": "nodemon index"
   }
