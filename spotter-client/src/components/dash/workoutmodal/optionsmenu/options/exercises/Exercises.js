@@ -20,7 +20,7 @@ const Exercises = React.memo(({ setExercisesModal }) => {
     <Modal
       style={
         tab === 1
-          ? { ...styles, content: { ...styles.content, height: "200px" } }
+          ? { ...styles, content: { ...styles.content, height: "185px" } }
           : styles
       }
       isOpen={modalState}
