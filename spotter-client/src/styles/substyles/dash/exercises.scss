@@ -6,6 +6,7 @@
 
   .exercises-header {
     @include modalHeader;
+    margin-bottom: 1rem;
 
     .exercises-title {
       @include modalTitle;
@@ -17,7 +18,7 @@
       cursor: pointer;
     }
 
-    .exercises-title-not-active{
+    .exercises-title-not-active {
       @include modalTitle;
       border-radius: 4px;
       color: $gray2;
@@ -46,25 +47,43 @@
     }
   }
 
+  .exercise-save {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .exercise-save.error {
+    background: rgba($danger, 0.5);
+  }
+
+  .exercise-save.success {
+    background: rgba($success, 0.5);
+  }
+
   .btn-exercise {
-    background: $gray3;
-    font-size: 1.1rem;
+    background: $info;
+    font-size: 1.3rem;
     border: 0;
-    color: $gray1;
+    color: white;
+    width: 100%;
     padding: 0.5rem 0.75rem;
     border-radius: 4px;
-    margin-left: 1rem;
     cursor: pointer;
     outline: 0;
 
     &:hover {
-      background: darken($gray3, 5%);
+      background: darken($info, 5%);
     }
   }
 
   .exercises {
     overflow: auto;
-    height: 60%;
+    height: 80%;
 
     .exercise-container {
       display: flex;
@@ -110,17 +129,17 @@
     // }
   }
 
-  .exercises-container::-webkit-scrollbar {
+  .exercises::-webkit-scrollbar {
     width: 6px;
   }
 
-  .exercises-container::-webkit-scrollbar-track {
+  .exercises::-webkit-scrollbar-track {
     background: transparent;
     border: 10px solid transparent;
     background-clip: content-box; /* THIS IS IMPORTANT */
   }
 
-  .exercises-container::-webkit-scrollbar-thumb {
+  .exercises::-webkit-scrollbar-thumb {
     background: rgb(187, 187, 187) !important;
     border-radius: 4px;
   }

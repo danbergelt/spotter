@@ -1,14 +1,12 @@
 import React from "react";
 import { FiX } from "react-icons/fi";
 
-const Exercise = React.memo(({ active, setActive, exercise }) => {
+const Exercise = React.memo(({ deleteExercise, exercise }) => {
   return (
     <div className="exercise-container">
-      <div className="exercise" onClick={() => setActive(exercise)}>
-        {exercise.name}
-      </div>
+      <div className="exercise">{exercise.name}</div>
       <div
-        // onClick={deleteExercise}
+        onClick={() => deleteExercise && deleteExercise(exercise._id)}
         className="exercise-delete"
         data-testid="exercise-delete"
       >

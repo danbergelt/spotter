@@ -9,7 +9,6 @@ const ExercisesHead = React.memo(({ setExercisesModal, tab, setTab }) => {
           style={{
             display: "flex",
             width: "55%",
-            marginBottom: "1rem",
             justifyContent: "space-between"
           }}
         >

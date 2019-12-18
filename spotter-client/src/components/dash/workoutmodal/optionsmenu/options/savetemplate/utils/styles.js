@@ -4,7 +4,7 @@ export const styles = {
   },
   content: {
     width: "250px",
-    height: "170px",
+    height: "185px",
     marginLeft: "60vw",
     marginTop: "18vh"
   }
