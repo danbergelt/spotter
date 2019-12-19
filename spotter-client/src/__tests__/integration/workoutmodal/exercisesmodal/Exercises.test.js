@@ -1,15 +1,8 @@
 import React from "react";
 import axios from "axios";
-import { FETCH_WORKOUTS_SUCCESS } from "../../../../actions/fetchWorkoutsActions";
-import { act } from "react-dom/test-utils";
 import WorkoutOptions from "../../../../components/dash/workoutmodal/optionsmenu/WorkoutOptions";
 import Exercises from "../../../../components/dash/workoutmodal/optionsmenu/options/exercises/Exercises";
-import {
-  cleanup,
-  fireEvent,
-  wait,
-  getByPlaceholderText
-} from "@testing-library/react";
+import { cleanup, fireEvent, wait } from "@testing-library/react";
 import mockTemplateRes from "../../../../__testUtils__/mockTemplateRes";
 import wrapper from "../../../../__testUtils__/wrapper";
 import Modal from "react-modal";
@@ -90,7 +83,10 @@ describe("exercises modal functionality", () => {
     axios.post.mockResolvedValue({
       data: { exercise: { name: "created", _id: 1 } }
     });
-    const { getByText, getByTestId, getByPlaceholderText, store } = wrapper(reducer, <Exercises />);
+    const { getByText, getByTestId, getByPlaceholderText, store } = wrapper(
+      reducer,
+      <Exercises />
+    );
 
     store.dispatch({ type: SET_EXERCISES, payload: true });
 

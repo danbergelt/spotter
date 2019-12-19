@@ -7,7 +7,7 @@ const ExerciseSchema = new Schema({
   name: {
     type: String,
     required: [true, "Please add an exercise name"],
-    maxlength: [40, "Exercise name cannot be longer than 40 characters"]
+    maxlength: [25, "25 character max"]
   },
   weight: {
     type: Number,

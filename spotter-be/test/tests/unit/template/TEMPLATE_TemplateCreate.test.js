@@ -69,7 +69,7 @@ describe("template model creation", () => {
       ]
     });
     await expect(temp.save()).to.be.rejectedWith(
-      "Exercise name cannot be longer than 40 characters"
+      "25 character max"
     );
   });
 

@@ -82,7 +82,7 @@ describe("template model edit", () => {
         },
         { runValidators: true }
       )
-    ).to.be.rejectedWith("Exercise name cannot be longer than 40 characters");
+    ).to.be.rejectedWith("25 character max");
   });
 
   it("cannot update exercise to no name", async () => {

@@ -93,7 +93,7 @@ describe("POST exercise by user id", () => {
       .set("Authorization", `Bearer ${token}`)
       .send({ name: "jiojiojiojiojiojiojiojiojiojiojiojiojiojioj" });
 
-    res.body.error.should.equal("40 character limit on exercise name");
+    res.body.error.should.equal("25 character max");
   });
 
   it("should not post exercise with no exercise name", async () => {

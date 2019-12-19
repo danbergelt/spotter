@@ -21,29 +21,26 @@ describe("GET workouts by user id", () => {
     const { _id } = await createUser();
     template.user = _id;
     const insert = [];
-    for(let i = 0; i < 15; i++){
+    for (let i = 0; i < 15; i++) {
       insert.push(template);
     }
-    await Workout.insertMany(insert)
+    await Workout.insertMany(insert);
   });
 
-  it("should successfully fetch all workouts for this user", done => {
-    createWorkout(template);
+  it("should successfully fetch all workouts for this user", async () => {
+    await createWorkout(template);
     const token = genToken(template.user);
-    chai
+    const res = await chai
       .request(app)
       .get("/api/auth/workouts")
-      .set("Authorization", `Bearer ${token}`)
-      .end((err, res) => {
-        should.exist(res);
-        res.body.success.should.equal(true);
-        res.should.have.status(200);
-        res.body.workouts[0].user.should.equal(String(template.user));
-        res.body.workouts[0].date.should.equal(String(template.date));
-        res.body.workouts[0].title.should.equal(String(template.title));
-        res.body.workouts[0].notes.should.equal(String(template.notes));
-        done();
-      });
+      .set("Authorization", `Bearer ${token}`);
+    should.exist(res);
+    res.body.success.should.equal(true);
+    res.should.have.status(200);
+    res.body.workouts[0].user.should.equal(String(template.user));
+    res.body.workouts[0].date.should.equal(String(template.date));
+    res.body.workouts[0].title.should.equal(String(template.title));
+    res.body.workouts[0].notes.should.equal(String(template.notes));
   });
 
   it("should error out when no token is provided", done => {
@@ -84,7 +81,7 @@ describe("GET workouts by user id", () => {
         res.body.success.should.equal(true);
         res.should.have.status(200);
         res.body.count.should.equal(10);
-        done()
+        done();
       });
   });
 
@@ -100,7 +97,7 @@ describe("GET workouts by user id", () => {
         res.body.success.should.equal(true);
         res.should.have.status(200);
         res.body.count.should.equal(5);
-        done()
+        done();
       });
   });
 

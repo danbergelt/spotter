@@ -26,6 +26,8 @@ const ExerciseForm = ({ refs }) => {
   return (
     <div className="exercise-form-container">
       <Formik
+        validateOnChange={false}
+        validateOnBlur={false}
         initialValues={{
           name: (!isEmpty(queued) && queued.exercise.name) || "",
           weight: (!isEmpty(queued) && queued.exercise.weight) || "",

@@ -90,6 +90,6 @@ describe("DELETE exercise by exercise id", () => {
       })
       .set("Authorization", `Bearer ${token}`);
 
-    res.body.error.should.equal("40 character limit on exercise name");
+    res.body.error.should.equal("25 character max");
   });
 });

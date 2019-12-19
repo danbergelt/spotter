@@ -114,7 +114,7 @@ describe("Workout model update functionality", () => {
         },
         { runValidators: true }
       )
-    ).to.be.rejectedWith("Exercise name cannot be longer than 40 characters");
+    ).to.be.rejectedWith("25 character max");
   });
 
   it("cannot update an exercise with invalid metrics", async () => {
