@@ -39,7 +39,7 @@ describe("Exercise model creation", () => {
       user: _id
     });
     await expect(exercise.save()).to.be.rejectedWith(
-      "40 character limit on exercise name"
+      "25 character max"
     );
   });
 

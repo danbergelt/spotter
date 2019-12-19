@@ -56,6 +56,6 @@ describe("Exercise model update", () => {
         },
         { runValidators: true }
       )
-    ).to.be.rejectedWith("40 character limit on exercise name");
+    ).to.be.rejectedWith("25 character max");
   });
 });

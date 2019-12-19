@@ -8,7 +8,7 @@ describe("fetch exercises reducer tests", () => {
   test("should return initial state", () => {
     expect(fetchExercisesReducer(undefined, {})).toEqual({
       err: null,
-      exercises: []
+      savedExercises: []
     });
   });
 
@@ -18,7 +18,7 @@ describe("fetch exercises reducer tests", () => {
         type: FETCH_EXERCISES_SUCCESS,
         payload: [{name: "name", _id: 1}]
       })
-    ).toEqual({ err: null, exercises: [{name: "name", _id: 1}] });
+    ).toEqual({ err: null, savedExercises: [{name: "name", _id: 1}] });
   });
 
   test("should handle FETCH_EXERCISES_ERROR", () => {
@@ -27,6 +27,6 @@ describe("fetch exercises reducer tests", () => {
         type: FETCH_EXERCISES_ERROR,
         payload: "TEST error"
       })
-    ).toEqual({ err: "TEST error", exercises: [] });
+    ).toEqual({ err: "TEST error", savedExercises: [] });
   });
 });

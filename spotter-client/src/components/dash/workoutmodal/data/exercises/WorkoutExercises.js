@@ -38,7 +38,7 @@ const WorkoutExercises = () => {
     <div className="workout-data-exercises">
       <div className="workout-data-exercises-head">
         <FiStar className="workout-data-exercises-icon" />
-        <div className="workout-data-exercises-title">Exercises</div>
+        <div className="workout-data-exercises-title">Workout</div>
         <ClearEditQueue />
       </div>
       <div className="workout-data-exercises-content">

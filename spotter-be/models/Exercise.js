@@ -11,7 +11,7 @@ const ExerciseSchema = new Schema({
   name: {
     type: String,
     required: [true, "Please add an exercise name"],
-    maxlength: [40, "40 character limit on exercise name"]
+    maxlength: [25, "25 character max"]
   },
   pr: Number,
   prDate: String,

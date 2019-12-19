@@ -189,7 +189,7 @@ describe("PUT edit template by template id", () => {
         res.body.success.should.equal(false);
         res.should.have.status(400);
         res.body.error.should.equal(
-          "Exercise name cannot be longer than 40 characters"
+          "25 character max"
         );
         done();
       });

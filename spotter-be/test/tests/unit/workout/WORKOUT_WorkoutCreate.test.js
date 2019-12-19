@@ -72,7 +72,7 @@ describe("Workout model creation", () => {
       ]
     });
     await expect(workout.save()).to.be.rejectedWith(
-      "Exercise name cannot be longer than 40 characters"
+      "25 character max"
     );
   });
 
