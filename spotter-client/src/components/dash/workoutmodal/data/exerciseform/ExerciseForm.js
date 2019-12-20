@@ -11,7 +11,7 @@ import {
 } from "../../../../../actions/workoutActions";
 import Autosuggest from "react-autosuggest";
 
-// READ: this component is a nightmare. Formik claims to make working with forms easer, 
+// READ: this component is a nightmare. Formik claims to make working with forms easer,
 // but it does not play nicely with other libraries. I need to figure out how to optimize this,
 // or consider other options going forward
 
@@ -96,7 +96,9 @@ const ExerciseForm = ({ refs }) => {
                   }
 
                   setSuggestions(
-                    exercises.filter(exercise => exercise.name.includes(value))
+                    exercises.filter(exercise =>
+                      exercise.name.toLowerCase().includes(value.toLowerCase())
+                    )
                   );
                 }}
                 onSuggestionsClearRequested={() => {

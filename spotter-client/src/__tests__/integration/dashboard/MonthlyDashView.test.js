@@ -165,6 +165,7 @@ describe("Weekly dash date settings", () => {
 
   it("opens add workout modal", () => {
     axios.post.mockResolvedValue({});
+    axios.get.mockResolvedValue({});
     const { store, getByTestId } = wrapper(reducer, <WorkoutGrid />);
 
     fireEvent.click(getByTestId(/add-for-testing/i));
@@ -173,6 +174,7 @@ describe("Weekly dash date settings", () => {
   });
 
   it("opens view workout modal", () => {
+    axios.get.mockResolvedValue({});
     axios.post.mockResolvedValue({});
     const { store, getByText } = wrapper(reducer, <WorkoutGrid />);
 
@@ -187,6 +189,7 @@ describe("Weekly dash date settings", () => {
   });
 
   it("handles multiple workouts", () => {
+    axios.get.mockResolvedValue({});
     axios.post.mockResolvedValue({});
 
     const { store, getByText, queryByText, getByTestId } = wrapper(reducer, <WorkoutGrid />);
