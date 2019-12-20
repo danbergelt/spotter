@@ -1,7 +1,7 @@
 import React from "react";
 import WorkoutColumns from "../../../../components/dash/workouts/week/WorkoutColumns";
 import WorkoutModal from "../../../../components/dash/workoutmodal/WorkoutModal";
-import ExerciseForm from "../../../../components/dash/workoutmodal/data/exerciseform/ExerciseForm";
+import WorkoutData from "../../../../components/dash/workoutmodal/data/WorkoutData";
 import { cleanup, fireEvent, wait } from "@testing-library/react";
 import wrapper from "../../../../__testUtils__/wrapper";
 import Modal from "react-modal";
@@ -9,6 +9,7 @@ import axios from "axios";
 import mockWorkoutRes from "../../../../__testUtils__/mockWorkoutRes";
 import { reducer } from "../../../../reducers/index";
 import { CREATE_EXERCISE } from "../../../../actions/fetchExercisesActions";
+import userEvent from "@testing-library/user-event";
 
 describe("add workout modal functionality", () => {
   // initial setup
@@ -209,24 +210,21 @@ describe("add workout modal functionality", () => {
     });
   });
 
-  // test("exercise autosuggestion", () => {
-  //   axios.
-  //   const {
-  //     store,
-  //     container,
-  //     getByPlaceholderText,
-  //     getByTestId,
-  //     getByText
-  //   } = wrapper(reducer, <ExerciseForm />);
+  test("exercise autosuggestion", async () => {
+    const { store, getByPlaceholderText, queryByText, getByText } = wrapper(
+      reducer,
+      <WorkoutData />
+    );
 
-  //   store.dispatch({
-  //     type: CREATE_EXERCISE,
-  //     payload: { name: "deadlift", _id: 1 }
-  //   });
+    store.dispatch({
+      type: CREATE_EXERCISE,
+      payload: { name: "deadlift", _id: 1 }
+    });
 
-  //   expect(getByText(/deadlift/i)).toBeFalsy();
-  //   const name = getByPlaceholderText(/e.g. squat/i);
-  //   fireEvent.change(name, { target: { value: "d" } });
-  //   expect(getByText(/deadlift/i)).toBeTruthy();
-  // });
+    expect(queryByText(/deadlift/i)).toBeFalsy();
+    const name = getByPlaceholderText(/e.g. squat/i);
+    await userEvent.type(name, "d");
+    name.focus();
+    await wait(() => expect(getByText(/deadlift/i)).toBeTruthy());
+  });
 });

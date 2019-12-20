@@ -20,6 +20,7 @@ const AddExercises = ({ msg, setMsg }) => {
         { name: add }
       );
       dispatch({ type: CREATE_EXERCISE, payload: res.data.exercise });
+
       setMsg({ success: "Exercise created" });
     } catch (error) {
       setMsg({ error: error.response.data.error });
