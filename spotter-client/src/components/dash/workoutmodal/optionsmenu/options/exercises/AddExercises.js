@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { CREATE_EXERCISE } from "../../../../../../actions/fetchExercisesActions";
 import SaveExerciseMsg from "./SaveExerciseMsg";
 
+// create exercise
+
 const AddExercises = ({ msg, setMsg }) => {
   const [add, setAdd] = useState("");
 

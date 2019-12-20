@@ -22,7 +22,6 @@ const WorkoutExercises = () => {
   const handleQueue = useCallback(
     (exercise, i, a) => {
       dispatch({ type: QUEUE_EDIT, payload: { exercise, i } });
-      a.current.focus();
     },
     [dispatch]
   );
@@ -46,7 +45,6 @@ const WorkoutExercises = () => {
         <div className="workout-data-exercises-list">
           {exercises.map((exercise, i) => (
             <WorkoutExercise
-              a={refs[0]}
               key={i}
               i={i}
               exercise={exercise}

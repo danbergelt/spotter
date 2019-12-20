@@ -43,7 +43,6 @@
         right: 1px;
         display: flex;
         flex-direction: column;
-        width: 100px;
         margin-right: 0.5rem;
 
         .exercise-form-field-label {
@@ -68,6 +67,7 @@
         }
 
         .exercise-form-field {
+          width: 100px;
           height: 2.5rem;
           outline: none;
           border-radius: $border;

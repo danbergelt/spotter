@@ -16,7 +16,7 @@ const GridHeadFirstWeek = React.memo(
           </div>
         </div>
         <div
-          style={{ fontSize: "1.5rem" }}
+          style={{ fontSize: "1.3rem" }}
           className={
             date.format("MMM DD YYYY") === moment().format("MMM DD YYYY")
               ? "today-date"

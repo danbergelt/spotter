@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { FiX } from "react-icons/fi";
+
+// tabs to control exercises modal
 
 const ExercisesHead = React.memo(({ setExercisesModal, tab, setTab }) => {
   return (

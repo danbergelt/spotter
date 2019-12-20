@@ -1,8 +1,10 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import axiosWithAuth from "../../../../../../utils/axiosWithAuth";
 import Exercise from "./Exercise";
 import { DELETE_SAVED_EXERCISE } from "../../../../../../actions/fetchExercisesActions";
+
+// search and delete exercises
 
 const ManageExercises = ({ exercises }) => {
   const [search, setSearch] = useState("");
