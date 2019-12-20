@@ -5,6 +5,8 @@ import {
   DELETE_WORKOUT
 } from "../actions/fetchWorkoutsActions";
 
+import { UPDATE_TAG } from "../actions/workoutActions";
+
 const fetchedWorkoutsState = {
   err: null,
   isLoading: false,
@@ -35,8 +37,22 @@ export const fetchWorkoutsReducer = (state = fetchedWorkoutsState, action) => {
     case DELETE_WORKOUT:
       return {
         ...state,
-        workouts: state.workouts.filter(workout => workout._id !== action.payload)
-      }
+        workouts: state.workouts.filter(
+          workout => workout._id !== action.payload
+        )
+      };
+    case UPDATE_TAG:
+      return {
+        ...state,
+        workouts: state.workouts.map(workout => {
+          return {
+            ...workout,
+            tags: workout.tags.map(tag =>
+              tag._id === action.payload._id ? action.payload : tag
+            )
+          };
+        })
+      };
     default:
       return state;
   }

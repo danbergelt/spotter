@@ -45,7 +45,7 @@ const WorkoutGrid = () => {
       dispatch({ type: SET_DATE, payload: date });
       dispatch({ type: MODAL_CTX, payload: "add" });
       setModal(true);
-      fetchExercises(history);
+      dispatch(fetchExercises(history));
     },
     [dispatch, history]
   );
@@ -56,7 +56,7 @@ const WorkoutGrid = () => {
       dispatch({ type: MODAL_CTX, payload: "view" });
       dispatch({ type: FROM_SAVED, payload: workout });
       setModal(true);
-      fetchExercises(history);
+      dispatch(fetchExercises(history));
     },
     [dispatch, history]
   );

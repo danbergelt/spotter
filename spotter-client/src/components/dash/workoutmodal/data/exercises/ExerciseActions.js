@@ -1,7 +1,7 @@
 import React from "react";
 
 const ExerciseActions = React.memo(
-  ({ exercise, a, i, handleQueue, delExercise }) => {
+  ({ exercise, i, handleQueue, delExercise }) => {
     return (
       <div className="exercise-actions">
         <div
@@ -11,10 +11,7 @@ const ExerciseActions = React.memo(
         >
           Delete
         </div>
-        <div
-          onClick={() => handleQueue(exercise, i, a)}
-          className="exercise-edit"
-        >
+        <div onClick={() => handleQueue(exercise, i)} className="exercise-edit">
           Edit
         </div>
       </div>

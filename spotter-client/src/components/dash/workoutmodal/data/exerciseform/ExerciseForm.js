@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Field, Formik } from "formik";
 import { FiPlus, FiTrash } from "react-icons/fi";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,8 +9,11 @@ import {
   ADD_EXERCISE,
   HANDLE_EDIT
 } from "../../../../../actions/workoutActions";
+import Autosuggest from "react-autosuggest";
 
-// Form validation schema
+// READ: this component is a nightmare. Formik claims to make working with forms easer, 
+// but it does not play nicely with other libraries. I need to figure out how to optimize this,
+// or consider other options going forward
 
 const ExerciseForm = ({ refs }) => {
   const queued = useSelector(state => state.workoutReducer.queue);
@@ -22,6 +25,12 @@ const ExerciseForm = ({ refs }) => {
     // resets edit queue - form relies on this information to determine type of action on submit (either edit or add)
     dispatch({ type: RESET_QUEUE });
   };
+
+  const exercises = useSelector(
+    state => state.fetchExercisesReducer.savedExercises
+  );
+
+  const [suggestions, setSuggestions] = useState([]);
 
   return (
     <div className="exercise-form-container">
@@ -39,7 +48,13 @@ const ExerciseForm = ({ refs }) => {
         onSubmit={(values, { resetForm }) => {
           resetForm();
 
-          refs.forEach(ref => ref.current.blur());
+          refs.forEach(ref => {
+            if (ref.current === undefined) {
+              ref.blur = true;
+            } else {
+              ref.current.blur();
+            }
+          });
 
           if (isEmpty(queued)) {
             dispatch({ type: ADD_EXERCISE, payload: values });
@@ -51,7 +66,7 @@ const ExerciseForm = ({ refs }) => {
           }
         }}
       >
-        {({ handleReset, errors, touched }) => (
+        {({ handleReset, errors, touched, setFieldValue, values }) => (
           <Form className="exercise-form">
             <div className="exercise-form-field-container">
               <div className="exercise-form-field-label">
@@ -60,12 +75,41 @@ const ExerciseForm = ({ refs }) => {
               {errors.name && touched.name && (
                 <p className="error-exercise-form">{errors.name}</p>
               )}
-              <Field
-                innerRef={refs[0]}
-                className="exercise-form-field"
-                name="name"
-                placeholder="e.g. squat"
-                type="text"
+
+              <Autosuggest
+                ref={autosuggest => autosuggest && (refs[0] = autosuggest)}
+                inputProps={{
+                  placeholder: "e.g. squat",
+                  autoComplete: "off",
+                  name: "name",
+                  onChange: (_, { newValue }) => {
+                    setFieldValue("name", newValue);
+                  },
+                  value: values.name,
+                  className: "exercise-form-field"
+                }}
+                suggestions={suggestions}
+                onSuggestionsFetchRequested={({ value }) => {
+                  if (!value) {
+                    setSuggestions([]);
+                    return;
+                  }
+
+                  setSuggestions(
+                    exercises.filter(exercise => exercise.name.includes(value))
+                  );
+                }}
+                onSuggestionsClearRequested={() => {
+                  setSuggestions([]);
+                }}
+                getSuggestionValue={suggestion => suggestion.name}
+                renderSuggestion={suggestion => <div>{suggestion.name}</div>}
+                onSuggestionSelected={(event, { suggestion, method }) => {
+                  if (method === "enter") {
+                    event.preventDefault();
+                  }
+                  setFieldValue("name", suggestion.name);
+                }}
               />
             </div>
             <div className="exercise-form-field-container">

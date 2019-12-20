@@ -3,7 +3,7 @@ import { FiArrowRight } from "react-icons/fi";
 import ExerciseActions from "./ExerciseActions";
 
 const WorkoutExercise = React.memo(
-  ({ exercise, i, a, handleQueue, delExercise }) => {
+  ({ exercise, i, handleQueue, delExercise }) => {
     return (
       exercise && (
         <div className={i % 2 === 0 ? "exercise-row even" : "exercise-row odd"}>
@@ -34,7 +34,6 @@ const WorkoutExercise = React.memo(
               </div>
             </div>
             <ExerciseActions
-              a={a}
               i={i}
               exercise={exercise}
               handleQueue={handleQueue}

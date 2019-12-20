@@ -33,7 +33,9 @@ export const fetchExercisesReducer = (state = fetchExercisesState, action) => {
     case DELETE_SAVED_EXERCISE:
       return {
         ...state,
-        savedExercises: state.savedExercises.filter(el => el._id !== action.payload)
+        savedExercises: state.savedExercises.filter(
+          el => el._id !== action.payload
+        )
       };
     default:
       return state;
