@@ -1,8 +1,14 @@
 const Err = require("../utils/Err");
 const User = require("../models/User");
 const asyncHandler = require("../middleware/async");
-const { refreshToken, genToken, clearRefreshToken } = require("../utils/tokens");
+const {
+  refreshToken,
+  genToken,
+  clearRefreshToken
+} = require("../utils/tokens");
 const jwt = require("jsonwebtoken");
+const redis = require("redis"),
+  client = redis.createClient();
 
 // @desc --> register user
 // @route --> POST /api/auth/register
@@ -17,6 +23,15 @@ exports.register = asyncHandler(async (req, res, next) => {
     password,
     role
   });
+
+  // initialize PR cache for this user
+  await client.hset(
+    user._id.toString(),
+    "stale",
+    "false",
+    "prs",
+    JSON.stringify({})
+  );
 
   refreshToken(
     res,
