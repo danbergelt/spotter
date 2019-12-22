@@ -1,6 +1,8 @@
 const Err = require("../utils/Err");
 const Exercise = require("../models/Exercise");
 const asyncHandler = require("../middleware/async");
+const redis = require("redis"),
+  client = redis.createClient();
 
 // @desc --> create exercise
 // @route --> POST /api/auth/exercises
@@ -47,8 +49,8 @@ exports.updateExercise = asyncHandler(async (req, res, next) => {
 // @access --> Private
 
 exports.deleteExercise = asyncHandler(async (req, res, next) => {
+  // remove exercise from PR cache when deleted
   await Exercise.findByIdAndDelete(req.params.id);
-
   res.status(200).json({
     success: true,
     data: "Exercise deleted"

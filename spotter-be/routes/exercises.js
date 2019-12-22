@@ -7,6 +7,7 @@ const {
 } = require("../controllers/exercises");
 const router = express.Router();
 const { protect } = require("../middleware/auth");
+const { delExerciseFromCache } = require("../middleware/cache");
 
 // Routes
 
@@ -18,6 +19,6 @@ router
 router
   .route("/:id")
   .put(protect, updateExercise)
-  .delete(protect, deleteExercise);
+  .delete(protect, delExerciseFromCache, deleteExercise);
 
 module.exports = router;

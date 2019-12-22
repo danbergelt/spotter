@@ -1,8 +1,6 @@
 const Workout = require("../models/Workout");
-const User = require("../models/User");
 const Exercise = require("../models/Exercise");
 const asyncHandler = require("../middleware/async");
-const Err = require("../utils/Err");
 const redis = require("redis"),
   client = redis.createClient();
 
@@ -17,7 +15,7 @@ exports.generatePrs = asyncHandler(async (req, res, next) => {
     "exercises date"
   );
 
-  // find all saved exercises 
+  // find all saved exercises
   const exercises = await Exercise.find({ user: req.user._id });
 
   let prs = {};
@@ -39,10 +37,9 @@ exports.generatePrs = asyncHandler(async (req, res, next) => {
       let pr = -Infinity;
       // if the exercise is saved, and the exercise weight is greater than the current PR value
       if (prs[exercise.name] && pr < exercise.weight) {
-        // save the weight as a PR, save the date, and save that we are caching the data
+        // save the weight as a PR, save the date
         prs[exercise.name].pr = exercise.weight;
         prs[exercise.name].date = workout.date;
-        prs["stale"] = false;
       }
     })
   );
@@ -56,6 +53,7 @@ exports.generatePrs = asyncHandler(async (req, res, next) => {
     JSON.stringify(prs)
   );
 
+  console.log("creating");
   // return the PRs to the client
   res.status(200).json({
     success: true,
