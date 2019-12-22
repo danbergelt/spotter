@@ -47,8 +47,8 @@ exports.updateExercise = asyncHandler(async (req, res, next) => {
 // @access --> Private
 
 exports.deleteExercise = asyncHandler(async (req, res, next) => {
+  // remove exercise from PR cache when deleted
   await Exercise.findByIdAndDelete(req.params.id);
-
   res.status(200).json({
     success: true,
     data: "Exercise deleted"

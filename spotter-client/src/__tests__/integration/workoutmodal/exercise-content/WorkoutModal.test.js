@@ -1,12 +1,15 @@
 import React from "react";
 import WorkoutColumns from "../../../../components/dash/workouts/week/WorkoutColumns";
 import WorkoutModal from "../../../../components/dash/workoutmodal/WorkoutModal";
+import WorkoutData from "../../../../components/dash/workoutmodal/data/WorkoutData";
 import { cleanup, fireEvent, wait } from "@testing-library/react";
 import wrapper from "../../../../__testUtils__/wrapper";
 import Modal from "react-modal";
 import axios from "axios";
 import mockWorkoutRes from "../../../../__testUtils__/mockWorkoutRes";
 import { reducer } from "../../../../reducers/index";
+import { CREATE_EXERCISE } from "../../../../actions/fetchExercisesActions";
+import userEvent from "@testing-library/user-event";
 
 describe("add workout modal functionality", () => {
   // initial setup
@@ -17,7 +20,7 @@ describe("add workout modal functionality", () => {
     // suppresses warning for rendering document.body directly in render function
     console.error = jest.fn();
     axios.post.mockResolvedValue(mockWorkoutRes);
-    axios.get.mockResolvedValue({})
+    axios.get.mockResolvedValue({});
     const {
       queryByPlaceholderText,
       getByTestId,
@@ -205,5 +208,23 @@ describe("add workout modal functionality", () => {
       expect(container.contains(getByText(/100 reps/i))).toBeTruthy();
       expect(container.contains(getByText(/100 sets/i))).toBeTruthy();
     });
+  });
+
+  test("exercise autosuggestion", async () => {
+    const { store, getByPlaceholderText, queryByText, getByText } = wrapper(
+      reducer,
+      <WorkoutData />
+    );
+
+    store.dispatch({
+      type: CREATE_EXERCISE,
+      payload: { name: "deadlift", _id: 1 }
+    });
+
+    expect(queryByText(/deadlift/i)).toBeFalsy();
+    const name = getByPlaceholderText(/e.g. squat/i);
+    await userEvent.type(name, "d");
+    name.focus();
+    await wait(() => expect(getByText(/deadlift/i)).toBeTruthy());
   });
 });

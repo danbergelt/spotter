@@ -12,7 +12,6 @@ describe("Exercise model read", () => {
     const { _id } = await createUser();
     const exercise = new Exercise({
       name: "exercise",
-      pr: 100,
       user: _id
     });
     await exercise.save();

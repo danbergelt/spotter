@@ -13,7 +13,6 @@ describe("Exercise model update", () => {
     const { _id } = await createUser();
     const exercise = new Exercise({
       name: "exercise",
-      pr: 100,
       user: _id
     });
     await exercise.save();
@@ -26,7 +25,6 @@ describe("Exercise model update", () => {
     const { _id } = await createUser();
     const exercise = new Exercise({
       name: "exercise",
-      pr: 100,
       user: _id
     });
     await exercise.save();
@@ -43,7 +41,6 @@ describe("Exercise model update", () => {
     const { _id } = await createUser();
     const exercise = new Exercise({
       name: "exercise",
-      pr: 100,
       user: _id
     });
     await exercise.save();

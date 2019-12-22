@@ -13,9 +13,6 @@ const ExerciseSchema = new Schema({
     required: [true, "Please add an exercise name"],
     maxlength: [25, "25 character max"]
   },
-  pr: Number,
-  prDate: String,
-  allPrs: [AllPrsSchema],
   user: {
     type: Schema.ObjectId,
     ref: "User",

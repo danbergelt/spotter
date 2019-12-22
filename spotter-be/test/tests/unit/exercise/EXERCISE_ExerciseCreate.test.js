@@ -13,8 +13,6 @@ describe("Exercise model creation", () => {
     const { _id } = await createUser();
     const exercise = new Exercise({
       name: "exercise",
-      pr: 100,
-      prDate: "date",
       user: _id
     });
     await exercise.save();
@@ -23,7 +21,7 @@ describe("Exercise model creation", () => {
 
   it("cannot create with no name", async () => {
     const { _id } = await createUser();
-    const exercise = new Exercise({ pr: 100, prDate: "date", user: _id });
+    const exercise = new Exercise({ user: _id });
     await expect(exercise.save()).to.be.rejectedWith(
       "Please add an exercise name"
     );
@@ -34,8 +32,6 @@ describe("Exercise model creation", () => {
     const exercise = new Exercise({
       name:
         "fjweoifjwiofjiowfjiowfjiowfjiowjfiowjfiowjfiowfjiowjfiowjfwiofjwiofjwofj",
-      pr: 100,
-      prDate: "date",
       user: _id
     });
     await expect(exercise.save()).to.be.rejectedWith(
@@ -46,8 +42,6 @@ describe("Exercise model creation", () => {
   it("cannot create with no user", async () => {
     const exercise = new Exercise({
       name: "name",
-      pr: 100,
-      prDate: "date"
     });
     await expect(exercise.save()).to.be.rejectedWith(
       "User validation failed"

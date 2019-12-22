@@ -2,6 +2,8 @@ const fs = require("fs");
 const mongoose = require("mongoose");
 const colors = require("colors");
 const dotenv = require("dotenv");
+const redis = require("redis"),
+  client = redis.createClient();
 dotenv.config();
 
 // Load models
@@ -46,6 +48,7 @@ const wipe = async () => {
     await Tag.deleteMany();
     await Workout.deleteMany();
     await Template.deleteMany();
+    await client.flushall();
     console.log("Data destroyed".red.inverse);
     process.exit();
   } catch (err) {
