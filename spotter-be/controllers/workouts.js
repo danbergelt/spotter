@@ -1,7 +1,7 @@
 const Workout = require("../models/Workout");
-const User = require("../models/User");
 const asyncHandler = require("../middleware/async");
 const Err = require("../utils/Err");
+const { promisify } = require("util");
 const hex = require("is-hexcolor");
 const redis = require("redis"),
   client = redis.createClient();
@@ -63,7 +63,8 @@ exports.addWorkout = asyncHandler(async (req, res, next) => {
 
   const workout = await Workout.create(req.body);
 
-  await client.hset(req.user._id.toString(), "stale", "true");
+  const hset = promisify(client.hset).bind(client);
+  await hset(req.user._id.toString(), "stale", "true");
 
   res.status(201).json({
     success: true,
@@ -81,7 +82,8 @@ exports.editWorkout = asyncHandler(async (req, res, next) => {
     runValidators: true
   });
 
-  await client.hset(req.user._id.toString(), "stale", "true");
+  const hset = promisify(client.hset).bind(client);
+  await hset(req.user._id.toString(), "stale", "true");
 
   res.status(200).json({
     success: true,
@@ -96,7 +98,8 @@ exports.editWorkout = asyncHandler(async (req, res, next) => {
 exports.deleteWorkout = asyncHandler(async (req, res, next) => {
   await Workout.findByIdAndDelete(req.params.id);
 
-  await client.hset(req.user._id.toString(), "stale", "true");
+  const hset = promisify(client.hset).bind(client);
+  await hset(req.user._id.toString(), "stale", "true");
 
   res.status(200).json({
     success: true,

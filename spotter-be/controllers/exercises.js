@@ -1,6 +1,9 @@
 const Err = require("../utils/Err");
 const Exercise = require("../models/Exercise");
 const asyncHandler = require("../middleware/async");
+const { promisify } = require("util");
+const redis = require("redis"),
+  client = redis.createClient();
 
 // @desc --> create exercise
 // @route --> POST /api/auth/exercises
@@ -19,6 +22,10 @@ exports.createExercise = asyncHandler(async (req, res, next) => {
   }
 
   const createdExercise = await Exercise.create(req.body);
+
+  const hset = promisify(client.hset).bind(client);
+
+  await hset(req.user._id.toString(), "stale", "true");
 
   res.status(201).json({
     success: true,
@@ -47,8 +54,8 @@ exports.updateExercise = asyncHandler(async (req, res, next) => {
 // @access --> Private
 
 exports.deleteExercise = asyncHandler(async (req, res, next) => {
-  // remove exercise from PR cache when deleted
   await Exercise.findByIdAndDelete(req.params.id);
+  
   res.status(200).json({
     success: true,
     data: "Exercise deleted"
