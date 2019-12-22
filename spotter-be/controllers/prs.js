@@ -25,24 +25,26 @@ exports.generatePrs = asyncHandler(async (req, res, next) => {
     prs[exercise.name] = { name: exercise.name };
   });
 
-  // O(NM)
+  // PR generation === O(NM)
   // need to explore replacements for this...although since I am traversing a matrix,
-  // and need to iterate over each element, not sure what other options I have
+  // and need to iterate over each element. Perhaps an LRU Cache could work
+
+  // instantiate an initial value for PR comparison
+  let pr = -Infinity;
 
   // map over every workout
-  workouts.forEach(workout =>
+  workouts.forEach(workout => {
     // map over every exercise in every workout
     workout.exercises.forEach(exercise => {
-      // instantiate an initial value for PR comparison
-      let pr = -Infinity;
       // if the exercise is saved, and the exercise weight is greater than the current PR value
       if (prs[exercise.name] && pr < exercise.weight) {
+        pr = exercise.weight;
         // save the weight as a PR, save the date
         prs[exercise.name].pr = exercise.weight;
         prs[exercise.name].date = workout.date;
       }
-    })
-  );
+    });
+  });
 
   // cache the data
   await client.hset(

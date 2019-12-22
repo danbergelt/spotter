@@ -9,8 +9,7 @@ exports.prCache = asyncHandler(async (req, res, next) => {
     if (err) throw err;
 
     // if the cache isn't stale, return the cached PRs
-    if (cache.stale === "false") {
-      console.log("fetching");
+    if (cache && cache.stale === "false") {
       res.status(200).json({
         success: true,
         prs: JSON.parse(cache.prs)
