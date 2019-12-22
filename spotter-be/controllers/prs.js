@@ -53,7 +53,6 @@ exports.generatePrs = asyncHandler(async (req, res, next) => {
     JSON.stringify(prs)
   );
 
-  console.log("creating");
   // return the PRs to the client
   res.status(200).json({
     success: true,

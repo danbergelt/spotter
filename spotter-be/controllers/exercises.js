@@ -1,8 +1,6 @@
 const Err = require("../utils/Err");
 const Exercise = require("../models/Exercise");
 const asyncHandler = require("../middleware/async");
-const redis = require("redis"),
-  client = redis.createClient();
 
 // @desc --> create exercise
 // @route --> POST /api/auth/exercises
