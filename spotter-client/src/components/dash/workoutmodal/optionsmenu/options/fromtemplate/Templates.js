@@ -17,7 +17,7 @@ const Templates = ({ setActive, active, search }) => {
       );
       dispatch({ type: DELETE_TEMPLATE, payload: id });
     },
-    [dispatch]
+    [dispatch, t]
   );
 
   const err = useSelector(state => state.optionsReducer.templatesErr);

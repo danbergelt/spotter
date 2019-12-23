@@ -15,7 +15,7 @@ const Prs = () => {
 
   useEffect(() => {
     dispatch(fetchPrs(t));
-  }, [dispatch]);
+  }, [dispatch, t]);
 
   useEffect(() => {
     // temporary variables for sorted prs

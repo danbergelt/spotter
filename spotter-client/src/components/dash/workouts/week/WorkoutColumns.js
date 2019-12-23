@@ -47,7 +47,7 @@ const WorkoutColumns = () => {
       setModal(true);
       dispatch(fetchExercises(history, t));
     },
-    [dispatch, history]
+    [dispatch, history, t]
   );
 
   // opens modal to view a saved workout
@@ -59,7 +59,7 @@ const WorkoutColumns = () => {
       setModal(true);
       dispatch(fetchExercises(history, t));
     },
-    [dispatch, history]
+    [dispatch, history, t]
   );
 
   // resets state in various parts of application upon workout modal close

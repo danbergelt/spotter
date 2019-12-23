@@ -45,7 +45,7 @@ const TagsModalManage = ({ setToDelete }) => {
         setErr(error.response.data.error);
       }
     },
-    [updateInput, dispatch, history, update]
+    [updateInput, dispatch, history, update, t]
   );
 
   if (!tags.length) {
