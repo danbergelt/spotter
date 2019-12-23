@@ -15,12 +15,13 @@ const SaveWorkout = React.memo(
     const history = useHistory();
     const date = useSelector(state => state.globalReducer.date);
     const scope = useSelector(state => state.globalReducer.scope);
+    const t = useSelector(state => state.globalReducer.t);
 
     const saveHandler = async () => {
       // if user is adding a new workout
       if (ctx === "add") {
         try {
-          await axiosWithAuth().post(
+          await axiosWithAuth(t).post(
             `${process.env.REACT_APP_T_API}/api/auth/workouts`,
             {
               date: date.format("MMM DD YYYY"),
@@ -31,7 +32,7 @@ const SaveWorkout = React.memo(
             }
           );
           // refetch updated list of workouts
-          await reFetch(time, history, scope.value);
+          await reFetch(time, history, scope.value, t);
           // // close modal and return to dashboard
           closeParentModal();
         } catch (err) {
@@ -45,7 +46,7 @@ const SaveWorkout = React.memo(
       // if user is editing a saved workout
       if (ctx === "view") {
         try {
-          await axiosWithAuth().put(
+          await axiosWithAuth(t).put(
             `${process.env.REACT_APP_T_API}/api/auth/workouts/${workoutId}`,
             {
               title: workout.title,
@@ -55,7 +56,7 @@ const SaveWorkout = React.memo(
             }
           );
           // refetch updated list of workouts
-          await reFetch(time, history, scope.value);
+          await reFetch(time, history, scope.value, t);
           // close modal and return to dashboard
           closeParentModal();
         } catch (err) {

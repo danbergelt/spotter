@@ -28,7 +28,7 @@ describe("fetch exercises", () => {
 
     const store = mockStore({ exercises: [] });
 
-    await store.dispatch(fetchExercises(history));
+    await store.dispatch(fetchExercises(history, "token"));
 
     expect(store.getActions()).toEqual(expectedActions);
   });
@@ -52,7 +52,7 @@ describe("fetch exercises", () => {
 
     const store = mockStore({ err: null });
 
-    await store.dispatch(fetchExercises(history));
+    await store.dispatch(fetchExercises(history, "token"));
 
     expect(store.getActions()).toEqual(expectedActions);
   });

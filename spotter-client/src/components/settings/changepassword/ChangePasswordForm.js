@@ -2,8 +2,10 @@ import React from "react";
 import { Formik, Form, Field } from "formik";
 import { ValidationSchema } from "./ValidationSchema";
 import axiosWithAuth from "../../../utils/axiosWithAuth";
+import { useSelector } from "react-redux";
 
 const ChangePasswordForm = () => {
+  const t = useSelector(state => state.globalReducer.t);
   return (
     <div className="change-password-form">
       <Formik
@@ -18,7 +20,7 @@ const ChangePasswordForm = () => {
         onSubmit={async (values, { resetForm, setStatus }) => {
           resetForm();
           try {
-            const res = await axiosWithAuth().put(
+            const res = await axiosWithAuth(t).put(
               `${process.env.REACT_APP_T_API}/api/auth/user/password`,
               {
                 ...values

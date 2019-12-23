@@ -10,6 +10,7 @@ import Tag from "./Tag";
 
 const TagsModalManage = ({ setToDelete }) => {
   const tags = useSelector(state => state.tagsReducer.tags);
+  const t = useSelector(state => state.globalReducer.t);
   const dispatch = useDispatch();
 
   const [hover, setHover] = useState(null);
@@ -32,14 +33,14 @@ const TagsModalManage = ({ setToDelete }) => {
       e.preventDefault();
       setUpdateInput("");
       try {
-        const res = await axiosWithAuth().put(
+        const res = await axiosWithAuth(t).put(
           `${process.env.REACT_APP_T_API}/api/auth/tags/${update &&
             update._id}`,
           { content: updateInput }
         );
         setUpdate(null);
         dispatch({ type: UPDATE_TAG, payload: res.data.tag });
-        dispatch(fetchTags(history));
+        dispatch(fetchTags(history, t));
       } catch (error) {
         setErr(error.response.data.error);
       }

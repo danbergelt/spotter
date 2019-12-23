@@ -7,9 +7,9 @@ export const DELETE_SAVED_EXERCISE = "DELETE_SAVED_EXERCISE";
 
 // fetches saved exercises to track PRs on saved workouts
 
-export const fetchExercises = history => {
+export const fetchExercises = (history, t) => {
   return dispatch => {
-    return axiosWithAuth()
+    return axiosWithAuth(t)
       .get(`${process.env.REACT_APP_T_API}/api/auth/exercises`)
       .then(res => {
         dispatch({

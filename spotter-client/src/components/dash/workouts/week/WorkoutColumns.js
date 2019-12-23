@@ -24,6 +24,7 @@ const WorkoutColumns = () => {
   const [modal, setModal] = useState(false);
   const workouts = useSelector(state => state.fetchWorkoutsReducer.workouts);
   const scope = useSelector(state => state.globalReducer.scope);
+  const t = useSelector(state => state.globalReducer.t);
 
   const inc = () => {
     setWeek(week + 1);
@@ -35,8 +36,8 @@ const WorkoutColumns = () => {
 
   // refetches data upon dashboard state change
   useEffect(() => {
-    reFetch(week, history, scope.value);
-  }, [week, history, scope.value]);
+    reFetch(week, history, scope.value, t);
+  }, [week, history, scope.value, t]);
 
   // opens modal to add a new workout
   const openAddWorkoutModal = useCallback(
@@ -44,7 +45,7 @@ const WorkoutColumns = () => {
       dispatch({ type: SET_DATE, payload: date });
       dispatch({ type: MODAL_CTX, payload: "add" });
       setModal(true);
-      dispatch(fetchExercises(history));
+      dispatch(fetchExercises(history, t));
     },
     [dispatch, history]
   );
@@ -56,7 +57,7 @@ const WorkoutColumns = () => {
       dispatch({ type: MODAL_CTX, payload: "view" });
       dispatch({ type: FROM_SAVED, payload: workout });
       setModal(true);
-      dispatch(fetchExercises(history));
+      dispatch(fetchExercises(history, t));
     },
     [dispatch, history]
   );

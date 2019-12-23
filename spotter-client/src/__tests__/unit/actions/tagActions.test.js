@@ -29,7 +29,7 @@ describe("tag actions", () => {
 
     const history = createMemoryHistory();
 
-    await store.dispatch(fetchTags(history));
+    await store.dispatch(fetchTags(history, "token"));
 
     expect(store.getActions()).toEqual(expectedActions);
   });
@@ -54,7 +54,7 @@ describe("tag actions", () => {
 
     const store = mockStore({ err: null });
 
-    await store.dispatch(fetchTags(history));
+    await store.dispatch(fetchTags(history, "token"));
 
     expect(store.getActions()).toEqual(expectedActions);
   });

@@ -15,7 +15,7 @@ if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 const SaveTemplate = React.memo(({ close }) => {
   const workout = useSelector(state => state.workoutReducer);
   const templateSave = useSelector(state => state.optionsReducer.templateSave);
-
+  const t = useSelector(state => state.globalReducer.t);
   const [tempName, setTempName] = useState("");
   const [message, setMessage] = useState({});
 
@@ -29,7 +29,7 @@ const SaveTemplate = React.memo(({ close }) => {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      await axiosWithAuth().post(
+      await axiosWithAuth(t).post(
         `${process.env.REACT_APP_T_API}/api/auth/templates`,
         {
           name: tempName,

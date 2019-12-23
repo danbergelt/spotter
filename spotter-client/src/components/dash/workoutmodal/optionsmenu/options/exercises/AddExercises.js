@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axiosWithAuth from "../../../../../../utils/axiosWithAuth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CREATE_EXERCISE } from "../../../../../../actions/fetchExercisesActions";
 import SaveExerciseMsg from "./SaveExerciseMsg";
 
@@ -8,14 +8,14 @@ import SaveExerciseMsg from "./SaveExerciseMsg";
 
 const AddExercises = ({ msg, setMsg }) => {
   const [add, setAdd] = useState("");
-
+  const t = useSelector(state => state.globalReducer.t);
   const dispatch = useDispatch();
 
   const handleSubmit = async e => {
     e.preventDefault();
     setAdd("");
     try {
-      const res = await axiosWithAuth().post(
+      const res = await axiosWithAuth(t).post(
         `${process.env.REACT_APP_T_API}/api/auth/exercises`,
         { name: add }
       );

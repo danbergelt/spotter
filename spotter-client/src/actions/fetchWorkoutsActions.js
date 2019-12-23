@@ -7,10 +7,10 @@ export const DELETE_WORKOUT = "DELETE_WORKOUT";
 
 // fetches workouts based on range (e.g. week OR month)
 
-export const fetchWorkouts = (range, history) => {
+export const fetchWorkouts = (range, history, t) => {
   return dispatch => {
     dispatch({ type: FETCH_WORKOUTS_START });
-    return axiosWithAuth()
+    return axiosWithAuth(t)
       .post(`${process.env.REACT_APP_T_API}/api/auth/workouts/range`, {
         range
       })

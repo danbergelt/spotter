@@ -11,17 +11,21 @@ const Prs = () => {
   const [sortedPrs, setSortedPrs] = useState({});
 
   const prs = useSelector(state => state.prsReducer.prs);
+  const t = useSelector(state => state.globalReducer.t);
 
   useEffect(() => {
-    dispatch(fetchPrs());
+    dispatch(fetchPrs(t));
   }, [dispatch]);
 
   useEffect(() => {
+    // temporary variables for sorted prs
     let lastMonth = {};
     let lastYear = {};
     let allTime = {};
+    // if the prs are fetched
     if (Object.keys(prs).length) {
       for (let pr in prs) {
+        // find the diff between the current date and the current pr
         let diff = Number(
           moment().diff(moment(prs[pr].date, "MMM DD YYYY"), "days")
         );
@@ -36,8 +40,6 @@ const Prs = () => {
     }
     setSortedPrs({ lastMonth, lastYear, allTime });
   }, [prs]);
-
-  console.log(sortedPrs)
 
   return <div className="spacer">prs</div>;
 };

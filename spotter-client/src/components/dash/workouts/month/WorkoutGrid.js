@@ -25,11 +25,12 @@ const WorkoutGrid = () => {
   const [popover, setPopover] = useState({ open: false, id: null });
   const workouts = useSelector(state => state.fetchWorkoutsReducer.workouts);
   const scope = useSelector(state => state.globalReducer.scope);
+  const t = useSelector(state => state.globalReducer.t);
 
   // fetches up-to-date list of workouts on re-render
   useEffect(() => {
-    reFetch(month, history, scope.value);
-  }, [month, history, scope.value]);
+    reFetch(month, history, scope.value, t);
+  }, [month, history, scope.value, t]);
 
   const inc = () => {
     setMonth(month + 1);
@@ -45,7 +46,7 @@ const WorkoutGrid = () => {
       dispatch({ type: SET_DATE, payload: date });
       dispatch({ type: MODAL_CTX, payload: "add" });
       setModal(true);
-      dispatch(fetchExercises(history));
+      dispatch(fetchExercises(history, t));
     },
     [dispatch, history]
   );
@@ -56,7 +57,7 @@ const WorkoutGrid = () => {
       dispatch({ type: MODAL_CTX, payload: "view" });
       dispatch({ type: FROM_SAVED, payload: workout });
       setModal(true);
-      dispatch(fetchExercises(history));
+      dispatch(fetchExercises(history, t));
     },
     [dispatch, history]
   );
