@@ -41,6 +41,8 @@ const Prs = () => {
     setSortedPrs({ lastMonth, lastYear, allTime });
   }, [prs]);
 
+  console.log(sortedPrs)
+
   return <div className="spacer">prs</div>;
 };
 
