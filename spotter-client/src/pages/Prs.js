@@ -3,12 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchPrs } from "../actions/prActions";
 import Moment from "moment";
 import { extendMoment } from "moment-range";
+import PrSection from "../components/prs/PrSection";
 
 const moment = extendMoment(Moment);
 
 const Prs = () => {
   const dispatch = useDispatch();
-  const [sortedPrs, setSortedPrs] = useState({});
+  const [sortedPrs, setSortedPrs] = useState({
+    lastMonth: [],
+    lastYear: [],
+    allTime: []
+  });
 
   const prs = useSelector(state => state.prsReducer.prs);
   const t = useSelector(state => state.globalReducer.t);
@@ -19,9 +24,9 @@ const Prs = () => {
 
   useEffect(() => {
     // temporary variables for sorted prs
-    let lastMonth = {};
-    let lastYear = {};
-    let allTime = {};
+    let lastMonth = [];
+    let lastYear = [];
+    let allTime = [];
     // if the prs are fetched
     if (Object.keys(prs).length) {
       for (let pr in prs) {
@@ -30,20 +35,28 @@ const Prs = () => {
           moment().diff(moment(prs[pr].date, "MMM DD YYYY"), "days")
         );
         if (diff <= 31) {
-          lastMonth[pr] = prs[pr];
+          lastMonth.push(prs[pr]);
         } else if (diff <= 365) {
-          lastYear[pr] = prs[pr];
+          lastYear.push(prs[pr]);
         } else {
-          allTime[pr] = prs[pr];
+          allTime.push(prs[pr]);
         }
       }
     }
-    setSortedPrs({ lastMonth, lastYear, allTime });
+    setSortedPrs({
+      lastMonth,
+      lastYear,
+      allTime
+    });
   }, [prs]);
 
-  console.log(sortedPrs)
-
-  return <div className="spacer">prs</div>;
+  return (
+    <div className="prs-container spacer">
+      <PrSection title={"Last Month"} prs={sortedPrs.lastMonth} />
+      <PrSection title={"Last Year"} prs={sortedPrs.lastYear} />
+      <PrSection title={"All Time"} prs={sortedPrs.allTime} />
+    </div>
+  );
 };
 
 export default Prs;

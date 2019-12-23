@@ -11,6 +11,7 @@ exports.prCache = asyncHandler(async (req, res, next) => {
   const cache = await hgetall(req.user._id.toString());
 
   if (cache && cache.stale === "false") {
+    console.log("fetching")
     res.status(200).json({
       success: true,
       prs: JSON.parse(cache.prs)
