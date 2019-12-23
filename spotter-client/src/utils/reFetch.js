@@ -1,5 +1,5 @@
 import { generateWeek, generateMonth } from "./momentUtils";
-import { store } from "../reducers/index";
+import { store } from "../index";
 import { fetchWorkouts } from "../actions/fetchWorkoutsActions";
 
 // utility function for fetching updated list of workouts upon mutation i.e. delete, update, save, etc.

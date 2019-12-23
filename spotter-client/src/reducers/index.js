@@ -5,10 +5,10 @@ import { globalReducer } from "./globalReducer";
 import { tagsReducer } from "./tagsReducer";
 import { optionsReducer } from "./optionsReducer";
 import { fetchExercisesReducer } from "./fetchExercisesReducer";
-import { createStore, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
+import { prsReducer } from "./prsReducer";
 
 export const reducer = combineReducers({
+  prsReducer,
   workoutReducer,
   fetchWorkoutsReducer,
   globalReducer,
@@ -16,5 +16,3 @@ export const reducer = combineReducers({
   optionsReducer,
   fetchExercisesReducer
 });
-
-export const store = createStore(reducer, applyMiddleware(thunk));
