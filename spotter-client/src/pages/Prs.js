@@ -36,11 +36,11 @@ const Prs = () => {
           moment().diff(moment(prs[pr].date, "MMM DD YYYY"), "days")
         );
         if (diff <= 31) {
-          lastMonth.push(prs[pr]);
+          lastMonth = [...lastMonth, prs[pr]];
         } else if (diff <= 365) {
-          lastYear.push(prs[pr]);
+          lastYear = [...lastYear, prs[pr]];
         } else {
-          allTime.push(prs[pr]);
+          allTime = [...allTime, prs[pr]];
         }
       }
     }
