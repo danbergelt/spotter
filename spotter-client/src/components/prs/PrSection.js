@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { IoMdArrowDropdown, IoMdArrowDropright } from "react-icons/io";
-import { FaCircle } from "react-icons/fa";
+import Pr from "./Pr";
 import Moment from "moment";
 import { extendMoment } from "moment-range";
 
@@ -42,33 +42,7 @@ const PrSection = ({ title, prs }) => {
               moment(b.date, "MMM DD YYYY").diff(moment(a.date, "MMM DD YYYY"))
             )
             .map(pr => (
-              <div className="pr" key={pr.name}>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <div
-                    // color-coding circle to indicate if a PR is recent or old
-                    className={
-                      (moment().diff(moment(pr.date, "MMM DD YYYY"), "days") <=
-                        31 &&
-                        "pr-circle lastMonth") ||
-                      (31 <
-                        moment().diff(moment(pr.date, "MMM DD YYYY"), "days") &&
-                        moment().diff(moment(pr.date, "MMM DD YYYY"), "days") <=
-                          365 &&
-                        "pr-circle lastYear") ||
-                      (moment().diff(moment(pr.date, "MMM DD YYYY"), "days") >
-                        365 &&
-                        "pr-circle allTime")
-                    }
-                  >
-                    <FaCircle />
-                  </div>
-                  <div>{pr.name}</div>
-                </div>
-                <div style={{ display: "flex" }}>
-                  <div className="pr-date">{pr.date}</div>
-                  <div style={{ fontWeight: "bold" }}>{pr.pr}lbs</div>
-                </div>
-              </div>
+              <Pr key={pr.name} pr={pr} />
             ))}
         </div>
       )}

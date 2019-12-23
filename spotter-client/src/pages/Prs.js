@@ -22,6 +22,7 @@ const Prs = () => {
     dispatch(fetchPrs(t));
   }, [dispatch, t]);
 
+  // set PRs to state organized by time period in which the PR was set
   useEffect(() => {
     // temporary variables for sorted prs
     let lastMonth = [];
