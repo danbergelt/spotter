@@ -8,11 +8,11 @@ export const RESET_TAGS = "RESET_TAGS";
 
 // fetches tags and resets tags list on modal close
 
-export const fetchTags = history => {
+export const fetchTags = (history, t) => {
   return async dispatch => {
     dispatch({ type: FETCH_TAGS_START });
     try {
-      const res = await axiosWithAuth().get(
+      const res = await axiosWithAuth(t).get(
         `${process.env.REACT_APP_T_API}/api/auth/tags`
       );
       return dispatch({ type: FETCH_TAGS_SUCCESS, payload: res.data.tags });

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Err from "./Err";
 import { fetchTags } from "../../../../../../../../actions/tagsActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import axiosWithAuth from "../../../../../../../../utils/axiosWithAuth";
 import { DELETE_TAG } from "../../../../../../../../actions/workoutActions";
@@ -11,13 +11,14 @@ const TagsModalDelete = ({ toDelete }) => {
   const [err, setErr] = useState("");
   const history = useHistory();
   const dispatch = useDispatch();
+  const t = useSelector(state => state.globalReducer.t);
 
   const deleteTag = async () => {
     try {
-      await axiosWithAuth().delete(
+      await axiosWithAuth(t).delete(
         `${process.env.REACT_APP_T_API}/api/auth/tags/${toDelete._id}`
       );
-      await dispatch(fetchTags(history));
+      await dispatch(fetchTags(history, t));
       dispatch({ type: DELETE_TAG, payload: toDelete });
       dispatch({ type: SET_ACTIVE, payload: 0 });
     } catch (error) {

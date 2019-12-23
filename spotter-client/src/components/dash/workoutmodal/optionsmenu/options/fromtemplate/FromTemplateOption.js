@@ -1,6 +1,6 @@
 import React from "react";
 import FromTemplate from "./FromTemplate";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FiPackage } from "react-icons/fi";
 import {
   SET_TEMPLATES,
@@ -13,11 +13,12 @@ import axiosWithAuth from "../../../../../../utils/axiosWithAuth";
 
 const FromTemplateOption = ({ iconClass }) => {
   const dispatch = useDispatch();
+  const t = useSelector(state => state.globalReducer.t);
 
   // API call that provides a selection of templates to choose from
   const openFromTemplateModal = async () => {
     try {
-      const res = await axiosWithAuth().get(
+      const res = await axiosWithAuth(t).get(
         `${process.env.REACT_APP_T_API}/api/auth/templates`
       );
       dispatch({ type: SET_TEMPLATES, payload: res.data.templates });

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axiosWithAuth from "../../../../../../utils/axiosWithAuth";
 import Exercise from "./Exercise";
 import { DELETE_SAVED_EXERCISE } from "../../../../../../actions/fetchExercisesActions";
@@ -8,7 +8,7 @@ import { DELETE_SAVED_EXERCISE } from "../../../../../../actions/fetchExercisesA
 
 const ManageExercises = ({ exercises }) => {
   const [search, setSearch] = useState("");
-
+  const t = useSelector(state => state.globalReducer.t);
   const dispatch = useDispatch();
 
   // search filter
@@ -17,7 +17,7 @@ const ManageExercises = ({ exercises }) => {
   );
 
   const deleteExercise = async id => {
-    await axiosWithAuth().delete(
+    await axiosWithAuth(t).delete(
       `${process.env.REACT_APP_T_API}/api/auth/exercises/${id}`
     );
     dispatch({ type: DELETE_SAVED_EXERCISE, payload: id });

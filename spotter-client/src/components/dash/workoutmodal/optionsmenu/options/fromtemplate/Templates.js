@@ -8,15 +8,16 @@ import axiosWithAuth from "../../../../../../utils/axiosWithAuth";
 
 const Templates = ({ setActive, active, search }) => {
   const dispatch = useDispatch();
+  const t = useSelector(state => state.globalReducer.t);
 
   const deleteTemplate = useCallback(
     async id => {
-      await axiosWithAuth().delete(
+      await axiosWithAuth(t).delete(
         `${process.env.REACT_APP_T_API}/api/auth/templates/${id}`
       );
       dispatch({ type: DELETE_TEMPLATE, payload: id });
     },
-    [dispatch]
+    [dispatch, t]
   );
 
   const err = useSelector(state => state.optionsReducer.templatesErr);

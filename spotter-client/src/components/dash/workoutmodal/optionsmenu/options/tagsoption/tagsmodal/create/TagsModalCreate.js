@@ -4,7 +4,7 @@ import { colors } from "../localutils/createTagStyles";
 import Loader from "react-loader-spinner";
 import Message from "./Message";
 import { fetchTags } from "../../../../../../../../actions/tagsActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Color from "./Color";
 
@@ -18,11 +18,12 @@ const TagsModalCreate = () => {
   const [message, setMessage] = useState({});
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const t = useSelector(state => state.globalReducer.t);
 
   const submitTag = async () => {
     setLoading(true);
     try {
-      await axiosWithAuth().post(
+      await axiosWithAuth(t).post(
         `${process.env.REACT_APP_T_API}/api/auth/tags`,
         {
           color: color,
@@ -32,7 +33,7 @@ const TagsModalCreate = () => {
       setMessage({ success: "New tag created" });
       setLoading(false);
       setName("");
-      dispatch(fetchTags(history));
+      dispatch(fetchTags(history, t));
     } catch (error) {
       setMessage(error.response.data);
       setLoading(false);

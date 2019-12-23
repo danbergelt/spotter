@@ -1,13 +1,8 @@
 import axios from "axios";
-import { store } from "../reducers/index";
 
 // gets token from memory, creates an axios instance sending the token, enables cookies
 
-const axiosWithAuth = () => {
-  const {
-    globalReducer: { t }
-  } = store.getState();
-
+const axiosWithAuth = t => {
   return axios.create({
     headers: {
       Authorization: `Bearer ${t}`

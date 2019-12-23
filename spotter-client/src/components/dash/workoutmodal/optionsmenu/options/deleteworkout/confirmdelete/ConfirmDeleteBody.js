@@ -1,10 +1,12 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import axiosWithAuth from "../../../../../../../utils/axiosWithAuth";
 
 const ConfirmDeleteBody = React.memo(
   ({ onClose, closeParentModal, workoutId, onDelete }) => {
+    const t = useSelector(state => state.globalReducer.t);
     const deleteWorkout = async () => {
-      await axiosWithAuth().delete(
+      await axiosWithAuth(t).delete(
         `${process.env.REACT_APP_T_API}/api/auth/workouts/${workoutId}`
       );
       onDelete(workoutId);

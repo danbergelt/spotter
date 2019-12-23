@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from './App';
+import App from "./App";
 import "./styles/index.scss";
 import { BrowserRouter as Router } from "react-router-dom";
-import { store } from './reducers/index';
-import { Provider } from 'react-redux'
+import { Provider } from "react-redux";
+import { store } from "./store";
 
 ReactDOM.render(
   <Provider store={store}>
@@ -14,5 +14,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
-
-export default store;
