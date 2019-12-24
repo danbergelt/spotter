@@ -1,22 +1,22 @@
 import React from "react";
 import { FiX } from "react-icons/fi";
-import ChangePasswordForm from "./ChangePasswordForm";
+import ChangeEmailForm from './ChangeEmailForm'
 
-const ChangePasswordContent = ({ setChangePassword }) => {
+const ChangeEmailContent = ({ setChangeEmail}) => {
   return (
     <div className="change-container">
       <div className="popover-head">
         <div
           data-testid="close-popover"
-          onClick={() => setChangePassword(false)}
+          onClick={() => setChangeEmail(false)}
           className="close-popover"
         >
           <FiX />
         </div>
       </div>
-      <ChangePasswordForm />
+      <ChangeEmailForm />
     </div>
   );
 };
 
-export default ChangePasswordContent;
+export default ChangeEmailContent;

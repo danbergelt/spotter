@@ -3,7 +3,8 @@
 
 .settings-container {
   .settings-section {
-    margin-top: 4rem;
+    width: 80rem;
+    margin: 5rem auto;
 
     .settings-head {
       border-bottom: 1px solid $gray4;
@@ -47,18 +48,30 @@
           background: darken($primary, 15%);
         }
       }
+      .export-data {
+        background: $info;
+        padding: 1rem;
+        color: white;
+        width: max-content;
+        margin-top: 2rem;
+        cursor: pointer;
+
+        &:hover {
+          background: darken($info, 15%);
+        }
+      }
     }
   }
 }
 
-.change-password-popup {
+.change-popup {
   background: white;
   width: 275px;
   height: 250px;
   box-shadow: $box;
   padding: 1rem;
 
-  .change-password-container {
+  .change-container {
     height: 100%;
 
     .popover-head {
@@ -72,17 +85,17 @@
       }
     }
 
-    .change-password-form {
+    .change-form {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
 
-      .change-password-inp {
+      .change-inp {
         display: flex;
         flex-direction: column;
         margin-bottom: 1rem;
 
-        .change-password-label {
+        .change-label {
           color: $gray2;
           font-size: 1.2rem;
           margin-bottom: 0.5rem;
@@ -104,7 +117,7 @@
         }
       }
 
-      .change-password-button {
+      .change-button {
         color: white;
         background: $primary;
         border-radius: 4px;
@@ -119,13 +132,13 @@
         }
       }
 
-      .change-password-err {
+      .change-err {
         margin-right: 2rem;
         color: $danger;
         font-size: 1.3rem;
       }
-      
-      .change-password-succ {
+
+      .change-succ {
         margin-right: 2rem;
         color: $success;
         font-size: 1.3rem;
