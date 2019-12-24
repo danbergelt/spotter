@@ -12,9 +12,9 @@ const ChangeEmailForm = () => {
         validateOnChange={false}
         validateOnBlur={false}
         initialValues={{
-          oldPassword: "",
-          newPassword: "",
-          confirmPassword: ""
+          oldEmail: "",
+          newEmail: "",
+          confirmEmail: ""
         }}
         validationSchema={ValidationSchema}
         onSubmit={async (values, { resetForm, setStatus }) => {
@@ -29,7 +29,7 @@ const ChangeEmailForm = () => {
               <Field
                 data-testid="old"
                 className="inp-component"
-                name="oldPassword"
+                name="oldEmail"
               />
             </div>
             <div className="change-inp">
@@ -37,7 +37,7 @@ const ChangeEmailForm = () => {
               <Field
                 data-testid="new"
                 className="inp-component"
-                name="newPassword"
+                name="newEmail"
               />
             </div>
             <div className="change-inp">
@@ -45,7 +45,7 @@ const ChangeEmailForm = () => {
               <Field
                 data-testid="confirm"
                 className="inp-component"
-                name="confirmPassword"
+                name="confirmEmail"
               />
             </div>
             <div
@@ -62,9 +62,9 @@ const ChangeEmailForm = () => {
               >
                 Save
               </button>
-              {errors.confirmPassword && touched.confirmPassword && (
+              {errors.confirmEmail && touched.confirmEmail && (
                 <div className="change-err">
-                  {errors.confirmPassword}
+                  {errors.confirmEmail}
                 </div>
               )}
               {status && status.error && (

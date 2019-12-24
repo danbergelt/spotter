@@ -1,10 +1,14 @@
 import * as Yup from "yup";
 
 export const ValidationSchema = Yup.object().shape({
-  oldPassword: Yup.string().required("Enter your old password"),
-  newPassword: Yup.string().required(),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref("newPassword"), null], "Passwords must match")
-    .required("Enter your new password")
-    .min(6, "Six character minimum")
+  oldEmail: Yup.string()
+    .email("Invalid email")
+    .required("Enter your old email"),
+  newEmail: Yup.string()
+    .email("Invalid email")
+    .required(),
+  confirmEmail: Yup.string()
+    .email("Invalid email")
+    .oneOf([Yup.ref("newEmail"), null], "Emails must match")
+    .required("Enter your new email")
 });

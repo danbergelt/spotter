@@ -66,7 +66,7 @@ const FormikForm = withFormik({
     };
   },
   validationSchema: Yup.object().shape({
-    email: Yup.string().required("Email is required"),
+    email: Yup.string().email("Invalid email").required("Email is required"),
     password: Yup.string().required("Password is required")
   }),
   async handleSubmit(values, { props, resetForm, setStatus }) {
