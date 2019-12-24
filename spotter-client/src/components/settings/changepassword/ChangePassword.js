@@ -10,7 +10,7 @@ const ChangePassword = ({ changePassword, setChangePassword, children }) => {
       content={<ChangePasswordContent setChangePassword={setChangePassword} />}
       align="start"
       position="bottom"
-      containerClassName="change-password-popup"
+      containerClassName="change-popup"
     >
       {children}
     </Popover>

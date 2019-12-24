@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import ChangePassword from "../components/settings/changepassword/ChangePassword";
+import ChangeEmail from "../components/settings/changeemail/ChangeEmail";
 
 const Settings = () => {
   const [changePassword, setChangePassword] = useState(false);
+  const [changeEmail, setChangeEmail] = useState(false);
 
   return (
     <div className="settings-container spacer">
@@ -18,8 +20,12 @@ const Settings = () => {
           >
             Change password...
           </div>
-          <div className="settings-action">Change email...</div>
         </ChangePassword>
+        <ChangeEmail changeEmail={changeEmail} setChangeEmail={setChangeEmail}>
+          <div onClick={() => setChangeEmail(true)} className="settings-action">
+            Change email...
+          </div>
+        </ChangeEmail>
       </div>
 
       <div className="settings-section">
