@@ -18,12 +18,22 @@ const Settings = () => {
           >
             Change password...
           </div>
+          <div className="settings-action">Change email...</div>
         </ChangePassword>
+      </div>
+
+      <div className="settings-section">
+        <div className="settings-head">Export Workout Data</div>
+        <div className="settings-del-confirm">
+          Export your workout data as a CSV file. Click below to start your
+          download.
+          <div className="export-data">Export Data</div>
+        </div>
       </div>
 
       {/* delete account, change email, and export data will be included in 1.2! :) */}
 
-      {/* <div className="settings-section">
+      <div className="settings-section">
         <div className="settings-head">Close Account</div>
         <div className="settings-del-confirm">
           <span id="del-account-danger">Danger!</span> This action can't be
@@ -35,7 +45,7 @@ const Settings = () => {
           Are you sure you want to delete your account?
           <div className="delete-account">Delete Account</div>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };

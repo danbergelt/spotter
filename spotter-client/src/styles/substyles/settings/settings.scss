@@ -3,7 +3,8 @@
 
 .settings-container {
   .settings-section {
-    margin-top: 4rem;
+    width: 80rem;
+    margin: 5rem auto;
 
     .settings-head {
       border-bottom: 1px solid $gray4;
@@ -45,6 +46,18 @@
 
         &:hover {
           background: darken($primary, 15%);
+        }
+      }
+      .export-data {
+        background: $info;
+        padding: 1rem;
+        color: white;
+        width: max-content;
+        margin-top: 2rem;
+        cursor: pointer;
+
+        &:hover {
+          background: darken($info, 15%);
         }
       }
     }
@@ -124,7 +137,7 @@
         color: $danger;
         font-size: 1.3rem;
       }
-      
+
       .change-password-succ {
         margin-right: 2rem;
         color: $success;
