@@ -5,13 +5,16 @@ import Form from "../components/auth/Form";
 import { useDispatch } from "react-redux";
 import { ADD_TOKEN } from "../actions/addTokenActions";
 
-const SignUp = () => {
+const SignUp: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
   const addToken = useCallback(
-    t => {
-      dispatch({ type: ADD_TOKEN, payload: t });
+    (t: string): void => {
+      dispatch<{ type: string; payload: string }>({
+        type: ADD_TOKEN,
+        payload: t
+      });
     },
     [dispatch]
   );

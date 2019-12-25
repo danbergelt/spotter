@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import ChangePassword from "../components/settings/changepassword/ChangePassword";
 import ChangeEmail from "../components/settings/changeemail/ChangeEmail";
 
-const Settings = () => {
-  const [changePassword, setChangePassword] = useState(false);
-  const [changeEmail, setChangeEmail] = useState(false);
+const Settings: React.FC = () => {
+  const [changePassword, setChangePassword] = useState<boolean>(false);
+  const [changeEmail, setChangeEmail] = useState<boolean>(false);
 
   return (
     <div className="settings-container spacer">
