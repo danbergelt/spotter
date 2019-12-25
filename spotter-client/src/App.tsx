@@ -9,7 +9,7 @@ import { ADD_TOKEN } from "./actions/addTokenActions";
 // also requests refresh token on each refresh
 
 const App = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const dispatch = useDispatch();
 
   useEffect(() => {

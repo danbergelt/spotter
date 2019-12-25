@@ -1,11 +1,11 @@
-import Moment from "moment";
+import * as Moment from "moment";
 import { extendMoment } from "moment-range";
 
 const moment = extendMoment(Moment);
 
 // Used for generating days of week in dashboard
 
-export const generateWeek = num => {
+export const generateWeek = (num: number) => {
   const start = moment()
     .add(num, "weeks")
     .startOf("week");
@@ -25,7 +25,7 @@ export const generateWeek = num => {
 
 // Used to set header of dashboard
 
-export const dashHead = num => {
+export const dashHead = (num: number) => {
   return moment()
     .add(num, "weeks")
     .startOf("week")
@@ -34,7 +34,7 @@ export const dashHead = num => {
 
 // Used for generating days of month in dashboard
 
-export const generateMonth = num => {
+export const generateMonth = (num: number) => {
   const start = moment()
     .add(num, "months")
     .startOf("month")
@@ -43,10 +43,10 @@ export const generateMonth = num => {
     .add(num, "months")
     .endOf("month");
 
-  let leftover = 34 - Number(end.diff(start, 'days'))
+  let leftover = 34 - Number(end.diff(start, "days"));
 
-  end.add(leftover, 'days');
-  
+  end.add(leftover, "days");
+
   const range = moment.range(start, end);
 
   const days = [];
@@ -60,7 +60,7 @@ export const generateMonth = num => {
 
 // Used to set header of monthly dashboard view
 
-export const monthDashHead = num => {
+export const monthDashHead = (num: number) => {
   return moment()
     .add(num, "months")
     .startOf("month")

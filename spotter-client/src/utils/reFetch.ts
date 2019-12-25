@@ -1,11 +1,12 @@
 import { generateWeek, generateMonth } from "./momentUtils";
 import { store } from "../store";
 import { fetchWorkouts } from "../actions/fetchWorkoutsActions";
+import { History } from "history";
 
 // utility function for fetching updated list of workouts upon mutation i.e. delete, update, save, etc.
 
-const reFetch = (time, history, scope, t) => {
-  let range;
+const reFetch = (time: number, history: History, scope: string, t: string) => {
+  let range: Array<any> = [];
 
   if (scope === "Week") {
     range = generateWeek(time);
