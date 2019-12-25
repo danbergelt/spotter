@@ -5,7 +5,12 @@ import { History } from "history";
 
 // utility function for fetching updated list of workouts upon mutation i.e. delete, update, save, etc.
 
-const reFetch = (time: number, history: History, scope: string, t: string) => {
+const reFetch = (
+  time: number,
+  history: History,
+  scope: string,
+  t: string
+): void => {
   let range: Array<any> = [];
 
   if (scope === "Week") {
@@ -17,7 +22,9 @@ const reFetch = (time: number, history: History, scope: string, t: string) => {
   }
 
   range = range.map(d => d.format("MMM DD YYYY"));
-  store.dispatch(fetchWorkouts(range, history, t));
+  store.dispatch<any>(
+    fetchWorkouts<string[], History, string>(range, history, t)
+  );
 };
 
 export default reFetch;

@@ -1,5 +1,5 @@
 import axiosWithAuth from "../utils/axiosWithAuth";
-import { Dispatch, Action } from "redux";
+import { Dispatch, AnyAction } from "redux";
 
 export const FETCH_PRS_START: string = "FETCH_PRS_START";
 export const FETCH_PRS_SUCCESS: string = "FETCH_PRS_SUCCESS";
@@ -7,8 +7,8 @@ export const FETCH_PRS_ERROR: string = "FETCH_PRS_ERROR";
 
 // fetches PRs and dispatches to store
 
-export const fetchPrs = (t: string) => {
-  return async (dispatch: Dispatch<Action<any>>): Promise<void> => {
+export const fetchPrs = (t: string | null) => {
+  return async (dispatch: Dispatch<AnyAction>): Promise<void> => {
     dispatch({ type: FETCH_PRS_START });
     try {
       const res = await axiosWithAuth(t).get(

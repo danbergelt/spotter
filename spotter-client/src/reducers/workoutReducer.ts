@@ -15,8 +15,9 @@ import {
   FROM_SAVED
 } from "../actions/workoutActions";
 import { find, isMatch, isEqual, omit, pick, keys } from "lodash";
+import { WorkoutReducer } from "src/types/State";
 
-const workoutState = {
+const workoutState: WorkoutReducer = {
   title: "",
   notes: "",
   exercises: [],
@@ -27,7 +28,7 @@ const workoutState = {
 
 // contains active workout details to be shared globally
 
-export const workoutReducer = (state = workoutState, action) => {
+export const workoutReducer = (state = workoutState, action: any): WorkoutReducer => {
   switch (action.type) {
     case ADD_WORKOUT_TITLE:
       return {
@@ -94,7 +95,7 @@ export const workoutReducer = (state = workoutState, action) => {
         reps: null,
         weight: null
       };
-      action.payload.exercises = action.payload.exercises.map(el =>
+      action.payload.exercises = action.payload.exercises.map((el: object) =>
         pick(el, keys(exercises))
       );
       return {
