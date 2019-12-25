@@ -5,7 +5,7 @@ import * as Moment from "moment";
 import { extendMoment, MomentRange } from "moment-range";
 import PrSection from "../components/prs/PrSection";
 import { State } from "src/types/State";
-import { SortedPrs, SortedPr } from "../types/Prs";
+import { SortedPrs, SortedPrsRange } from "../types/Prs";
 
 const moment: MomentRange = extendMoment(Moment);
 
@@ -29,9 +29,9 @@ const Prs: React.FC = () => {
   // set PRs to state organized by time period in which the PR was set
   useEffect(() => {
     // temporary variables for sorted prs
-    let lastMonth: SortedPr = [];
-    let lastYear: SortedPr = [];
-    let allTime: SortedPr = [];
+    let lastMonth: SortedPrsRange = [];
+    let lastYear: SortedPrsRange = [];
+    let allTime: SortedPrsRange = [];
     // if the prs are fetched
     if (Object.keys(prs).length) {
       for (let pr in prs) {

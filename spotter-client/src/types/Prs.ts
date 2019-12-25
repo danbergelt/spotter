@@ -1,7 +1,7 @@
-export type SortedPr = [{ name: string; date: string; weight: number }][];
+export type SortedPrsRange = [{ name: string; date: string; weight: number }][];
 
 export interface SortedPrs {
-  lastMonth: SortedPr;
-  lastYear: SortedPr;
-  allTime: SortedPr;
+  lastMonth: SortedPrsRange;
+  lastYear: SortedPrsRange;
+  allTime: SortedPrsRange;
 }
