@@ -5,7 +5,11 @@ const moment: MomentRange = extendMoment(Moment);
 
 // Used for generating days of week in dashboard
 
-export const generateWeek = (num: number): Moment.Moment[] => {
+interface Params {
+  (num: number): Moment.Moment[];
+}
+
+export const generateWeek: Params = (num) => {
   const start = moment()
     .add(num, "weeks")
     .startOf("week");

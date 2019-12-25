@@ -5,12 +5,11 @@ import { History } from "history";
 
 // utility function for fetching updated list of workouts upon mutation i.e. delete, update, save, etc.
 
-const reFetch = (
-  time: number,
-  history: History,
-  scope: string,
-  t: string
-): void => {
+interface Params {
+  (time: number, history: History, scope: string, t: string): void;
+}
+
+const reFetch: Params = (time, history, scope, t) => {
   let range: Array<any> = [];
 
   if (scope === "Week") {
