@@ -8,7 +8,7 @@ export const FETCH_PRS_ERROR: string = "FETCH_PRS_ERROR";
 // fetches PRs and dispatches to store
 
 export const fetchPrs = (t: string) => {
-  return async (dispatch: Dispatch<Action>) => {
+  return async (dispatch: Dispatch<Action<any>>): Promise<void> => {
     dispatch({ type: FETCH_PRS_START });
     try {
       const res = await axiosWithAuth(t).get(

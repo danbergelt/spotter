@@ -16,3 +16,5 @@ export const reducer = combineReducers({
   optionsReducer,
   fetchExercisesReducer
 });
+
+export type AppState = ReturnType<typeof reducer>;
