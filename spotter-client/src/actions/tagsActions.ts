@@ -1,15 +1,17 @@
 import axiosWithAuth from "../utils/axiosWithAuth";
+import { History } from "history";
+import { Dispatch, Action } from "redux";
 
-export const FETCH_TAGS_START = "FETCH_TAGS_START";
-export const FETCH_TAGS_SUCCESS = "FETCH_TAGS_SUCCESS";
-export const FETCH_TAGS_ERROR = "FETCH_TAGS_ERROR";
+export const FETCH_TAGS_START: string = "FETCH_TAGS_START";
+export const FETCH_TAGS_SUCCESS: string = "FETCH_TAGS_SUCCESS";
+export const FETCH_TAGS_ERROR: string = "FETCH_TAGS_ERROR";
 
-export const RESET_TAGS = "RESET_TAGS";
+export const RESET_TAGS: string = "RESET_TAGS";
 
 // fetches tags and resets tags list on modal close
 
-export const fetchTags = (history, t) => {
-  return async dispatch => {
+export const fetchTags = (history: History, t: string) => {
+  return async (dispatch: Dispatch<Action>) => {
     dispatch({ type: FETCH_TAGS_START });
     try {
       const res = await axiosWithAuth(t).get(
@@ -23,7 +25,7 @@ export const fetchTags = (history, t) => {
           payload: error.response.data.error
         });
       } else {
-        history.push("/500");
+        return history.push("/500");
       }
     }
   };
