@@ -8,11 +8,11 @@ import { ADD_TOKEN } from "./actions/addTokenActions";
 // this component renders in front of routes, checks for token, and returns proper authenticated data
 // also requests refresh token on each refresh
 
-const App = () => {
-  const [loading, setLoading] = useState(true);
+const App: React.FC = () => {
+  const [loading, setLoading] = useState<boolean>(true);
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  useEffect((): void => {
     axios
       .get(`${process.env.REACT_APP_T_API}/api/auth/refresh`, {
         withCredentials: true

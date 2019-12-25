@@ -1,8 +1,8 @@
-import axios from "axios";
+import axios, { AxiosInstance } from "axios";
 
 // gets token from memory, creates an axios instance sending the token, enables cookies
 
-const axiosWithAuth = t => {
+const axiosWithAuth = (t: string | null): AxiosInstance => {
   return axios.create({
     headers: {
       Authorization: `Bearer ${t}`

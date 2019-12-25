@@ -1,6 +1,6 @@
 import React from "react";
 
-const ServerError = () => {
+const ServerError: React.FC = () => {
   return (
     <div className="notfound-container">
       <h1 className="notfound-header">500</h1>

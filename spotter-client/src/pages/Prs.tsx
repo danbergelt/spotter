@@ -1,38 +1,42 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPrs } from "../actions/prActions";
-import Moment from "moment";
-import { extendMoment } from "moment-range";
+import * as Moment from "moment";
+import { extendMoment, MomentRange } from "moment-range";
 import PrSection from "../components/prs/PrSection";
+import { State } from "src/types/State";
+import { SortedPrs, SortedPrsRange } from "../types/Prs";
 
-const moment = extendMoment(Moment);
+const moment: MomentRange = extendMoment(Moment);
 
-const Prs = () => {
+const Prs: React.FC = () => {
   const dispatch = useDispatch();
-  const [sortedPrs, setSortedPrs] = useState({
+  const [sortedPrs, setSortedPrs] = useState<SortedPrs>({
     lastMonth: [],
     lastYear: [],
     allTime: []
   });
 
-  const prs = useSelector(state => state.prsReducer.prs);
-  const t = useSelector(state => state.globalReducer.t);
+  const getPrs = (state: State) => state.prsReducer.prs;
+  const prs: object = useSelector(getPrs);
+  const fetchToken = (state: State) => state.globalReducer.t;
+  const t: string | null = useSelector(fetchToken);
 
-  useEffect(() => {
+  useEffect((): void => {
     dispatch(fetchPrs(t));
   }, [dispatch, t]);
 
   // set PRs to state organized by time period in which the PR was set
   useEffect(() => {
     // temporary variables for sorted prs
-    let lastMonth = [];
-    let lastYear = [];
-    let allTime = [];
+    let lastMonth: SortedPrsRange = [];
+    let lastYear: SortedPrsRange = [];
+    let allTime: SortedPrsRange = [];
     // if the prs are fetched
     if (Object.keys(prs).length) {
       for (let pr in prs) {
         // find the diff between the current date and the current pr
-        let diff = Number(
+        let diff: number = Number(
           moment().diff(moment(prs[pr].date, "MMM DD YYYY"), "days")
         );
         if (diff <= 31) {
