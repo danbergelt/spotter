@@ -1,7 +1,11 @@
-import React from "react";
+import React, { memo } from "react";
 import { FiX } from "react-icons/fi";
 
-const ConfirmDeleteHead = React.memo(({ close }) => {
+interface Props {
+  close: () => void;
+}
+
+const ConfirmDeleteHead: React.FC<Props> = ({ close }) => {
   return (
     <div className="delete-head-container">
       <div className="delete-head">Delete Workout</div>
@@ -14,6 +18,6 @@ const ConfirmDeleteHead = React.memo(({ close }) => {
       </div>
     </div>
   );
-});
+};
 
-export default ConfirmDeleteHead;
+export default memo(ConfirmDeleteHead);

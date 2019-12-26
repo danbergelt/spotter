@@ -3,24 +3,35 @@ import { useDispatch, useSelector } from "react-redux";
 import axiosWithAuth from "../../../../../../utils/axiosWithAuth";
 import Exercise from "./Exercise";
 import { DELETE_SAVED_EXERCISE } from "../../../../../../actions/fetchExercisesActions";
+import { Exercise as E } from "../../../../../../types/ExerciseOption";
+import { State } from "src/types/State";
 
 // search and delete exercises
 
-const ManageExercises = ({ exercises }) => {
-  const [search, setSearch] = useState("");
-  const t = useSelector(state => state.globalReducer.t);
+interface Props {
+  exercises: Array<E>;
+}
+
+const ManageExercises: React.FC<Props> = ({ exercises }) => {
+  const [search, setSearch] = useState<string>("");
+
+  const fetchToken = (state: State) => state.globalReducer.t;
+  const t: string | null = useSelector(fetchToken);
   const dispatch = useDispatch();
 
   // search filter
-  const filter = exercises.filter(e =>
+  const filter: Array<E> = exercises.filter((e: E) =>
     e.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  const deleteExercise = async id => {
+  const deleteExercise = async (id: string) => {
     await axiosWithAuth(t).delete(
       `${process.env.REACT_APP_T_API}/api/auth/exercises/${id}`
     );
-    dispatch({ type: DELETE_SAVED_EXERCISE, payload: id });
+    dispatch<{ type: string; payload: string }>({
+      type: DELETE_SAVED_EXERCISE,
+      payload: id
+    });
   };
 
   return (
@@ -37,7 +48,7 @@ const ManageExercises = ({ exercises }) => {
       {exercises.length ? (
         filter.length ? (
           <div className="exercises">
-            {filter.map(exercise => (
+            {filter.map((exercise: E) => (
               <Exercise
                 key={exercise._id}
                 deleteExercise={deleteExercise}

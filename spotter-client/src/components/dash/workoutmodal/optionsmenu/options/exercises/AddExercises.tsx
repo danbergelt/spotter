@@ -3,23 +3,38 @@ import axiosWithAuth from "../../../../../../utils/axiosWithAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { CREATE_EXERCISE } from "../../../../../../actions/fetchExercisesActions";
 import SaveExerciseMsg from "./SaveExerciseMsg";
+import { State } from "src/types/State";
+import { AxiosResponse } from "axios";
+import { Exercise, Msg } from '../../../../../../types/ExerciseOption';
 
 // create exercise
 
-const AddExercises = ({ msg, setMsg }) => {
-  const [add, setAdd] = useState("");
-  const t = useSelector(state => state.globalReducer.t);
+interface Props {
+  msg: Msg;
+  setMsg: React.Dispatch<React.SetStateAction<Msg>>;
+}
+
+const AddExercises: React.FC<Props> = ({ msg, setMsg }) => {
+  const [add, setAdd] = useState<string>("");
+
+  const fetchToken = (state: State) => state.globalReducer.t;
+  const t: string | null = useSelector(fetchToken);
   const dispatch = useDispatch();
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setAdd("");
     try {
-      const res = await axiosWithAuth(t).post(
+      const res: AxiosResponse<any> = await axiosWithAuth(t).post(
         `${process.env.REACT_APP_T_API}/api/auth/exercises`,
-        { name: add }
+        {
+          name: add
+        }
       );
-      dispatch({ type: CREATE_EXERCISE, payload: res.data.exercise });
+      dispatch<{ type: string; payload: Exercise }>({
+        type: CREATE_EXERCISE,
+        payload: res.data.exercise
+      });
 
       setMsg({ success: "Exercise created" });
     } catch (error) {
@@ -45,7 +60,9 @@ const AddExercises = ({ msg, setMsg }) => {
           placeholder="Create exercise..."
           className="exercises-add"
         />
-        <button data-testid="create-exercise" className="btn-exercise">Create</button>
+        <button data-testid="create-exercise" className="btn-exercise">
+          Create
+        </button>
       </form>
       {msg.error && (
         <SaveExerciseMsg

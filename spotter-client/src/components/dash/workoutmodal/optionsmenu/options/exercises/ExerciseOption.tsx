@@ -4,12 +4,19 @@ import { useDispatch } from "react-redux";
 import { SET_EXERCISES } from "../../../../../../actions/optionsActions";
 import Exercises from "./Exercises";
 
-const ExerciseOption = ({ iconClass }) => {
+interface Props {
+  iconClass: string;
+}
+
+const ExerciseOption: React.FC<Props> = ({ iconClass }) => {
   const dispatch = useDispatch();
 
-  const setExercisesModal = useCallback(
+  const setExercisesModal: (state: boolean) => void = useCallback(
     state => {
-      dispatch({ type: SET_EXERCISES, payload: state });
+      dispatch<{ type: string; payload: boolean }>({
+        type: SET_EXERCISES,
+        payload: state
+      });
     },
     [dispatch]
   );

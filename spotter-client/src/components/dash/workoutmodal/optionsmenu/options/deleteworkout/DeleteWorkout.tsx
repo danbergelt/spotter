@@ -1,25 +1,27 @@
-import React from "react";
+import React, { memo } from "react";
 import { FiDelete } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import ConfirmDelete from "./confirmdelete/ConfirmDelete";
 import { SET_CONFIRM_DELETE } from "../../../../../../actions/optionsActions";
 
+interface Props {
+  closeParentModal: () => void;
+  workoutId: string | null;
+  ctx: string | null;
+  iconClass: string;
+}
+
 // delete workout option container
-const DeleteWorkout = React.memo(({
-  closeParentModal,
-  workoutId,
-  ctx,
-  iconClass
-}) => {
+const DeleteWorkout: React.FC<Props> = ({ closeParentModal, workoutId, ctx, iconClass }) => {
   const dispatch = useDispatch();
 
   // references global modal context to determine action of delete workout button
-  const delHandler = () => {
+  const delHandler: () => void = () => {
     if (ctx === "add") {
       closeParentModal();
     }
     if (ctx === "view") {
-      dispatch({ type: SET_CONFIRM_DELETE, payload: true });
+      dispatch<{type: string, payload: boolean}>({ type: SET_CONFIRM_DELETE, payload: true });
     }
   };
 
@@ -38,6 +40,6 @@ const DeleteWorkout = React.memo(({
       />
     </>
   );
-});
+};
 
-export default DeleteWorkout;
+export default memo(DeleteWorkout);

@@ -4,7 +4,7 @@ import { NotesProps as Props } from '../../../../../types/Notes';
 
 const NotesHead: React.FC<Props> = ({ notes, notesRef }) => {
 
-  const handleFocus = () => {
+  const handleFocus: () => void = () => {
     if(notesRef && notesRef.current){
       notesRef.current.focus()
     }

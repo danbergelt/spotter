@@ -1,7 +1,13 @@
-import React from "react";
+import React, { memo } from "react";
 import { FiX } from "react-icons/fi";
+import { Exercise as E } from '../../../../../../types/ExerciseOption';
 
-const Exercise = React.memo(({ deleteExercise, exercise }) => {
+interface Props { 
+  deleteExercise: (id: string) => Promise<void>
+  exercise: E
+}
+
+const Exercise: React.FC<Props> = ({ deleteExercise, exercise }) => {
   return (
     <div className="exercise-container">
       <div className="exercise">{exercise.name}</div>
@@ -14,6 +20,6 @@ const Exercise = React.memo(({ deleteExercise, exercise }) => {
       </div>
     </div>
   );
-});
+};
 
-export default Exercise;
+export default memo(Exercise);

@@ -1,16 +1,19 @@
-import React, { useCallback } from "react";
+import React, { useCallback, memo } from "react";
 import { useDispatch } from "react-redux";
 import SaveTemplate from "./SaveTemplate";
 import { FiSave } from "react-icons/fi";
-import { SET_TEMPLATE_SAVE } from '../../../../../../actions/optionsActions';
+import { SET_TEMPLATE_SAVE } from "../../../../../../actions/optionsActions";
 
 // option button container, click to trigger opening of save-template modal
-const SaveTemplateOption = React.memo(({ iconClass }) => {
+const SaveTemplateOption = ({ iconClass }) => {
   const dispatch = useDispatch();
 
-  const setTemplateSaveModal = useCallback(payload => {
-    dispatch({ type: SET_TEMPLATE_SAVE, payload })
-  }, [dispatch])
+  const setTemplateSaveModal = useCallback(
+    payload => {
+      dispatch({ type: SET_TEMPLATE_SAVE, payload });
+    },
+    [dispatch]
+  );
 
   return (
     <>
@@ -24,6 +27,6 @@ const SaveTemplateOption = React.memo(({ iconClass }) => {
       <SaveTemplate close={setTemplateSaveModal} />
     </>
   );
-});
+};
 
-export default SaveTemplateOption;
+export default memo(SaveTemplateOption);

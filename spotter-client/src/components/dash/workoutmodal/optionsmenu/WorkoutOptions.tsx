@@ -8,12 +8,22 @@ import FromTemplateOption from "./options/fromtemplate/FromTemplateOption";
 import ExerciseOption from "./options/exercises/ExerciseOption";
 import DeleteWorkout from "./options/deleteworkout/DeleteWorkout";
 import SaveWorkout from "./options/saveworkout/SaveWorkout";
+import { State } from "src/types/State";
+
+interface Props {
+  closeParentModal: () => void;
+  time: number
+}
 
 // container for sidebar menu on workout modal
-const WorkoutOptions = ({ closeParentModal, time }) => {
-  const iconClass = "add-workout-options-icon";
-  const ctx = useSelector(state => state.globalReducer.ctx);
-  const workoutId = useSelector(state => state.workoutReducer._id);
+const WorkoutOptions: React.FC<Props> = ({ closeParentModal, time }) => {
+  const iconClass: string = "add-workout-options-icon";
+
+  const fetchCtx = (state: State) => state.globalReducer.ctx;
+  const ctx: string | null = useSelector(fetchCtx);
+
+  const fetchWorkoutId = (state: State) => state.workoutReducer._id
+  const workoutId: string | null = useSelector(fetchWorkoutId);
 
   return (
     <div className="add-workout-options-container">

@@ -1,9 +1,15 @@
-import React from "react";
+import React, { memo } from "react";
 import { FiX } from "react-icons/fi";
 
 // tabs to control exercises modal
 
-const ExercisesHead = React.memo(({ setExercisesModal, tab, setTab }) => {
+interface Props {
+  setExercisesModal: (state: boolean) => void;
+  tab: number;
+  setTab: React.Dispatch<React.SetStateAction<number>>
+}
+
+const ExercisesHead: React.FC<Props> = ({ setExercisesModal, tab, setTab }) => {
   return (
     <>
       <div className="exercises-header">
@@ -44,6 +50,6 @@ const ExercisesHead = React.memo(({ setExercisesModal, tab, setTab }) => {
       </div>
     </>
   );
-});
+};
 
-export default ExercisesHead;
+export default memo(ExercisesHead);

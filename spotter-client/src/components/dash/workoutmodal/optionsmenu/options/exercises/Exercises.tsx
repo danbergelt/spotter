@@ -1,20 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 import Modal from "react-modal";
 import { useSelector } from "react-redux";
 import { styles } from "./styles";
 import ExercisesHead from "./ExercisesHead";
 import ManageExercises from "./ManageExercises";
 import AddExercises from "./AddExercises";
+import { State } from "src/types/State";
+import { Exercise, Msg } from "../../../../../../types/ExerciseOption";
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
-const Exercises = React.memo(({ setExercisesModal }) => {
-  const modalState = useSelector(state => state.optionsReducer.exercises);
-  const savedExercises = useSelector(
-    state => state.fetchExercisesReducer.savedExercises
-  );
-  const [tab, setTab] = useState(0);
-  const [msg, setMsg] = useState({});
+interface Props {
+  setExercisesModal: (state: boolean) => void;
+}
+
+const Exercises: React.FC<Props> = ({ setExercisesModal }) => {
+  const fetchModalState = (state: State) => state.optionsReducer.exercises;
+  const modalState: boolean = useSelector(fetchModalState);
+
+  const fetchSavedExercises = (state: State) =>
+    state.fetchExercisesReducer.savedExercises;
+  const savedExercises: Array<Exercise> = useSelector(fetchSavedExercises);
+
+  const [tab, setTab] = useState<number>(0);
+  const [msg, setMsg] = useState<Msg>({});
 
   return (
     <Modal
@@ -38,6 +47,6 @@ const Exercises = React.memo(({ setExercisesModal }) => {
       </div>
     </Modal>
   );
-});
+};
 
-export default Exercises;
+export default memo(Exercises);
