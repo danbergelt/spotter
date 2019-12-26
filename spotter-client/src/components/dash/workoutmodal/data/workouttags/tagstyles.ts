@@ -1,4 +1,4 @@
-export const tagStyles = color => {
+export const tagStyles = (color: string) => {
   return {
     background: color,
     minWidth: "40px",

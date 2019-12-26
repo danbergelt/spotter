@@ -3,9 +3,15 @@ import { FiX } from "react-icons/fi";
 import { FaCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { ADD_WORKOUT_TITLE } from "../../../../actions/workoutActions";
+import { State } from "src/types/State";
 
-const WorkoutTitle = ({ closeModal }) => {
-  const title = useSelector(state => state.workoutReducer.title);
+interface Props {
+  closeModal: () => void;
+}
+
+const WorkoutTitle: React.FC<Props> = ({ closeModal }) => {
+  const fetchTitle = (state: State) => state.workoutReducer.title;
+  const title: string = useSelector(fetchTitle);
 
   const dispatch = useDispatch();
 
@@ -18,7 +24,10 @@ const WorkoutTitle = ({ closeModal }) => {
           placeholder={"Click to enter a title..."}
           value={title}
           onChange={e =>
-            dispatch({ type: ADD_WORKOUT_TITLE, payload: e.target.value })
+            dispatch<{ type: string; payload: string }>({
+              type: ADD_WORKOUT_TITLE,
+              payload: e.target.value
+            })
           }
           className="workout-title"
         />

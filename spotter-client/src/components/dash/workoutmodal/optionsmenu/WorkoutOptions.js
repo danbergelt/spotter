@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { useSelector } from "react-redux";
 
 // components
@@ -10,7 +10,7 @@ import DeleteWorkout from "./options/deleteworkout/DeleteWorkout";
 import SaveWorkout from "./options/saveworkout/SaveWorkout";
 
 // container for sidebar menu on workout modal
-const WorkoutOptions = React.memo(({ closeParentModal, time }) => {
+const WorkoutOptions = ({ closeParentModal, time }) => {
   const iconClass = "add-workout-options-icon";
   const ctx = useSelector(state => state.globalReducer.ctx);
   const workoutId = useSelector(state => state.workoutReducer._id);
@@ -39,6 +39,6 @@ const WorkoutOptions = React.memo(({ closeParentModal, time }) => {
       </div>
     </div>
   );
-});
+};
 
-export default WorkoutOptions;
+export default memo(WorkoutOptions);

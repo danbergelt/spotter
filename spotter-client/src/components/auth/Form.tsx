@@ -1,9 +1,8 @@
 import React, { ReactNode, memo } from "react";
-
 import { Form, Field, Formik, FormikActions } from "formik";
-import * as Yup from "yup";
 import axios, { AxiosResponse } from "axios";
 import { History } from "history";
+import { ValidationSchema } from "./ValidationSchema";
 
 // component for login + signup forms
 
@@ -33,12 +32,7 @@ const SpotterForm: React.FC<Props> = ({
       </div>
       <Formik
         initialValues={{ email: "", password: "" }}
-        validationSchema={Yup.object().shape({
-          email: Yup.string()
-            .email("Invalid email")
-            .required("Email is required"),
-          password: Yup.string().required("Password is required")
-        })}
+        validationSchema={ValidationSchema}
         onSubmit={async (
           values: FormValues,
           { resetForm, setStatus }: FormActions

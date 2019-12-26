@@ -4,16 +4,19 @@ import { RESET_NOTES } from "../../../../../actions/workoutActions";
 import NotesTextArea from "./NotesTextArea";
 import NotesHead from "./NotesHead";
 import { useDispatch, useSelector } from "react-redux";
+import { State } from "src/types/State";
 
 const WorkoutNotes = () => {
   // i.e. save/delete notes
-  const [actions, setActions] = useState(false);
+  const [actions, setActions] = useState<boolean>(false);
 
-  const notesRef = useRef(null);
+  const notesRef = useRef<HTMLTextAreaElement>(null);
 
   const dispatch = useDispatch();
 
-  const notes = useSelector(state => state.workoutReducer.notes);
+  const fetchNotes = (state: State) => state.workoutReducer.notes;
+
+  const notes: string = useSelector(fetchNotes);
 
   return (
     <div className="workout-data-notes">
@@ -29,7 +32,7 @@ const WorkoutNotes = () => {
         <FiPlus className="workout-data-notes-submit" />
         <FiTrash
           data-testid="trash"
-          onMouseDown={() => dispatch({ type: RESET_NOTES, payload: "" })}
+          onMouseDown={() => dispatch<{type: string, payload: string}>({ type: RESET_NOTES, payload: "" })}
           className="workout-data-notes-cancel"
         />
       </div>
