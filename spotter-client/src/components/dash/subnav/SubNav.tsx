@@ -1,14 +1,11 @@
 import React from "react";
 import SubnavDropdown from "./SubnavDropdown";
 
-const SubNav = () => {
+const SubNav: React.FC = () => {
   return (
     <div className="subnav-container spacer">
       <div className="subnav-menu left">
         <SubnavDropdown />
-        {/* <div className="subnav-menu-icon left">
-          PRs
-        </div> */}
       </div>
     </div>
   );

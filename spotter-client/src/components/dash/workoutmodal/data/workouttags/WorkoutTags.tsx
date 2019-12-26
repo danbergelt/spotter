@@ -1,9 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import Tag from "./Tag";
+import { State } from "src/types/State";
+import {TagOnWorkout } from '../../../../../types/TagOnWorkout';
 
 const WorkoutTags = () => {
-  const tags = useSelector(state => state.workoutReducer.tags);
+  const fetchTags = (state: State) => state.workoutReducer.tags
+  const tags: Array<TagOnWorkout> = useSelector(fetchTags);
 
   return (
     <div className="workout-data-tags">

@@ -1,7 +1,15 @@
 import React from "react";
 import { FiBookOpen } from 'react-icons/fi';
+import { NotesProps as Props } from '../../../../../types/Notes';
 
-const NotesHead = ({ notes, notesRef }) => {
+const NotesHead: React.FC<Props> = ({ notes, notesRef }) => {
+
+  const handleFocus = () => {
+    if(notesRef && notesRef.current){
+      notesRef.current.focus()
+    }
+  }
+
   return (
     <div className="workout-data-notes-head">
       <FiBookOpen className="workout-data-notes-icon" />
@@ -9,7 +17,7 @@ const NotesHead = ({ notes, notesRef }) => {
       {notes !== "" && (
         <div
           className="workout-data-notes-edit"
-          onClick={() => notesRef.current.focus()}
+          onClick={() => handleFocus()}
         >
           Edit
         </div>

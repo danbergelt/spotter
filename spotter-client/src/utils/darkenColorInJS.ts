@@ -1,6 +1,10 @@
 // utility function to darken a CSS in JS hex code color
 
-function adjust(color: string, amount: number): string {
+interface Params {
+  (color: string, amount: number): string
+}
+
+const adjust: Params = (color, amount) => {
   return (
     "#" +
     color

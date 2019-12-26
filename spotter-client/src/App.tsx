@@ -18,10 +18,13 @@ const App: React.FC = () => {
         withCredentials: true
       })
       .then(res => {
-        dispatch({ type: ADD_TOKEN, payload: res.data.token });
+        dispatch<{ type: string; payload: any }>({
+          type: ADD_TOKEN,
+          payload: res.data.token
+        });
         setLoading(false);
       })
-      .catch(err => console.log(err.response))
+      .catch(err => console.log(err.response));
   }, [dispatch]);
 
   if (loading) {

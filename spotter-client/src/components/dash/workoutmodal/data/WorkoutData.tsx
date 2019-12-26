@@ -5,7 +5,7 @@ import WorkoutTags from './workouttags/WorkoutTags';
 import WorkoutNotes from './workoutnotes/WorkoutNotes';
 import WorkoutExercises from './exercises/WorkoutExercises';
 
-const WorkoutData = () => {
+const WorkoutData: React.FC = () => {
 
   return (
     <div className="workout-data">

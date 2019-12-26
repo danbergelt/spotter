@@ -7,28 +7,43 @@ import {
   DEL_EXERCISE
 } from "../../../../../actions/workoutActions";
 import WorkoutExercise from "./WorkoutExercise";
-import { times } from "lodash";
+import { times, isEmpty } from "lodash";
 import ClearEditQueue from "./ClearEditQueue";
+import { State } from "src/types/State";
+import { Refs, Exercise, Queued } from "../../../../../types/Exercises";
+
+type HandleQueue = (exercise: Exercise, i: number) => void;
+
+type DelExercise = (i: number) => void;
 
 const WorkoutExercises = () => {
-  const exercises = useSelector(state => state.workoutReducer.exercises);
+  const fetchExercises = (state: State) => state.workoutReducer.exercises;
+  const exercises: Array<Exercise> = useSelector(fetchExercises);
+  const fetchQueued = (state: State) => state.workoutReducer.queue;
+  const queued: Queued = useSelector(fetchQueued) as Queued;
 
   const dispatch = useDispatch();
 
   // refs to handle blurring fields
-  const refs = [];
-  times(4, i => (refs[i] = React.createRef()));
+  const refs: Refs = [];
+  times(3, i => (refs[i] = React.createRef()));
 
-  const handleQueue = useCallback(
-    (exercise, i, a) => {
-      dispatch({ type: QUEUE_EDIT, payload: { exercise, i } });
+  const handleQueue: HandleQueue = useCallback(
+    (exercise, i) => {
+      dispatch<{ type: string; payload: { exercise: Exercise; i: number } }>({
+        type: QUEUE_EDIT,
+        payload: { exercise, i }
+      });
     },
     [dispatch]
   );
 
-  const delExercise = useCallback(
+  const delExercise: DelExercise = useCallback(
     i => {
-      dispatch({ type: DEL_EXERCISE, payload: i });
+      dispatch<{ type: string; payload: number }>({
+        type: DEL_EXERCISE,
+        payload: i
+      });
     },
     [dispatch]
   );
@@ -38,7 +53,7 @@ const WorkoutExercises = () => {
       <div className="workout-data-exercises-head">
         <FiStar className="workout-data-exercises-icon" />
         <div className="workout-data-exercises-title">Workout</div>
-        <ClearEditQueue />
+        {!isEmpty(queued) && <ClearEditQueue />}
       </div>
       <div className="workout-data-exercises-content">
         <ExerciseForm refs={refs} />

@@ -1,42 +1,44 @@
-import React from "react";
-import Select from "react-select";
+import React, { CSSProperties } from "react";
+import Select, { Styles, ValueType } from "react-select";
 import { SET_SCOPE } from "../../../actions/timeScopeActions";
 import { useDispatch, useSelector } from "react-redux";
+import { State } from "src/types/State";
 
 // controls workout range (determines range of workouts fetch call) - need to add active range to global state
 
 const SubnavDropdown = () => {
-  const options = [
+  type Options = { value: string; label: string }[];
+  type Option = { value: string; label: string };
+
+  const options: Options = [
     { value: "Week", label: "Week" },
     { value: "Month", label: "Month" }
   ];
 
-  const scope = useSelector(state => state.globalReducer.scope);
+  const fetchScope = (state: State) => state.globalReducer.scope;
+
+  const scope: Option = useSelector(fetchScope);
 
   const dispatch = useDispatch();
 
-  const customStyles = {
-    control: (provided, state) => ({
+  const customStyles: Partial<Styles> = {
+    control: (provided: CSSProperties) => ({
       ...provided,
-      border: state.isFocused ? 0 : 0,
-      boxShadow: state.isFocused ? 0 : 0,
-      "&:hover": {
-        cursor: "pointer"
-      }
+      border: "none",
+      boxShadow: "none",
+      cursor: "pointer"
     }),
     indicatorSeparator: () => ({
-      display: 0
+      display: "none"
     }),
-    dropdownIndicator: provided => ({
+    dropdownIndicator: (provided: CSSProperties) => ({
       ...provided,
       position: "relative",
       right: "10px"
     }),
-    option: provided => ({
+    option: (provided: CSSProperties) => ({
       ...provided,
-      "&:hover": {
-        cursor: "pointer"
-      }
+      cursor: "pointer"
     })
   };
 
@@ -47,8 +49,8 @@ const SubnavDropdown = () => {
         styles={customStyles}
         options={options}
         value={scope}
-        onChange={selectedOption =>
-          dispatch({ type: SET_SCOPE, payload: selectedOption })
+        onChange={(selectedOption: ValueType<Option>) =>
+          dispatch({ type: SET_SCOPE, payload: selectedOption as Option })
         }
         defaultValue={scope}
         isSearchable={false}

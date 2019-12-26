@@ -3,34 +3,43 @@ import { Form, Field, Formik } from "formik";
 import { FiPlus, FiTrash } from "react-icons/fi";
 import { useSelector, useDispatch } from "react-redux";
 import { isEmpty } from "lodash";
-import { ValidationSchema } from "./validation";
+import { ValidationSchema } from "./ValidationSchema"
 import {
   RESET_QUEUE,
   ADD_EXERCISE,
   HANDLE_EDIT
 } from "../../../../../actions/workoutActions";
 import Autosuggest from "react-autosuggest";
+import { State } from "src/types/State";
+import { Queued, Exercise, Refs } from '../../../../../types/Exercises';
 
 // READ: this component is a nightmare. Formik claims to make working with forms easer,
 // but it does not play nicely with other libraries. I need to figure out how to optimize this,
 // or consider other options going forward
 
-const ExerciseForm = ({ refs }) => {
-  const queued = useSelector(state => state.workoutReducer.queue);
+interface Props {
+  refs: Refs;
+}
+
+const ExerciseForm: React.FC<Props> = ({ refs }) => {
+
+  // queued represents the object currently being edited
+  const fetchQueued = (state: State) => state.workoutReducer.queue;
+  const queued: Queued = useSelector(fetchQueued) as Queued;
+
+  const fetchExercises = (state: State) =>
+    state.fetchExercisesReducer.savedExercises;
+  const exercises: Array<Exercise> = useSelector(fetchExercises);
 
   const dispatch = useDispatch();
 
-  const resetHandler = handleReset => {
+  const resetHandler = (handleReset: () => void) => {
     handleReset();
     // resets edit queue - form relies on this information to determine type of action on submit (either edit or add)
-    dispatch({ type: RESET_QUEUE });
+    dispatch<{ type: string }>({ type: RESET_QUEUE });
   };
 
-  const exercises = useSelector(
-    state => state.fetchExercisesReducer.savedExercises
-  );
-
-  const [suggestions, setSuggestions] = useState([]);
+  const [suggestions, setSuggestions] = useState<Array<Exercise>>([]);
 
   return (
     <div className="exercise-form-container">
@@ -38,6 +47,7 @@ const ExerciseForm = ({ refs }) => {
         validateOnChange={false}
         validateOnBlur={false}
         initialValues={{
+          // if an exercise is queued, populate with that exercise. otherwise, initialize to empty fields
           name: (!isEmpty(queued) && queued.exercise.name) || "",
           weight: (!isEmpty(queued) && queued.exercise.weight) || "",
           sets: (!isEmpty(queued) && queued.exercise.sets) || "",
@@ -48,18 +58,18 @@ const ExerciseForm = ({ refs }) => {
         onSubmit={(values, { resetForm }) => {
           resetForm();
 
-          refs.forEach(ref => {
-            if (ref.current === undefined) {
-              ref.blur = true;
-            } else {
+          // aside from new exercise name, blur all fields on submit
+          refs.forEach((ref: React.RefObject<HTMLInputElement>) => {
+            if (ref.current) {
               ref.current.blur();
             }
           });
 
+          // if we editing an exercise, submit an edit dispatch. otherwise submit an add dispatch
           if (isEmpty(queued)) {
-            dispatch({ type: ADD_EXERCISE, payload: values });
+            dispatch<{type: string, payload: object}>({ type: ADD_EXERCISE, payload: values });
           } else {
-            dispatch({
+            dispatch<{type: string, payload: {exercise: object, i: number}}>({
               type: HANDLE_EDIT,
               payload: { exercise: values, i: queued.i }
             });
@@ -77,7 +87,6 @@ const ExerciseForm = ({ refs }) => {
               )}
 
               <Autosuggest
-                ref={autosuggest => autosuggest && (refs[0] = autosuggest)}
                 inputProps={{
                   placeholder: "e.g. squat",
                   autoComplete: "off",
@@ -96,7 +105,7 @@ const ExerciseForm = ({ refs }) => {
                   }
 
                   setSuggestions(
-                    exercises.filter(exercise =>
+                    exercises.filter((exercise: Exercise) =>
                       exercise.name.toLowerCase().includes(value.toLowerCase())
                     )
                   );
@@ -120,7 +129,7 @@ const ExerciseForm = ({ refs }) => {
                 <p className="error-exercise-form">{errors.weight}</p>
               )}
               <Field
-                innerRef={refs[1]}
+                innerRef={refs[0]}
                 className="exercise-form-field"
                 name="weight"
                 placeholder="lbs"
@@ -133,7 +142,7 @@ const ExerciseForm = ({ refs }) => {
                 <p className="error-exercise-form">{errors.sets}</p>
               )}
               <Field
-                innerRef={refs[2]}
+                innerRef={refs[1]}
                 className="exercise-form-field"
                 name="sets"
                 placeholder="# of sets"
@@ -146,7 +155,7 @@ const ExerciseForm = ({ refs }) => {
                 <p className="error-exercise-form">{errors.reps}</p>
               )}
               <Field
-                innerRef={refs[3]}
+                innerRef={refs[2]}
                 className="exercise-form-field"
                 name="reps"
                 placeholder="# of reps"
