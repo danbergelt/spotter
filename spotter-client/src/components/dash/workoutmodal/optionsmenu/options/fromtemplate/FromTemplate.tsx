@@ -6,23 +6,29 @@ import { SET_FROM_TEMPLATE } from "../../../../../../actions/optionsActions";
 import Templates from "./Templates";
 import FromTemplateHead from "./FromTemplateHead";
 import GenerateTemplate from "./GenerateTemplate";
+import { Template } from "../../../../../../types/Template";
+import { State } from "src/types/State";
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
 // body for template generator
 
-const FromTemplate = () => {
-  const [search, setSearch] = useState("");
-  const [active, setActive] = useState({});
+const FromTemplate: React.FC = () => {
+  const [search, setSearch] = useState<string>("");
+  const [active, setActive] = useState<Partial<Template>>({});
 
   // true/false modal state
-  const fromTemplate = useSelector(state => state.optionsReducer.fromTemplate);
+  const fromTemplateState = (state: State) => state.optionsReducer.fromTemplate;
+  const fromTemplate: boolean = useSelector(fromTemplateState);
 
   const dispatch = useDispatch();
 
   // resets state when modal is closed
-  const closeHandler = useCallback(() => {
-    dispatch({ type: SET_FROM_TEMPLATE, payload: false });
+  const closeHandler: () => void = useCallback(() => {
+    dispatch<{ type: string; payload: boolean }>({
+      type: SET_FROM_TEMPLATE,
+      payload: false
+    });
     setActive({});
     setSearch("");
   }, [dispatch]);

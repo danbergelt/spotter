@@ -1,7 +1,17 @@
-import React from "react";
+import React, { memo } from "react";
 import { FiX } from "react-icons/fi";
 
-const FromTemplateHead = React.memo(({ closeHandler, search, setSearch }) => {
+interface Props {
+  closeHandler: () => void;
+  search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const FromTemplateHead: React.FC<Props> = ({
+  closeHandler,
+  search,
+  setSearch
+}) => {
   return (
     <>
       <div className="from-template-header">
@@ -23,6 +33,6 @@ const FromTemplateHead = React.memo(({ closeHandler, search, setSearch }) => {
       />
     </>
   );
-});
+};
 
-export default FromTemplateHead;
+export default memo(FromTemplateHead);
