@@ -1,11 +1,12 @@
 import { Queued, Exercise } from './Exercises'
 import { TagOnWorkout as Tag } from './TagOnWorkout';
+import { Moment } from 'moment';
 
 export interface GlobalReducer {
   t: null | string;
   ctx: null | string;
   scope: { value: string; label: string };
-  date: number;
+  date: null | Moment;
 }
 
 export interface WorkoutReducer {

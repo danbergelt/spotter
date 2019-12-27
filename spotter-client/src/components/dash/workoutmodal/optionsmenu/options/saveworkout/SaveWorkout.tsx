@@ -5,25 +5,51 @@ import { SET_SAVE_MSG } from "../../../../../../actions/optionsActions";
 import { useHistory } from "react-router-dom";
 import axiosWithAuth from "../../../../../../utils/axiosWithAuth";
 import reFetch from "../../../../../../utils/reFetch";
+import { State, WorkoutReducer } from "src/types/State";
+import { Moment } from "moment";
+
+interface Props {
+  workoutId: string | null;
+  time: number;
+  closeParentModal: () => void;
+  ctx: string | null;
+  iconClass: string;
+}
+
+interface GlobalReducer {
+  date: null | Moment;
+  scope: { value: string; label: string };
+  t: string | null;
+}
 
 // Save or Edit workout depending on global modal context
-const SaveWorkout = ({ workoutId, time, closeParentModal, ctx, iconClass }) => {
-  const saveMsg = useSelector(state => state.optionsReducer.saveMsg);
-  const workout = useSelector(state => state.workoutReducer);
+const SaveWorkout: React.FC<Props> = ({
+  workoutId,
+  time,
+  closeParentModal,
+  ctx,
+  iconClass
+}) => {
+  const fetchSaveMsg = (state: State) => state.optionsReducer.saveMsg;
+  const saveMsg: Partial<{ error: string }> = useSelector(fetchSaveMsg);
+
+  const fetchWorkout = (state: State) => state.workoutReducer;
+  const workout: WorkoutReducer = useSelector(fetchWorkout);
+
+  const fetchGlobalReducer = (state: State) => state.globalReducer;
+  const { date, scope, t }: GlobalReducer = useSelector(fetchGlobalReducer);
+
   const dispatch = useDispatch();
   const history = useHistory();
-  const date = useSelector(state => state.globalReducer.date);
-  const scope = useSelector(state => state.globalReducer.scope);
-  const t = useSelector(state => state.globalReducer.t);
 
-  const saveHandler = async () => {
+  const saveHandler: () => Promise<void> = async () => {
     // if user is adding a new workout
     if (ctx === "add") {
       try {
         await axiosWithAuth(t).post(
           `${process.env.REACT_APP_T_API}/api/auth/workouts`,
           {
-            date: date.format("MMM DD YYYY"),
+            date: date && date.format("MMM DD YYYY"),
             title: workout.title,
             notes: workout.notes,
             exercises: workout.exercises,
@@ -35,7 +61,7 @@ const SaveWorkout = ({ workoutId, time, closeParentModal, ctx, iconClass }) => {
         // // close modal and return to dashboard
         closeParentModal();
       } catch (err) {
-        dispatch({
+        dispatch<{ type: string; payload: { error: string } }>({
           type: SET_SAVE_MSG,
           payload: { error: err.response.data.error }
         });
@@ -59,7 +85,7 @@ const SaveWorkout = ({ workoutId, time, closeParentModal, ctx, iconClass }) => {
         // close modal and return to dashboard
         closeParentModal();
       } catch (err) {
-        dispatch({
+        dispatch<{ type: string; payload: { error: string } }>({
           type: SET_SAVE_MSG,
           payload: { error: err.response.data.error }
         });

@@ -6,7 +6,7 @@ import { History } from "history";
 // utility function for fetching updated list of workouts upon mutation i.e. delete, update, save, etc.
 
 interface Params {
-  (time: number, history: History, scope: string, t: string): void;
+  (time: number, history: History, scope: string, t: string | null): void;
 }
 
 const reFetch: Params = (time, history, scope, t) => {
