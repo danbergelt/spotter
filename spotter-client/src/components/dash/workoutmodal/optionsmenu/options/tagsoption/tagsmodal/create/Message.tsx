@@ -1,7 +1,17 @@
 import React from "react";
 import { FiX } from "react-icons/fi";
 
-const Message = ({ message, setMessage }) => {
+interface Props {
+  message: string;
+  setMessage: React.Dispatch<
+    React.SetStateAction<{
+      success?: string;
+      error?: string;
+    }>
+  >;
+}
+
+const Message: React.FC<Props> = ({ message, setMessage }) => {
   return (
     <div
       className={
@@ -12,7 +22,7 @@ const Message = ({ message, setMessage }) => {
     >
       {message}
       <div
-        onClick={() => setMessage("")}
+        onClick={() => setMessage({})}
         style={{ fontSize: "1.2rem", cursor: "pointer" }}
       >
         <FiX />

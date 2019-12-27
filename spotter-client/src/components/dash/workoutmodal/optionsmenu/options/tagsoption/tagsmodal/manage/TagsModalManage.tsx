@@ -7,39 +7,53 @@ import Err from "./Err";
 import { UPDATE_TAG } from "../../../../../../../../actions/workoutActions";
 import { SET_ACTIVE } from "../../../../../../../../actions/optionsActions";
 import Tag from "./Tag";
+import { TagOnWorkout as T } from "../../../../../../../../types/TagOnWorkout";
+import { State } from "src/types/State";
+import { AxiosResponse } from "axios";
 
-const TagsModalManage = ({ setToDelete }) => {
-  const tags = useSelector(state => state.tagsReducer.tags);
-  const t = useSelector(state => state.globalReducer.t);
+interface Props {
+  setToDelete: React.Dispatch<React.SetStateAction<Partial<T>>>;
+}
+
+const TagsModalManage: React.FC<Props> = ({ setToDelete }) => {
+  const tagsFromState = (state: State) => state.tagsReducer.tags;
+  const tags: Array<T> = useSelector(tagsFromState);
+
+  const fetchToken = (state: State) => state.globalReducer.t;
+  const t: string | null = useSelector(fetchToken);
+
   const dispatch = useDispatch();
 
-  const [hover, setHover] = useState(null);
-  const [update, setUpdate] = useState(null);
-  const [updateInput, setUpdateInput] = useState("");
-  const [err, setErr] = useState("");
+  const [hover, setHover] = useState<null | string>(null);
+  const [update, setUpdate] = useState<Partial<T>>({});
+  const [updateInput, setUpdateInput] = useState<string>("");
+  const [err, setErr] = useState<string>("");
 
   const history = useHistory();
 
-  const handleDelete = useCallback(
+  const handleDelete: (tag: T) => void = useCallback(
     tag => {
-      dispatch({ type: SET_ACTIVE, payload: 3 });
+      dispatch<{ type: string; payload: number }>({
+        type: SET_ACTIVE,
+        payload: 3
+      });
       setToDelete(tag);
     },
     [dispatch, setToDelete]
   );
 
-  const handleSubmit = useCallback(
+  const handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void = useCallback(
     async e => {
       e.preventDefault();
       setUpdateInput("");
       try {
-        const res = await axiosWithAuth(t).put(
+        const res: AxiosResponse<any> = await axiosWithAuth(t).put(
           `${process.env.REACT_APP_T_API}/api/auth/tags/${update &&
             update._id}`,
           { content: updateInput }
         );
-        setUpdate(null);
-        dispatch({ type: UPDATE_TAG, payload: res.data.tag });
+        setUpdate({});
+        dispatch<{type: string, payload: T}>({ type: UPDATE_TAG, payload: res.data.tag });
         dispatch(fetchTags(history, t));
       } catch (error) {
         setErr(error.response.data.error);

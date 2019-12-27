@@ -1,6 +1,16 @@
-import React from "react";
+import React, { memo } from "react";
 
-const UpdateTagForm = React.memo(({ handleSubmit, updateInput, setUpdateInput }) => {
+interface Props {
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  updateInput: string;
+  setUpdateInput: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const UpdateTagForm: React.FC<Props> = ({
+  handleSubmit,
+  updateInput,
+  setUpdateInput
+}) => {
   return (
     <form onSubmit={e => handleSubmit(e)}>
       <input
@@ -19,6 +29,6 @@ const UpdateTagForm = React.memo(({ handleSubmit, updateInput, setUpdateInput })
       </button>
     </form>
   );
-});
+};
 
-export default UpdateTagForm;
+export default memo(UpdateTagForm);

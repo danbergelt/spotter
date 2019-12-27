@@ -4,12 +4,17 @@ import { FiX } from "react-icons/fi";
 import { SET_ACTIVE } from "../../../../../../../../actions/optionsActions";
 import Tab from "./Tab";
 
-const TagsModalHead = ({ active, closeTagModal }) => {
+interface Props {
+  active: number;
+  closeTagModal: () => void;
+}
+
+const TagsModalHead: React.FC<Props> = ({ active, closeTagModal }) => {
   const dispatch = useDispatch();
 
-  const setActive = useCallback(
+  const setActive: (id: number) => void = useCallback(
     id => {
-      dispatch({ type: SET_ACTIVE, payload: id });
+      dispatch<{ type: string, payload: number }>({ type: SET_ACTIVE, payload: id });
     },
     [dispatch]
   );

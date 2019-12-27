@@ -77,7 +77,7 @@ const SaveTemplate: React.FC<Props> = ({ close }) => {
           tempName={tempName}
           setTempName={setTempName}
         />
-        <SaveTemplateBtn handleSubmit={handleSubmit} />
+        <SaveTemplateBtn />
         {message.error && (
           <SaveTemplateMsg
             errOrSucc={"template-save error"}

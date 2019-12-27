@@ -1,7 +1,12 @@
 import React from "react";
 import { FiX } from "react-icons/fi";
 
-const Err = ({ err, setErr }) => {
+interface Props {
+  err: string;
+  setErr: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const Err: React.FC<Props> = ({ err, setErr }) => {
   return (
     <div className="tag-delete-err">
       {err}

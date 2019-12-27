@@ -1,6 +1,6 @@
-import { Queued, Exercise } from './Exercises'
-import { TagOnWorkout as Tag } from './TagOnWorkout';
-import { Moment } from 'moment';
+import { Queued, Exercise } from "./Exercises";
+import { TagOnWorkout as Tag } from "./TagOnWorkout";
+import { Moment } from "moment";
 
 export interface GlobalReducer {
   t: null | string;
@@ -21,7 +21,7 @@ export interface WorkoutReducer {
 export interface TagsReducer {
   isLoading: boolean;
   err: any;
-  tags: object;
+  tags: Array<Tag>;
 }
 
 export interface PrsReducer {

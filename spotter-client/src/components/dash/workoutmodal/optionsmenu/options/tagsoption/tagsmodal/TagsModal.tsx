@@ -8,19 +8,29 @@ import TagsModalDelete from "./delete/TagsModalDelete";
 import TagsModalAdd from "./add/TagsModalAdd";
 import { CLOSE_TAG_MODAL } from "../../../../../../../actions/optionsActions";
 import { styles } from "./localutils/tagsModalStyles";
+import { TagOnWorkout as Tag } from "../../../../../../../types/TagOnWorkout";
+import { State } from "src/types/State";
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
+
+interface OptionsReducer {
+  active: number;
+  tagModal: boolean;
+}
 
 // modal for tags manager
 const TagsModal = () => {
   // sets the selected tag to be queued for deletion
-  const [toDelete, setToDelete] = useState(null);
+  const [toDelete, setToDelete] = useState<Partial<Tag>>({});
 
-  const active = useSelector(state => state.optionsReducer.active);
-  const modal = useSelector(state => state.optionsReducer.tagModal);
+  const fetchOptionsReducer = (state: State) => state.optionsReducer;
+  const { active, tagModal: modal }: OptionsReducer = useSelector(
+    fetchOptionsReducer
+  );
+
   const dispatch = useDispatch();
-  const closeTagModal = useCallback(() => {
-    dispatch({ type: CLOSE_TAG_MODAL });
+  const closeTagModal: () => void = useCallback(() => {
+    dispatch<{ type: string }>({ type: CLOSE_TAG_MODAL });
   }, [dispatch]);
 
   return (

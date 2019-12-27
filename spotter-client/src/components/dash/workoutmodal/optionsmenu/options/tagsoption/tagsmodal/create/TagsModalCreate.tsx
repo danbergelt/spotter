@@ -7,20 +7,23 @@ import { fetchTags } from "../../../../../../../../actions/tagsActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Color from "./Color";
+import { State } from "src/types/State";
 
 // tab - create tag
 const TagsModalCreate = () => {
   const history = useHistory();
-
-  const [name, setName] = useState("");
-  const [hover, setHover] = useState(null);
-  const [color, setColor] = useState(colors[0]);
-  const [message, setMessage] = useState({});
-  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const t = useSelector(state => state.globalReducer.t);
 
-  const submitTag = async () => {
+  const [name, setName] = useState<string>("");
+  const [hover, setHover] = useState<null | string>(null);
+  const [color, setColor] = useState<string>(colors[0]);
+  const [message, setMessage] = useState<{ success?: string; error?: string }>({});
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const fetchToken = (state: State) => state.globalReducer.t;
+  const t: string | null = useSelector(fetchToken);
+
+  const submitTag: () => Promise<void> = async () => {
     setLoading(true);
     try {
       await axiosWithAuth(t).post(

@@ -1,9 +1,24 @@
-import React from "react";
+import React, { memo } from "react";
 import styles from "../tagStyles";
 import adjust from "../../../../../../../../utils/darkenColorInJS";
 import { FiCheck } from "react-icons/fi";
+import { TagOnWorkout as T } from "src/types/TagOnWorkout";
 
-const Tag = React.memo(({ toggleTag, onWorkout, tag, hover, setHover }) => {
+interface Props {
+  toggleTag: (tag: T) => void;
+  onWorkout: Array<T>;
+  tag: T;
+  hover: string | null;
+  setHover: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+const Tag: React.FC<Props> = ({
+  toggleTag,
+  onWorkout,
+  tag,
+  hover,
+  setHover
+}) => {
   return (
     <div className="tag-add-container">
       <div
@@ -38,6 +53,6 @@ const Tag = React.memo(({ toggleTag, onWorkout, tag, hover, setHover }) => {
       </div>
     </div>
   );
-});
+};
 
-export default Tag;
+export default memo(Tag);

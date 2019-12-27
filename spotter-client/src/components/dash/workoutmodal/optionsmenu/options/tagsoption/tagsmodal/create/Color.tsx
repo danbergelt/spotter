@@ -3,7 +3,15 @@ import { FiCheck } from "react-icons/fi";
 import { colorStyles } from "../localutils/createTagStyles";
 import adjust from "../../../../../../../../utils/darkenColorInJS";
 
-const Color = ({ c, hover, color, setHover, setColor }) => {
+interface Props {
+  c: string;
+  hover: string | null;
+  color: string;
+  setHover: React.Dispatch<React.SetStateAction<string | null>>;
+  setColor: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const Color: React.FC<Props> = ({ c, hover, color, setHover, setColor }) => {
   return (
     <div
       key={c}
