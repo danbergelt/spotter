@@ -11,8 +11,9 @@ import {
   DELETE_TEMPLATE,
   SET_EXERCISES
 } from "../actions/optionsActions";
+import { OptionsReducer } from "src/types/State";
 
-const optionsState = {
+const optionsState: OptionsReducer = {
   active: 0,
   tagModal: false,
   templateSave: false,
@@ -24,7 +25,10 @@ const optionsState = {
   saveMsg: {}
 };
 
-export const optionsReducer = (state = optionsState, action) => {
+export const optionsReducer = (
+  state = optionsState,
+  action: { type: string; payload: any }
+): OptionsReducer => {
   switch (action.type) {
     case OPEN_TAG_MODAL:
       return { ...state, tagModal: true };

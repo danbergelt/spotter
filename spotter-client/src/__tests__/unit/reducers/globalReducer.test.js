@@ -12,7 +12,7 @@ describe("global reducer", () => {
         label: "Week",
         value: "Week"
       },
-      date: 0
+      date: null
     });
   });
 
@@ -29,7 +29,7 @@ describe("global reducer", () => {
         label: "Week",
         value: "Week"
       },
-      date: 0
+      date: null
     });
   });
 
@@ -46,7 +46,7 @@ describe("global reducer", () => {
         label: "Week",
         value: "Week"
       },
-      date: 0
+      date: null
     });
   });
 
@@ -63,7 +63,7 @@ describe("global reducer", () => {
         label: "test",
         value: "test"
       },
-      date: 0
+      date: null
     });
   });
 

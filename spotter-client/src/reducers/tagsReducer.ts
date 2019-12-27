@@ -4,8 +4,9 @@ import {
   FETCH_TAGS_ERROR,
   RESET_TAGS
 } from "../actions/tagsActions";
+import { TagsReducer } from "src/types/State";
 
-const tagsState = {
+const tagsState: TagsReducer = {
   isLoading: false,
   err: null,
   tags: []
@@ -13,7 +14,10 @@ const tagsState = {
 
 // for tags modal
 
-export const tagsReducer = (state = tagsState, action) => {
+export const tagsReducer = (
+  state = tagsState,
+  action: { type: string; payload: any }
+): TagsReducer => {
   switch (action.type) {
     case FETCH_TAGS_START:
       return {

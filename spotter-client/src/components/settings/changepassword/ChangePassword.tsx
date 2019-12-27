@@ -2,7 +2,17 @@ import React from "react";
 import Popover from "react-tiny-popover";
 import ChangePasswordContent from "./ChangePasswordContent";
 
-const ChangePassword = ({ changePassword, setChangePassword, children }) => {
+interface Props {
+  changePassword: boolean;
+  setChangePassword: React.Dispatch<React.SetStateAction<boolean>>;
+  children: any;
+}
+
+const ChangePassword: React.FC<Props> = ({
+  changePassword,
+  setChangePassword,
+  children
+}) => {
   return (
     <Popover
       isOpen={changePassword}

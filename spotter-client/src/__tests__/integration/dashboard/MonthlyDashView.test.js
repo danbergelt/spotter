@@ -9,7 +9,7 @@ import mockWorkoutRes from "../../../__testUtils__/mockWorkoutRes";
 import mockMultipleWorkouts from "../../../__testUtils__/mockMultipleWorkouts";
 import axios from "axios";
 import Modal from "react-modal";
-import { reducer } from "../../../reducers/index.js";
+import { reducer } from "../../../reducers/index.ts";
 import { SET_SCOPE } from "../../../actions/timeScopeActions";
 import { ADD_TOKEN } from "../../../actions/addTokenActions";
 import { FETCH_WORKOUTS_SUCCESS } from "../../../actions/fetchWorkoutsActions";

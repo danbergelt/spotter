@@ -4,15 +4,19 @@ import {
   CREATE_EXERCISE,
   DELETE_SAVED_EXERCISE
 } from "../actions/fetchExercisesActions";
+import { FetchExercisesReducer } from "src/types/State";
 
-const fetchExercisesState = {
+const fetchExercisesState: FetchExercisesReducer = {
   err: null,
   savedExercises: []
 };
 
 // populates dashboard
 
-export const fetchExercisesReducer = (state = fetchExercisesState, action) => {
+export const fetchExercisesReducer = (
+  state = fetchExercisesState,
+  action: { type: string; payload: any }
+): FetchExercisesReducer => {
   switch (action.type) {
     case FETCH_EXERCISES_SUCCESS:
       return {

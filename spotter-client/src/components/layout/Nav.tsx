@@ -3,15 +3,20 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { ADD_TOKEN } from "../../actions/addTokenActions";
+import { State } from "src/types/State";
 
 const Nav = () => {
-  const token = useSelector(state => state.globalReducer.t);
+  const fetchToken = (state: State) => state.globalReducer.t;
+  const token: string | null = useSelector(fetchToken);
 
   const dispatch = useDispatch();
 
-  const logOut = async () => {
+  const logOut: () => Promise<void> = async () => {
     // clears refresh token and access token
-    dispatch({ type: ADD_TOKEN, payload: null });
+    dispatch<{ type: string; payload: null }>({
+      type: ADD_TOKEN,
+      payload: null
+    });
     await axios.get(`${process.env.REACT_APP_T_API}/api/auth/logout`, {
       withCredentials: true
     });

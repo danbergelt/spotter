@@ -1,7 +1,7 @@
 import { Exercise } from "./Exercises";
 import { TagOnWorkout as Tag } from "./TagOnWorkout";
 
-interface SavedExercise extends Exercise {
+export interface SavedExercise extends Exercise {
   _id: string;
 }
 

@@ -16,6 +16,7 @@ import {
 } from "../actions/workoutActions";
 import { find, isMatch, isEqual, omit, pick, keys } from "lodash";
 import { WorkoutReducer } from "src/types/State";
+import { TagOnWorkout } from "src/types/TagOnWorkout";
 
 const workoutState: WorkoutReducer = {
   title: "",
@@ -28,7 +29,10 @@ const workoutState: WorkoutReducer = {
 
 // contains active workout details to be shared globally
 
-export const workoutReducer = (state = workoutState, action: any): WorkoutReducer => {
+export const workoutReducer = (
+  state = workoutState,
+  action: { type: string; payload: any }
+): WorkoutReducer => {
   switch (action.type) {
     case ADD_WORKOUT_TITLE:
       return {
@@ -59,7 +63,7 @@ export const workoutReducer = (state = workoutState, action: any): WorkoutReduce
         exercises: [...state.exercises, action.payload]
       };
     case TOGGLE_TAG:
-      const testForMatches = find(state.tags, t => {
+      const testForMatches: TagOnWorkout | undefined = find(state.tags, t => {
         return isMatch(t, omit(action.payload, ["__v", "user"]));
       });
       return {
@@ -74,7 +78,7 @@ export const workoutReducer = (state = workoutState, action: any): WorkoutReduce
         tags: state.tags.filter(el => el._id !== action.payload._id)
       };
     case UPDATE_TAG:
-      const testForUpdates = find(state.tags, t => {
+      const testForUpdates: TagOnWorkout | undefined = find(state.tags, t => {
         return isMatch(
           omit(t, ["color", "content", "__v", "tag"]),
           omit(action.payload, ["color", "content", "__v", "user"])
