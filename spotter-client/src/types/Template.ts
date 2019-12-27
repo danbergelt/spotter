@@ -15,3 +15,7 @@ export interface Template {
   user: string;
   createdAt: string;
 }
+
+export interface Workout {
+  
+}

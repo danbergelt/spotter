@@ -1,3 +1,6 @@
+import { Queued, Exercise } from './Exercises'
+import { TagOnWorkout as Tag } from './TagOnWorkout';
+
 export interface GlobalReducer {
   t: null | string;
   ctx: null | string;
@@ -8,9 +11,9 @@ export interface GlobalReducer {
 export interface WorkoutReducer {
   title: string;
   notes: string;
-  exercises: Array<any>;
-  tags: Array<any>;
-  queue: object;
+  exercises: Array<Exercise>;
+  tags: Array<Tag>;
+  queue: Partial<Queued>;
   _id: null | string;
 }
 

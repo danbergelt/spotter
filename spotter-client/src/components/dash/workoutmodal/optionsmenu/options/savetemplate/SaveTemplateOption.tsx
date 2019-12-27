@@ -4,13 +4,20 @@ import SaveTemplate from "./SaveTemplate";
 import { FiSave } from "react-icons/fi";
 import { SET_TEMPLATE_SAVE } from "../../../../../../actions/optionsActions";
 
+interface Props {
+  iconClass: string;
+}
+
 // option button container, click to trigger opening of save-template modal
-const SaveTemplateOption = ({ iconClass }) => {
+const SaveTemplateOption: React.FC<Props> = ({ iconClass }) => {
   const dispatch = useDispatch();
 
-  const setTemplateSaveModal = useCallback(
+  const setTemplateSaveModal: (payload: boolean) => void = useCallback(
     payload => {
-      dispatch({ type: SET_TEMPLATE_SAVE, payload });
+      dispatch<{ type: string; payload: boolean }>({
+        type: SET_TEMPLATE_SAVE,
+        payload
+      });
     },
     [dispatch]
   );

@@ -1,7 +1,11 @@
-import React from "react";
+import React, { memo } from "react";
 import { FiX } from "react-icons/fi";
 
-const SaveTemplateHead = React.memo(({ closeHandler }) => {
+interface Props {
+  closeHandler: () => void;
+}
+
+const SaveTemplateHead: React.FC<Props> = ({ closeHandler }) => {
   return (
     <div className="save-template-header">
       <div className="save-template-title">Save Template</div>
@@ -13,6 +17,6 @@ const SaveTemplateHead = React.memo(({ closeHandler }) => {
       </div>
     </div>
   );
-});
+};
 
-export default SaveTemplateHead;
+export default memo(SaveTemplateHead);
