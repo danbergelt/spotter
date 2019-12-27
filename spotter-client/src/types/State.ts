@@ -1,5 +1,6 @@
 import { Queued, Exercise } from "./Exercises";
 import { TagOnWorkout as Tag } from "./TagOnWorkout";
+import { Workout } from './Workout'
 import { Moment } from "moment";
 
 export interface GlobalReducer {
@@ -45,7 +46,7 @@ export interface OptionsReducer {
 export interface FetchWorkoutsReducer {
   err: any;
   isLoading: boolean;
-  workouts: Array<any>;
+  workouts: Array<Workout>;
 }
 
 export interface FetchExercisesReducer {

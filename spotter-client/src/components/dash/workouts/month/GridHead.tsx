@@ -1,7 +1,16 @@
-import React from "react";
+import React, { memo } from "react";
 import { FiPlusCircle } from "react-icons/fi";
+import { Moment } from "moment";
+import { MomentRange } from "moment-range";
 
-const GridHead = React.memo(({ openAddWorkoutModal, date, moment }) => {
+interface Props {
+  openAddWorkoutModal: (date: Moment) => void;
+  date: Moment;
+  moment: MomentRange &
+    typeof import("/Users/dan/Documents/prod/spotter/spotter-client/node_modules/moment/moment");
+}
+
+const GridHead: React.FC<Props> = ({ openAddWorkoutModal, date, moment }) => {
   return (
     <>
       <div className="month-grid-day-head">
@@ -25,6 +34,6 @@ const GridHead = React.memo(({ openAddWorkoutModal, date, moment }) => {
       </div>
     </>
   );
-});
+};
 
-export default GridHead;
+export default memo(GridHead);

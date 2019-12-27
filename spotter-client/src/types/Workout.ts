@@ -1,17 +1,17 @@
-import { TagOnWorkout as Tag } from './TagOnWorkout';
-import { Exercise } from './Exercises';
+import { Exercise } from "./Exercises";
+import { TagOnWorkout as Tag } from "./TagOnWorkout";
 
 interface SavedExercise extends Exercise {
   _id: string;
 }
 
-export interface Template {
+export interface Workout {
   _id: string;
-  name: string;
+  date: string;
   title: string;
-  tags: Array<Tag>;
   notes: string;
   exercises: Array<SavedExercise>;
+  tags: Array<Tag>;
   user: string;
   createdAt: string;
 }

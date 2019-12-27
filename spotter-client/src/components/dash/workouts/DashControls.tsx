@@ -2,7 +2,14 @@ import React from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { Link } from 'react-router-dom'
 
-const DashControls = ({ inc, dec, time, month }) => {
+interface Props {
+  inc: () => void;
+  dec: () => void;
+  time: number;
+  month: (num: number) => string
+}
+
+const DashControls: React.FC<Props> = ({ inc, dec, time, month }) => {
   return (
     <div className="controls-spacer">
       <div className="workouts-head">

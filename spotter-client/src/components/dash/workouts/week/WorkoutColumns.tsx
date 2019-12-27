@@ -16,15 +16,27 @@ import {
 } from "../../../../actions/workoutActions";
 import { RESET_TAGS } from "../../../../actions/tagsActions";
 import { fetchExercises } from "../../../../actions/fetchExercisesActions";
+import { State } from "src/types/State";
+import { Workout } from "src/types/Workout";
+import { Moment } from "moment";
+
+interface GlobalReducer {
+  scope: { value: string; label: string };
+  t: string | null;
+}
 
 const WorkoutColumns = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const [week, setWeek] = useState(0);
-  const [modal, setModal] = useState(false);
-  const workouts = useSelector(state => state.fetchWorkoutsReducer.workouts);
-  const scope = useSelector(state => state.globalReducer.scope);
-  const t = useSelector(state => state.globalReducer.t);
+
+  const [week, setWeek] = useState<number>(0);
+  const [modal, setModal] = useState<boolean>(false);
+
+  const fetchWorkouts = (state: State) => state.fetchWorkoutsReducer.workouts;
+  const workouts: Array<Workout> = useSelector(fetchWorkouts);
+
+  const globalReducer = (state: State) => state.globalReducer;
+  const { scope, t }: GlobalReducer = useSelector(globalReducer);
 
   const inc = () => {
     setWeek(week + 1);
@@ -40,10 +52,16 @@ const WorkoutColumns = () => {
   }, [week, history, scope.value, t]);
 
   // opens modal to add a new workout
-  const openAddWorkoutModal = useCallback(
+  const openAddWorkoutModal: (date: Moment) => void = useCallback(
     date => {
-      dispatch({ type: SET_DATE, payload: date });
-      dispatch({ type: MODAL_CTX, payload: "add" });
+      dispatch<{ type: string; payload: Moment }>({
+        type: SET_DATE,
+        payload: date
+      });
+      dispatch<{ type: string; payload: string }>({
+        type: MODAL_CTX,
+        payload: "add"
+      });
       setModal(true);
       dispatch(fetchExercises(history, t));
     },
@@ -51,11 +69,20 @@ const WorkoutColumns = () => {
   );
 
   // opens modal to view a saved workout
-  const openViewModal = useCallback(
+  const openViewModal: (workout: Workout, date: Moment) => void = useCallback(
     (workout, date) => {
-      dispatch({ type: SET_DATE, payload: date });
-      dispatch({ type: MODAL_CTX, payload: "view" });
-      dispatch({ type: FROM_SAVED, payload: workout });
+      dispatch<{ type: string; payload: Moment }>({
+        type: SET_DATE,
+        payload: date
+      });
+      dispatch<{ type: string; payload: string }>({
+        type: MODAL_CTX,
+        payload: "view"
+      });
+      dispatch<{ type: string; payload: Workout }>({
+        type: FROM_SAVED,
+        payload: workout
+      });
       setModal(true);
       dispatch(fetchExercises(history, t));
     },
@@ -63,13 +90,19 @@ const WorkoutColumns = () => {
   );
 
   // resets state in various parts of application upon workout modal close
-  const closeModal = useCallback(() => {
+  const closeModal: () => void = useCallback(() => {
     setModal(false);
-    dispatch({ type: RESET_WORKOUT });
-    dispatch({ type: RESET_TAGS });
-    dispatch({ type: RESET_QUEUE });
-    dispatch({ type: MODAL_CTX, payload: null });
-    dispatch({ type: SET_SAVE_MSG, payload: "" });
+    dispatch<{ type: string }>({ type: RESET_WORKOUT });
+    dispatch<{ type: string }>({ type: RESET_TAGS });
+    dispatch<{ type: string }>({ type: RESET_QUEUE });
+    dispatch<{ type: string; payload: null }>({
+      type: MODAL_CTX,
+      payload: null
+    });
+    dispatch<{ type: string; payload: string }>({
+      type: SET_SAVE_MSG,
+      payload: ""
+    });
   }, [dispatch]);
 
   return (
@@ -81,7 +114,6 @@ const WorkoutColumns = () => {
             date={date}
             key={i}
             i={i}
-            week={week}
             openAddWorkoutModal={openAddWorkoutModal}
             openViewModal={openViewModal}
             workouts={workouts}

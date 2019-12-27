@@ -1,9 +1,20 @@
-import React from "react";
+import React, { memo } from "react";
 import { FiPlusCircle } from "react-icons/fi";
+import { Moment } from "moment";
 
 // includes the add workout button and date details (e.g. --> day of week, month, etc.)
 
-const WorkoutColumnContent = React.memo(({ date, openAddWorkoutModal, i }) => {
+interface Props {
+  date: Moment;
+  openAddWorkoutModal: (date: Moment) => void;
+  i: number;
+}
+
+const WorkoutColumnContent: React.FC<Props> = ({
+  date,
+  openAddWorkoutModal,
+  i
+}) => {
   return (
     <>
       <div
@@ -15,13 +26,13 @@ const WorkoutColumnContent = React.memo(({ date, openAddWorkoutModal, i }) => {
       </div>
       <div
         data-testid={i === 0 && "modal-click"}
-        onClick={openAddWorkoutModal}
+        onClick={() => openAddWorkoutModal(date)}
         className="week-workouts-add-workout"
       >
         {<FiPlusCircle className="week-workouts-add-icon" />} Add Workout
       </div>
     </>
   );
-});
+};
 
-export default WorkoutColumnContent;
+export default memo(WorkoutColumnContent);
