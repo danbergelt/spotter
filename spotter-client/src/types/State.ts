@@ -1,23 +1,28 @@
+import { Queued, Exercise } from "./Exercises";
+import { TagOnWorkout as Tag } from "./TagOnWorkout";
+import { Workout } from './Workout'
+import { Moment } from "moment";
+
 export interface GlobalReducer {
   t: null | string;
   ctx: null | string;
   scope: { value: string; label: string };
-  date: number;
+  date: null | Moment;
 }
 
 export interface WorkoutReducer {
   title: string;
   notes: string;
-  exercises: Array<any>;
-  tags: Array<any>;
-  queue: object;
+  exercises: Array<Exercise>;
+  tags: Array<Tag>;
+  queue: Partial<Queued>;
   _id: null | string;
 }
 
 export interface TagsReducer {
   isLoading: boolean;
   err: any;
-  tags: object;
+  tags: Array<Tag>;
 }
 
 export interface PrsReducer {
@@ -41,7 +46,7 @@ export interface OptionsReducer {
 export interface FetchWorkoutsReducer {
   err: any;
   isLoading: boolean;
-  workouts: Array<any>;
+  workouts: Array<Workout>;
 }
 
 export interface FetchExercisesReducer {

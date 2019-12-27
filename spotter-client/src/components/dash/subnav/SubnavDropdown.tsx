@@ -7,8 +7,8 @@ import { State } from "src/types/State";
 // controls workout range (determines range of workouts fetch call) - need to add active range to global state
 
 const SubnavDropdown = () => {
-  type Options = { value: string; label: string }[];
   type Option = { value: string; label: string };
+  type Options = Array<Option>;
 
   const options: Options = [
     { value: "Week", label: "Week" },

@@ -33,7 +33,7 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
 
   const dispatch = useDispatch();
 
-  const resetHandler = (handleReset: () => void) => {
+  const resetHandler = (handleReset: () => void): void => {
     handleReset();
     // resets edit queue - form relies on this information to determine type of action on submit (either edit or add)
     dispatch<{ type: string }>({ type: RESET_QUEUE });

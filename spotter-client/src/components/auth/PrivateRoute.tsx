@@ -7,7 +7,7 @@ import { State } from "src/types/State";
 
 // authenticated route component
 
-interface Props extends RouteProps {
+interface Props extends RouteProps{
   component: React.ComponentType<any>;
   exact: boolean;
   path: string;

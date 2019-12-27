@@ -8,7 +8,7 @@ import {
 const tagsState = {
   isLoading: false,
   err: null,
-  tags: {}
+  tags: []
 };
 
 // for tags modal
@@ -36,7 +36,7 @@ export const tagsReducer = (state = tagsState, action) => {
     case RESET_TAGS: {
       return {
         ...state,
-        tags: {}
+        tags: []
       };
     }
     default:
