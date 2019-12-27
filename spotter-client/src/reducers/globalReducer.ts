@@ -1,8 +1,9 @@
 import { ADD_TOKEN } from "../actions/addTokenActions";
 import { MODAL_CTX } from "../actions/ctxActions";
 import { SET_SCOPE, SET_DATE } from "../actions/timeScopeActions";
+import { GlobalReducer } from "src/types/State";
 
-const globalState = {
+const globalState: GlobalReducer = {
   t: null,
   ctx: null,
   scope: { value: "Week", label: "Week" },
@@ -11,7 +12,10 @@ const globalState = {
 
 // handles items such as access token, modal context, etc.
 
-export const globalReducer = (state = globalState, action) => {
+export const globalReducer = (
+  state = globalState,
+  action: { type: string; payload: any }
+): GlobalReducer => {
   switch (action.type) {
     case ADD_TOKEN:
       return {

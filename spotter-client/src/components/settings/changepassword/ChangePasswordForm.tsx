@@ -3,49 +3,66 @@ import { Formik, Form, Field } from "formik";
 import { ValidationSchema } from "./ValidationSchema";
 import axiosWithAuth from "../../../utils/axiosWithAuth";
 import { useSelector } from "react-redux";
+import { State } from "src/types/State";
+import { AxiosResponse } from "axios";
 
-const ChangeEmailForm = () => {
-  const t = useSelector(state => state.globalReducer.t);
+const ChangePasswordForm: React.FC = () => {
+  const fetchToken = (state: State) => state.globalReducer.t;
+  const t: string | null = useSelector(fetchToken);
+
   return (
     <div className="change-form">
       <Formik
         validateOnChange={false}
         validateOnBlur={false}
         initialValues={{
-          oldEmail: "",
-          newEmail: "",
-          confirmEmail: ""
+          oldPassword: "",
+          newPassword: "",
+          confirmPassword: ""
         }}
         validationSchema={ValidationSchema}
         onSubmit={async (values, { resetForm, setStatus }) => {
           resetForm();
-          console.log(values)
+          try {
+            const res: AxiosResponse<any> = await axiosWithAuth(t).put(
+              `${process.env.REACT_APP_T_API}/api/auth/user/password`,
+              {
+                ...values
+              }
+            );
+            setStatus(res.data);
+          } catch (error) {
+            setStatus(error.response.data);
+          }
         }}
       >
         {({ errors, touched, status }) => (
           <Form>
             <div className="change-inp">
-              <label className="change-label">Old Email</label>
+              <label className="change-label">Old Password</label>
               <Field
                 data-testid="old"
                 className="inp-component"
-                name="oldEmail"
+                name="oldPassword"
+                type="password"
               />
             </div>
             <div className="change-inp">
-              <label className="change-label">New Email</label>
+              <label className="change-label">New Password</label>
               <Field
                 data-testid="new"
                 className="inp-component"
-                name="newEmail"
+                name="newPassword"
+                type="password"
               />
             </div>
             <div className="change-inp">
-              <label className="change-label">Confirm Email</label>
+              <label className="change-label">Confirm Password</label>
               <Field
                 data-testid="confirm"
                 className="inp-component"
-                name="confirmEmail"
+                name="confirmPassword"
+                type="password"
               />
             </div>
             <div
@@ -62,10 +79,8 @@ const ChangeEmailForm = () => {
               >
                 Save
               </button>
-              {errors.confirmEmail && touched.confirmEmail && (
-                <div className="change-err">
-                  {errors.confirmEmail}
-                </div>
+              {errors.confirmPassword && touched.confirmPassword && (
+                <div className="change-err">{errors.confirmPassword}</div>
               )}
               {status && status.error && (
                 <div className="change-err">{status.error}</div>
@@ -81,4 +96,4 @@ const ChangeEmailForm = () => {
   );
 };
 
-export default ChangeEmailForm;
+export default ChangePasswordForm;

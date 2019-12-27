@@ -2,7 +2,17 @@ import React from "react";
 import Popover from "react-tiny-popover";
 import ChangeEmailContent from "./ChangeEmailContent";
 
-const ChangeEmail = ({ changeEmail, setChangeEmail, children }) => {
+interface Props {
+  changeEmail: boolean;
+  setChangeEmail: React.Dispatch<React.SetStateAction<boolean>>;
+  children: any;
+}
+
+const ChangeEmail: React.FC<Props> = ({
+  changeEmail,
+  setChangeEmail,
+  children
+}) => {
   return (
     <Popover
       isOpen={changeEmail}

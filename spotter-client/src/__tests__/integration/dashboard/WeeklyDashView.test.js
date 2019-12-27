@@ -6,7 +6,7 @@ import { cleanup, fireEvent, wait } from "@testing-library/react";
 import wrapper from "../../../__testUtils__/wrapper";
 import mockWorkoutRes from "../../../__testUtils__/mockWorkoutRes";
 import axios from "axios";
-import { reducer } from "../../../reducers/index.js";
+import { reducer } from "../../../reducers/index.ts";
 import { ADD_TOKEN } from "../../../actions/addTokenActions";
 import { FETCH_WORKOUTS_SUCCESS } from "../../../actions/fetchWorkoutsActions";
 import WorkoutColumns from '../../../components/dash/workouts/week/WorkoutColumns';

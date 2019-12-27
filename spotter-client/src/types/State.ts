@@ -1,7 +1,8 @@
 import { Queued, Exercise } from "./Exercises";
 import { TagOnWorkout as Tag } from "./TagOnWorkout";
-import { Workout } from './Workout'
+import { Workout, SavedExercise } from './Workout'
 import { Moment } from "moment";
+import { Template } from "./Template";
 
 export interface GlobalReducer {
   t: null | string;
@@ -38,7 +39,7 @@ export interface OptionsReducer {
   fromTemplate: boolean;
   confirmDelete: boolean;
   exercises: boolean;
-  templates: Array<any>;
+  templates: Array<Template>;
   templatesErr: string;
   saveMsg: object;
 }
@@ -51,7 +52,7 @@ export interface FetchWorkoutsReducer {
 
 export interface FetchExercisesReducer {
   err: any;
-  savedExercises: Array<any>;
+  savedExercises: Array<SavedExercise>;
 }
 
 export interface State {

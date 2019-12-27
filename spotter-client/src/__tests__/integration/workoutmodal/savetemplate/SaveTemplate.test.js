@@ -60,7 +60,7 @@ describe("template save modal functionality", () => {
 
     fireEvent.change(input, { target: { value: "testing save input" } });
 
-    fireEvent.click(getByTestId(/submit-template/i));
+    fireEvent.submit(getByTestId(/template-form/i));
 
     await wait(() => expect(getByText(/template created/i)).toBeTruthy());
     expect(axios.post).toHaveBeenCalledTimes(1);
@@ -79,7 +79,7 @@ describe("template save modal functionality", () => {
 
     fireEvent.change(input, { target: { value: "testing save input" } });
 
-    fireEvent.click(getByTestId(/submit-template/i));
+    fireEvent.submit(getByTestId(/template-form/i));
 
     await wait(() => expect(getByText(/bad req/i)).toBeTruthy());
     expect(axios.post).toHaveBeenCalledTimes(1);
@@ -99,16 +99,12 @@ describe("template save modal functionality", () => {
 
     const input = getByPlaceholderText(/template name/i);
 
-    fireEvent.click(getByTestId(/submit-template/i));
+    fireEvent.submit(getByTestId(/template-form/i));
     await wait(() => expect(getByText(/bad req/i)).toBeTruthy());
     fireEvent.change(input, { target: { value: "testing save input" } });
     expect(container.innerHTML).toMatch("testing save input");
 
     fireEvent.click(getByTestId(/quit-template-save/i));
-
-    fireEvent.click(getByTestId(/save-template/i));
-
-    expect(queryByText(/bad req/i)).toBeFalsy();
 
     expect(container.innerHTML).not.toMatch("testing save input");
   });

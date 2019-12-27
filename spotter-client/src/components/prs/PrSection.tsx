@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import { IoMdArrowDropdown, IoMdArrowDropright } from "react-icons/io";
 import Pr from "./Pr";
-import Moment from "moment";
+import * as Moment from "moment";
 import { extendMoment } from "moment-range";
+import { Pr as P } from "src/types/Prs";
 
 const moment = extendMoment(Moment);
 
-const PrSection = ({ title, prs }) => {
+interface Props {
+  title: string;
+  prs: any;
+}
+
+const PrSection: React.FC<Props> = ({ title, prs }) => {
   const [open, setOpen] = useState(false);
   const [hover, setHover] = useState(false);
 
@@ -38,10 +44,10 @@ const PrSection = ({ title, prs }) => {
           )}
           {prs
             // sorting the prs by date (most recent comes first)
-            .sort((a, b) =>
+            .sort((a: P, b: P) =>
               moment(b.date, "MMM DD YYYY").diff(moment(a.date, "MMM DD YYYY"))
             )
-            .map(pr => (
+            .map((pr: P) => (
               <Pr key={pr.name} pr={pr} />
             ))}
         </div>

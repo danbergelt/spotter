@@ -9,7 +9,7 @@ interface Props {
   children?: any;
   popover: P;
   setPopover: React.Dispatch<React.SetStateAction<P>>;
-  openViewModal: (workout: Workout, date: M.Moment) => void;
+  openViewModal: (workout: Workout, date: Moment) => void;
   date: Moment;
   workouts: Array<Workout>;
 }

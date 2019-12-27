@@ -11,21 +11,21 @@ describe("tag reducer", () => {
     expect(tagsReducer(undefined, {})).toEqual({
       isLoading: false,
       err: null,
-      tags: {}
+      tags: []
     });
   });
 
   test("should handle RESET_TAGS", () => {
     expect(
       tagsReducer({ tags: { tag: "tag would go here" } }, { type: RESET_TAGS })
-    ).toEqual({ tags: {} });
+    ).toEqual({ tags: [] });
   });
 
   test("should handle FETCH_TAGS_START", () => {
     expect(tagsReducer(undefined, { type: FETCH_TAGS_START })).toEqual({
       err: null,
       isLoading: true,
-      tags: {}
+      tags: []
     });
   });
 
@@ -44,6 +44,6 @@ describe("tag reducer", () => {
         type: FETCH_TAGS_ERROR,
         payload: "TEST error"
       })
-    ).toEqual({ err: "TEST error", isLoading: false, tags: {} });
+    ).toEqual({ err: "TEST error", isLoading: false, tags: [] });
   });
 });

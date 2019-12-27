@@ -12,7 +12,12 @@ const SaveTemplateForm: React.FC<Props> = ({
   tempName
 }) => {
   return (
-    <form id="save" className="template-form" onSubmit={e => handleSubmit(e)}>
+    <form
+      data-testid="template-form"
+      id="save"
+      className="template-form"
+      onSubmit={e => handleSubmit(e)}
+    >
       <input
         autoFocus
         value={tempName}

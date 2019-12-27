@@ -25,6 +25,10 @@ const ViewMoreContent: React.FC<Props> = ({
     openViewModal(workout, date);
   };
 
+  if ("default" in moment) {
+    var momentFunc: any = moment["default"];
+  }
+
   return (
     <>
       <div className="popover-head">
@@ -42,7 +46,7 @@ const ViewMoreContent: React.FC<Props> = ({
         .map(workout => (
           <div
             onClick={() =>
-              handlePopover(workout, moment(workout.date, "MMM DD YYYY"))
+              handlePopover(workout, momentFunc(workout.date, "MMM DD YYYY"))
             }
             className="view-more-workouts-container"
             key={workout._id}

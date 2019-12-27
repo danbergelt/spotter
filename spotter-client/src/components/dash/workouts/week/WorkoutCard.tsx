@@ -1,14 +1,15 @@
 import React from "react";
 import { FiAlignLeft } from "react-icons/fi";
+import { Workout } from "src/types/Workout";
 
 // card that renders under each column in weekly workout view
 // data represents data for each workout
 
 interface Props {
-  
+  data: Workout
 }
 
-const WorkoutCard = ({ data }) => {
+const WorkoutCard: React.FC<Props> = ({ data }) => {
   return (
     <>
       <div data-testid="workout-title" className="workout-card-title">

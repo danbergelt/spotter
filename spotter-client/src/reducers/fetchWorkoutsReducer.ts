@@ -6,8 +6,9 @@ import {
 } from "../actions/fetchWorkoutsActions";
 
 import { UPDATE_TAG } from "../actions/workoutActions";
+import { FetchWorkoutsReducer } from "src/types/State";
 
-const fetchedWorkoutsState = {
+const fetchedWorkoutsState: FetchWorkoutsReducer = {
   err: null,
   isLoading: false,
   workouts: []
@@ -15,7 +16,10 @@ const fetchedWorkoutsState = {
 
 // populates dashboard
 
-export const fetchWorkoutsReducer = (state = fetchedWorkoutsState, action) => {
+export const fetchWorkoutsReducer = (
+  state = fetchedWorkoutsState,
+  action: { type: string; payload: any }
+): FetchWorkoutsReducer => {
   switch (action.type) {
     case FETCH_WORKOUTS_START:
       return {

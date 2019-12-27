@@ -3,14 +3,18 @@ import {
   FETCH_PRS_ERROR,
   FETCH_PRS_START
 } from "../actions/prActions";
+import { PrsReducer } from "src/types/State";
 
-const fetchPrsState = {
+const fetchPrsState: PrsReducer = {
   err: null,
   isLoading: false,
   prs: {}
 };
 
-export const prsReducer = (state = fetchPrsState, action) => {
+export const prsReducer = (
+  state = fetchPrsState,
+  action: { type: string; payload: any }
+): PrsReducer => {
   switch (action.type) {
     case FETCH_PRS_START:
       return {

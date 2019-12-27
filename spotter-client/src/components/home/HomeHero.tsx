@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Hero = () => {
+const Hero: React.FC = () => {
   return (
     <section className="home-hero-container" style={{ margin: 0 }}>
       <div className="home-hero-main">

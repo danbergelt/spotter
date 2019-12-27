@@ -34,10 +34,15 @@ const Prs: React.FC = () => {
     let allTime: SortedPrsRange = [];
     // if the prs are fetched
     if (Object.keys(prs).length) {
+
+      if ("default" in moment) {
+        var momentDefault: any = moment["default"];
+      }
+
       for (let pr in prs) {
         // find the diff between the current date and the current pr
         let diff: number = Number(
-          moment().diff(moment(prs[pr].date, "MMM DD YYYY"), "days")
+          momentDefault().diff(momentDefault(prs[pr].date, "MMM DD YYYY"), "days")
         );
         if (diff <= 31) {
           lastMonth = [...lastMonth, prs[pr]];
