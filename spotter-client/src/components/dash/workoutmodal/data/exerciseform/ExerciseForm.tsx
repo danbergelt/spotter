@@ -11,7 +11,8 @@ import {
 } from "../../../../../actions/workoutActions";
 import Autosuggest from "react-autosuggest";
 import { State } from "src/types/State";
-import { Queued, Exercise, Refs } from '../../../../../types/Exercises';
+import { Queued, Refs } from '../../../../../types/Exercises';
+import {Exercise as E } from '../../../../../types/ExerciseOption';
 
 // READ: this component is a nightmare. Formik claims to make working with forms easer,
 // but it does not play nicely with other libraries. I need to figure out how to optimize this,
@@ -29,7 +30,7 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
 
   const fetchExercises = (state: State) =>
     state.fetchExercisesReducer.savedExercises;
-  const exercises: Array<Exercise> = useSelector(fetchExercises);
+  const exercises: Array<E> = useSelector(fetchExercises);
 
   const dispatch = useDispatch();
 
@@ -39,7 +40,7 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
     dispatch<{ type: string }>({ type: RESET_QUEUE });
   };
 
-  const [suggestions, setSuggestions] = useState<Array<Exercise>>([]);
+  const [suggestions, setSuggestions] = useState<Array<E>>([]);
 
   return (
     <div className="exercise-form-container">
@@ -105,7 +106,7 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
                   }
 
                   setSuggestions(
-                    exercises.filter((exercise: Exercise) =>
+                    exercises.filter((exercise: E) =>
                       exercise.name.toLowerCase().includes(value.toLowerCase())
                     )
                   );

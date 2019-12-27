@@ -1,12 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// helper schema
-const AllPrsSchema = new Schema({
-  pr: Number,
-  prDate: String
-});
-
 const ExerciseSchema = new Schema({
   name: {
     type: String,

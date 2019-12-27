@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { IoMdArrowDropdown, IoMdArrowDropright } from "react-icons/io";
 import Pr from "./Pr";
-import * as Moment from "moment";
-import { extendMoment } from "moment-range";
 import { Pr as P } from "src/types/Prs";
 
-const moment = extendMoment(Moment);
+let m = require("moment");
+if ("default" in m) {
+  m = m["default"];
+}
 
 interface Props {
   title: string;
@@ -45,7 +46,7 @@ const PrSection: React.FC<Props> = ({ title, prs }) => {
           {prs
             // sorting the prs by date (most recent comes first)
             .sort((a: P, b: P) =>
-              moment(b.date, "MMM DD YYYY").diff(moment(a.date, "MMM DD YYYY"))
+              m(b.date, "MMM DD YYYY").diff(m(a.date, "MMM DD YYYY"))
             )
             .map((pr: P) => (
               <Pr key={pr.name} pr={pr} />

@@ -5,19 +5,20 @@ import { extendMoment } from "moment-range";
 import { Pr as P } from "src/types/Prs";
 
 const moment = extendMoment(Moment);
+let m = require("moment")
+if ("default" in m) {
+  m = moment["default"];
+}
 
 interface Props {
   pr: P;
 }
 
+
 const Pr: React.FC<Props> = ({ pr }) => {
   const setClassName = (pr: P): string | undefined => {
 
-    if ("default" in moment) {
-      var momentDefault: any = moment["default"];
-    }
-
-    const diff: number = momentDefault().diff(momentDefault(pr.date, "MMM DD YYYY"), "days");
+    const diff: number = m().diff(m(pr.date, "MMM DD YYYY"), "days");
 
     if (diff <= 31) {
       return "pr-circle lastMonth";

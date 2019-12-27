@@ -8,6 +8,10 @@ import { State } from "src/types/State";
 import { SortedPrs, SortedPrsRange } from "../types/Prs";
 
 const moment: MomentRange = extendMoment(Moment);
+let m = require("moment")
+if ("default" in m) {
+  m = moment["default"];
+}
 
 const Prs: React.FC = () => {
   const dispatch = useDispatch();
@@ -35,14 +39,14 @@ const Prs: React.FC = () => {
     // if the prs are fetched
     if (Object.keys(prs).length) {
 
-      if ("default" in moment) {
-        var momentDefault: any = moment["default"];
-      }
+      // if ("default" in moment) {
+      //   var momentDefault: any = moment["default"];
+      // }
 
       for (let pr in prs) {
         // find the diff between the current date and the current pr
         let diff: number = Number(
-          momentDefault().diff(momentDefault(prs[pr].date, "MMM DD YYYY"), "days")
+          m().diff(m(prs[pr].date, "MMM DD YYYY"), "days")
         );
         if (diff <= 31) {
           lastMonth = [...lastMonth, prs[pr]];

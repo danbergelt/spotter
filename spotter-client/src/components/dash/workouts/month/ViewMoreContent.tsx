@@ -3,9 +3,11 @@ import { FiX } from "react-icons/fi";
 import { P } from "src/types/Grid";
 import { Workout } from "src/types/Workout";
 import * as M from "moment";
-import { extendMoment } from "moment-range";
 
-const moment = extendMoment(M);
+let m = require("moment")
+if ("default" in m) {
+  m = m["default"];
+}
 
 interface Props {
   setPopover: React.Dispatch<React.SetStateAction<P>>;
@@ -25,9 +27,9 @@ const ViewMoreContent: React.FC<Props> = ({
     openViewModal(workout, date);
   };
 
-  if ("default" in moment) {
-    var momentFunc: any = moment["default"];
-  }
+  // if ("default" in moment) {
+  //   var momentFunc: any = moment["default"];
+  // }
 
   return (
     <>
@@ -46,7 +48,7 @@ const ViewMoreContent: React.FC<Props> = ({
         .map(workout => (
           <div
             onClick={() =>
-              handlePopover(workout, momentFunc(workout.date, "MMM DD YYYY"))
+              handlePopover(workout, m(workout.date, "MMM DD YYYY"))
             }
             className="view-more-workouts-container"
             key={workout._id}

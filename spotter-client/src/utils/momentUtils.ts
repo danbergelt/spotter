@@ -11,16 +11,17 @@ interface Params {
 
 // due to the way in which the moment object is exported, I need to override the moment object with moment["default"] to satisfy type errors and import a function
 // to see more on this issue, see this open issue: https://github.com/palantir/blueprint/issues/959
+let m = require("moment")
+if ("default" in m) {
+  m = moment["default"];
+}
 
 export const generateWeek: Params = num => {
-  if ("default" in moment) {
-    var momentFunc: any = moment["default"];
-  }
 
-  const start = momentFunc()
+  const start = m()
     .add(num, "weeks")
     .startOf("week");
-  const end = momentFunc()
+  const end = m()
     .add(num, "weeks")
     .endOf("week");
   const range = moment.range(start, end);
@@ -37,11 +38,8 @@ export const generateWeek: Params = num => {
 // Used to set header of dashboard
 
 export const dashHead = (num: number): string => {
-  if ("default" in moment) {
-    var momentFunc: any = moment["default"];
-  }
 
-  return momentFunc()
+  return m()
     .add(num, "weeks")
     .startOf("week")
     .format("MMMM YYYY");
@@ -50,15 +48,12 @@ export const dashHead = (num: number): string => {
 // Used for generating days of month in dashboard
 
 export const generateMonth = (num: number): Moment.Moment[] => {
-  if ("default" in moment) {
-    var momentFunc: any = moment["default"];
-  }
 
-  const start = momentFunc()
+  const start = m()
     .add(num, "months")
     .startOf("month")
     .startOf("week");
-  const end = momentFunc()
+  const end = m()
     .add(num, "months")
     .endOf("month");
 
@@ -80,11 +75,8 @@ export const generateMonth = (num: number): Moment.Moment[] => {
 // Used to set header of monthly dashboard view
 
 export const monthDashHead = (num: number): string => {
-  if ("default" in moment) {
-    var momentFunc: any = moment["default"];
-  }
 
-  return momentFunc()
+  return m()
     .add(num, "months")
     .startOf("month")
     .format("MMMM YYYY");

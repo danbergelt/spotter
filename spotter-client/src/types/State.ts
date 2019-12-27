@@ -1,6 +1,7 @@
 import { Queued, Exercise } from "./Exercises";
+import { Exercise as E } from './ExerciseOption';
 import { TagOnWorkout as Tag } from "./TagOnWorkout";
-import { Workout, SavedExercise } from './Workout'
+import { Workout} from './Workout'
 import { Moment } from "moment";
 import { Template } from "./Template";
 
@@ -52,7 +53,7 @@ export interface FetchWorkoutsReducer {
 
 export interface FetchExercisesReducer {
   err: any;
-  savedExercises: Array<SavedExercise>;
+  savedExercises: Array<E>;
 }
 
 export interface State {

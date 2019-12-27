@@ -3,6 +3,11 @@ import { FiPlusCircle } from "react-icons/fi";
 import { Moment } from "moment";
 import { MomentRange } from "moment-range";
 
+let m = require("moment")
+if ("default" in m) {
+  m = m["default"];
+}
+
 interface Props {
   date: Moment;
   openAddWorkoutModal: (date: Moment) => void;
@@ -18,9 +23,9 @@ const GridHeadFirstWeek: React.FC<Props> = ({
   moment
 }) => {
 
-  if ("default" in moment) {
-    var momentFunc: any = moment["default"];
-  }
+  // if ("default" in moment) {
+  //   var momentFunc: any = moment["default"];
+  // }
 
   return (
     <>
@@ -37,7 +42,7 @@ const GridHeadFirstWeek: React.FC<Props> = ({
       <div
         style={{ fontSize: "1.3rem" }}
         className={
-          date.format("MMM DD YYYY") === momentFunc().format("MMM DD YYYY")
+          date.format("MMM DD YYYY") === m().format("MMM DD YYYY")
             ? "today-date"
             : undefined
         }
