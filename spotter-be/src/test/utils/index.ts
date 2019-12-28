@@ -1,18 +1,16 @@
-const express = require("express");
-const dotenv = require("dotenv");
-const colors = require("colors");
-const User = require("../../models/User");
-const errorHandler = require("../../middleware/error");
+import express from 'express';
+import dotenv from 'dotenv';
+import errorHandler from '../../middleware/error'
 dotenv.config();
 
 // Route imports
-const users = require("../../routes/users");
-const workouts = require("../../routes/workouts");
-const tags = require("../../routes/tags");
-const templates = require("../../routes/templates");
-const auth = require("../../routes/auth");
-const exercises = require("../../routes/exercises");
-const prs = require("../../routes/prs");
+import users from '../../routes/users';
+import workouts from '../../routes/workouts'
+import tags from '../../routes/tags'
+import templates from '../../routes/templates';
+import auth from '../../routes/auth'
+import exercises from '../../routes/exercises'
+import prs from '../../routes/prs'
 
 // Connect to DB and run server
 const app = express();
@@ -35,7 +33,7 @@ app.use(errorHandler);
 const port = process.env.PORT || 5000;
 
 const server = app.listen(port, () =>
-  console.log(`Server ${`FOR TESTING`.yellow.inverse} started on port ${port}`)
+  console.log(`Server ${`FOR TESTING`} started on port ${port}`)
 );
 
 // Unhandled rejection handling

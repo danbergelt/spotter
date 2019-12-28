@@ -1,13 +1,13 @@
-const mongoose = require("mongoose");
+import mongoose, { Model } from 'mongoose';
 require("dotenv").config();
 
 // ES6 Promises (for mocking purposes)
 
-exports.dbHelper = Collection => {
+export const dbHelper = (Collection: Model<any>) => {
   mongoose.Promise = global.Promise;
 
   mongoose.connect(
-  process.env.T_DB,
+  process.env.T_DB!,
     {
       useNewUrlParser: true,
       useCreateIndex: true,
@@ -22,7 +22,8 @@ exports.dbHelper = Collection => {
       console.warn(`Error: ${error}`);
     });
 
+  //@ts-ignore  
   beforeEach(async () => {
-    await Collection.deleteMany();
+    await Collection.deleteMany({});
   });
 };

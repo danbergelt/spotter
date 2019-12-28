@@ -1,4 +1,4 @@
-exports.template = {
+export const template = {
   date: "Jan 01 2020",
   title: "Workout",
   notes: "Notes for workout",
