@@ -1,0 +1,73 @@
+@import "../../variables.scss";
+
+.spotter-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  
+  .spotter-nav-head {
+    display: flex;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    .spotter-nav-head-logo {
+      font-size: 3.2rem;
+      font-weight: bold;
+      color: $gray1;
+      text-decoration: none;
+
+      .spot {
+        font-size: 5rem;
+        color: $primary;
+        height: 10px;
+      }
+    }
+  }
+
+  .spotter-nav-links {
+    display: flex;
+
+    .spotter-nav-link {
+      font-size: $p;
+      height: max-content;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      border-radius: $border;
+    }
+
+    .spotter-nav-link:nth-child(-n + 3) {
+      margin-right: 3rem;
+      color: $gray2;
+
+      &:hover {
+        color: $primary;
+        cursor: pointer;
+      }
+    }
+
+    .spotter-nav-link.dashboard {
+      color: $primary;
+      border: 1px solid $primary;
+
+      &:hover {
+        color: $primary-hover;
+        border: 1px solid $primary-hover;
+      }
+    }
+
+    .spotter-nav-link.styled {
+      background: $primary;
+      color: white;
+      border: 1px solid $primary;
+      margin-right: 0;
+
+      &:hover {
+        background: $primary-hover;
+        cursor: pointer;
+        color: white;
+      }
+    }
+  }
+}

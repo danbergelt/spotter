@@ -1,0 +1,158 @@
+@import "../../../variables.scss";
+@import "../../../mixins.scss";
+
+.workout-data-exercises {
+  .workout-data-exercises-head {
+    @include flex-center;
+    font-size: 1.75rem;
+    color: $gray1;
+    margin-top: 2rem;
+
+    .workout-data-exercises-icon {
+      font-size: $icon;
+    }
+
+    .workout-data-exercises-title {
+      padding: 1.25rem;
+    }
+
+    .workout-data-exercises-editing {
+      font-size: 1.3rem;
+      padding: 0.75rem;
+      border-radius: 4px;
+      background: $gray4;
+      cursor: pointer;
+
+      &:hover {
+        background: darken($gray4, 2.5%);
+      }
+    }
+  }
+  .workout-data-exercises-content {
+    margin-top: 2rem;
+
+    .exercise-form {
+      display: flex;
+      align-items: flex-end;
+      color: $gray1;
+      margin-bottom: 3rem;
+      margin-left: 3rem;
+
+      .exercise-form-field-container {
+        position: relative;
+        right: 1px;
+        display: flex;
+        flex-direction: column;
+        margin-right: 0.5rem;
+
+        .exercise-form-field-label {
+          height: 15px;
+          margin-bottom: 1rem;
+          font-size: 1.3rem;
+          @include flex-center;
+          justify-content: space-between;
+
+          .save-exercise-button {
+            font-size: $icon;
+            margin-right: 1.15rem;
+            color: $info;
+            cursor: pointer;
+          }
+        }
+
+        .error-exercise-form {
+          margin-bottom: 0.5rem;
+          font-size: 1.1rem;
+          color: $danger;
+        }
+
+        .exercise-form-field {
+          width: 100px;
+          height: 2.5rem;
+          outline: none;
+          border-radius: $border;
+          border: 0;
+          padding: 1.5rem 0 1.5rem 0.5rem;
+          font-size: 1.3rem;
+          border: 1px solid $gray4;
+
+          &:focus {
+            outline: 0;
+            box-shadow: 0 0 0 1px $primary;
+          }
+        }
+      }
+      .exercise-form-button {
+        font-size: $icon;
+        cursor: pointer;
+
+        &:hover {
+          transform: $hover-scale;
+        }
+      }
+
+      .exercise-form-button.submit {
+        margin-right: 1rem;
+        font-size: 2.25rem;
+        color: $info;
+      }
+
+      .exercise-form-button.clear {
+        color: $danger;
+        position: relative;
+        bottom: 3px;
+      }
+    }
+
+    .workout-data-exercises-list {
+      margin-top: 2rem;
+      margin-left: 2.8rem;
+      width: 100%;
+
+      .exercise-row {
+        padding: 1rem 0.5rem;
+        border-radius: $border;
+        display: flex;
+        align-items: center;
+
+        .exercise-results {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
+
+          .exercise-name {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+          }
+
+          .exercise-stats {
+            display: flex;
+            font-size: 1.3rem;
+
+            .exercise-stat {
+              padding-right: 1rem;
+            }
+          }
+
+          .exercise-actions {
+            font-weight: normal;
+            text-decoration: underline;
+            display: flex;
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: max-content;
+
+            .exercise-edit {
+              margin-right: 1rem;
+            }
+          }
+        }
+      }
+
+      .exercise-row.odd {
+        background: $gray4;
+      }
+    }
+  }
+}

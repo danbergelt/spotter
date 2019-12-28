@@ -1,0 +1,11 @@
+export const OPEN_TAG_MODAL: string = "OPEN_TAG_MODAL";
+export const CLOSE_TAG_MODAL: string = "CLOSE_TAG_MODAL";
+export const SET_ACTIVE: string = "SET_ACTIVE";
+export const SET_TEMPLATE_SAVE: string = "SET_TEMPLATE_SAVE";
+export const SET_FROM_TEMPLATE: string = "SET_FROM_TEMPLATE";
+export const SET_CONFIRM_DELETE: string = "SET_CONFIRM_DELETE";
+export const SET_TEMPLATES: string = "SET_TEMPLATES";
+export const SET_TEMPLATES_ERR: string = "SET_TEMPLATES_ERR";
+export const SET_SAVE_MSG: string = "SET_SAVE_MSG";
+export const DELETE_TEMPLATE: string = "DELETE_TEMPLATE";
+export const SET_EXERCISES: string = "SET_EXERCISES";
