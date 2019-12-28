@@ -1,16 +1,10 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
+import { ExerciseOnTemplateSchema, ITemplate } from "src/types/models";
 const Schema = mongoose.Schema;
 
 // Helper Schemas
 
-interface IHelper {
-  name: string;
-  weight: number;
-  sets: number;
-  reps: number;
-}
-
-const ExerciseSchema= new Schema<IHelper>({
+const ExerciseSchema = new Schema<ExerciseOnTemplateSchema>({
   name: {
     type: String,
     required: [true, "Please add an exercise name"],
@@ -31,16 +25,6 @@ const ExerciseSchema= new Schema<IHelper>({
 });
 
 // Workout schema
-
-interface ITemplate {
-  name: string;
-  createdAt: Date;
-  title: string;
-  tags: Array<{ content: string; color: string }>;
-  notes: String;
-  exercises: IHelper;
-  user: typeof Schema.Types.ObjectId;
-}
 
 const TemplateSchema = new Schema<ITemplate>({
   name: {
@@ -74,4 +58,4 @@ const TemplateSchema = new Schema<ITemplate>({
   }
 });
 
-export default mongoose.model("Template", TemplateSchema);
+export default mongoose.model<ITemplate>("Template", TemplateSchema);

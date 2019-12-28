@@ -4,36 +4,46 @@ import asyncHandler from "../middleware/async";
 import { refreshToken, genToken, clearRefreshToken } from "../utils/tokens";
 import * as jwt from "jsonwebtoken";
 import * as redis from "redis";
+import { IUser } from "src/types/models";
+import { promisify } from "util";
+import { Response } from "express";
 
-const client = redis.createClient();
+const client: redis.RedisClient = redis.createClient();
+
+interface UserDetails {
+  email: string;
+  password: string;
+  role: string;
+}
+
+interface IVerifiedToken {
+  id: string;
+  iat: number;
+  exp: number;
+}
 
 // @desc --> register user
 // @route --> POST /api/auth/register
 // @access --> Public
 
 export const register = asyncHandler(async (req, res) => {
-  const { email, password, role } = req.body;
+  const { email, password, role }: UserDetails = req.body;
 
   // create user
-  const user = await User.create({
+  const user: IUser = await User.create({
     email,
     password,
     role
   });
 
+  const hset: Function = promisify(client.hset).bind(client);
+
   // initialize PR cache for this user
-  await client.hset(
-    user._id.toString(),
-    "stale",
-    "false",
-    "prs",
-    //@ts-ignore
-    JSON.stringify({})
-  );
+  await hset(user._id.toString(), "stale", "false", "prs", JSON.stringify({}));
 
   refreshToken(
     res,
-    genToken(user._id, process.env.REF_SECRET!, (process.env.REF_EXPIRE as any))
+    genToken(user._id, process.env.REF_SECRET!, process.env.REF_EXPIRE!)
   );
 
   sendToken(user, 201, res);
@@ -44,7 +54,7 @@ export const register = asyncHandler(async (req, res) => {
 // @access --> Public
 
 export const login = asyncHandler(async (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, password }: Partial<UserDetails> = req.body;
 
   // Validate email and password
   if (!email || !password) {
@@ -52,15 +62,14 @@ export const login = asyncHandler(async (req, res, next) => {
   }
 
   // Check for user
-  const user = await User.findOne({ email }).select("+password");
+  const user: IUser | null = await User.findOne({ email }).select("+password");
 
   if (!user) {
     return next(new Err("Invalid credentials", 401));
   }
 
   // Check if password matches
-  //@ts-ignore
-  const isMatch = await user.matchPassword(password);
+  const isMatch: boolean = await user.matchPassword(password);
 
   if (!isMatch) {
     return next(new Err("Invalid credentials", 401));
@@ -68,7 +77,7 @@ export const login = asyncHandler(async (req, res, next) => {
 
   refreshToken(
     res,
-    genToken(user._id, process.env.REF_SECRET!, (process.env.REF_EXPIRE as any))
+    genToken(user._id, process.env.REF_SECRET!, process.env.REF_EXPIRE!)
   );
 
   sendToken(user, 200, res);
@@ -88,25 +97,23 @@ export const logout = asyncHandler(async (_, res) => {
 // @route --> POST /api/auth/refresh
 // @access --> Private
 
-//@ts-ignore
 export const refresh = asyncHandler(async (req, res) => {
-  const token = req.cookies.toll;
+  const token: string | null = req.cookies.toll;
 
   if (!token) {
     return res.send({ success: false, token: null });
   }
 
-  let payload;
+  let payload: string | object;
 
   try {
     payload = jwt.verify(token, process.env.REF_SECRET!);
-  } catch (error) {
+  } catch (_) {
     return res.send({ success: false, token: null });
   }
 
   // refresh token is valid and we can send back new access token
-  // @ts-ignore
-  const user = await User.findOne({ id: payload.userId });
+  const user = await User.findOne({ _id: (payload as IVerifiedToken).id });
 
   if (!user) {
     return res.send({ success: false, token: null });
@@ -114,18 +121,20 @@ export const refresh = asyncHandler(async (req, res) => {
 
   refreshToken(
     res,
-    genToken(user._id, process.env.REF_SECRET!, (process.env.REF_EXPIRE as any))
+    genToken(user._id, process.env.REF_SECRET!, process.env.REF_EXPIRE as any)
   );
 
-  sendToken(user, 200, res);
+  return sendToken(user, 200, res);
 });
 
 // Get token from model, send response
-const sendToken = (user: any, statusCode: any, res: any) => {
+const sendToken = (user: IUser, statusCode: number, res: Response) => {
   // Create token
-  const token = user.getToken();
+  const token: string = user.getToken();
 
-  const options = {
+  console.log(token)
+
+  const options: { expires: Date; httpOnly: boolean; secure?: boolean } = {
     expires: new Date(
       Date.now() + (process.env.JWT_EXPIRE as any) * 24 * 60 * 60 * 1000
     ),
@@ -133,7 +142,7 @@ const sendToken = (user: any, statusCode: any, res: any) => {
   };
 
   if (process.env.NODE_ENV === "production") {
-    (options as any).secure = true;
+    options.secure = true;
   }
 
   res.status(statusCode).json({ success: true, token, id: user._id });

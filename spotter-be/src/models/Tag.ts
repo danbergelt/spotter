@@ -2,14 +2,9 @@ import mongoose, { Schema } from "mongoose";
 import Workout from "./Workout";
 import Template from "./Template";
 import { NextFunction } from "connect";
+import { ITag } from "src/types/models";
 
-interface ITag extends mongoose.Document {
-  color: string;
-  content: string;
-  user: Schema.Types.ObjectId;
-}
-
-const TagSchema = new Schema({
+const TagSchema = new Schema<ITag>({
   color: {
     type: String,
     required: [true, "Please add a tag color"]

@@ -1,14 +1,17 @@
-import Template from '../models/Template';
-import asyncHandler from '../middleware/async';
-import Err from '../utils/Err';
-import * as hex from 'is-hexcolor'
+import Template from "../models/Template";
+import asyncHandler from "../middleware/async";
+import Err from "../utils/Err";
+import * as hex from "is-hexcolor";
+import { ITemplate, ITag } from "src/types/models";
 
 // @desc --> get all templates by user id
 // @route --> GET /api/auth/templates
 // @access --> Private
 
 export const getTemplatesByUserId = asyncHandler(async (req, res) => {
-  const templates = await Template.find({ user: req.user!._id });
+  const templates: Array<ITemplate> = await Template.find({
+    user: req.user!._id
+  });
 
   return res
     .status(200)
@@ -20,9 +23,9 @@ export const getTemplatesByUserId = asyncHandler(async (req, res) => {
 // @access --> Private
 
 export const addTemplate = asyncHandler(async (req, res, next) => {
-  req.body.user = req.user!._id;
+  req.body.user = req.user._id;
 
-  const templates = await Template.find({
+  const templates: Array<ITemplate> = await Template.find({
     name: req.body.name,
     user: req.body.user
   });
@@ -31,18 +34,18 @@ export const addTemplate = asyncHandler(async (req, res, next) => {
     return next(new Err("Template already exists", 400));
   }
 
-  let colorValidate = [];
+  let colorValidate: Array<ITag | false> = [];
 
   // map over the tags in the template and error out if invalid color detected
   if (req.body.tags && req.body.tags.length) {
-    colorValidate = req.body.tags.map((el: any) => hex(el.color));
+    colorValidate = req.body.tags.map((el: ITag) => hex(el.color));
   }
 
   if (colorValidate.includes(false)) {
     return next(new Err("Invalid color detected", 400));
   }
 
-  const template = await Template.create(req.body);
+  const template: ITemplate = await Template.create(req.body);
 
   res.status(201).json({
     success: true,
@@ -55,10 +58,14 @@ export const addTemplate = asyncHandler(async (req, res, next) => {
 // @access --> Private
 
 export const editTemplate = asyncHandler(async (req, res) => {
-  let template = await Template.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true
-  });
+  let template: ITemplate | null = await Template.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    {
+      new: true,
+      runValidators: true
+    }
+  );
 
   res.status(200).json({
     success: true,
