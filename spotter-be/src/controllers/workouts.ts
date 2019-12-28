@@ -1,16 +1,17 @@
-const Workout = require("../models/Workout");
-const asyncHandler = require("../middleware/async");
-const Err = require("../utils/Err");
-const { promisify } = require("util");
-const hex = require("is-hexcolor");
-const redis = require("redis"),
-  client = redis.createClient();
+import Workout from "../models/Workout";
+import asyncHandler from "../middleware/async";
+import Err from "../utils/Err";
+import { promisify } from "util";
+import * as hex from "is-hexcolor";
+import * as redis from "redis";
+
+const client = redis.createClient();
 
 // @desc --> get all workouts by user id
 // @route --> GET /api/auth/workouts
 // @access --> Private
 
-exports.getWorkoutsByUserId = asyncHandler(async (req, res, next) => {
+export const getWorkoutsByUserId = asyncHandler(async (req, res) => {
   const pagination = {
     page: parseInt(req.query.page, 10) || 0,
     limit: parseInt(req.query.limit, 10) || 10
@@ -29,7 +30,7 @@ exports.getWorkoutsByUserId = asyncHandler(async (req, res, next) => {
 // @route --> GET /api/auth/workouts/range
 // @access --> Private
 
-exports.workoutRangeByUserId = asyncHandler(async (req, res, next) => {
+export const workoutRangeByUserId = asyncHandler(async (req, res, next) => {
   if (!req.body.range) {
     return next(new Err("Please supply a date range", 400));
   }
@@ -48,13 +49,13 @@ exports.workoutRangeByUserId = asyncHandler(async (req, res, next) => {
 // @route --> POST /api/auth/workouts
 // @access --> Private
 
-exports.addWorkout = asyncHandler(async (req, res, next) => {
+export const addWorkout = asyncHandler(async (req, res, next) => {
   req.body.user = req.user._id;
 
   let colorValidate = [];
 
   if (req.body.tags && req.body.tags.length) {
-    colorValidate = req.body.tags.map(el => hex(el.color));
+    colorValidate = req.body.tags.map((el: any) => hex(el.color));
   }
 
   if (colorValidate.includes(false)) {
@@ -76,7 +77,7 @@ exports.addWorkout = asyncHandler(async (req, res, next) => {
 // @route --> PUT /api/auth/workouts/:id
 // @access --> Private
 
-exports.editWorkout = asyncHandler(async (req, res, next) => {
+export const editWorkout = asyncHandler(async (req, res) => {
   let workout = await Workout.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true
@@ -95,7 +96,7 @@ exports.editWorkout = asyncHandler(async (req, res, next) => {
 // @route --> DELETE /api/auth/workouts/:id
 // @access --> Private
 
-exports.deleteWorkout = asyncHandler(async (req, res, next) => {
+export const deleteWorkout = asyncHandler(async (req, res) => {
   await Workout.findByIdAndDelete(req.params.id);
 
   const hset = promisify(client.hset).bind(client);

@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 // Helper Schemas
@@ -10,7 +10,7 @@ interface IHelper {
   reps: number;
 }
 
-const ExerciseSchema: IHelper = new Schema({
+const ExerciseSchema= new Schema<IHelper>({
   name: {
     type: String,
     required: [true, "Please add an exercise name"],
@@ -39,10 +39,10 @@ interface ITemplate {
   tags: Array<{ content: string; color: string }>;
   notes: String;
   exercises: IHelper;
-  user: typeof Schema.ObjectId;
+  user: typeof Schema.Types.ObjectId;
 }
 
-const TemplateSchema: ITemplate = new Schema({
+const TemplateSchema = new Schema<ITemplate>({
   name: {
     type: String,
     required: [true, "Give your template a name"],
@@ -67,7 +67,7 @@ const TemplateSchema: ITemplate = new Schema({
   notes: String,
   exercises: [ExerciseSchema],
   user: {
-    type: Schema.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "User",
     required: true,
     immutable: true

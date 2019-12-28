@@ -1,10 +1,10 @@
-const jwt = require("jsonwebtoken");
-const asyncHandler = require("./async");
-const Err = require("../utils/Err");
-const User = require("../models/User");
+import * as jwt from "jsonwebtoken";
+import asyncHandler from "./async";
+import Err from "../utils/Err";
+import User from "../models/user";
 
 // Protect routes
-exports.protect = asyncHandler(async (req, res, next) => {
+export const protect = asyncHandler(async (req, _, next) => {
   let token;
 
   if (
@@ -22,10 +22,14 @@ exports.protect = asyncHandler(async (req, res, next) => {
 
   try {
     // verify token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
 
-    req.user = await User.findById(decoded.id);
+    const u = await User.findById((decoded as any).id);
 
+    if (u !== null) {
+      req.user = u;
+    }
+    
     next();
   } catch (err) {
     return next(new Err("Connection lost, try refreshing", 401));

@@ -1,21 +1,23 @@
-const express = require("express");
-const {
+import express from "express";
+import {
   createTag,
   deleteTag,
   editTag,
   getTags
-} = require("../controllers/tags");
+} from "../controllers/tags";
 const router = express.Router();
-const { protect } = require("../middleware/auth");
+import { protect } from "../middleware/auth";
 
 // Routes
 router
   .route("/")
+  //@ts-ignore
   .post(protect, createTag)
   .get(protect, getTags);
 
 router
   .route("/:id")
+  //@ts-ignore
   .delete(protect, deleteTag)
   .put(protect, editTag);
 

@@ -1,13 +1,20 @@
 import { NextFunction } from "connect";
+import mongoose, { Document, Schema } from "mongoose";
+import * as bcrypt from "bcryptjs";
+import { genToken } from "../utils/tokens";
 
-const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
-const { genToken } = require("../utils/tokens");
-const Schema = mongoose.Schema;
+interface IUser extends Document {
+  email: string;
+  password: string;
+  role: string;
+  created: Date;
+  getToken(): any
+  matchPassword(id: string): Promise<boolean>
+}
 
 // User model
 
-const UserSchema = new Schema({
+const UserSchema = new Schema<IUser>({
   email: {
     type: String,
     trim: true,
@@ -46,7 +53,11 @@ UserSchema.pre("save", async function(this: any, next: NextFunction) {
 
 // Sign token and return
 UserSchema.methods.getToken = function(): string {
-  return genToken(this._id, process.env.JWT_SECRET, process.env.JWT_EXPIRE);
+  return genToken(
+    this._id,
+    process.env.JWT_SECRET!,
+    process.env.JWT_EXPIRE as any
+  );
 };
 
 // Match password on login
@@ -56,4 +67,4 @@ UserSchema.methods.matchPassword = async function(
   return await bcrypt.compare(pw, this.password);
 };
 
-module.exports = mongoose.model("User", UserSchema); 
+export default mongoose.model("User", UserSchema);

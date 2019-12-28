@@ -1,21 +1,15 @@
-import { Response, NextFunction } from "express";
-
-const Err = require("../utils/Err");
-const Exercise = require("../models/Exercise");
-const asyncHandler = require("../middleware/async");
-const { promisify } = require("util");
-const redis = require("redis"),
-  client = redis.createClient();
-
-interface Req extends Request {
-  user: { _id: string };
-}
+import Err from '../utils/Err';
+import Exercise from '../models/Exercise';
+import asyncHandler from '../middleware/async';
+import { promisify } from 'util';
+import * as redis from 'redis';
+const client = redis.createClient();
 
 // @desc --> create exercise
 // @route --> POST /api/auth/exercises
 // @access --> Private
 
-exports.createExercise = asyncHandler(async (req: Req, res: Response, next: NextFunction) => {
+export const createExercise = asyncHandler(async (req, res, next) => {
   (req as any).body.user = req.user._id;
 
   const exercise = await Exercise.find({
@@ -43,7 +37,7 @@ exports.createExercise = asyncHandler(async (req: Req, res: Response, next: Next
 // @route --> PUT /api/auth/exercises/:id
 // @access --> Private
 
-exports.updateExercise = asyncHandler(async (req: Req, res: Response, _: NextFunction) => {
+export const updateExercise = asyncHandler(async (req, res) => {
   const exercise = await Exercise.findByIdAndUpdate((req as any).params.id, req.body, {
     new: true,
     runValidators: true
@@ -59,7 +53,7 @@ exports.updateExercise = asyncHandler(async (req: Req, res: Response, _: NextFun
 // @route --> DELETE /api/auth/exercises/:id
 // @access --> Private
 
-exports.deleteExercise = asyncHandler(async (req: Req, res: Response, _: NextFunction) => {
+export const deleteExercise = asyncHandler(async (req, res) => {
   await Exercise.findByIdAndDelete((req as any).params.id);
 
   res.status(200).json({
@@ -72,7 +66,7 @@ exports.deleteExercise = asyncHandler(async (req: Req, res: Response, _: NextFun
 // @route --> GET /api/auth/exercises
 // @access --> Private
 
-exports.getExercises = asyncHandler(async (req: Req, res: Response, _: NextFunction) => {
+export const getExercises = asyncHandler(async (req, res) => {
   const exercises = await Exercise.find({ user: req.user._id });
 
   return res.status(200).json({

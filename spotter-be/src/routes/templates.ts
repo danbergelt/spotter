@@ -1,22 +1,22 @@
-const express = require("express");
-const {
+import express from "express";
+import {
   getTemplatesByUserId,
   addTemplate,
   editTemplate,
   deleteTemplate
-} = require("../controllers/templates");
-
+} from "../controllers/templates";
 const router = express.Router();
-
-const { protect } = require("../middleware/auth");
+import { protect } from "../middleware/auth";
 
 router
   .route("/")
+  //@ts-ignore
   .get(protect, getTemplatesByUserId)
   .post(protect, addTemplate);
 
 router
   .route("/:id")
+  //@ts-ignore
   .put(protect, editTemplate)
   .delete(protect, deleteTemplate);
 

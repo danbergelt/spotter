@@ -1,137 +1,124 @@
-import { NextFunction, Response, Request } from "express";
+import Err from "../utils/Err";
+import User from "../models/user";
+import asyncHandler from "../middleware/async";
+import { refreshToken, genToken, clearRefreshToken } from "../utils/tokens";
+import * as jwt from "jsonwebtoken";
+import * as redis from "redis";
 
-const Err = require("../utils/Err");
-const User = require("../models/User");
-const asyncHandler = require("../middleware/async");
-const {
-  refreshToken,
-  genToken,
-  clearRefreshToken
-} = require("../utils/tokens");
-const jwt = require("jsonwebtoken");
-const redis = require("redis"),
-  client = redis.createClient();
-
-interface Req extends Request {
-  user: { _id: string };
-}
+const client = redis.createClient();
 
 // @desc --> register user
 // @route --> POST /api/auth/register
 // @access --> Public
 
-exports.register = asyncHandler(
-  async (req: Req, res: Response, _: NextFunction) => {
-    const { email, password, role } = req.body;
+export const register = asyncHandler(async (req, res) => {
+  const { email, password, role } = req.body;
 
-    // create user
-    const user = await User.create({
-      email,
-      password,
-      role
-    });
+  // create user
+  const user = await User.create({
+    email,
+    password,
+    role
+  });
 
-    // initialize PR cache for this user
-    await client.hset(
-      user._id.toString(),
-      "stale",
-      "false",
-      "prs",
-      JSON.stringify({})
-    );
+  // initialize PR cache for this user
+  await client.hset(
+    user._id.toString(),
+    "stale",
+    "false",
+    "prs",
+    //@ts-ignore
+    JSON.stringify({})
+  );
 
-    refreshToken(
-      res,
-      genToken(user._id, process.env.REF_SECRET, process.env.REF_EXPIRE)
-    );
+  refreshToken(
+    res,
+    genToken(user._id, process.env.REF_SECRET!, (process.env.REF_EXPIRE as any))
+  );
 
-    sendToken(user, 201, res);
-  }
-);
+  sendToken(user, 201, res);
+});
 
 // @desc --> login user
 // @route --> POST /api/auth/login
 // @access --> Public
 
-exports.login = asyncHandler(
-  async (req: Req, res: Response, next: NextFunction) => {
-    const { email, password } = req.body;
+export const login = asyncHandler(async (req, res, next) => {
+  const { email, password } = req.body;
 
-    // Validate email and password
-    if (!email || !password) {
-      return next(new Err("Please provide an email and password", 400));
-    }
-
-    // Check for user
-    const user = await User.findOne({ email }).select("+password");
-
-    if (!user) {
-      return next(new Err("Invalid credentials", 401));
-    }
-
-    // Check if password matches
-    const isMatch = await user.matchPassword(password);
-
-    if (!isMatch) {
-      return next(new Err("Invalid credentials", 401));
-    }
-
-    refreshToken(
-      res,
-      genToken(user._id, process.env.REF_SECRET, process.env.REF_EXPIRE)
-    );
-
-    sendToken(user, 200, res);
+  // Validate email and password
+  if (!email || !password) {
+    return next(new Err("Please provide an email and password", 400));
   }
-);
+
+  // Check for user
+  const user = await User.findOne({ email }).select("+password");
+
+  if (!user) {
+    return next(new Err("Invalid credentials", 401));
+  }
+
+  // Check if password matches
+  //@ts-ignore
+  const isMatch = await user.matchPassword(password);
+
+  if (!isMatch) {
+    return next(new Err("Invalid credentials", 401));
+  }
+
+  refreshToken(
+    res,
+    genToken(user._id, process.env.REF_SECRET!, (process.env.REF_EXPIRE as any))
+  );
+
+  sendToken(user, 200, res);
+});
 
 // @desc --> logout
 // @route --> POST /api/auth/logout
 // @access --> Public
 
-exports.logout = asyncHandler(
-  async (_: Req, res: Response, __: NextFunction) => {
-    clearRefreshToken(res);
+export const logout = asyncHandler(async (_, res) => {
+  clearRefreshToken(res);
 
-    return res.status(200).json({ success: true, data: "Logged out" });
-  }
-);
+  return res.status(200).json({ success: true, data: "Logged out" });
+});
 
 // @desc --> refresh token
 // @route --> POST /api/auth/refresh
 // @access --> Private
 
 //@ts-ignore
-exports.refresh = asyncHandler(async (req: Req, res: Response, next: NextFunction) => {
-    const token = req.cookies.toll;
+export const refresh = asyncHandler(async (req, res) => {
+  const token = req.cookies.toll;
 
-    if (!token) {
-      return res.send({ success: false, token: null });
-    }
-
-    let payload;
-
-    try {
-      payload = jwt.verify(token, process.env.REF_SECRET);
-    } catch (error) {
-      return res.send({ success: false, token: null });
-    }
-
-    // refresh token is valid and we can send back new access token
-    const user = await User.findOne({ id: payload.userId });
-
-    if (!user) {
-      return res.send({ success: false, token: null });
-    }
-
-    refreshToken(
-      res,
-      genToken(user._id, process.env.REF_SECRET, process.env.REF_EXPIRE)
-    );
-
-    sendToken(user, 200, res);
+  if (!token) {
+    return res.send({ success: false, token: null });
   }
-);
+
+  let payload;
+
+  try {
+    payload = jwt.verify(token, process.env.REF_SECRET!);
+  } catch (error) {
+    return res.send({ success: false, token: null });
+  }
+
+  // refresh token is valid and we can send back new access token
+  // @ts-ignore
+  const user = await User.findOne({ id: payload.userId });
+
+  if (!user) {
+    return res.send({ success: false, token: null });
+  }
+
+  refreshToken(
+    res,
+    genToken(user._id, process.env.REF_SECRET!, (process.env.REF_EXPIRE as any))
+  );
+
+  sendToken(user, 200, res);
+});
 
 // Get token from model, send response
 const sendToken = (user: any, statusCode: any, res: any) => {

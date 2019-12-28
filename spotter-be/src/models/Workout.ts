@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 // Helper Schemas
@@ -10,7 +10,7 @@ interface HelperSchema {
   reps: number
 }
 
-const ExerciseSchema: HelperSchema = new Schema({
+const ExerciseSchema = new Schema<HelperSchema>({
   name: {
     type: String,
     required: [true, "Please add an exercise name"],
@@ -38,11 +38,11 @@ interface MainSchema {
   title: string;
   tags: Array<{content: string, color: string}>;
   notes: string;
-  exercises: HelperSchema;
-  user: typeof Schema.ObjectId;
+  exercises: Array<HelperSchema>;
+  user: typeof Schema.Types.ObjectId;
 }
 
-const WorkoutSchema: MainSchema = new Schema({
+const WorkoutSchema = new Schema<MainSchema>({
   date: {
     type: String,
     required: [true, "Please add a date for this workout"],
@@ -70,7 +70,7 @@ const WorkoutSchema: MainSchema = new Schema({
   notes: String,
   exercises: [ExerciseSchema],
   user: {
-    type: Schema.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "User",
     required: true,
     immutable: true

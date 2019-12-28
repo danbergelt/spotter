@@ -1,6 +1,12 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
 
-const ExerciseSchema = new Schema({
+interface IExercise extends Document {
+  name: string,
+  user: Schema.Types.ObjectId,
+  createdAt: Date;
+}
+
+const ExerciseSchema = new Schema<IExercise>({
   name: {
     type: String,
     required: [true, "Please add an exercise name"],
@@ -18,4 +24,4 @@ const ExerciseSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model("Exercise", ExerciseSchema);
+export default mongoose.model("Exercise", ExerciseSchema);

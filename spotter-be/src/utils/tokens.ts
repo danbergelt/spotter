@@ -1,6 +1,5 @@
 import { Response } from "express";
-
-const jwt = require("jsonwebtoken");
+import * as jwt from "jsonwebtoken";
 
 export const genToken = (id: string, sec: string, exp: number) => {
   return jwt.sign({ id }, sec, {

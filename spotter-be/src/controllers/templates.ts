@@ -1,14 +1,14 @@
-const Template = require("../models/Template");
-const asyncHandler = require("../middleware/async");
-const Err = require("../utils/Err");
-const hex = require("is-hexcolor");
+import Template from '../models/Template';
+import asyncHandler from '../middleware/async';
+import Err from '../utils/Err';
+import * as hex from 'is-hexcolor'
 
 // @desc --> get all templates by user id
 // @route --> GET /api/auth/templates
 // @access --> Private
 
-exports.getTemplatesByUserId = asyncHandler(async (req, res, next) => {
-  const templates = await Template.find({ user: req.user._id });
+export const getTemplatesByUserId = asyncHandler(async (req, res) => {
+  const templates = await Template.find({ user: req.user!._id });
 
   return res
     .status(200)
@@ -19,8 +19,8 @@ exports.getTemplatesByUserId = asyncHandler(async (req, res, next) => {
 // @route --> POST /api/auth/template
 // @access --> Private
 
-exports.addTemplate = asyncHandler(async (req, res, next) => {
-  req.body.user = req.user._id;
+export const addTemplate = asyncHandler(async (req, res, next) => {
+  req.body.user = req.user!._id;
 
   const templates = await Template.find({
     name: req.body.name,
@@ -35,7 +35,7 @@ exports.addTemplate = asyncHandler(async (req, res, next) => {
 
   // map over the tags in the template and error out if invalid color detected
   if (req.body.tags && req.body.tags.length) {
-    colorValidate = req.body.tags.map(el => hex(el.color));
+    colorValidate = req.body.tags.map((el: any) => hex(el.color));
   }
 
   if (colorValidate.includes(false)) {
@@ -54,7 +54,7 @@ exports.addTemplate = asyncHandler(async (req, res, next) => {
 // @route --> PUT /api/auth/templates/:id
 // @access --> Private
 
-exports.editTemplate = asyncHandler(async (req, res, next) => {
+export const editTemplate = asyncHandler(async (req, res) => {
   let template = await Template.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true
@@ -70,7 +70,7 @@ exports.editTemplate = asyncHandler(async (req, res, next) => {
 // @route --> DELETE /api/auth/template/:id
 // @access --> Private
 
-exports.deleteTemplate = asyncHandler(async (req, res, next) => {
+export const deleteTemplate = asyncHandler(async (req, res) => {
   await Template.findByIdAndDelete(req.params.id);
 
   res.status(200).json({

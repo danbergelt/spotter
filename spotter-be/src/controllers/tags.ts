@@ -1,17 +1,17 @@
-const Err = require("../utils/Err");
-const Tag = require("../models/Tag");
-const asyncHandler = require("../middleware/async");
-const hex = require("is-hexcolor");
+import Err from '../utils/Err';
+import Tag from '../models/Tag'
+import asyncHandler from '../middleware/async';
+import * as hex from 'is-hexcolor'
 
 // @desc --> create tag
 // @route --> POST /api/auth/tags
 // @access --> Private
 
-exports.createTag = asyncHandler(async (req, res, next) => {
+export const createTag = asyncHandler(async (req, res, next) => {
   // checks for matches on tags with no content
   if (req.body.color && !req.body.content) {
     const tags = await Tag.find({
-      user: req.user._id,
+      user: req.user!._id,
       color: req.body.color,
       content: ""
     });
@@ -23,7 +23,7 @@ exports.createTag = asyncHandler(async (req, res, next) => {
   // checks for matches on tags with content
   if (req.body.color && req.body.content) {
     const tags = await Tag.find({
-      user: req.user._id,
+      user: req.user!._id,
       color: req.body.color,
       content: req.body.content
     });
@@ -32,7 +32,7 @@ exports.createTag = asyncHandler(async (req, res, next) => {
     }
   }
 
-  const tags = await Tag.find({ user: req.user._id });
+  const tags = await Tag.find({ user: req.user!._id });
 
   // Enforces a 25 tag maximum
   if (tags.length >= 25) {
@@ -44,7 +44,7 @@ exports.createTag = asyncHandler(async (req, res, next) => {
     return next(new Err("Invalid color detected", 400));
   }
 
-  req.body.user = req.user._id;
+  req.body.user = req.user!._id;
 
   const tag = await Tag.create(req.body);
 
@@ -58,10 +58,10 @@ exports.createTag = asyncHandler(async (req, res, next) => {
 // @route --> DELETE /api/auth/tags/:id
 // @access --> Private
 
-exports.deleteTag = asyncHandler(async (req, res, next) => {
+export const deleteTag = asyncHandler(async (req, res) => {
   const tag = await Tag.findById(req.params.id);
 
-  await tag.remove();
+  await tag!.remove();
 
   res.status(200).json({
     success: true,
@@ -73,7 +73,7 @@ exports.deleteTag = asyncHandler(async (req, res, next) => {
 // @route --> PUT /api/auth/tags/:id
 // @access --> Private
 
-exports.editTag = asyncHandler(async (req, res, next) => {
+export const editTag = asyncHandler(async (req, res) => {
   let tag = await Tag.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true
@@ -89,8 +89,8 @@ exports.editTag = asyncHandler(async (req, res, next) => {
 // @route --> GET /api/auth/tags
 // @access --> Private
 
-exports.getTags = asyncHandler(async (req, res, next) => {
-  let tags = await Tag.find({ user: req.user._id });
+export const getTags = asyncHandler(async (req, res) => {
+  let tags = await Tag.find({ user: req.user!._id });
 
   return res.status(200).json({
     success: true,
