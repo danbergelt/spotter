@@ -1,10 +1,12 @@
-const assert = require("assert");
-const chai = require("chai");
+import assert from "assert";
+import { describe, it } from "mocha";
+import chai from "chai";
 const expect = chai.expect;
-chai.use(require("chai-as-promised"));
-const Exercise = require("../../../../models/Exercise");
-const { dbHelper } = require("../../../utils/db");
-const { createUser } = require("../../../utils/createUser");
+import chaiAsPromised from "chai-as-promised";
+chai.use(chaiAsPromised);
+import Exercise from "../../../../models/Exercise";
+import { dbHelper } from "../../../utils/db";
+import { createUser } from "../../../utils/createUser";
 
 describe("Exercise model creation", () => {
   dbHelper(Exercise);
@@ -34,17 +36,13 @@ describe("Exercise model creation", () => {
         "fjweoifjwiofjiowfjiowfjiowfjiowjfiowjfiowjfiowfjiowjfiowjfwiofjwiofjwofj",
       user: _id
     });
-    await expect(exercise.save()).to.be.rejectedWith(
-      "25 character max"
-    );
+    await expect(exercise.save()).to.be.rejectedWith("25 character max");
   });
 
   it("cannot create with no user", async () => {
     const exercise = new Exercise({
-      name: "name",
+      name: "name"
     });
-    await expect(exercise.save()).to.be.rejectedWith(
-      "User validation failed"
-    );
+    await expect(exercise.save()).to.be.rejectedWith("User validation failed");
   });
 });

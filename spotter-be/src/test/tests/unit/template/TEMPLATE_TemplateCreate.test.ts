@@ -1,12 +1,13 @@
-const assert = require("assert");
-const chai = require("chai");
+import assert from "assert";
+import { describe, beforeEach, it } from "mocha";
+import chai from "chai";
 const expect = chai.expect;
-chai.use(require("chai-as-promised"));
-const Template = require("../../../../models/Template");
-const User = require("../../../../models/User");
-const { dbHelper } = require("../../../utils/db");
-const { createUser } = require("../../../utils/createUser");
-const { template } = require("../../../utils/templateWorkoutTemplate");
+import chaiAsPromised from "chai-as-promised";
+chai.use(chaiAsPromised);
+import Template from "../../../../models/Template";
+import { dbHelper } from "../../../utils/db";
+import { createUser } from "../../../utils/createUser";
+import { template } from "../../../utils/templateWorkoutTemplate";
 
 describe("template model creation", () => {
   dbHelper(Template);
@@ -68,9 +69,7 @@ describe("template model creation", () => {
         }
       ]
     });
-    await expect(temp.save()).to.be.rejectedWith(
-      "25 character max"
-    );
+    await expect(temp.save()).to.be.rejectedWith("25 character max");
   });
 
   it("cannot create exercise with large values", async () => {

@@ -1,9 +1,11 @@
-const assert = require("assert");
-const chai = require("chai");
+import User from "../../../../models/User";
+import assert from "assert";
+import { describe, it } from "mocha";
+import chai from "chai";
 const expect = chai.expect;
-chai.use(require("chai-as-promised"));
-const User = require("../../../../models/User");
-const { dbHelper } = require("../../../utils/db");
+import chaiAsPromised from "chai-as-promised";
+chai.use(chaiAsPromised);
+import { dbHelper } from "../../../utils/db";
 
 describe("User model creation", () => {
   dbHelper(User);

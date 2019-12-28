@@ -1,7 +1,7 @@
 import { Response } from "express";
 import * as jwt from "jsonwebtoken";
 
-export const genToken = (id: string, sec: string, exp: number) => {
+export const genToken = (id: string, sec: string, exp: string) => {
   return jwt.sign({ id }, sec, {
     expiresIn: exp
   });

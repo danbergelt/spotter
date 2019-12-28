@@ -1,10 +1,12 @@
-const assert = require("assert");
-const chai = require("chai");
+import assert from "assert";
+import { describe, it } from "mocha";
+import chai from "chai";
 const expect = chai.expect;
-chai.use(require("chai-as-promised"));
-const Tag = require("../../../../models/Tag");
-const { dbHelper } = require("../../../utils/db");
-const { createUser } = require("../../../utils/createUser");
+import chaiAsPromised from "chai-as-promised";
+chai.use(chaiAsPromised);
+import Tag from "../../../../models/Tag";
+import { dbHelper } from "../../../utils/db";
+import { createUser } from "../../../utils/createUser";
 
 describe("Tag model creation", () => {
   dbHelper(Tag);
@@ -25,7 +27,11 @@ describe("Tag model creation", () => {
 
   it("cannot create with long tag content", async () => {
     const { _id } = await createUser();
-    const tag = new Tag({ color: "red", content: "hiohjiojiojfwiojfeiowfjeiowfjwiofjeiowfj", user: _id });
+    const tag = new Tag({
+      color: "red",
+      content: "hiohjiojiojfwiojfeiowfjeiowfjwiofjeiowfj",
+      user: _id
+    });
     await expect(tag.save()).to.be.rejectedWith("20 character max");
   });
 

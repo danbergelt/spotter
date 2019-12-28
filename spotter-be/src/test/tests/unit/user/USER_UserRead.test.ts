@@ -1,9 +1,10 @@
-const assert = require("assert");
-const chai = require("chai");
-const expect = chai.expect;
-chai.use(require("chai-as-promised"));
-const User = require("../../../../models/User");
-const { dbHelper } = require("../../../utils/db");
+import User from "../../../../models/User";
+import assert from "assert";
+import { describe, it } from "mocha";
+import chai from "chai";
+import chaiAsPromised from "chai-as-promised";
+chai.use(chaiAsPromised);
+import { dbHelper } from "../../../utils/db";
 
 describe("User model reading", () => {
   dbHelper(User);
@@ -13,6 +14,7 @@ describe("User model reading", () => {
     const user = new User({ email: "test@email.com", password: "password" });
     await user.save();
     const fetched = await User.findOne({ email: "test@email.com" });
+    //@ts-ignore
     assert(fetched.email === "test@email.com");
   });
 

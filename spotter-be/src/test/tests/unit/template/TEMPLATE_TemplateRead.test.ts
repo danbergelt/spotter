@@ -1,10 +1,12 @@
-const assert = require("assert");
-const chai = require("chai");
-chai.use(require("chai-as-promised"));
-const Template = require("../../../../models/Template");
-const { dbHelper } = require("../../../utils/db");
-const { createUser } = require("../../../utils/createUser");
-const { template } = require("../../../utils/templateWorkoutTemplate");
+import assert from "assert";
+import { describe, beforeEach, it } from "mocha";
+import chai from "chai";
+import chaiAsPromised from "chai-as-promised";
+chai.use(chaiAsPromised);
+import Template from "../../../../models/Template";
+import { dbHelper } from "../../../utils/db";
+import { createUser } from "../../../utils/createUser";
+import { template } from "../../../utils/templateWorkoutTemplate";
 
 describe("template model fetch", () => {
   dbHelper(Template);
@@ -18,6 +20,7 @@ describe("template model fetch", () => {
     const temp = new Template(template);
     await temp.save();
     const fetched = await Template.findOne({ title: "Workout" });
+    //@ts-ignore
     assert(fetched.name === "Test Template");
   })
 
