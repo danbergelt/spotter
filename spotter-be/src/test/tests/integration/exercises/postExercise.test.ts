@@ -1,11 +1,15 @@
 const app = require("../../../utils/index");
-const { dbHelper } = require("../../../utils/db");
-const Exercise = require("../../../../models/Exercise");
-const chaiHttp = require("chai-http");
-const chai = require("chai");
+import { genToken } from "../../../utils/genToken";
+import { describe, beforeEach, it } from "mocha";
+import Exercise from "../../../../models/Exercise";
+import chaiHttp from "chai-http";
+import chai from "chai";
+import chaiAsPromised from "chai-as-promised";
+chai.use(chaiAsPromised);
+//@ts-ignore
 const should = chai.should();
-const { createUser } = require("../../../utils/createUser");
-const { genToken } = require("../../../utils/genToken");
+import { dbHelper } from "../../../utils/db";
+import { createUser } from "../../../utils/createUser";
 
 // configure Chai HTTP
 chai.use(chaiHttp);
@@ -13,7 +17,7 @@ chai.use(chaiHttp);
 describe("POST exercise by user id", () => {
   dbHelper(Exercise);
 
-  let uId;
+  let uId: any;
 
   // create test user
   beforeEach(async () => {
@@ -29,7 +33,7 @@ describe("POST exercise by user id", () => {
       .post("/api/auth/exercises")
       .set("Authorization", `Bearer ${token}`)
       .send({ name: "name" })
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(true);
         res.should.have.status(201);
@@ -45,7 +49,7 @@ describe("POST exercise by user id", () => {
       .post("/api/auth/exercises")
       .set("Authorization", `Bearer token`)
       .send({ name: "name" })
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(401);
@@ -59,7 +63,7 @@ describe("POST exercise by user id", () => {
       .request(app)
       .post("/api/auth/exercises")
       .send({ name: "name" })
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(401);
@@ -76,13 +80,13 @@ describe("POST exercise by user id", () => {
       .set("Authorization", `Bearer ${token}`)
       .send({ name: "name" });
 
-    const err = await chai
+    const _ = await chai
       .request(app)
       .post("/api/auth/exercises")
       .set("Authorization", `Bearer ${token}`)
       .send({ name: "name" });
 
-    err.body.error.should.equal("Exercise already exists");
+    _.body.error.should.equal("Exercise already exists");
   });
 
   it("should not post exercise with long exercise name", async () => {

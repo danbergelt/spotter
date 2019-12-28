@@ -1,52 +1,73 @@
 const app = require("../../../utils/index");
-const { dbHelper } = require("../../../utils/db");
-const Workout = require("../../../../models/Workout");
-const chaiHttp = require("chai-http");
-const chai = require("chai");
+import { genToken } from '../../../utils/genToken';
+import { describe, beforeEach, it } from "mocha";
+import { createWorkout } from '../../../utils/createWorkout';
+import chaiHttp from 'chai-http';
+import chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+chai.use(chaiAsPromised);
 const should = chai.should();
-const { createUser } = require("../../../utils/createUser");
-const { template } = require("../../../utils/templateWorkout");
-const { genToken } = require("../../../utils/genToken");
+import Workout from '../../../../models/Workout';
+import { dbHelper } from "../../../utils/db";
+import {createUser} from "../../../utils/createUser";
+import { template} from "../../../utils/templateWorkout";
 
 // configure Chai HTTP
 chai.use(chaiHttp);
 
-describe("POST workouts by user id", () => {
-  // connect to test db
+describe("PUT edit workout by workout id", () => {
   dbHelper(Workout);
+
+  let uId: any;
 
   // create test user
   beforeEach(async () => {
     const { _id } = await createUser();
     template.user = _id;
+    const { _id: temp } = await createWorkout(template);
+    uId = temp;
+    return uId;
   });
 
-  it("should post workout", done => {
-    const token = genToken(template.user);
+  it("should edit workout", done => {
+    const token = genToken(template.user!);
     chai
       .request(app)
-      .post("/api/auth/workouts")
+      .put(`/api/auth/workouts/${uId}`)
       .set("Authorization", `Bearer ${token}`)
-      .send(template)
-      .end((err, res) => {
+      .send({ title: "EDITED" })
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(true);
-        res.should.have.status(201);
-        res.body.data.user.should.equal(String(template.user));
-        res.body.data.date.should.equal(String(template.date));
-        res.body.data.title.should.equal(String(template.title));
-        res.body.data.notes.should.equal(String(template.notes));
+        res.should.have.status(200);
+        res.body.data.title.should.equal("EDITED");
         done();
       });
   });
 
-  it("should not post workout with bad token", done => {
+  it("should not edit workout with bad id", done => {
+    const token = genToken(template.user!);
     chai
       .request(app)
-      .post("/api/auth/workouts")
+      .put(`/api/auth/workouts/12345`)
+      .set("Authorization", `Bearer ${token}`)
+      .send({ title: "EDITED" })
+      .end((_, res) => {
+        should.exist(res);
+        res.body.success.should.equal(false);
+        res.should.have.status(404);
+        res.body.error.should.equal("Resource not found");
+        done();
+      });
+  });
+
+  it("should not edit workout with bad token", done => {
+    chai
+      .request(app)
+      .put(`/api/auth/workouts/${uId}`)
       .set("Authorization", `Bearer token`)
-      .send(template)
-      .end((err, res) => {
+      .send({ title: "EDITED" })
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(401);
@@ -55,12 +76,12 @@ describe("POST workouts by user id", () => {
       });
   });
 
-  it("should not post workout with no token", done => {
+  it("should not edit workout with no token", done => {
     chai
       .request(app)
-      .post("/api/auth/workouts")
-      .send(template)
-      .end((err, res) => {
+      .put(`/api/auth/workouts/${uId}`)
+      .send({ title: "EDITED" })
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(401);
@@ -69,14 +90,14 @@ describe("POST workouts by user id", () => {
       });
   });
 
-  it("should not post workout with no date", done => {
-    const token = genToken(template.user);
+  it("should not put workout with no date", done => {
+    const token = genToken(template.user!);
     chai
       .request(app)
-      .post("/api/auth/workouts")
+      .put(`/api/auth/workouts/${uId}`)
       .set("Authorization", `Bearer ${token}`)
-      .send({ ...template, date: undefined })
-      .end((err, res) => {
+      .send({ date: "" })
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(400);
@@ -85,14 +106,14 @@ describe("POST workouts by user id", () => {
       });
   });
 
-  it("should not post workout with invalid date", done => {
-    const token = genToken(template.user);
+  it("should not put workout with invalid date", done => {
+    const token = genToken(template.user!);
     chai
       .request(app)
-      .post("/api/auth/workouts")
+      .put(`/api/auth/workouts/${uId}`)
       .set("Authorization", `Bearer ${token}`)
       .send({ ...template, date: "Jan 01" })
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(400);
@@ -101,14 +122,14 @@ describe("POST workouts by user id", () => {
       });
   });
 
-  it("should not post workout with no title", done => {
-    const token = genToken(template.user);
+  it("should not put workout with no title", done => {
+    const token = genToken(template.user!);
     chai
       .request(app)
-      .post("/api/auth/workouts")
+      .put(`/api/auth/workouts/${uId}`)
       .set("Authorization", `Bearer ${token}`)
-      .send({ ...template, title: undefined })
-      .end((err, res) => {
+      .send({ ...template, title: "" })
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(400);
@@ -117,18 +138,18 @@ describe("POST workouts by user id", () => {
       });
   });
 
-  it("should not post workout with long title", done => {
-    const token = genToken(template.user);
+  it("should not put workout with long title", done => {
+    const token = genToken(template.user!);
     chai
       .request(app)
-      .post("/api/auth/workouts")
+      .put(`/api/auth/workouts/${uId}`)
       .set("Authorization", `Bearer ${token}`)
       .send({
         ...template,
         title:
           "jfiowefjewiofjewiofjeiowfjeiowfjeiowfjeiowfjeiowfjeiowfjeiowfjewiofjeiowfjeiowfjeiowfjeiowfjewiofj"
       })
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(400);
@@ -140,29 +161,29 @@ describe("POST workouts by user id", () => {
   });
 
   it("trims title with white space", done => {
-    const token = genToken(template.user);
+    const token = genToken(template.user!);
     chai
       .request(app)
-      .post("/api/auth/workouts")
+      .put(`/api/auth/workouts/${uId}`)
       .set("Authorization", `Bearer ${token}`)
-      .send({ ...template, title: "title   " })
-      .end((err, res) => {
+      .send({ ...template, title: "edited title   " })
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(true);
-        res.should.have.status(201);
-        res.body.data.title.should.equal("title");
+        res.should.have.status(200);
+        res.body.data.title.should.equal("edited title");
         done();
       });
   });
 
-  it("should not post with undefined execise name", done => {
-    const token = genToken(template.user);
+  it("should not put with undefined execise name", done => {
+    const token = genToken(template.user!);
     chai
       .request(app)
-      .post("/api/auth/workouts")
+      .put(`/api/auth/workouts/${uId}`)
       .set("Authorization", `Bearer ${token}`)
       .send({ ...template, exercises: [{ name: undefined }] })
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(400);
@@ -171,11 +192,11 @@ describe("POST workouts by user id", () => {
       });
   });
 
-  it("should not post with long execise name", done => {
-    const token = genToken(template.user);
+  it("should not put with long execise name", done => {
+    const token = genToken(template.user!);
     chai
       .request(app)
-      .post("/api/auth/workouts")
+      .put(`/api/auth/workouts/${uId}`)
       .set("Authorization", `Bearer ${token}`)
       .send({
         ...template,
@@ -183,7 +204,7 @@ describe("POST workouts by user id", () => {
           { name: "jiouhjiohjiohjiohiuhguyguyguygyuguyguyguyuyguyguyuyg" }
         ]
       })
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(400);
@@ -194,17 +215,17 @@ describe("POST workouts by user id", () => {
       });
   });
 
-  it("should not post weight above 2000", done => {
-    const token = genToken(template.user);
+  it("should not put weight above 2000", done => {
+    const token = genToken(template.user!);
     chai
       .request(app)
-      .post("/api/auth/workouts")
+      .put(`/api/auth/workouts/${uId}`)
       .set("Authorization", `Bearer ${token}`)
       .send({
         ...template,
         exercises: [{ name: "name", weight: 2001 }]
       })
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(400);
@@ -213,17 +234,17 @@ describe("POST workouts by user id", () => {
       });
   });
 
-  it("should not post sets above 2000", done => {
-    const token = genToken(template.user);
+  it("should not put sets above 2000", done => {
+    const token = genToken(template.user!);
     chai
       .request(app)
-      .post("/api/auth/workouts")
+      .put(`/api/auth/workouts/${uId}`)
       .set("Authorization", `Bearer ${token}`)
       .send({
         ...template,
         exercises: [{ name: "name", sets: 2001 }]
       })
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(400);
@@ -232,17 +253,17 @@ describe("POST workouts by user id", () => {
       });
   });
 
-  it("should not post reps above 2000", done => {
-    const token = genToken(template.user);
+  it("should not put reps above 2000", done => {
+    const token = genToken(template.user!);
     chai
       .request(app)
-      .post("/api/auth/workouts")
+      .put(`/api/auth/workouts/${uId}`)
       .set("Authorization", `Bearer ${token}`)
       .send({
         ...template,
         exercises: [{ name: "name", reps: 2001 }]
       })
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(400);

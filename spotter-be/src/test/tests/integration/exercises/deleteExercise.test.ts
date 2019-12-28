@@ -1,12 +1,16 @@
 const app = require("../../../utils/index");
-const { dbHelper } = require("../../../utils/db");
-const Exercise = require("../../../../models/Exercise");
-const chaiHttp = require("chai-http");
-const chai = require("chai");
+import { genToken } from "../../../utils/genToken";
+import { describe, beforeEach, it } from "mocha";
+import Exercise from '../../../../models/Exercise'
+import chaiHttp from "chai-http";
+import chai from "chai";
+import chaiAsPromised from "chai-as-promised";
+chai.use(chaiAsPromised);
+//@ts-ignore
 const should = chai.should();
-const { createUser } = require("../../../utils/createUser");
-const { createExercise } = require("../../../utils/createExercise");
-const { genToken } = require("../../../utils/genToken");
+import { dbHelper } from "../../../utils/db";
+import { createUser } from "../../../utils/createUser";
+import { createExercise } from "../../../utils/createExercise";
 
 // configure Chai HTTP
 chai.use(chaiHttp);
@@ -14,14 +18,15 @@ chai.use(chaiHttp);
 describe("DELETE exercise by exercise id", () => {
   dbHelper(Exercise);
 
-  let uId;
-  let eId;
+  let uId: any;
+  let eId: any;
 
   beforeEach(async () => {
     const { _id } = await createUser();
     uId = _id;
     const { _id: temp } = await createExercise(_id);
     eId = temp;
+    //@ts-ignore
     return uId, eId;
   });
 

@@ -1,13 +1,16 @@
 const app = require("../../../utils/index");
-const { dbHelper } = require("../../../utils/db");
-const Template = require("../../../../models/Template");
-const chaiHttp = require("chai-http");
-const chai = require("chai");
+import { genToken } from '../../../utils/genToken';
+import { describe, beforeEach, it } from "mocha";
+import { createTemplate } from '../../../utils/createTemplate';
+import chaiHttp from 'chai-http';
+import chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+chai.use(chaiAsPromised);
 const should = chai.should();
-const { createUser } = require("../../../utils/createUser");
-const { createTemplate } = require("../../../utils/createTemplate");
-const { template } = require("../../../utils/templateWorkoutTemplate");
-const { genToken } = require("../../../utils/genToken");
+import Template from '../../../../models/Template';
+import { dbHelper } from "../../../utils/db";
+import {createUser} from "../../../utils/createUser";
+import { template} from "../../../utils/templateWorkoutTemplate";
 
 // configure Chai HTTP
 chai.use(chaiHttp);
@@ -15,7 +18,7 @@ chai.use(chaiHttp);
 describe("DELETE template by template id", () => {
   dbHelper(Template);
 
-  let tId;
+  let tId: any;
 
   // create test user
   beforeEach(async () => {
@@ -27,12 +30,12 @@ describe("DELETE template by template id", () => {
   });
 
   it("should delete template", done => {
-    const token = genToken(template.user);
+    const token = genToken(template.user!);
     chai
       .request(app)
       .delete(`/api/auth/templates/${tId}`)
       .set("Authorization", `Bearer ${token}`)
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(true);
         res.should.have.status(200);
@@ -42,12 +45,12 @@ describe("DELETE template by template id", () => {
   });
 
   it("should not delete template with bad id", done => {
-    const token = genToken(template.user);
+    const token = genToken(template.user!);
     chai
       .request(app)
       .delete(`/api/auth/templates/12345`)
       .set("Authorization", `Bearer ${token}`)
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(404);
@@ -61,7 +64,7 @@ describe("DELETE template by template id", () => {
       .request(app)
       .delete(`/api/auth/templates/${tId}`)
       .set("Authorization", `Bearer token`)
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(401);
@@ -74,7 +77,7 @@ describe("DELETE template by template id", () => {
     chai
       .request(app)
       .delete(`/api/auth/templates/${tId}`)
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(401);

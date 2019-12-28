@@ -1,13 +1,16 @@
 const app = require("../../../utils/index");
-const { dbHelper } = require("../../../utils/db");
-const Workout = require("../../../../models/Workout");
-const chaiHttp = require("chai-http");
-const chai = require("chai");
+import { genToken } from "../../../utils/genToken";
+import { describe, beforeEach, it } from "mocha";
+import { createWorkout } from "../../../utils/createWorkout";
+import chaiHttp from "chai-http";
+import chai from "chai";
+import chaiAsPromised from "chai-as-promised";
+chai.use(chaiAsPromised);
 const should = chai.should();
-const { createUser } = require("../../../utils/createUser");
-const { createWorkout } = require("../../../utils/createWorkout");
-const { template } = require("../../../utils/templateWorkout");
-const { genToken } = require("../../../utils/genToken");
+import Workout from "../../../../models/Workout";
+import { dbHelper } from "../../../utils/db";
+import { createUser } from "../../../utils/createUser";
+import { template } from "../../../utils/templateWorkout";
 
 // configure Chai HTTP
 chai.use(chaiHttp);
@@ -29,7 +32,7 @@ describe("GET workouts by user id", () => {
 
   it("should successfully fetch all workouts for this user", async () => {
     await createWorkout(template);
-    const token = genToken(template.user);
+    const token = genToken(template.user!);
     const res = await chai
       .request(app)
       .get("/api/auth/workouts")
@@ -37,7 +40,7 @@ describe("GET workouts by user id", () => {
     should.exist(res);
     res.body.success.should.equal(true);
     res.should.have.status(200);
-    res.body.workouts[0].user.should.equal(String(template.user));
+    res.body.workouts[0].user.should.equal(String(template.user!));
     res.body.workouts[0].date.should.equal(String(template.date));
     res.body.workouts[0].title.should.equal(String(template.title));
     res.body.workouts[0].notes.should.equal(String(template.notes));
@@ -47,7 +50,7 @@ describe("GET workouts by user id", () => {
     chai
       .request(app)
       .get("/api/auth/workouts")
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(401);
@@ -61,7 +64,7 @@ describe("GET workouts by user id", () => {
       .request(app)
       .get("/api/auth/workouts")
       .set("Authorization", `Bearer token`)
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(401);
@@ -71,12 +74,12 @@ describe("GET workouts by user id", () => {
   });
 
   it("should return 10 workouts by default if content longer than 10", done => {
-    const token = genToken(template.user);
+    const token = genToken(template.user!);
     chai
       .request(app)
       .get("/api/auth/workouts")
       .set("Authorization", `Bearer ${token}`)
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(true);
         res.should.have.status(200);
@@ -86,13 +89,13 @@ describe("GET workouts by user id", () => {
   });
 
   it("should return 5 workouts on second page if content 15 elements long", done => {
-    const token = genToken(template.user);
+    const token = genToken(template.user!);
     chai
       .request(app)
       .get("/api/auth/workouts")
       .query({ page: "1" })
       .set("Authorization", `Bearer ${token}`)
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(true);
         res.should.have.status(200);
@@ -102,13 +105,13 @@ describe("GET workouts by user id", () => {
   });
 
   it("should return 5 workouts if limit is 5", done => {
-    const token = genToken(template.user);
+    const token = genToken(template.user!);
     chai
       .request(app)
       .get("/api/auth/workouts")
       .query({ limit: "5" })
       .set("Authorization", `Bearer ${token}`)
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(true);
         res.should.have.status(200);

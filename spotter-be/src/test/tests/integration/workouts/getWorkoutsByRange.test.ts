@@ -1,14 +1,15 @@
 const app = require("../../../utils/index");
-const { dbHelper } = require("../../../utils/db");
-const Workout = require("../../../../models/Workout");
-const chaiHttp = require("chai-http");
-const chai = require("chai");
+import { genToken } from '../../../utils/genToken';
+import { describe, beforeEach, it } from "mocha";
+import chaiHttp from 'chai-http';
+import chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+chai.use(chaiAsPromised);
 const should = chai.should();
-const { createUser } = require("../../../utils/createUser");
-const { createWorkout } = require("../../../utils/createWorkout");
-const { template } = require("../../../utils/templateWorkout");
-const { genToken } = require("../../../utils/genToken");
-
+import Workout from '../../../../models/Workout';
+import { dbHelper } from "../../../utils/db";
+import {createUser} from "../../../utils/createUser";
+import { template} from "../../../utils/templateWorkout";
 // configure Chai HTTP
 chai.use(chaiHttp);
 
@@ -27,13 +28,13 @@ describe("GET workouts by date range and user id", () => {
   });
 
   it("should successfully return specified range", done => {
-    const token = genToken(template.user);
+    const token = genToken(template.user!);
     chai
       .request(app)
       .post("/api/auth/workouts/range")
       .set("Authorization", `Bearer ${token}`)
       .send({ range: ["Jan 01 2000", "Jan 02 2000"] })
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(true);
         res.should.have.status(200);
@@ -48,7 +49,7 @@ describe("GET workouts by date range and user id", () => {
       .post("/api/auth/workouts/range")
       .set("Authorization", `Bearer token`)
       .send({ range: ["Jan 01 2000", "Jan 02 2000"] })
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(401);
@@ -62,7 +63,7 @@ describe("GET workouts by date range and user id", () => {
       .request(app)
       .post("/api/auth/workouts/range")
       .send({ range: ["Jan 01 2000", "Jan 02 2000"] })
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(401);
@@ -72,12 +73,12 @@ describe("GET workouts by date range and user id", () => {
   });
 
   it("should fail with no range", done => {
-    const token = genToken(template.user);
+    const token = genToken(template.user!!);
     chai
       .request(app)
       .post("/api/auth/workouts/range")
       .set("Authorization", `Bearer ${token}`)
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(400);
@@ -87,13 +88,13 @@ describe("GET workouts by date range and user id", () => {
   });
 
   it("should return empty array when no dates found", done => {
-    const token = genToken(template.user);
+    const token = genToken(template.user!);
     chai
       .request(app)
       .post("/api/auth/workouts/range")
       .send({ range: ["Feb 28 2000", "June 29 2000"] })
       .set("Authorization", `Bearer ${token}`)
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(true);
         res.should.have.status(200);

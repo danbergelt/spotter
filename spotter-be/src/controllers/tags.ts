@@ -1,7 +1,7 @@
 import Err from '../utils/Err';
 import Tag from '../models/Tag'
 import asyncHandler from '../middleware/async';
-import * as hex from 'is-hexcolor'
+const hex = require("is-hexcolor")
 
 // @desc --> create tag
 // @route --> POST /api/auth/tags

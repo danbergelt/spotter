@@ -1,6 +1,10 @@
 const app = require("../../../utils/index");
-const chaiHttp = require("chai-http");
-const chai = require("chai");
+import { describe, it } from "mocha";
+import chaiHttp from "chai-http";
+import chai from "chai";
+import chaiAsPromised from "chai-as-promised";
+chai.use(chaiAsPromised);
+//@ts-ignore
 const should = chai.should();
 
 // configure Chai HTTP
@@ -12,7 +16,7 @@ describe("logout functionality", () => {
       .request(app)
       .get("/api/auth/logout")
       .set("Cookie", "toll=cookie")
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res)
         chai.expect(res).not.to.have.cookie("toll")
         res.should.have.status(200);

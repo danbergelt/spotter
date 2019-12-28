@@ -1,15 +1,18 @@
 const app = require("../../../utils/index");
-const { dbHelper } = require("../../../utils/db");
-const Tag = require("../../../../models/Tag");
-const Workout = require("../../../../models/Workout");
-const Template = require("../../../../models/Template");
-const chaiHttp = require("chai-http");
-const chai = require("chai");
+import { genToken } from "../../../utils/genToken";
+import { describe, beforeEach, it } from "mocha";
+import chaiHttp from "chai-http";
+import chai from "chai";
+import chaiAsPromised from "chai-as-promised";
+chai.use(chaiAsPromised);
 const should = chai.should();
-const { createUser } = require("../../../utils/createUser");
-const { createTag } = require("../../../utils/createTag");
-const { genToken } = require("../../../utils/genToken");
-const { template } = require("../../../utils/templateWorkout");
+import Tag from "../../../../models/Tag";
+import Workout from "../../../../models/Workout";
+import Template from "../../../../models/Template";
+import { dbHelper } from "../../../utils/db";
+import { createUser } from "../../../utils/createUser";
+import { createTag } from "../../../utils/createTag";
+import { template } from "../../../utils/templateWorkout";
 
 // configure Chai HTTP
 chai.use(chaiHttp);
@@ -17,14 +20,15 @@ chai.use(chaiHttp);
 describe("DELETE Tag by tag id", () => {
   dbHelper(Tag);
 
-  let uId;
-  let tId;
+  let uId: any;
+  let tId: any;
 
   beforeEach(async () => {
     const { _id } = await createUser();
     uId = _id;
     const { _id: temp } = await createTag(_id);
     tId = temp;
+    //@ts-ignore
     return uId, tId;
   });
 
@@ -34,7 +38,7 @@ describe("DELETE Tag by tag id", () => {
       .request(app)
       .delete(`/api/auth/tags/${tId}`)
       .set("Authorization", `Bearer ${token}`)
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(true);
         res.should.have.status(200);
@@ -49,7 +53,7 @@ describe("DELETE Tag by tag id", () => {
       .request(app)
       .delete(`/api/auth/tags/123456`)
       .set("Authorization", `Bearer ${token}`)
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(404);
@@ -63,7 +67,7 @@ describe("DELETE Tag by tag id", () => {
       .request(app)
       .delete(`/api/auth/tags/${uId}`)
       .set("Authorization", `Bearer token`)
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(401);
@@ -76,7 +80,7 @@ describe("DELETE Tag by tag id", () => {
     chai
       .request(app)
       .delete(`/api/auth/tags/${uId}`)
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(401);
@@ -138,7 +142,7 @@ describe("DELETE Tag by tag id", () => {
       res.body.success.should.equal(true);
       res.should.have.status(200);
       res.body.templates[0].tags.length.should.equal(0);
-      await Template.deleteMany();
+      await Template.deleteMany({});
     });
   });
 });

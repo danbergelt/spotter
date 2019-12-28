@@ -1,13 +1,16 @@
 const app = require("../../../utils/index");
-const { dbHelper } = require("../../../utils/db");
-const Template = require("../../../../models/Template");
-const chaiHttp = require("chai-http");
-const chai = require("chai");
+import { genToken } from '../../../utils/genToken';
+import { describe, beforeEach, it } from "mocha";
+import { createTemplate } from '../../../utils/createTemplate';
+import chaiHttp from 'chai-http';
+import chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+chai.use(chaiAsPromised);
 const should = chai.should();
-const { createUser } = require("../../../utils/createUser");
-const { createTemplate } = require("../../../utils/createTemplate");
-const { template } = require("../../../utils/templateWorkoutTemplate");
-const { genToken } = require("../../../utils/genToken");
+import Template from '../../../../models/Template';
+import { dbHelper } from "../../../utils/db";
+import {createUser} from "../../../utils/createUser";
+import { template} from "../../../utils/templateWorkoutTemplate";
 
 // configure Chai HTTP
 chai.use(chaiHttp);
@@ -20,18 +23,16 @@ describe("GET templates by user Id", () => {
   beforeEach(async () => {
     const { _id } = await createUser();
     template.user = _id;
-    const { _id: temp } = await createTemplate(template);
-    tId = temp;
-    return tId;
+    await createTemplate(template);
   });
 
   it("should get all templates for this user", done => {
-    const token = genToken(template.user);
+    const token = genToken(template.user!);
     chai
       .request(app)
       .get("/api/auth/templates")
       .set("Authorization", `Bearer ${token}`)
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(true);
         res.should.have.status(200);
@@ -47,7 +48,7 @@ describe("GET templates by user Id", () => {
     chai
       .request(app)
       .get("/api/auth/templates")
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(401);
@@ -61,7 +62,7 @@ describe("GET templates by user Id", () => {
       .request(app)
       .get("/api/auth/templates")
       .set("Authorization", `Bearer token`)
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(401);
