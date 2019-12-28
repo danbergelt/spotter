@@ -1,11 +1,14 @@
 const app = require("../../../utils/index");
-const { dbHelper } = require("../../../utils/db");
-const Tag = require("../../../../models/Tag");
-const chaiHttp = require("chai-http");
-const chai = require("chai");
+import { genToken } from "../../../utils/genToken";
+import { describe, beforeEach, it } from "mocha";
+import chaiHttp from "chai-http";
+import chai from "chai";
+import chaiAsPromised from "chai-as-promised";
+chai.use(chaiAsPromised);
 const should = chai.should();
-const { createUser } = require("../../../utils/createUser");
-const { genToken } = require("../../../utils/genToken");
+import Tag from "../../../../models/Tag";
+import { dbHelper } from "../../../utils/db";
+import { createUser } from "../../../utils/createUser";
 
 // configure Chai HTTP
 chai.use(chaiHttp);
@@ -13,7 +16,7 @@ chai.use(chaiHttp);
 describe("POST tag by user id", () => {
   dbHelper(Tag);
 
-  let uId;
+  let uId: any;
 
   // create test user
   beforeEach(async () => {
@@ -29,7 +32,7 @@ describe("POST tag by user id", () => {
       .post("/api/auth/tags")
       .set("Authorization", `Bearer ${token}`)
       .send({ color: "#32a850", content: "test", user: uId })
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(true);
         res.should.have.status(201);
@@ -46,7 +49,7 @@ describe("POST tag by user id", () => {
       .post("/api/auth/tags")
       .set("Authorization", `Bearer token`)
       .send({ color: "#32a850", content: "test", user: uId })
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(401);
@@ -60,7 +63,7 @@ describe("POST tag by user id", () => {
       .request(app)
       .post("/api/auth/tags")
       .send({ color: "#32a850", content: "test", user: uId })
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(401);
@@ -76,7 +79,7 @@ describe("POST tag by user id", () => {
       .post("/api/auth/tags")
       .set("Authorization", `Bearer ${token}`)
       .send({ color: undefined, content: "test", user: uId })
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(400);
@@ -96,7 +99,7 @@ describe("POST tag by user id", () => {
         content: "testjiojiojiojiojiojiojiojiojiojiojioj",
         user: uId
       })
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(400);
@@ -118,7 +121,7 @@ describe("POST tag by user id", () => {
         .post("/api/auth/tags")
         .set("Authorization", `Bearer ${token}`)
         .send({ color: "#32a850", user: uId, content: "" })
-        .end((err, res) => {
+        .end((_, res) => {
           should.exist(res);
           res.body.success.should.equal(false);
           res.should.have.status(400);
@@ -134,7 +137,7 @@ describe("POST tag by user id", () => {
         .post("/api/auth/tags")
         .set("Authorization", `Bearer ${token}`)
         .send({ color: "#32a850", content: "test", user: uId })
-        .end((err, res) => {
+        .end((_, res) => {
           should.exist(res);
           res.body.success.should.equal(true);
           res.should.have.status(201);
@@ -157,7 +160,7 @@ describe("POST tag by user id", () => {
         .post("/api/auth/tags")
         .set("Authorization", `Bearer ${token}`)
         .send({ color: "#32a850", content: "test", user: uId })
-        .end((err, res) => {
+        .end((_, res) => {
           should.exist(res);
           res.body.success.should.equal(false);
           res.should.have.status(400);
@@ -173,7 +176,7 @@ describe("POST tag by user id", () => {
         .post("/api/auth/tags")
         .set("Authorization", `Bearer ${token}`)
         .send({ color: "#32a850", content: "test2", user: uId })
-        .end((err, res) => {
+        .end((_, res) => {
           should.exist(res);
           res.body.success.should.equal(true);
           res.should.have.status(201);
@@ -189,7 +192,7 @@ describe("POST tag by user id", () => {
         .post("/api/auth/tags")
         .set("Authorization", `Bearer ${token}`)
         .send({ color: "#32a850", user: uId })
-        .end((err, res) => {
+        .end((_, res) => {
           should.exist(res);
           res.body.success.should.equal(true);
           res.should.have.status(201);
@@ -205,7 +208,7 @@ describe("POST tag by user id", () => {
         .post("/api/auth/tags")
         .set("Authorization", `Bearer ${token}`)
         .send({ color: "#3432a8", content: "test", user: uId })
-        .end((err, res) => {
+        .end((_, res) => {
           should.exist(res);
           res.body.success.should.equal(true);
           res.should.have.status(201);
@@ -232,7 +235,7 @@ describe("POST tag by user id", () => {
         .post("/api/auth/tags")
         .set("Authorization", `Bearer ${token}`)
         .send({ color: "#32a850", content: "test", user: uId })
-        .end((err, res) => {
+        .end((_, res) => {
           should.exist(res);
           res.body.success.should.equal(false);
           res.should.have.status(400);

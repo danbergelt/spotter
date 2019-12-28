@@ -1,9 +1,12 @@
-const app = require("../../../utils/index");
-const { dbHelper } = require("../../../utils/db");
-const User = require("../../../../models/User");
-const chaiHttp = require("chai-http");
-const chai = require("chai");
+import { describe} from "mocha";
+import User from "../../../../models/user";
+import chaiHttp from "chai-http";
+import chai from "chai";
+import chaiAsPromised from "chai-as-promised";
+chai.use(chaiAsPromised);
+//@ts-ignore
 const should = chai.should();
+import { dbHelper } from "../../../utils/db";
 
 // configure Chai HTTP
 chai.use(chaiHttp);

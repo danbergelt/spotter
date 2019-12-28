@@ -1,11 +1,15 @@
 const app = require("../../../utils/index");
-const { dbHelper } = require("../../../utils/db");
-const User = require("../../../../models/User");
-const chaiHttp = require("chai-http");
-const chai = require("chai");
+import { genToken } from "../../../utils/genToken";
+import { describe, beforeEach, it } from "mocha";
+import User from "../../../../models/user";
+import chaiHttp from "chai-http";
+import chai from "chai";
+import chaiAsPromised from "chai-as-promised";
+chai.use(chaiAsPromised);
+//@ts-ignore
 const should = chai.should();
-const { genToken } = require("../../../utils/genToken");
-const { createUser } = require("../../../utils/createUser");
+import { dbHelper } from "../../../utils/db";
+import { createUser } from "../../../utils/createUser";
 
 chai.use(chaiHttp);
 
@@ -13,19 +17,21 @@ describe("can change password", async () => {
   // Run DB
   dbHelper(User);
 
-  let oldPass;
-  let uId;
+  let oldPass: any;
+  let uId: any;
 
   // create test user
   beforeEach(async () => {
     const { _id } = await createUser();
     uId = _id;
     // Check for user
+    //@ts-ignore
     const { password } = await User.findById(_id).select("+password");
     oldPass = password;
   });
 
   const getPassword = async () => {
+    //@ts-ignore
     const { password } = await User.findById(uId).select("+password");
     return password;
   };

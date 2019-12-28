@@ -1,4 +1,4 @@
-import User from "../../../../models/User";
+import User from "../../../../models/user";
 import assert from "assert";
 import { describe, it } from "mocha";
 import chai from "chai";

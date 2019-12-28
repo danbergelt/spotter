@@ -1,13 +1,17 @@
 const app = require("../../../utils/index");
-const { dbHelper } = require("../../../utils/db");
-const Exercise = require("../../../../models/Exercise");
-const Workout = require("../../../../models/Workout");
-const chaiHttp = require("chai-http");
-const chai = require("chai");
+import { genToken } from "../../../utils/genToken";
+import { describe, beforeEach, it } from "mocha";
+import chaiHttp from "chai-http";
+import chai from "chai";
+import chaiAsPromised from "chai-as-promised";
+chai.use(chaiAsPromised);
+//@ts-ignore
 const should = chai.should();
-const { createUser } = require("../../../utils/createUser");
-const { createExercise } = require("../../../utils/createExercise");
-const { genToken } = require("../../../utils/genToken");
+import Workout from "../../../../models/Workout";
+import Exercise from "../../../../models/Exercise";
+import { dbHelper } from "../../../utils/db";
+import { createUser } from "../../../utils/createUser";
+import { createExercise } from "../../../utils/createExercise";
 
 // configure Chai HTTP
 chai.use(chaiHttp);
@@ -15,12 +19,11 @@ chai.use(chaiHttp);
 describe("Personal records generations", () => {
   dbHelper(Exercise);
 
-  let uId;
-  let eId;
-  let wId;
+  let uId: any;
+  let eId: any;
+  let wId: any;
 
   beforeEach(async () => {
-    User;
     const { _id } = await createUser();
     uId = _id;
     const { _id: ex } = await createExercise(_id);
@@ -40,6 +43,7 @@ describe("Personal records generations", () => {
     await workout1.save();
     const { _id: temp } = await workout2.save();
     wId = temp;
+    //@ts-ignore
     return uId, wId;
   });
 
@@ -50,6 +54,7 @@ describe("Personal records generations", () => {
       .get(`/api/auth/prs`)
       .set("Authorization", `Bearer ${token}`);
 
+    console.log(res.body.prs.name.name)
     res.body.prs.name.name.should.equal("name");
     res.body.prs.name.pr.should.equal(100);
     res.body.prs.name.date.should.equal("Jan 01 1999");

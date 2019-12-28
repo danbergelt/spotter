@@ -1,9 +1,13 @@
 const app = require("../../../utils/index");
-const { dbHelper } = require("../../../utils/db");
-const User = require("../../../../models/User");
-const chaiHttp = require("chai-http");
-const chai = require("chai");
+import { describe, it } from "mocha";
+import User from "../../../../models/user";
+import chaiHttp from "chai-http";
+import chai from "chai";
+import chaiAsPromised from "chai-as-promised";
+chai.use(chaiAsPromised);
+//@ts-ignore
 const should = chai.should();
+import { dbHelper } from "../../../utils/db";
 
 // configure Chai HTTP
 chai.use(chaiHttp);
@@ -19,7 +23,7 @@ describe("Register new user", () => {
       .post("/api/auth/register")
       .send({ email: "test@email.com", password: "password" })
       .set("Cookie", "toll=paid")
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         chai.expect(res).to.have.cookie("toll");
         res.body.success.should.equal(true);
@@ -36,7 +40,7 @@ describe("Register new user", () => {
       .request(app)
       .post("/api/auth/register")
       .send({ email: "bad", password: "password" })
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(400);
@@ -51,7 +55,7 @@ describe("Register new user", () => {
       .request(app)
       .post("/api/auth/register")
       .send({ password: "password" })
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(400);
@@ -71,7 +75,7 @@ describe("Register new user", () => {
           .request(app)
           .post("/api/auth/register")
           .send({ email: "test@email.com", password: "password" })
-          .end((err, resTwo) => {
+          .end((_, resTwo) => {
             should.exist(resTwo);
             resTwo.body.success.should.equal(false);
             resTwo.should.have.status(400);
@@ -88,7 +92,7 @@ describe("Register new user", () => {
       .request(app)
       .post("/api/auth/register")
       .send({ email: "test@email.com" })
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(400);
@@ -103,7 +107,7 @@ describe("Register new user", () => {
       .request(app)
       .post("/api/auth/register")
       .send({ email: "test@email.com", password: "pass" })
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(400);

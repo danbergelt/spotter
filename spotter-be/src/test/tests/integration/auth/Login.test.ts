@@ -1,9 +1,13 @@
 const app = require("../../../utils/index");
-const { dbHelper } = require("../../../utils/db");
-const User = require("../../../../models/User");
-const chaiHttp = require("chai-http");
-const chai = require("chai");
+import { describe, it } from "mocha";
+import User from "../../../../models/user";
+import chaiHttp from "chai-http";
+import chai from "chai";
+import chaiAsPromised from "chai-as-promised";
+chai.use(chaiAsPromised);
+//@ts-ignore
 const should = chai.should();
+import { dbHelper } from "../../../utils/db";
 
 // configure Chai HTTP
 chai.use(chaiHttp);
@@ -23,9 +27,9 @@ describe("Login existing user", async () => {
           .request(app)
           .post("/api/auth/login")
           .send({ email: "new@email.com", password: "password" })
-          .set('Cookie', 'toll=paid')
-          .end((err, res) => {
-            chai.expect(res).to.have.cookie('toll')
+          .set("Cookie", "toll=paid")
+          .end((_, res) => {
+            chai.expect(res).to.have.cookie("toll");
             should.exist(res);
             res.body.success.should.equal(true);
             res.should.have.status(200);
@@ -42,7 +46,7 @@ describe("Login existing user", async () => {
       .request(app)
       .post("/api/auth/login")
       .send({ password: "password" })
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(400);
@@ -57,7 +61,7 @@ describe("Login existing user", async () => {
       .request(app)
       .post("/api/auth/login")
       .send({ email: "test@email.com" })
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.should.have.status(400);
         res.body.success.should.equal(false);
@@ -72,7 +76,7 @@ describe("Login existing user", async () => {
       .request(app)
       .post("/api/auth/login")
       .send({ email: "test@email.com", password: "password" })
-      .end((err, res) => {
+      .end((_, res) => {
         should.exist(res);
         res.should.have.status(401);
         res.body.success.should.equal(false);
