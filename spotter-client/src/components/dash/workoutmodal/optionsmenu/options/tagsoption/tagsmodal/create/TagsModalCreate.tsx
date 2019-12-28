@@ -7,7 +7,7 @@ import { fetchTags } from "../../../../../../../../actions/tagsActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Color from "./Color";
-import { State } from "src/types/State";
+import { fetchToken } from "src/types/State";
 
 // tab - create tag
 const TagsModalCreate = () => {
@@ -20,7 +20,6 @@ const TagsModalCreate = () => {
   const [message, setMessage] = useState<{ success?: string; error?: string }>({});
   const [loading, setLoading] = useState<boolean>(false);
 
-  const fetchToken = (state: State) => state.globalReducer.t;
   const t: string | null = useSelector(fetchToken);
 
   const submitTag: () => Promise<void> = async () => {

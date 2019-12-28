@@ -17,10 +17,6 @@ interface Props {
 
 const GridHead: React.FC<Props> = ({ openAddWorkoutModal, date }) => {
 
-  // if ("default" in moment) {
-  //   var momentFunc: any = moment["default"];
-  // }
-
   return (
     <>
       <div className="month-grid-day-head">

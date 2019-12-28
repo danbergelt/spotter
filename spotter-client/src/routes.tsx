@@ -11,11 +11,9 @@ import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import ServerError from "./pages/ServerError";
 import { useSelector } from "react-redux";
-import { State } from "./types/State";
+import { fetchToken } from "./types/State";
 
 const Routes: React.FC = () => {
-  const fetchToken = (state: State) => state.globalReducer.t;
-
   const token: string | null = useSelector(fetchToken);
 
   return (

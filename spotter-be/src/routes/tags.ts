@@ -19,4 +19,4 @@ router
   .delete(protect, deleteTag)
   .put(protect, editTag);
 
-module.exports = router;
+export default router;

@@ -21,4 +21,4 @@ router
   .put(protect, updateExercise)
   .delete(protect, delExerciseFromCache, deleteExercise);
 
-module.exports = router;
+  export default router;

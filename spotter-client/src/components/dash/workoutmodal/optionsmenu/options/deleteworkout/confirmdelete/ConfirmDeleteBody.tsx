@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { useSelector } from "react-redux";
 import axiosWithAuth from "../../../../../../../utils/axiosWithAuth";
-import { State } from "src/types/State";
+import { fetchToken } from "src/types/State";
 
 interface Props {
   onClose: () => void;
@@ -16,7 +16,7 @@ const ConfirmDeleteBody: React.FC<Props> = ({
   workoutId,
   onDelete
 }) => {
-  const fetchToken = (state: State) => state.globalReducer.t;
+
   const t: string | null = useSelector(fetchToken);
 
   const deleteWorkout: () => Promise<void> = async () => {

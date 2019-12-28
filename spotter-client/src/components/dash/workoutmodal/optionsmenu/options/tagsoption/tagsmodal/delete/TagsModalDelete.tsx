@@ -7,7 +7,7 @@ import axiosWithAuth from "../../../../../../../../utils/axiosWithAuth";
 import { DELETE_TAG } from "../../../../../../../../actions/workoutActions";
 import { SET_ACTIVE } from "../../../../../../../../actions/optionsActions";
 import { TagOnWorkout as Tag } from "src/types/TagOnWorkout";
-import { State } from "src/types/State";
+import { fetchToken } from "src/types/State";
 
 interface Props {
   toDelete: Partial<Tag>;
@@ -18,7 +18,6 @@ const TagsModalDelete: React.FC<Props> = ({ toDelete }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const fetchToken = (state: State) => state.globalReducer.t;
   const t: string | null = useSelector(fetchToken);
 
   const deleteTag: () => Promise<void> = async () => {

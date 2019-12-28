@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { DELETE_TEMPLATE } from "../../../../../../actions/optionsActions";
 import axiosWithAuth from "../../../../../../utils/axiosWithAuth";
 import { Template as T } from "src/types/Template";
-import { State } from "src/types/State";
+import { State, fetchToken } from "src/types/State";
 
 interface Props {
   setActive: React.Dispatch<React.SetStateAction<{} | T>>;
@@ -17,7 +17,6 @@ interface Props {
 const Templates: React.FC<Props> = ({ setActive, active, search }) => {
   const dispatch = useDispatch();
 
-  const fetchToken = (state: State) => state.globalReducer.t;
   const t: string | null = useSelector(fetchToken);
 
   const fetchErr = (state: State) => state.optionsReducer.templatesErr;

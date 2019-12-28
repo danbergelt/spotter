@@ -8,7 +8,7 @@ import {
   SET_FROM_TEMPLATE
 } from "../../../../../../actions/optionsActions";
 import axiosWithAuth from "../../../../../../utils/axiosWithAuth";
-import { State } from "src/types/State";
+import { fetchToken } from "src/types/State";
 import { AxiosResponse } from "axios";
 import { Template } from "src/types/Template";
 
@@ -21,7 +21,6 @@ interface Props {
 const FromTemplateOption: React.FC<Props> = ({ iconClass }) => {
   const dispatch = useDispatch();
 
-  const fetchToken = (state: State) => state.globalReducer.t;
   const t: string | null = useSelector(fetchToken);
 
   // API call that provides a selection of templates to choose from

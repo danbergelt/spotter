@@ -24,4 +24,4 @@ router
 
 router.route("/range").post(protect, workoutRangeByUserId);
 
-module.exports = router;
+export default router;

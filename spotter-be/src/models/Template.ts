@@ -3,7 +3,14 @@ const Schema = mongoose.Schema;
 
 // Helper Schemas
 
-const ExerciseSchema = new Schema({
+interface IHelper {
+  name: string;
+  weight: number;
+  sets: number;
+  reps: number;
+}
+
+const ExerciseSchema: IHelper = new Schema({
   name: {
     type: String,
     required: [true, "Please add an exercise name"],
@@ -24,14 +31,23 @@ const ExerciseSchema = new Schema({
 });
 
 // Workout schema
-const WorkoutSchema = new Schema({
-  date: {
+
+interface ITemplate {
+  name: string;
+  createdAt: Date;
+  title: string;
+  tags: Array<{ content: string; color: string }>;
+  notes: String;
+  exercises: IHelper;
+  user: typeof Schema.ObjectId;
+}
+
+const TemplateSchema: ITemplate = new Schema({
+  name: {
     type: String,
-    required: [true, "Please add a date for this workout"],
-    match: [
-      /[A-Z][a-z]{2} \d{2} \d{4}$/,
-      "Please add a valid date (Mmm DD YYYY)"
-    ]
+    required: [true, "Give your template a name"],
+    trim: true,
+    maxlength: [20, "20 character max"]
   },
   createdAt: {
     type: Date,
@@ -39,7 +55,6 @@ const WorkoutSchema = new Schema({
   },
   title: {
     type: String,
-    required: [true, "Please add a title"],
     maxlength: [25, "Title cannot be longer than 25 characters"],
     trim: true
   },
@@ -59,4 +74,4 @@ const WorkoutSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model("Workout", WorkoutSchema);
+export default mongoose.model("Template", TemplateSchema);

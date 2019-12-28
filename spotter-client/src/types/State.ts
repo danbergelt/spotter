@@ -1,7 +1,7 @@
 import { Queued, Exercise } from "./Exercises";
-import { Exercise as E } from './ExerciseOption';
+import { Exercise as E } from "./ExerciseOption";
 import { TagOnWorkout as Tag } from "./TagOnWorkout";
-import { Workout} from './Workout'
+import { Workout } from "./Workout";
 import { Moment } from "moment";
 import { Template } from "./Template";
 
@@ -65,3 +65,5 @@ export interface State {
   prsReducer: PrsReducer;
   tagsReducer: TagsReducer;
 }
+
+export const fetchToken = (state: State) => state.globalReducer.t;

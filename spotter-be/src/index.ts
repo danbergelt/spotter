@@ -1,21 +1,20 @@
-const express = require("express");
-const dotenv = require("dotenv");
-const colors = require("colors");
-const cors = require("cors");
-const cookieParser = require("cookie-parser");
-const morgan = require("morgan");
-const { connectDB, connectTestDB } = require("./config/db");
-const errorHandler = require("./middleware/error");
+import express from "express";
+import dotenv from "dotenv";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import morgan from "morgan";
+import { connectDB, connectTestDB } from "./config/db";
+import errorHandler from "./middleware/error";
 dotenv.config();
 
 // Route imports
-const users = require("./routes/users");
-const workouts = require("./routes/workouts");
-const tags = require("./routes/tags");
-const templates = require("./routes/templates");
-const auth = require("./routes/auth");
-const exercises = require("./routes/exercises");
-const prs = require("./routes/prs");
+import users from "./routes/users";
+import workouts from "./routes/workouts";
+import tags from "./routes/tags";
+import templates from "./routes/templates";
+import auth from "./routes/auth";
+import exercises from "./routes/exercises";
+import prs from "./routes/prs";
 
 // Connect to DB and run server
 if (process.env.NODE_ENV === "development") {
@@ -66,7 +65,14 @@ const server = app.listen(port, () =>
 );
 
 // Unhandled rejection handling
-process.on("unhandledRejection", (err, promise) => {
-  console.log(`Error: ${err.message}`.red);
-  server.close(() => process.exit(1));
-});
+
+const handleRejectedPromise = function(
+  reason: any,
+  promise: Promise<any>
+): void {
+  console.log("Unexpected exception occured.", { reason, ex: promise });
+
+  server.close(() => process.exit(1))
+};
+
+process.on("unhandledRejection", handleRejectedPromise);

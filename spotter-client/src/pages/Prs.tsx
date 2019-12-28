@@ -4,7 +4,7 @@ import { fetchPrs } from "../actions/prActions";
 import * as Moment from "moment";
 import { extendMoment, MomentRange } from "moment-range";
 import PrSection from "../components/prs/PrSection";
-import { State } from "src/types/State";
+import { State, fetchToken } from "src/types/State";
 import { SortedPrs, SortedPrsRange } from "../types/Prs";
 
 const moment: MomentRange = extendMoment(Moment);
@@ -23,7 +23,6 @@ const Prs: React.FC = () => {
 
   const getPrs = (state: State) => state.prsReducer.prs;
   const prs: object = useSelector(getPrs);
-  const fetchToken = (state: State) => state.globalReducer.t;
   const t: string | null = useSelector(fetchToken);
 
   useEffect((): void => {

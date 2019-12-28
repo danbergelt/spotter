@@ -5,7 +5,7 @@ import { OPEN_TAG_MODAL } from "../../../../../../actions/optionsActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { fetchTags } from "../../../../../../actions/tagsActions";
-import { State } from "src/types/State";
+import { fetchToken } from "src/types/State";
 
 interface Props {
   iconClass: string;
@@ -16,7 +16,6 @@ const Tags: React.FC<Props> = ({ iconClass }) => {
 
   const history = useHistory();
 
-  const fetchToken = (state: State) => state.globalReducer.t;
   const t: string | null = useSelector(fetchToken);
 
   const openTagsModal: () => void = () => {

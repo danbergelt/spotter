@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { ADD_TOKEN } from "../../actions/addTokenActions";
-import { State } from "src/types/State";
+import { fetchToken } from "src/types/State";
 
 const Nav = () => {
-  const fetchToken = (state: State) => state.globalReducer.t;
+
   const token: string | null = useSelector(fetchToken);
 
   const dispatch = useDispatch();

@@ -3,11 +3,10 @@ import { Formik, Form, Field } from "formik";
 import { ValidationSchema } from "./ValidationSchema";
 import axiosWithAuth from "../../../utils/axiosWithAuth";
 import { useSelector } from "react-redux";
-import { State } from "src/types/State";
+import { fetchToken } from "src/types/State";
 import { AxiosResponse } from "axios";
 
 const ChangePasswordForm: React.FC = () => {
-  const fetchToken = (state: State) => state.globalReducer.t;
   const t: string | null = useSelector(fetchToken);
 
   return (

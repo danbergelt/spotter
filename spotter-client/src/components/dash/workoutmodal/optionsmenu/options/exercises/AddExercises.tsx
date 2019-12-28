@@ -3,7 +3,7 @@ import axiosWithAuth from "../../../../../../utils/axiosWithAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { CREATE_EXERCISE } from "../../../../../../actions/fetchExercisesActions";
 import SaveExerciseMsg from "./SaveExerciseMsg";
-import { State } from "src/types/State";
+import { fetchToken } from "src/types/State";
 import { AxiosResponse } from "axios";
 import { Exercise, Msg } from '../../../../../../types/ExerciseOption';
 
@@ -17,7 +17,6 @@ interface Props {
 const AddExercises: React.FC<Props> = ({ msg, setMsg }) => {
   const [add, setAdd] = useState<string>("");
 
-  const fetchToken = (state: State) => state.globalReducer.t;
   const t: string | null = useSelector(fetchToken);
   const dispatch = useDispatch();
 

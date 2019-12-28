@@ -10,4 +10,4 @@ const { prCache } = require("../middleware/cache");
 // Routes
 router.route("/").get(protect, prCache, generatePrs);
 
-module.exports = router;
+export default router;

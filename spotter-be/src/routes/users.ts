@@ -8,4 +8,4 @@ router.post("/login", login);
 router.get("/logout", logout);
 router.get("/refresh", refresh)
 
-module.exports = router;
+export default router;

@@ -1,5 +1,4 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+import mongoose, { Schema } from "mongoose";
 
 const ExerciseSchema = new Schema({
   name: {
@@ -8,7 +7,7 @@ const ExerciseSchema = new Schema({
     maxlength: [25, "25 character max"]
   },
   user: {
-    type: Schema.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "User",
     required: [true, "User validation failed"],
     immutable: true

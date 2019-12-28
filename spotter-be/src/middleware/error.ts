@@ -1,6 +1,15 @@
+import { Response, Request, NextFunction } from "express";
+
 const Err = require("../utils/Err");
 
-const errorHandler = (err, req, res, next) => {
+interface NodeError extends Error {
+  code: number;
+  message: string;
+  errors: Array<{message: string}>;
+  statusCode: number;
+}
+
+const errorHandler = (err: NodeError, _: Request, res: Response, __: NextFunction) => {
   let error = { ...err };
   error.message = err.message;
 
@@ -33,4 +42,4 @@ const errorHandler = (err, req, res, next) => {
   });
 };
 
-module.exports = errorHandler;
+export default errorHandler;

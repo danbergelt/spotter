@@ -1,9 +1,12 @@
+import { NextFunction } from "connect";
+
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const { genToken } = require("../utils/tokens");
 const Schema = mongoose.Schema;
 
 // User model
+
 const UserSchema = new Schema({
   email: {
     type: String,
@@ -33,23 +36,24 @@ const UserSchema = new Schema({
 });
 
 // Encrypt password on save
-UserSchema.pre("save", async function(next) {
+UserSchema.pre("save", async function(this: any, next: NextFunction) {
   if (!this.isModified("password")) {
     next();
   }
-
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
 
 // Sign token and return
-UserSchema.methods.getToken = function() {
+UserSchema.methods.getToken = function(): string {
   return genToken(this._id, process.env.JWT_SECRET, process.env.JWT_EXPIRE);
 };
 
 // Match password on login
-UserSchema.methods.matchPassword = async function(pw) {
+UserSchema.methods.matchPassword = async function(
+  pw: string
+): Promise<boolean> {
   return await bcrypt.compare(pw, this.password);
 };
 
-module.exports = User = mongoose.model("User", UserSchema);
+module.exports = mongoose.model("User", UserSchema); 

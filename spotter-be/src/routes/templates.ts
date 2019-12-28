@@ -20,4 +20,4 @@ router
   .put(protect, editTemplate)
   .delete(protect, deleteTemplate);
 
-module.exports = router;
+export default router;

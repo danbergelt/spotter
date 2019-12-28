@@ -6,4 +6,4 @@ const router = express.Router();
 
 router.route("/password").put(protect, changePassword);
 
-module.exports = router;
+export default router;

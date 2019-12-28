@@ -8,7 +8,7 @@ import { UPDATE_TAG } from "../../../../../../../../actions/workoutActions";
 import { SET_ACTIVE } from "../../../../../../../../actions/optionsActions";
 import Tag from "./Tag";
 import { TagOnWorkout as T } from "../../../../../../../../types/TagOnWorkout";
-import { State } from "src/types/State";
+import { State, fetchToken } from "src/types/State";
 import { AxiosResponse } from "axios";
 
 interface Props {
@@ -19,7 +19,6 @@ const TagsModalManage: React.FC<Props> = ({ setToDelete }) => {
   const tagsFromState = (state: State) => state.tagsReducer.tags;
   const tags: Array<T> = useSelector(tagsFromState);
 
-  const fetchToken = (state: State) => state.globalReducer.t;
   const t: string | null = useSelector(fetchToken);
 
   const dispatch = useDispatch();

@@ -1,7 +1,13 @@
-const mongoose = require("mongoose");
-const Workout = require("./Workout");
-const Template = require("./Template");
-const Schema = mongoose.Schema;
+import mongoose, { Schema } from "mongoose";
+import Workout from "./Workout";
+import Template from "./Template";
+import { NextFunction } from "connect";
+
+interface ITag extends mongoose.Document {
+  color: string;
+  content: string;
+  user: Schema.Types.ObjectId;
+}
 
 const TagSchema = new Schema({
   color: {
@@ -13,7 +19,7 @@ const TagSchema = new Schema({
     maxlength: [20, "20 character max"]
   },
   user: {
-    type: Schema.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "User",
     required: [true, "User ID is required"],
     immutable: true
@@ -21,14 +27,18 @@ const TagSchema = new Schema({
 });
 
 // cascade update tags
-TagSchema.pre("findOneAndUpdate", async function(next) {
+TagSchema.pre("findOneAndUpdate", async function(
+  this: any,
+  next: NextFunction
+) {
   // getting model to update, and getting update content
+
   const mod = await this.model.findOne(this.getQuery());
   const { content } = this._update;
 
   const templates = await Template.find({ "tags._id": mod._id });
   await Promise.all(
-    templates.map(t =>
+    templates.map((t: mongoose.Document) =>
       Template.findOneAndUpdate(
         { _id: t._id, tags: { $elemMatch: { _id: mod._id } } },
         {
@@ -42,9 +52,9 @@ TagSchema.pre("findOneAndUpdate", async function(next) {
   );
   const workouts = await Workout.find({ "tags._id": mod._id });
   await Promise.all(
-    workouts.map(t =>
+    workouts.map((w: mongoose.Document) =>
       Workout.findOneAndUpdate(
-        { _id: t._id, tags: { $elemMatch: { _id: mod._id } } },
+        { _id: w._id, tags: { $elemMatch: { _id: mod._id } } },
         {
           $set: {
             "tags.$.content": content
@@ -62,7 +72,7 @@ TagSchema.pre("remove", async function(next) {
   const tagId = this._id;
   const workouts = await Workout.find({ "tags._id": tagId });
   await Promise.all(
-    workouts.map(w =>
+    workouts.map((w: mongoose.Document) =>
       Workout.findOneAndUpdate(
         { _id: w._id },
         { $pull: { tags: { _id: tagId } } },
@@ -72,7 +82,7 @@ TagSchema.pre("remove", async function(next) {
   );
   const templates = await Template.find({ "tags._id": tagId });
   await Promise.all(
-    templates.map(t =>
+    templates.map((t: mongoose.Document) =>
       Template.findOneAndUpdate(
         { _id: t._id },
         { $pull: { tags: { _id: tagId } } },
@@ -83,4 +93,4 @@ TagSchema.pre("remove", async function(next) {
   next();
 });
 
-module.exports = mongoose.model("Tag", TagSchema);
+export default mongoose.model<ITag>("Tag", TagSchema);

@@ -7,7 +7,7 @@ import SaveTemplateBtn from "./SaveTemplateBtn";
 import SaveTemplateForm from "./SaveTemplateForm";
 import SaveTemplateHead from "./SaveTemplateHead";
 import axiosWithAuth from "../../../../../../utils/axiosWithAuth";
-import { State, WorkoutReducer } from "src/types/State";
+import { State, WorkoutReducer, fetchToken } from "src/types/State";
 
 interface Props {
   close: (payload: boolean) => void;
@@ -24,7 +24,6 @@ const SaveTemplate: React.FC<Props> = ({ close }) => {
   const fetchTemplateSave = (state: State) => state.optionsReducer.templateSave;
   const templateSave: boolean = useSelector(fetchTemplateSave);
 
-  const fetchToken = (state: State) => state.globalReducer.t;
   const t: string | null = useSelector(fetchToken);
 
   const [tempName, setTempName] = useState<string>("");

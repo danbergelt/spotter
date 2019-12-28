@@ -21,9 +21,7 @@ const reFetch: Params = (time, history, scope, t) => {
   }
 
   range = range.map(d => d.format("MMM DD YYYY"));
-  store.dispatch<any>(
-    fetchWorkouts<string[], History, string>(range, history, t)
-  );
+  store.dispatch<any>(fetchWorkouts(range, history, t));
 };
 
 export default reFetch;
