@@ -1,14 +1,21 @@
 import Err from "../utils/Err";
 import User from "../models/user";
-import * as bcrypt from "bcryptjs";
+import bcrypt from "bcryptjs";
 import asyncHandler from "../middleware/async";
+import { IUser } from "src/types/models";
 
 // @desc --> change password
 // @route --> PUT /api/auth/user/password
 // @access --> Private
 
+interface Passwords {
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
 export const changePassword = asyncHandler(async (req, res, next) => {
-  const { oldPassword, newPassword, confirmPassword } = req.body;
+  const { oldPassword, newPassword, confirmPassword }: Passwords = req.body;
 
   if (!oldPassword || !newPassword || !confirmPassword) {
     return next(new Err("All fields are required", 400));
@@ -19,23 +26,24 @@ export const changePassword = asyncHandler(async (req, res, next) => {
   }
 
   // Check for user
-  const user = await User.findById((req as any).user._id).select("+password");
+  const user: IUser | null = await User.findById(req.user._id).select(
+    "+password"
+  );
 
   if (!user) {
     return next(new Err("User not found", 401));
   }
 
   // Check if password matches
-  //@ts-ignore
-  const isMatch = await user.matchPassword(oldPassword);
+  const isMatch: boolean = await user.matchPassword(oldPassword);
 
   if (!isMatch) {
     return next(new Err("Invalid credentials", 400));
   }
 
-  const salt = await bcrypt.genSalt(10);
+  const salt: string = await bcrypt.genSalt(10);
 
-  const hashedPassword = await bcrypt.hash(newPassword, salt);
+  const hashedPassword: string = await bcrypt.hash(newPassword, salt);
 
   await User.findByIdAndUpdate(
     req.user._id,

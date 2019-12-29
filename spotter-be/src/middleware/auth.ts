@@ -1,11 +1,13 @@
-import * as jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import asyncHandler from "./async";
 import Err from "../utils/Err";
 import User from "../models/user";
+import { IUser } from "src/types/models";
+import { IVerifiedToken } from "src/types/auth";
 
 // Protect routes
 export const protect = asyncHandler(async (req, _, next) => {
-  let token;
+  let token: string | null = null;
 
   if (
     req.headers.authorization &&
@@ -22,14 +24,14 @@ export const protect = asyncHandler(async (req, _, next) => {
 
   try {
     // verify token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
+    const decoded: string | object = jwt.verify(token, process.env.JWT_SECRET!);
 
-    const u = await User.findById((decoded as any).id);
+    const u: IUser | null = await User.findById((decoded as IVerifiedToken).id);
 
     if (u !== null) {
       req.user = u;
     }
-    
+
     next();
   } catch (err) {
     return next(new Err("Connection lost, try refreshing", 401));

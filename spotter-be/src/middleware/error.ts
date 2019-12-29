@@ -14,29 +14,28 @@ const errorHandler = (
   res: Response,
   __: NextFunction
 ) => {
-  let error = { ...err };
+  let error: NodeError = { ...err };
   error.message = err.message;
-
-  // Log to console for dev
-  // console.log(err.stack);
 
   // Mongoose bad Object ID
   if (err.name === "CastError") {
-    const message = "Resource not found";
+    const message: string = "Resource not found";
     //@ts-ignore
     error = new Err(message, 404);
   }
 
   // Dup field
   if (err.code === 11000) {
-    const message = "Duplicate detected, try again";
+    const message: string = "Duplicate detected, try again";
     //@ts-ignore
     error = new Err(message, 400);
   }
 
   // Validation err
   if (err.name === "ValidationError") {
-    const message = Object.values(err.errors).map(val => val.message);
+    const message: string | Array<any> = Object.values(err.errors).map(
+      val => val.message
+    );
     //@ts-ignore
     error = new Err(message, 400);
   }

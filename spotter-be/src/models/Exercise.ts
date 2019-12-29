@@ -1,10 +1,5 @@
-import mongoose, { Schema, Document } from "mongoose";
-
-interface IExercise extends Document {
-  name: string,
-  user: Schema.Types.ObjectId,
-  createdAt: Date;
-}
+import mongoose, { Schema } from "mongoose";
+import { IExercise } from "src/types/models";
 
 const ExerciseSchema = new Schema<IExercise>({
   name: {
@@ -24,4 +19,4 @@ const ExerciseSchema = new Schema<IExercise>({
   }
 });
 
-export default mongoose.model("Exercise", ExerciseSchema);
+export default mongoose.model<IExercise>("Exercise", ExerciseSchema);

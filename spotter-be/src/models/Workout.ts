@@ -1,16 +1,10 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
+import { ExerciseOnWorkoutSchema, IWorkout } from "src/types/models";
 const Schema = mongoose.Schema;
 
 // Helper Schemas
 
-interface HelperSchema {
-  name: string;
-  weight: number;
-  sets: number;
-  reps: number
-}
-
-const ExerciseSchema = new Schema<HelperSchema>({
+const ExerciseSchema = new Schema<ExerciseOnWorkoutSchema>({
   name: {
     type: String,
     required: [true, "Please add an exercise name"],
@@ -32,17 +26,7 @@ const ExerciseSchema = new Schema<HelperSchema>({
 
 // Workout schema
 
-interface MainSchema {
-  date: string;
-  createdAt?: Date;
-  title: string;
-  tags: Array<{content: string, color: string}>;
-  notes: string;
-  exercises: Array<HelperSchema>;
-  user: typeof Schema.Types.ObjectId;
-}
-
-const WorkoutSchema = new Schema<MainSchema>({
+const WorkoutSchema = new Schema<IWorkout>({
   date: {
     type: String,
     required: [true, "Please add a date for this workout"],
@@ -77,4 +61,4 @@ const WorkoutSchema = new Schema<MainSchema>({
   }
 });
 
-export default mongoose.model("Workout", WorkoutSchema);
+export default mongoose.model<IWorkout>("Workout", WorkoutSchema);

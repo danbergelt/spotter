@@ -1,8 +1,8 @@
 import { Document, Schema } from "mongoose";
 
 export interface IExercise extends Document {
-  name: string,
-  user: Schema.Types.ObjectId,
+  name: string;
+  user: Schema.Types.ObjectId;
   createdAt: Date;
 }
 
@@ -11,15 +11,47 @@ export interface ExerciseOnWorkoutSchema {
   name: string;
   weight: number;
   sets: number;
-  reps: number
+  reps: number;
 }
 
 export interface IWorkout extends Document {
   date: string;
   createdAt?: Date;
   title: string;
-  tags: Array<{content: string, color: string}>;
+  tags: Array<{ content: string; color: string }>;
   notes: string;
   exercises: Array<ExerciseOnWorkoutSchema>;
+  user: typeof Schema.Types.ObjectId;
+}
+
+export interface IUser extends Document {
+  email: string;
+  password: string;
+  role: string;
+  created: Date;
+  getToken(): any;
+  matchPassword(id: string): Promise<boolean>;
+}
+
+export interface ITag extends Document {
+  color: string;
+  content: string;
+  user: Schema.Types.ObjectId;
+}
+
+export interface ExerciseOnTemplateSchema {
+  name: string;
+  weight: number;
+  sets: number;
+  reps: number;
+}
+
+export interface ITemplate extends Document {
+  name: string;
+  createdAt: Date;
+  title: string;
+  tags: Array<{ content: string; color: string }>;
+  notes: String;
+  exercises: Array<ExerciseOnTemplateSchema>;
   user: typeof Schema.Types.ObjectId;
 }

@@ -1,15 +1,10 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Query } from "mongoose";
 import Workout from "./Workout";
 import Template from "./Template";
 import { NextFunction } from "connect";
+import { ITag, IWorkout, ITemplate } from "src/types/models";
 
-interface ITag extends mongoose.Document {
-  color: string;
-  content: string;
-  user: Schema.Types.ObjectId;
-}
-
-const TagSchema = new Schema({
+const TagSchema = new Schema<ITag>({
   color: {
     type: String,
     required: [true, "Please add a tag color"]
@@ -28,20 +23,28 @@ const TagSchema = new Schema({
 
 // cascade update tags
 TagSchema.pre("findOneAndUpdate", async function(
-  this: any,
+  this: Query<ITag>,
   next: NextFunction
 ) {
-  // getting model to update, and getting update content
+  // get the specific document tied to the query
+  const doc: ITag = await this.findOne(this.getQuery());
 
-  const mod = await this.model.findOne(this.getQuery());
-  const { content } = this._update;
+  // extract the content in the update
+  const { content }: { content: string } = this.getUpdate();
 
-  const templates = await Template.find({ "tags._id": mod._id });
+  // fidn all templates that contain the updated tag
+  const templates: Array<ITemplate> = await Template.find({
+    tags: { $elemMatch: { _id: doc._id } }
+  });
+
+  // loop through all of the templates
   await Promise.all(
-    templates.map((t: mongoose.Document) =>
+    templates.map((t: ITemplate) =>
+      // open a new update query, match templates to the pre-fetched templates
       Template.findOneAndUpdate(
-        { _id: t._id, tags: { $elemMatch: { _id: mod._id } } },
+        { _id: t._id, tags: { $elemMatch: { _id: doc._id } } },
         {
+          // set the new content
           $set: {
             "tags.$.content": content
           }
@@ -50,12 +53,20 @@ TagSchema.pre("findOneAndUpdate", async function(
       ).exec()
     )
   );
-  const workouts = await Workout.find({ "tags._id": mod._id });
+
+  // find all workouts that contain the updated tag
+  const workouts: Array<IWorkout> = await Workout.find({
+    tags: { $elemMatch: { _id: doc._id } }
+  });
+
+  // loop through all of the workouts
   await Promise.all(
-    workouts.map((w: mongoose.Document) =>
+    workouts.map((w: IWorkout) =>
+      // open a new update query, match the workouts to the pre-fetched workouts
       Workout.findOneAndUpdate(
-        { _id: w._id, tags: { $elemMatch: { _id: mod._id } } },
+        { _id: w._id, tags: { $elemMatch: { _id: doc._id } } },
         {
+          // set the new content
           $set: {
             "tags.$.content": content
           }
@@ -69,10 +80,15 @@ TagSchema.pre("findOneAndUpdate", async function(
 
 // cascade delete tags
 TagSchema.pre("remove", async function(next) {
-  const tagId = this._id;
-  const workouts = await Workout.find({ "tags._id": tagId });
+  // get the id off of the removed tag
+  const tagId: Schema.Types.ObjectId = this._id;
+  // find the workouts that contain this tag
+  const workouts: Array<IWorkout> = await Workout.find({
+    tags: { $elemMatch: { _id: tagId } }
+  });
+  // loop through the workouts, pull the tags from the workout
   await Promise.all(
-    workouts.map((w: mongoose.Document) =>
+    workouts.map((w: IWorkout) =>
       Workout.findOneAndUpdate(
         { _id: w._id },
         { $pull: { tags: { _id: tagId } } },
@@ -80,9 +96,15 @@ TagSchema.pre("remove", async function(next) {
       ).exec()
     )
   );
-  const templates = await Template.find({ "tags._id": tagId });
+
+  // find all the templates that contain this tag
+  const templates: Array<ITemplate> = await Template.find({
+    tags: { $elemMatch: { _id: tagId } }
+  });
+
+  // loop through the templates, pull the tags from the template
   await Promise.all(
-    templates.map((t: mongoose.Document) =>
+    templates.map((t: ITemplate) =>
       Template.findOneAndUpdate(
         { _id: t._id },
         { $pull: { tags: { _id: tagId } } },

@@ -1,17 +1,8 @@
 import { NextFunction } from "connect";
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import * as bcrypt from "bcryptjs";
 import { genToken } from "../utils/tokens";
-
-interface IUser extends Document {
-  email: string;
-  password: string;
-  role: string;
-  created: Date;
-  getToken(): any
-  matchPassword(id: string): Promise<boolean>
-}
-
+import { IUser } from "src/types/models";
 // User model
 
 const UserSchema = new Schema<IUser>({
@@ -67,4 +58,4 @@ UserSchema.methods.matchPassword = async function(
   return await bcrypt.compare(pw, this.password);
 };
 
-export default mongoose.model("User", UserSchema);
+export default mongoose.model<IUser>("User", UserSchema);
