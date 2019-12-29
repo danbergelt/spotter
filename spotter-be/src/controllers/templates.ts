@@ -1,7 +1,7 @@
 import Template from "../models/Template";
 import asyncHandler from "../middleware/async";
 import Err from "../utils/Err";
-import * as hex from "is-hexcolor";
+const hex = require("is-hexcolor");
 import { ITemplate, ITag } from "src/types/models";
 
 // @desc --> get all templates by user id

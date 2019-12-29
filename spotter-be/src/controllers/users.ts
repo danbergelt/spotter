@@ -2,11 +2,12 @@ import Err from "../utils/Err";
 import User from "../models/user";
 import asyncHandler from "../middleware/async";
 import { refreshToken, genToken, clearRefreshToken } from "../utils/tokens";
-import * as jwt from "jsonwebtoken";
-import * as redis from "redis";
+import jwt from "jsonwebtoken";
+import redis from "redis";
 import { IUser } from "src/types/models";
 import { promisify } from "util";
 import { Response } from "express";
+import { IVerifiedToken } from "../types/auth";
 
 const client: redis.RedisClient = redis.createClient();
 
@@ -14,12 +15,6 @@ interface UserDetails {
   email: string;
   password: string;
   role: string;
-}
-
-interface IVerifiedToken {
-  id: string;
-  iat: number;
-  exp: number;
 }
 
 // @desc --> register user
@@ -113,7 +108,9 @@ export const refresh = asyncHandler(async (req, res) => {
   }
 
   // refresh token is valid and we can send back new access token
-  const user = await User.findOne({ _id: (payload as IVerifiedToken).id });
+  const user: IUser | null = await User.findOne({
+    _id: (payload as IVerifiedToken).id
+  });
 
   if (!user) {
     return res.send({ success: false, token: null });
@@ -128,11 +125,9 @@ export const refresh = asyncHandler(async (req, res) => {
 });
 
 // Get token from model, send response
-const sendToken = (user: IUser, statusCode: number, res: Response) => {
+const sendToken = (user: IUser, statusCode: number, res: Response): void => {
   // Create token
   const token: string = user.getToken();
-
-  console.log(token)
 
   const options: { expires: Date; httpOnly: boolean; secure?: boolean } = {
     expires: new Date(

@@ -1,6 +1,6 @@
 import Err from "../utils/Err";
 import User from "../models/user";
-import * as bcrypt from "bcryptjs";
+import bcrypt from "bcryptjs";
 import asyncHandler from "../middleware/async";
 import { IUser } from "src/types/models";
 

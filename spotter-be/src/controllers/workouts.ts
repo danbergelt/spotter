@@ -2,22 +2,23 @@ import Workout from "../models/Workout";
 import asyncHandler from "../middleware/async";
 import Err from "../utils/Err";
 import { promisify } from "util";
-import * as hex from "is-hexcolor";
-import * as redis from "redis";
+const hex = require("is-hexcolor");
+import redis from "redis";
+import { IWorkout, ITag } from "src/types/models";
 
-const client = redis.createClient();
+const client: redis.RedisClient = redis.createClient();
 
 // @desc --> get all workouts by user id
 // @route --> GET /api/auth/workouts
 // @access --> Private
 
 export const getWorkoutsByUserId = asyncHandler(async (req, res) => {
-  const pagination = {
+  const pagination: { page: number; limit: number } = {
     page: parseInt(req.query.page, 10) || 0,
     limit: parseInt(req.query.limit, 10) || 10
   };
 
-  const workouts = await Workout.find({ user: req.user._id })
+  const workouts: Array<IWorkout> = await Workout.find({ user: req.user._id })
     .skip(pagination.page * pagination.limit)
     .limit(pagination.limit);
 
@@ -35,7 +36,7 @@ export const workoutRangeByUserId = asyncHandler(async (req, res, next) => {
     return next(new Err("Please supply a date range", 400));
   }
 
-  const workouts = await Workout.find({
+  const workouts: Array<IWorkout> = await Workout.find({
     user: req.user._id,
     date: { $in: req.body.range }
   }).sort({ date: 1 });
@@ -52,19 +53,19 @@ export const workoutRangeByUserId = asyncHandler(async (req, res, next) => {
 export const addWorkout = asyncHandler(async (req, res, next) => {
   req.body.user = req.user._id;
 
-  let colorValidate = [];
+  let colorValidate: Array<ITag | false> = [];
 
   if (req.body.tags && req.body.tags.length) {
-    colorValidate = req.body.tags.map((el: any) => hex(el.color));
+    colorValidate = req.body.tags.map((el: ITag) => hex(el.color));
   }
 
   if (colorValidate.includes(false)) {
     return next(new Err("Invalid color detected", 400));
   }
 
-  const workout = await Workout.create(req.body);
+  const workout: IWorkout = await Workout.create(req.body);
 
-  const hset = promisify(client.hset).bind(client);
+  const hset: Function = promisify(client.hset).bind(client);
   await hset(req.user._id.toString(), "stale", "true");
 
   res.status(201).json({
@@ -78,12 +79,16 @@ export const addWorkout = asyncHandler(async (req, res, next) => {
 // @access --> Private
 
 export const editWorkout = asyncHandler(async (req, res) => {
-  let workout = await Workout.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true
-  });
+  let workout: IWorkout | null = await Workout.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    {
+      new: true,
+      runValidators: true
+    }
+  );
 
-  const hset = promisify(client.hset).bind(client);
+  const hset: Function = promisify(client.hset).bind(client);
   await hset(req.user._id.toString(), "stale", "true");
 
   res.status(200).json({
@@ -99,7 +104,7 @@ export const editWorkout = asyncHandler(async (req, res) => {
 export const deleteWorkout = asyncHandler(async (req, res) => {
   await Workout.findByIdAndDelete(req.params.id);
 
-  const hset = promisify(client.hset).bind(client);
+  const hset: Function = promisify(client.hset).bind(client);
   await hset(req.user._id.toString(), "stale", "true");
 
   res.status(200).json({

@@ -13,7 +13,7 @@ export const createTag = asyncHandler(async (req, res, next) => {
   // checks for matches on tags with no content
   if (req.body.color && !req.body.content) {
     const duplicates: Array<ITag> = tags.filter(
-      tag => tag.color === req.body.color
+      tag => tag.color === req.body.color && !tag.content
     );
     if (duplicates.length) {
       return next(new Err("Tag already exists", 400));

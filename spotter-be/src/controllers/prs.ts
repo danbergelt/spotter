@@ -2,14 +2,11 @@ import Workout from "../models/Workout";
 import Exercise from "../models/Exercise";
 import asyncHandler from "../middleware/async";
 import { promisify } from "util";
-import * as redis from "redis";
+import redis from "redis";
 import { IExercise, ExerciseOnWorkoutSchema, IWorkout } from "../types/models";
+import { IPr } from '../types/cache';
 
 const client: redis.RedisClient = redis.createClient();
-
-interface IPr {
-  [key: string]: { name: string; pr: number; date?: string };
-}
 
 // @desc --> generate PRs
 // @route --> GET /api/auth/prs

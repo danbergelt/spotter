@@ -2,7 +2,7 @@ import Err from "../utils/Err";
 import Exercise from "../models/Exercise";
 import asyncHandler from "../middleware/async";
 import { promisify } from "util";
-import * as redis from "redis";
+import redis from "redis";
 import { IExercise } from "src/types/models";
 
 const client: redis.RedisClient = redis.createClient();
