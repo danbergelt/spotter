@@ -1,6 +1,6 @@
 import React, { CSSProperties } from "react";
 import Select, { Styles, ValueType } from "react-select";
-import { SET_SCOPE } from "../../../actions/timeScopeActions";
+import { SET_SCOPE, SET_TIMESPAN } from "../../../actions/timeScopeActions";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "src/types/State";
 
@@ -42,6 +42,16 @@ const SubnavDropdown = () => {
     })
   };
 
+  const handleChange: (option: ValueType<Option>) => void = (
+    option: ValueType<Option>
+  ) => {
+    dispatch<{ type: string; payload: number }>({
+      type: SET_TIMESPAN,
+      payload: 0
+    });
+    dispatch({ type: SET_SCOPE, payload: option });
+  };
+
   return (
     <>
       <Select
@@ -50,7 +60,7 @@ const SubnavDropdown = () => {
         options={options}
         value={scope}
         onChange={(selectedOption: ValueType<Option>) =>
-          dispatch({ type: SET_SCOPE, payload: selectedOption as Option })
+          handleChange(selectedOption)
         }
         defaultValue={scope}
         isSearchable={false}

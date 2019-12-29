@@ -1,7 +1,7 @@
 import { globalReducer } from "../../../reducers/globalReducer";
 import { ADD_TOKEN } from "../../../actions/addTokenActions";
 import { MODAL_CTX } from "../../../actions/ctxActions";
-import { SET_SCOPE, SET_DATE } from "../../../actions/timeScopeActions";
+import { SET_SCOPE, SET_DATE, SET_TIMESPAN } from "../../../actions/timeScopeActions";
 
 describe("global reducer", () => {
   test("should return initial state", () => {
@@ -12,7 +12,8 @@ describe("global reducer", () => {
         label: "Week",
         value: "Week"
       },
-      date: null
+      date: null,
+      timeSpan: 0
     });
   });
 
@@ -29,7 +30,8 @@ describe("global reducer", () => {
         label: "Week",
         value: "Week"
       },
-      date: null
+      date: null,
+      timeSpan: 0
     });
   });
 
@@ -46,7 +48,8 @@ describe("global reducer", () => {
         label: "Week",
         value: "Week"
       },
-      date: null
+      date: null,
+      timeSpan: 0
     });
   });
 
@@ -63,7 +66,8 @@ describe("global reducer", () => {
         label: "test",
         value: "test"
       },
-      date: null
+      date: null,
+      timeSpan: 0
     });
   });
 
@@ -80,7 +84,25 @@ describe("global reducer", () => {
         label: "Week",
         value: "Week"
       },
-      date: { date: "date" }
+      date: { date: "date" },
+      timeSpan: 0
     });
   });
+  test("should handle SET_TIMESPAN", () => {
+    expect(
+      globalReducer(undefined, {
+        type: SET_TIMESPAN,
+        payload: 5
+      })
+    ).toEqual({
+      ctx: null,
+      t: null,
+      scope: {
+        label: "Week",
+        value: "Week"
+      },
+      date: null,
+      timeSpan: 5
+    });
+  })
 });

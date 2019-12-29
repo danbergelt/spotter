@@ -6,7 +6,7 @@ import DashControls from "../DashControls";
 import { useHistory } from "react-router-dom";
 import reFetch from "../../../../utils/reFetch";
 import { useDispatch, useSelector } from "react-redux";
-import { SET_DATE } from "../../../../actions/timeScopeActions";
+import { SET_DATE, SET_TIMESPAN } from "../../../../actions/timeScopeActions";
 import { SET_SAVE_MSG } from "../../../../actions/optionsActions";
 import { MODAL_CTX } from "../../../../actions/ctxActions";
 import {
@@ -23,33 +23,38 @@ import { Moment } from "moment";
 interface GlobalReducer {
   scope: { value: string; label: string };
   t: string | null;
+  timeSpan: number;
 }
 
 const WorkoutColumns = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-
-  const [week, setWeek] = useState<number>(0);
   const [modal, setModal] = useState<boolean>(false);
 
   const fetchWorkouts = (state: State) => state.fetchWorkoutsReducer.workouts;
   const workouts: Array<Workout> = useSelector(fetchWorkouts);
 
   const globalReducer = (state: State) => state.globalReducer;
-  const { scope, t }: GlobalReducer = useSelector(globalReducer);
+  const { scope, t, timeSpan }: GlobalReducer = useSelector(globalReducer);
 
   const inc = () => {
-    setWeek(week + 1);
+    dispatch<{ type: string; payload: number }>({
+      type: SET_TIMESPAN,
+      payload: timeSpan + 1
+    });
   };
 
   const dec = () => {
-    setWeek(week - 1);
+    dispatch<{ type: string; payload: number }>({
+      type: SET_TIMESPAN,
+      payload: timeSpan - 1
+    });
   };
 
   // refetches data upon dashboard state change
   useEffect(() => {
-    reFetch(week, history, scope.value, t);
-  }, [week, history, scope.value, t]);
+    reFetch(timeSpan, history, scope.value, t);
+  }, [timeSpan, history, scope.value, t]);
 
   // opens modal to add a new workout
   const openAddWorkoutModal: (date: Moment) => void = useCallback(
@@ -107,9 +112,9 @@ const WorkoutColumns = () => {
 
   return (
     <div className="spacer">
-      <DashControls inc={inc} dec={dec} time={week} month={dashHead} />
+      <DashControls inc={inc} dec={dec} time={timeSpan} month={dashHead} />
       <div className="week-workouts-days">
-        {generateWeek(week).map((date, i) => (
+        {generateWeek(timeSpan).map((date, i) => (
           <WorkoutColumn
             date={date}
             key={i}
@@ -120,7 +125,7 @@ const WorkoutColumns = () => {
           />
         ))}
       </div>
-      <WorkoutModal time={week} modal={modal} closeModal={closeModal} />
+      <WorkoutModal time={timeSpan} modal={modal} closeModal={closeModal} />
     </div>
   );
 };
