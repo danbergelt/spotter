@@ -1,22 +1,21 @@
-import express from "express";
+import express, { Router } from "express";
 import {
   getTemplatesByUserId,
   addTemplate,
   editTemplate,
   deleteTemplate
 } from "../controllers/templates";
-const router = express.Router();
 import { protect } from "../middleware/auth";
+
+const router: Router = express.Router();
 
 router
   .route("/")
-  //@ts-ignore
   .get(protect, getTemplatesByUserId)
   .post(protect, addTemplate);
 
 router
   .route("/:id")
-  //@ts-ignore
   .put(protect, editTemplate)
   .delete(protect, deleteTemplate);
 

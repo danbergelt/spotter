@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Express } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
@@ -15,6 +15,7 @@ import templates from "./routes/templates";
 import auth from "./routes/auth";
 import exercises from "./routes/exercises";
 import prs from "./routes/prs";
+import { Server } from "http";
 
 // Connect to DB and run server
 if (process.env.NODE_ENV === "development") {
@@ -25,7 +26,7 @@ if (process.env.NODE_ENV === "production") {
   connectDB();
 }
 
-const app = express();
+const app: Express = express();
 
 // CORS
 app.use(
@@ -58,9 +59,9 @@ app.use("/api/auth/prs", prs);
 // Error handling
 app.use(errorHandler);
 
-const port = process.env.PORT || 5000;
+const port: number = Number(process.env.PORT) || 5000;
 
-const server = app.listen(port, () =>
+const server: Server = app.listen(port, () =>
   console.log(`Server started on port ${port} IN ${process.env.NODE_ENV} mode`)
 );
 
@@ -72,7 +73,7 @@ const handleRejectedPromise = function(
 ): void {
   console.log("Unexpected exception occured.", { reason, ex: promise });
 
-  server.close(() => process.exit(1))
+  server.close(() => process.exit(1));
 };
 
 process.on("unhandledRejection", handleRejectedPromise);

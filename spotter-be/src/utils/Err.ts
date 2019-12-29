@@ -1,7 +1,7 @@
 class Err extends Error {
+  statusCode: number;
   constructor(message: string, statusCode: number) {
     super(message);
-    // @ts-ignore
     this.statusCode = statusCode;
   }
 }

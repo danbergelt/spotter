@@ -1,23 +1,17 @@
-import express from "express";
-import {
-  createTag,
-  deleteTag,
-  editTag,
-  getTags
-} from "../controllers/tags";
-const router = express.Router();
+import express, { Router } from "express";
+import { createTag, deleteTag, editTag, getTags } from "../controllers/tags";
 import { protect } from "../middleware/auth";
+
+const router: Router = express.Router();
 
 // Routes
 router
   .route("/")
-  //@ts-ignore
   .post(protect, createTag)
   .get(protect, getTags);
 
 router
   .route("/:id")
-  //@ts-ignore
   .delete(protect, deleteTag)
   .put(protect, editTag);
 
