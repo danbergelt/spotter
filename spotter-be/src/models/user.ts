@@ -34,12 +34,13 @@ const UserSchema = new Schema<IUser>({
 });
 
 // Encrypt password on save
-UserSchema.pre("save", async function(this: any, next: NextFunction) {
+UserSchema.pre<IUser>("save", async function(next: NextFunction) {
   if (!this.isModified("password")) {
     next();
   }
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
+  const salt: string = await bcrypt.genSalt(10);
+  const newPassword: string = await bcrypt.hash(this.password, salt);
+  this.password = newPassword;
 });
 
 // Sign token and return

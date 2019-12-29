@@ -1,10 +1,9 @@
-import express from "express";
+import express, { Router } from "express";
 import { changePassword } from "../controllers/auth";
 import { protect } from "../middleware/auth";
 
-const router = express.Router();
+const router: Router = express.Router();
 
-//@ts-ignore
 router.route("/password").put(protect, changePassword);
 
 export default router;
