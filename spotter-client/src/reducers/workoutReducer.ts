@@ -14,6 +14,7 @@ import {
   RESET_QUEUE,
   FROM_SAVED
 } from "../actions/workoutActions";
+import { CLOSE_WORKOUT_MODAL } from "../actions/globalActions";
 import { find, isMatch, isEqual, omit, pick, keys } from "lodash";
 import { WorkoutReducer } from "src/types/State";
 import { TagOnWorkout } from "src/types/TagOnWorkout";
@@ -140,6 +141,15 @@ export const workoutReducer = (
         notes: action.payload.notes,
         tags: action.payload.tags,
         title: action.payload.title
+      };
+    case CLOSE_WORKOUT_MODAL:
+      return {
+        ...state,
+        queue: {},
+        title: "",
+        notes: "",
+        exercises: [],
+        tags: []
       };
     default:
       return state;

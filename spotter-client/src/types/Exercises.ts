@@ -10,9 +10,9 @@ export interface Queued {
 
 export interface Exercise {
   name: string;
-  weight: number;
-  sets: number;
-  reps: number;
+  weight: number | string;
+  sets: number | string;
+  reps: number | string;
 }
 
 export type Refs = Array<React.RefObject<HTMLInputElement>>;

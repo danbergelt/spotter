@@ -30,14 +30,15 @@ const SaveWorkout: React.FC<Props> = ({
   ctx,
   iconClass
 }) => {
-  const fetchSaveMsg = (state: State) => state.optionsReducer.saveMsg;
-  const saveMsg: Partial<{ error: string }> = useSelector(fetchSaveMsg);
-
-  const fetchWorkout = (state: State) => state.workoutReducer;
-  const workout: WorkoutReducer = useSelector(fetchWorkout);
-
-  const fetchGlobalReducer = (state: State) => state.globalReducer;
-  const { date, scope, t }: GlobalReducer = useSelector(fetchGlobalReducer);
+  const saveMsg: Partial<{ error: string }> = useSelector(
+    (state: State) => state.optionsReducer.saveMsg
+  );
+  const workout: WorkoutReducer = useSelector(
+    (state: State) => state.workoutReducer
+  );
+  const { date, scope, t }: GlobalReducer = useSelector(
+    (state: State) => state.globalReducer
+  );
 
   const dispatch = useDispatch();
   const history = useHistory();

@@ -3,8 +3,8 @@ import { FiStar } from "react-icons/fi";
 import ExerciseForm from "../exerciseform/ExerciseForm";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  QUEUE_EDIT,
-  DEL_EXERCISE
+  handleQueueAction,
+  delExerciseAction
 } from "../../../../../actions/workoutActions";
 import WorkoutExercise from "./WorkoutExercise";
 import { times, isEmpty } from "lodash";
@@ -17,10 +17,12 @@ type HandleQueue = (exercise: Exercise, i: number) => void;
 type DelExercise = (i: number) => void;
 
 const WorkoutExercises = () => {
-  const fetchExercises = (state: State) => state.workoutReducer.exercises;
-  const exercises: Array<Exercise> = useSelector(fetchExercises);
-  const fetchQueued = (state: State) => state.workoutReducer.queue;
-  const queued: Queued = useSelector(fetchQueued) as Queued;
+  const exercises: Array<Exercise> = useSelector(
+    (state: State) => state.workoutReducer.exercises
+  );
+  const queued: Queued = useSelector(
+    (state: State) => state.workoutReducer.queue
+  ) as Queued;
 
   const dispatch = useDispatch();
 
@@ -30,20 +32,14 @@ const WorkoutExercises = () => {
 
   const handleQueue: HandleQueue = useCallback(
     (exercise, i) => {
-      dispatch<{ type: string; payload: { exercise: Exercise; i: number } }>({
-        type: QUEUE_EDIT,
-        payload: { exercise, i }
-      });
+      dispatch(handleQueueAction(exercise, i));
     },
     [dispatch]
   );
 
   const delExercise: DelExercise = useCallback(
     i => {
-      dispatch<{ type: string; payload: number }>({
-        type: DEL_EXERCISE,
-        payload: i
-      });
+      dispatch(delExerciseAction(i));
     },
     [dispatch]
   );

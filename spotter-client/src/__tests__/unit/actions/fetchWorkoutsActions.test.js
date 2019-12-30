@@ -6,7 +6,9 @@ import {
   fetchWorkouts,
   FETCH_WORKOUTS_START,
   FETCH_WORKOUTS_SUCCESS,
-  FETCH_WORKOUTS_ERROR
+  FETCH_WORKOUTS_ERROR,
+  DELETE_WORKOUT,
+  deleteWorkoutAction
 } from "../../../actions/fetchWorkoutsActions";
 import { createMemoryHistory } from "history";
 
@@ -53,6 +55,45 @@ describe("fetch workouts", () => {
     const store = mockStore({ err: null });
 
     await store.dispatch(fetchWorkouts(null, history, "token"));
+
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+    test("proper rejection", async () => {
+    const history = createMemoryHistory();
+
+    const err = {
+      response: {
+        data: {
+          error: "TEST Error"
+        }
+      }
+    };
+
+    axios.post.mockRejectedValue(err);
+
+    const expectedActions = [
+      { type: FETCH_WORKOUTS_START },
+      { type: FETCH_WORKOUTS_ERROR, payload: err.response.data.error }
+    ];
+
+    const store = mockStore({ err: null });
+
+    await store.dispatch(fetchWorkouts(null, history, "token"));
+
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  test("delete workout action", async () => {
+    axios.delete.mockResolvedValue({});
+
+    const expectedActions = [
+      { type: DELETE_WORKOUT, payload: "foo" }
+    ];
+
+    const store = mockStore();
+
+    await store.dispatch(deleteWorkoutAction("token", "foo"));
 
     expect(store.getActions()).toEqual(expectedActions);
   });

@@ -1,13 +1,13 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { RESET_QUEUE } from "../../../../../actions/workoutActions";
+import { resetQueueAction } from "../../../../../actions/workoutActions";
 
 const ClearEditQueue: React.FC = () => {
   const dispatch = useDispatch();
 
   return (
     <div
-      onClick={() => dispatch<{ type: string }>({ type: RESET_QUEUE })}
+      onClick={() => dispatch(resetQueueAction())}
       className="workout-data-exercises-editing"
     >
       Clear

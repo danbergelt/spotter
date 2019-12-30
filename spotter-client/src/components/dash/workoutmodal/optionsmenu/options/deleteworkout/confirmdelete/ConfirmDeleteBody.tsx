@@ -1,31 +1,26 @@
 import React, { memo } from "react";
-import { useSelector } from "react-redux";
-import axiosWithAuth from "../../../../../../../utils/axiosWithAuth";
+import { useSelector, useDispatch } from "react-redux";
 import { fetchToken } from "src/types/State";
+import { deleteWorkoutAction } from "src/actions/fetchWorkoutsActions";
 
 interface Props {
-  onClose: () => void;
+  closeConfirmDelete: () => void;
   closeParentModal: () => void;
   workoutId: string | null;
-  onDelete: (id: string) => void;
 }
 
 const ConfirmDeleteBody: React.FC<Props> = ({
-  onClose,
+  closeConfirmDelete,
   closeParentModal,
-  workoutId,
-  onDelete
+  workoutId
 }) => {
-
   const t: string | null = useSelector(fetchToken);
+  const dispatch = useDispatch();
 
   const deleteWorkout: () => Promise<void> = async () => {
     if (workoutId) {
-      await axiosWithAuth(t).delete(
-        `${process.env.REACT_APP_T_API}/api/auth/workouts/${workoutId}`
-      );
-      onDelete(workoutId);
-      onClose();
+      await dispatch(deleteWorkoutAction(t, workoutId));
+      closeConfirmDelete();
       closeParentModal();
     }
   };
@@ -44,7 +39,7 @@ const ConfirmDeleteBody: React.FC<Props> = ({
         >
           Delete
         </div>
-        <div onClick={onClose} className="delete-btn can">
+        <div onClick={closeConfirmDelete} className="delete-btn can">
           Cancel
         </div>
       </div>

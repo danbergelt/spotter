@@ -12,7 +12,7 @@ import {
   FROM_SAVED
 } from "../../../../actions/workoutActions";
 import WorkoutModal from "../../workoutmodal/WorkoutModal";
-import { SET_DATE } from "../../../../actions/timeScopeActions";
+import { SET_DATE, SET_TIMESPAN } from "../../../../actions/timeScopeActions";
 import { useHistory } from "react-router-dom";
 import reFetch from "../../../../utils/reFetch";
 import { fetchExercises } from "../../../../actions/fetchExercisesActions";
@@ -23,13 +23,13 @@ import { Moment } from "moment";
 interface GlobalReducer {
   scope: { value: string; label: string };
   t: string | null;
+  timeSpan: number;
 }
 
 const WorkoutGrid = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const [month, setMonth] = useState<number>(0);
   const [modal, setModal] = useState<boolean>(false);
   const [popover, setPopover] = useState<{ open: boolean; id: null | string }>({
     open: false,
@@ -40,19 +40,25 @@ const WorkoutGrid = () => {
   const workouts: Array<Workout> = useSelector(fetchWorkouts);
 
   const globalReducer = (state: State) => state.globalReducer;
-  const { scope, t }: GlobalReducer = useSelector(globalReducer);
+  const { scope, t, timeSpan }: GlobalReducer = useSelector(globalReducer);
 
   // fetches up-to-date list of workouts on re-render
   useEffect(() => {
-    reFetch(month, history, scope.value, t);
-  }, [month, history, scope.value, t]);
+    reFetch(timeSpan, history, scope.value, t);
+  }, [timeSpan, history, scope.value, t]);
 
   const inc = () => {
-    setMonth(month + 1);
+    dispatch<{ type: string; payload: number }>({
+      type: SET_TIMESPAN,
+      payload: timeSpan + 1
+    });
   };
 
   const dec = () => {
-    setMonth(month - 1);
+    dispatch<{ type: string; payload: number }>({
+      type: SET_TIMESPAN,
+      payload: timeSpan - 1
+    });
   };
 
   // opens modal to add a new workout
@@ -111,9 +117,9 @@ const WorkoutGrid = () => {
 
   return (
     <div className="spacer">
-      <DashControls inc={inc} dec={dec} time={month} month={monthDashHead} />
+      <DashControls inc={inc} dec={dec} time={timeSpan} month={monthDashHead} />
       <div className="month-workout-days">
-        {generateMonth(month).map((date, i) => (
+        {generateMonth(timeSpan).map((date, i) => (
           <GridDay
             openAddWorkoutModal={openAddWorkoutModal}
             openViewModal={openViewModal}
@@ -125,7 +131,7 @@ const WorkoutGrid = () => {
             setPopover={setPopover}
           />
         ))}
-        <WorkoutModal time={month} modal={modal} closeModal={closeModal} />
+        <WorkoutModal time={timeSpan} modal={modal} closeModal={closeModal} />
       </div>
     </div>
   );

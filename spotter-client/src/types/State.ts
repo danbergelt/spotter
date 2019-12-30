@@ -10,6 +10,7 @@ export interface GlobalReducer {
   ctx: null | string;
   scope: { value: string; label: string };
   date: null | Moment;
+  timeSpan: number;
 }
 
 export interface WorkoutReducer {

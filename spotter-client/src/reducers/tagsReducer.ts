@@ -4,6 +4,7 @@ import {
   FETCH_TAGS_ERROR,
   RESET_TAGS
 } from "../actions/tagsActions";
+import { CLOSE_WORKOUT_MODAL } from "../actions/globalActions";
 import { TagsReducer } from "src/types/State";
 
 const tagsState: TagsReducer = {
@@ -30,19 +31,22 @@ export const tagsReducer = (
         isLoading: false,
         tags: action.payload
       };
-    case FETCH_TAGS_ERROR: {
+    case FETCH_TAGS_ERROR:
       return {
         ...state,
         isLoading: false,
         err: action.payload
       };
-    }
-    case RESET_TAGS: {
+    case RESET_TAGS:
       return {
         ...state,
         tags: []
       };
-    }
+    case CLOSE_WORKOUT_MODAL:
+      return {
+        ...state,
+        tags: []
+      };
     default:
       return state;
   }

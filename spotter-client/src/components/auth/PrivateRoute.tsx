@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 import { Route, Redirect, RouteProps } from "react-router-dom";
 
@@ -15,7 +15,7 @@ interface Props extends RouteProps{
 
 const PrivateRoute: React.FC<Props> = ({ component: Component, ...rest }): JSX.Element => {
 
-  const token: string | null = useSelector(fetchToken);
+  const token: string | null = useSelector(useMemo(() => fetchToken, []));
 
   return (
     <>

@@ -4,7 +4,7 @@ import asyncHandler from "../middleware/async";
 import { promisify } from "util";
 import redis from "redis";
 import { IExercise, ExerciseOnWorkoutSchema, IWorkout } from "../types/models";
-import { IPr } from '../types/cache';
+import { IPr } from "../types/cache";
 
 const client: redis.RedisClient = redis.createClient();
 
@@ -47,6 +47,13 @@ export const generatePrs = asyncHandler(async (req, res) => {
       }
     });
   });
+
+  // edge case - if pr previously existed from one workout, and that workout is deleted, filter that exercise from the prs
+  for (let emptyPr in prs) {
+    if (prs[emptyPr].pr === -Infinity) {
+      delete prs[emptyPr];
+    }
+  }
 
   // cache the data
   const hset: Function = promisify(client.hset).bind(client);

@@ -3,8 +3,7 @@ import Modal from "react-modal";
 import ConfirmDeleteHead from "./ConfirmDeleteHead";
 import { styles } from "./confirmDeleteStyles";
 import { useSelector, useDispatch } from "react-redux";
-import { SET_CONFIRM_DELETE } from "../../../../../../../actions/optionsActions";
-import { DELETE_WORKOUT } from "../../../../../../../actions/fetchWorkoutsActions";
+import { setConfirmDeleteAction } from "../../../../../../../actions/optionsActions";
 import ConfirmDeleteBody from "./ConfirmDeleteBody";
 import { State } from "src/types/State";
 
@@ -17,38 +16,29 @@ interface Props {
 
 // a modal that provides a layer of protection before deleting a workout
 const ConfirmDelete: React.FC<Props> = ({ workoutId, closeParentModal }) => {
-
-  const fetchConfirmDelete = (state: State) =>
-    state.optionsReducer.confirmDelete;
-  const confirmDelete: boolean = useSelector(fetchConfirmDelete);
+  const confirmDelete: boolean = useSelector(
+    (state: State) => state.optionsReducer.confirmDelete
+  );
 
   const dispatch = useDispatch();
 
-  const close: () => void = useCallback(() => {
-    dispatch<{type: string, payload: boolean}>({ type: SET_CONFIRM_DELETE, payload: false });
+  const closeConfirmDelete: () => void = useCallback(() => {
+    dispatch(setConfirmDeleteAction(false));
   }, [dispatch]);
-
-  const dispatchDelete: (id: string) => void = useCallback(
-    id => {
-      dispatch<{type: string, payload: string}>({ type: DELETE_WORKOUT, payload: id });
-    },
-    [dispatch]
-  );
 
   return (
     <Modal
       style={styles}
       isOpen={confirmDelete}
-      onRequestClose={close}
+      onRequestClose={closeConfirmDelete}
       contentLabel="Confirm Delete Workout"
     >
       <div className="delete-container">
-        <ConfirmDeleteHead close={close} />
+        <ConfirmDeleteHead closeConfirmDelete={closeConfirmDelete} />
         <ConfirmDeleteBody
-          onDelete={dispatchDelete}
           workoutId={workoutId}
           closeParentModal={closeParentModal}
-          onClose={close}
+          closeConfirmDelete={closeConfirmDelete}
         />
       </div>
     </Modal>

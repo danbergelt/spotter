@@ -1,8 +1,7 @@
 import React, { useCallback } from "react";
 import Template from "./Template";
 import { useDispatch, useSelector } from "react-redux";
-import { DELETE_TEMPLATE } from "../../../../../../actions/optionsActions";
-import axiosWithAuth from "../../../../../../utils/axiosWithAuth";
+import { deleteTemplateAction } from "../../../../../../actions/optionsActions";
 import { Template as T } from "src/types/Template";
 import { State, fetchToken } from "src/types/State";
 
@@ -19,21 +18,16 @@ const Templates: React.FC<Props> = ({ setActive, active, search }) => {
 
   const t: string | null = useSelector(fetchToken);
 
-  const fetchErr = (state: State) => state.optionsReducer.templatesErr;
-  const err: string = useSelector(fetchErr);
-
-  const fetchTemplates = (state: State) => state.optionsReducer.templates;
-  const templates: Array<T> = useSelector(fetchTemplates);
+  const {
+    templatesErr: err,
+    templates
+  }: { templatesErr: string; templates: Array<T> } = useSelector(
+    (state: State) => state.optionsReducer
+  );
 
   const deleteTemplate: (id: string) => Promise<void> = useCallback(
     async id => {
-      await axiosWithAuth(t).delete(
-        `${process.env.REACT_APP_T_API}/api/auth/templates/${id}`
-      );
-      dispatch<{ type: string; payload: string }>({
-        type: DELETE_TEMPLATE,
-        payload: id
-      });
+      await dispatch(deleteTemplateAction(t, id))
     },
     [dispatch, t]
   );

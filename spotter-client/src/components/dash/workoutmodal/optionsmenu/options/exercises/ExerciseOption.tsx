@@ -1,8 +1,8 @@
 import React, { useCallback } from "react";
 import { FiTrendingUp } from "react-icons/fi";
 import { useDispatch } from "react-redux";
-import { SET_EXERCISES } from "../../../../../../actions/optionsActions";
 import Exercises from "./Exercises";
+import { setExercisesModalAction } from "src/actions/optionsActions";
 
 interface Props {
   iconClass: string;
@@ -13,10 +13,7 @@ const ExerciseOption: React.FC<Props> = ({ iconClass }) => {
 
   const setExercisesModal: (state: boolean) => void = useCallback(
     state => {
-      dispatch<{ type: string; payload: boolean }>({
-        type: SET_EXERCISES,
-        payload: state
-      });
+      dispatch(setExercisesModalAction(state));
     },
     [dispatch]
   );
