@@ -1,6 +1,11 @@
 import { ADD_TOKEN } from "../actions/addTokenActions";
-import { MODAL_CTX } from "../actions/ctxActions";
-import { SET_SCOPE, SET_DATE, SET_TIMESPAN } from "../actions/timeScopeActions";
+import {
+  MODAL_CTX,
+  SET_SCOPE,
+  SET_DATE,
+  SET_TIMESPAN,
+  CHANGE_SCOPE
+} from "../actions/globalActions";
 import { GlobalReducer } from "src/types/State";
 
 const globalState: GlobalReducer = {
@@ -42,6 +47,12 @@ export const globalReducer = (
       return {
         ...state,
         timeSpan: action.payload
+      };
+    case CHANGE_SCOPE:
+      return {
+        ...state,
+        timeSpan: 0,
+        scope: action.payload
       };
     default:
       return state;

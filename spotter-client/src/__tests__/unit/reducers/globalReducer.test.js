@@ -1,7 +1,12 @@
 import { globalReducer } from "../../../reducers/globalReducer";
 import { ADD_TOKEN } from "../../../actions/addTokenActions";
 import { MODAL_CTX } from "../../../actions/ctxActions";
-import { SET_SCOPE, SET_DATE, SET_TIMESPAN } from "../../../actions/timeScopeActions";
+import {
+  SET_SCOPE,
+  SET_DATE,
+  SET_TIMESPAN
+} from "../../../actions/timeScopeActions";
+import { CHANGE_SCOPE } from "src/actions/globalActions";
 
 describe("global reducer", () => {
   test("should return initial state", () => {
@@ -104,5 +109,22 @@ describe("global reducer", () => {
       date: null,
       timeSpan: 5
     });
-  })
+  });
+  test("should handle CHANGE_SCOPE", () => {
+    expect(
+      globalReducer(undefined, {
+        type: CHANGE_SCOPE,
+        payload: { value: "test", label: "test" }
+      })
+    ).toEqual({
+      ctx: null,
+      t: null,
+      scope: {
+        label: "test",
+        value: "test"
+      },
+      date: null,
+      timeSpan: 0
+    });
+  });
 });

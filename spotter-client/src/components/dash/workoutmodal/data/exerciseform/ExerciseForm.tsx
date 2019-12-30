@@ -3,16 +3,16 @@ import { Form, Field, Formik } from "formik";
 import { FiPlus, FiTrash } from "react-icons/fi";
 import { useSelector, useDispatch } from "react-redux";
 import { isEmpty } from "lodash";
-import { ValidationSchema } from "./ValidationSchema"
+import { ValidationSchema } from "./ValidationSchema";
 import {
-  RESET_QUEUE,
-  ADD_EXERCISE,
-  HANDLE_EDIT
+  resetExerciseFormAction,
+  addExerciseAction,
+  editExerciseAction
 } from "../../../../../actions/workoutActions";
 import Autosuggest from "react-autosuggest";
 import { State } from "src/types/State";
-import { Queued, Refs } from '../../../../../types/Exercises';
-import {Exercise as E } from '../../../../../types/ExerciseOption';
+import { Queued, Refs } from "../../../../../types/Exercises";
+import { Exercise as E } from "../../../../../types/ExerciseOption";
 
 // READ: this component is a nightmare. Formik claims to make working with forms easer,
 // but it does not play nicely with other libraries. I need to figure out how to optimize this,
@@ -23,21 +23,20 @@ interface Props {
 }
 
 const ExerciseForm: React.FC<Props> = ({ refs }) => {
-
-  // queued represents the object currently being edited
-  const fetchQueued = (state: State) => state.workoutReducer.queue;
-  const queued: Queued = useSelector(fetchQueued) as Queued;
-
-  const fetchExercises = (state: State) =>
-    state.fetchExercisesReducer.savedExercises;
-  const exercises: Array<E> = useSelector(fetchExercises);
-
   const dispatch = useDispatch();
 
-  const resetHandler = (handleReset: () => void): void => {
-    handleReset();
-    // resets edit queue - form relies on this information to determine type of action on submit (either edit or add)
-    dispatch<{ type: string }>({ type: RESET_QUEUE });
+  // queued represents the exercise currently being edited
+  const queued: Queued = useSelector(
+    (state: State) => state.workoutReducer.queue
+  ) as Queued;
+
+  const exercises: Array<E> = useSelector(
+    (state: State) => state.fetchExercisesReducer.savedExercises
+  );
+
+  // resets form inputs and queue state
+  const resetHandler = (handleReset: () => void) => {
+    dispatch(resetExerciseFormAction(handleReset));
   };
 
   const [suggestions, setSuggestions] = useState<Array<E>>([]);
@@ -47,8 +46,8 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
       <Formik
         validateOnChange={false}
         validateOnBlur={false}
+        // if an exercise is queued, populate with that exercise. otherwise, initialize to empty fields
         initialValues={{
-          // if an exercise is queued, populate with that exercise. otherwise, initialize to empty fields
           name: (!isEmpty(queued) && queued.exercise.name) || "",
           weight: (!isEmpty(queued) && queued.exercise.weight) || "",
           sets: (!isEmpty(queued) && queued.exercise.sets) || "",
@@ -68,12 +67,9 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
 
           // if we editing an exercise, submit an edit dispatch. otherwise submit an add dispatch
           if (isEmpty(queued)) {
-            dispatch<{type: string, payload: object}>({ type: ADD_EXERCISE, payload: values });
+            dispatch(addExerciseAction(values));
           } else {
-            dispatch<{type: string, payload: {exercise: object, i: number}}>({
-              type: HANDLE_EDIT,
-              payload: { exercise: values, i: queued.i }
-            });
+            dispatch(editExerciseAction(values, queued.i));
           }
         }}
       >
