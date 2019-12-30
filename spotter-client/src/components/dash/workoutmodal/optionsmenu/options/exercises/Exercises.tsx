@@ -15,12 +15,13 @@ interface Props {
 }
 
 const Exercises: React.FC<Props> = ({ setExercisesModal }) => {
-  const fetchModalState = (state: State) => state.optionsReducer.exercises;
-  const modalState: boolean = useSelector(fetchModalState);
+  const modalState: boolean = useSelector(
+    (state: State) => state.optionsReducer.exercises
+  );
 
-  const fetchSavedExercises = (state: State) =>
-    state.fetchExercisesReducer.savedExercises;
-  const savedExercises: Array<Exercise> = useSelector(fetchSavedExercises);
+  const savedExercises: Array<Exercise> = useSelector(
+    (state: State) => state.fetchExercisesReducer.savedExercises
+  );
 
   const [tab, setTab] = useState<number>(0);
   const [msg, setMsg] = useState<Msg>({});

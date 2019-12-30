@@ -3,14 +3,10 @@ import FromTemplate from "./FromTemplate";
 import { useDispatch, useSelector } from "react-redux";
 import { FiPackage } from "react-icons/fi";
 import {
-  SET_TEMPLATES,
-  SET_TEMPLATES_ERR,
-  SET_FROM_TEMPLATE
+  setFromTemplateModalAction,
+  fetchTemplatesAction
 } from "../../../../../../actions/optionsActions";
-import axiosWithAuth from "../../../../../../utils/axiosWithAuth";
 import { fetchToken } from "src/types/State";
-import { AxiosResponse } from "axios";
-import { Template } from "src/types/Template";
 
 interface Props {
   iconClass: string;
@@ -25,25 +21,8 @@ const FromTemplateOption: React.FC<Props> = ({ iconClass }) => {
 
   // API call that provides a selection of templates to choose from
   const openFromTemplateModal: () => Promise<void> = async () => {
-    try {
-      const res: AxiosResponse<any> = await axiosWithAuth(t).get(
-        `${process.env.REACT_APP_T_API}/api/auth/templates`
-      );
-      dispatch<{ type: string; payload: Array<Template> }>({
-        type: SET_TEMPLATES,
-        payload: res.data.templates
-      });
-    } catch (error) {
-      if (error.response)
-        dispatch<{ type: string; payload: string }>({
-          type: SET_TEMPLATES_ERR,
-          payload: error.response.data.error
-        });
-    }
-    dispatch<{ type: string; payload: boolean }>({
-      type: SET_FROM_TEMPLATE,
-      payload: true
-    });
+    await dispatch(fetchTemplatesAction(t));
+    dispatch(setFromTemplateModalAction(true));
   };
 
   return (

@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import Modal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { styles } from "./styles";
-import { SET_FROM_TEMPLATE } from "../../../../../../actions/optionsActions";
+import { setFromTemplateModalAction } from "../../../../../../actions/optionsActions";
 import Templates from "./Templates";
 import FromTemplateHead from "./FromTemplateHead";
 import GenerateTemplate from "./GenerateTemplate";
@@ -17,18 +17,16 @@ const FromTemplate: React.FC = () => {
   const [search, setSearch] = useState<string>("");
   const [active, setActive] = useState<Partial<Template>>({});
 
-  // true/false modal state
-  const fromTemplateState = (state: State) => state.optionsReducer.fromTemplate;
-  const fromTemplate: boolean = useSelector(fromTemplateState);
+  // modal state (open or closed)
+  const fromTemplate: boolean = useSelector(
+    (state: State) => state.optionsReducer.fromTemplate
+  );
 
   const dispatch = useDispatch();
 
   // resets state when modal is closed
   const closeHandler: () => void = useCallback(() => {
-    dispatch<{ type: string; payload: boolean }>({
-      type: SET_FROM_TEMPLATE,
-      payload: false
-    });
+    dispatch(setFromTemplateModalAction(false));
     setActive({});
     setSearch("");
   }, [dispatch]);
@@ -47,11 +45,7 @@ const FromTemplate: React.FC = () => {
           setSearch={setSearch}
         />
         <Templates search={search} active={active} setActive={setActive} />
-        <GenerateTemplate
-          active={active}
-          setActive={setActive}
-          set={SET_FROM_TEMPLATE}
-        />
+        <GenerateTemplate active={active} setActive={setActive} />
       </div>
     </Modal>
   );

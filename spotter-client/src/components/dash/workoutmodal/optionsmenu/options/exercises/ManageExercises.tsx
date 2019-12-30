@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import axiosWithAuth from "../../../../../../utils/axiosWithAuth";
 import Exercise from "./Exercise";
-import { DELETE_SAVED_EXERCISE } from "../../../../../../actions/fetchExercisesActions";
+import { deleteExerciseAction } from "../../../../../../actions/fetchExercisesActions";
 import { Exercise as E } from "../../../../../../types/ExerciseOption";
 import { fetchToken } from "src/types/State";
 
@@ -23,15 +22,12 @@ const ManageExercises: React.FC<Props> = ({ exercises }) => {
     e.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  const deleteExercise = async (id: string) => {
-    await axiosWithAuth(t).delete(
-      `${process.env.REACT_APP_T_API}/api/auth/exercises/${id}`
-    );
-    dispatch<{ type: string; payload: string }>({
-      type: DELETE_SAVED_EXERCISE,
-      payload: id
-    });
-  };
+  const deleteExercise = useCallback(
+    async (id: string) => {
+      await dispatch(deleteExerciseAction(t, id));
+    },
+    [dispatch, t]
+  );
 
   return (
     <>

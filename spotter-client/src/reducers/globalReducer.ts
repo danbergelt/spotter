@@ -4,7 +4,8 @@ import {
   SET_SCOPE,
   SET_DATE,
   SET_TIMESPAN,
-  CHANGE_SCOPE
+  CHANGE_SCOPE,
+  CLOSE_WORKOUT_MODAL
 } from "../actions/globalActions";
 import { GlobalReducer } from "src/types/State";
 
@@ -54,6 +55,11 @@ export const globalReducer = (
         timeSpan: 0,
         scope: action.payload
       };
+    case CLOSE_WORKOUT_MODAL:
+      return {
+        ...state,
+        ctx: null
+      }
     default:
       return state;
   }

@@ -17,7 +17,9 @@ import {
   RESET_NOTES,
   resetNotesAction,
   ADD_WORKOUT_TITLE,
-  addTitleAction
+  addTitleAction,
+  FROM_TEMPLATE,
+  generateTemplateAction
 } from "../../../actions/workoutActions";
 
 const mockStore = configureMockStore([thunk]);
@@ -113,6 +115,16 @@ describe("dispatches workout actions", () => {
     const store = mockStore();
 
     store.dispatch(addTitleAction("t"));
+
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  test("generate template", () => {
+    const expectedActions = [{ type: FROM_TEMPLATE, payload: "foo" }];
+
+    const store = mockStore();
+
+    store.dispatch(generateTemplateAction("foo"));
 
     expect(store.getActions()).toEqual(expectedActions);
   });

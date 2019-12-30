@@ -7,18 +7,13 @@ import { useHistory } from "react-router-dom";
 import reFetch from "../../../../utils/reFetch";
 import { useDispatch, useSelector } from "react-redux";
 import { SET_DATE, SET_TIMESPAN } from "../../../../actions/timeScopeActions";
-import { SET_SAVE_MSG } from "../../../../actions/optionsActions";
 import { MODAL_CTX } from "../../../../actions/ctxActions";
-import {
-  RESET_WORKOUT,
-  RESET_QUEUE,
-  FROM_SAVED
-} from "../../../../actions/workoutActions";
-import { RESET_TAGS } from "../../../../actions/tagsActions";
+import { FROM_SAVED } from "../../../../actions/workoutActions";
 import { fetchExercises } from "../../../../actions/fetchExercisesActions";
 import { State } from "src/types/State";
 import { Workout } from "src/types/Workout";
 import { Moment } from "moment";
+import { closeWorkoutModalAction } from "src/actions/globalActions";
 
 interface GlobalReducer {
   scope: { value: string; label: string };
@@ -75,7 +70,7 @@ const WorkoutColumns = () => {
 
   // opens modal to view a saved workout
   const openViewModal: (workout: Workout, date: Moment) => void = useCallback(
-    (workout, date) => {
+    async (workout, date) => {
       dispatch<{ type: string; payload: Moment }>({
         type: SET_DATE,
         payload: date
@@ -89,7 +84,7 @@ const WorkoutColumns = () => {
         payload: workout
       });
       setModal(true);
-      dispatch(fetchExercises(history, t));
+      await dispatch(fetchExercises(history, t));
     },
     [dispatch, history, t]
   );
@@ -97,17 +92,7 @@ const WorkoutColumns = () => {
   // resets state in various parts of application upon workout modal close
   const closeModal: () => void = useCallback(() => {
     setModal(false);
-    dispatch<{ type: string }>({ type: RESET_WORKOUT });
-    dispatch<{ type: string }>({ type: RESET_TAGS });
-    dispatch<{ type: string }>({ type: RESET_QUEUE });
-    dispatch<{ type: string; payload: null }>({
-      type: MODAL_CTX,
-      payload: null
-    });
-    dispatch<{ type: string; payload: string }>({
-      type: SET_SAVE_MSG,
-      payload: ""
-    });
+    dispatch(closeWorkoutModalAction());
   }, [dispatch]);
 
   return (

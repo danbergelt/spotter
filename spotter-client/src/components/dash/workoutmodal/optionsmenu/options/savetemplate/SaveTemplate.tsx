@@ -6,8 +6,8 @@ import SaveTemplateMsg from "./SaveTemplateMsg";
 import SaveTemplateBtn from "./SaveTemplateBtn";
 import SaveTemplateForm from "./SaveTemplateForm";
 import SaveTemplateHead from "./SaveTemplateHead";
-import axiosWithAuth from "../../../../../../utils/axiosWithAuth";
 import { State, WorkoutReducer, fetchToken } from "src/types/State";
+import { saveTemplateAction } from "src/actions/optionsActions";
 
 interface Props {
   close: (payload: boolean) => void;
@@ -18,11 +18,12 @@ if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 // save template modal body, including call to save template
 
 const SaveTemplate: React.FC<Props> = ({ close }) => {
-  const fetchWorkout = (state: State) => state.workoutReducer;
-  const workout: WorkoutReducer = useSelector(fetchWorkout);
-
-  const fetchTemplateSave = (state: State) => state.optionsReducer.templateSave;
-  const templateSave: boolean = useSelector(fetchTemplateSave);
+  const workout: WorkoutReducer = useSelector(
+    (state: State) => state.workoutReducer
+  );
+  const templateSave: boolean = useSelector(
+    (state: State) => state.optionsReducer.templateSave
+  );
 
   const t: string | null = useSelector(fetchToken);
 
@@ -37,29 +38,12 @@ const SaveTemplate: React.FC<Props> = ({ close }) => {
     setTempName("");
   };
 
-  // API call to save template for later use
+  // API call to save template
   const handleSubmit: (
     e: React.FormEvent<HTMLFormElement>
   ) => void = async e => {
     e.preventDefault();
-    try {
-      await axiosWithAuth(t).post(
-        `${process.env.REACT_APP_T_API}/api/auth/templates`,
-        {
-          name: tempName,
-          title: workout.title,
-          tags: workout.tags,
-          notes: workout.notes,
-          exercises: workout.exercises
-        }
-      );
-      setTempName("");
-      setMessage({ success: "Template created" });
-    } catch (error) {
-      if (error.response) {
-        setMessage({ error: error.response.data.error });
-      }
-    }
+    saveTemplateAction(t, tempName, workout, setTempName, setMessage);
   };
 
   return (

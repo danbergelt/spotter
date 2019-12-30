@@ -2,7 +2,7 @@ import React, { useCallback, memo } from "react";
 import { useDispatch } from "react-redux";
 import SaveTemplate from "./SaveTemplate";
 import { FiSave } from "react-icons/fi";
-import { SET_TEMPLATE_SAVE } from "../../../../../../actions/optionsActions";
+import { setSaveTemplateModalAction } from "../../../../../../actions/optionsActions";
 
 interface Props {
   iconClass: string;
@@ -12,12 +12,9 @@ interface Props {
 const SaveTemplateOption: React.FC<Props> = ({ iconClass }) => {
   const dispatch = useDispatch();
 
-  const setTemplateSaveModal: (payload: boolean) => void = useCallback(
-    payload => {
-      dispatch<{ type: string; payload: boolean }>({
-        type: SET_TEMPLATE_SAVE,
-        payload
-      });
+  const setTemplateSaveModal: (state: boolean) => void = useCallback(
+    state => {
+      dispatch(setSaveTemplateModalAction(state));
     },
     [dispatch]
   );

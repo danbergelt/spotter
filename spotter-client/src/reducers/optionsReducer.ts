@@ -11,6 +11,7 @@ import {
   DELETE_TEMPLATE,
   SET_EXERCISES
 } from "../actions/optionsActions";
+import { CLOSE_WORKOUT_MODAL } from '../actions/globalActions'
 import { OptionsReducer } from "src/types/State";
 
 const optionsState: OptionsReducer = {
@@ -55,6 +56,11 @@ export const optionsReducer = (
         ...state,
         templates: state.templates.filter(el => el._id !== action.payload)
       };
+    case CLOSE_WORKOUT_MODAL:
+      return {
+        ...state,
+        saveMsg: {}
+      }
     default:
       return state;
   }

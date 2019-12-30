@@ -1,4 +1,5 @@
 import { Exercise } from "src/types/Exercises";
+import { Template } from "src/types/Template";
 
 // synchronous workout actions, i.e. adding workout information
 // kept in redux store to allow for global access and flexible functionality, despite being largely input data and synchronous
@@ -74,4 +75,12 @@ export const resetNotesAction: TResetNotes = emptyStr => {
 type TAddTitle = (value: string) => { type: string; payload: string };
 export const addTitleAction: TAddTitle = value => {
   return { type: ADD_WORKOUT_TITLE, payload: value };
+};
+
+//@desc --> generates a workout from a saved template
+type TGenerateTemplate = (
+  template: Template | {}
+) => { type: string; payload: Template | {} };
+export const generateTemplateAction: TGenerateTemplate = template => {
+  return { type: FROM_TEMPLATE, payload: template };
 };

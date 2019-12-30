@@ -5,9 +5,14 @@ import mockWorkoutRes from "../../../__testUtils__/mockWorkoutRes";
 import {
   fetchExercises,
   FETCH_EXERCISES_ERROR,
-  FETCH_EXERCISES_SUCCESS
+  FETCH_EXERCISES_SUCCESS,
+  CREATE_EXERCISE,
+  createExerciseAction,
+  DELETE_SAVED_EXERCISE,
+  deleteExerciseAction
 } from "../../../actions/fetchExercisesActions";
 import { createMemoryHistory } from "history";
+import { addExerciseAction } from "src/actions/workoutActions";
 
 const mockStore = configureMockStore([thunk]);
 
@@ -53,6 +58,34 @@ describe("fetch exercises", () => {
     const store = mockStore({ err: null });
 
     await store.dispatch(fetchExercises(history, "token"));
+
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  test("creates exercise", async () => {
+    axios.post.mockResolvedValue({ data: { exercise: { name: "foo" } } });
+
+    const expectedActions = [
+      { type: CREATE_EXERCISE, payload: { name: "foo" } }
+    ];
+
+    const store = mockStore();
+
+    await store.dispatch(createExerciseAction("token", "foo"));
+
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  test("deletes exercise", async () => {
+    axios.delete.mockResolvedValue({});
+
+    const expectedActions = [
+      { type: DELETE_SAVED_EXERCISE, payload: "foo" }
+    ];
+
+    const store = mockStore();
+
+    await store.dispatch(deleteExerciseAction("token", "foo"));
 
     expect(store.getActions()).toEqual(expectedActions);
   });
