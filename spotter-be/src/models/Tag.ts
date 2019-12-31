@@ -32,7 +32,7 @@ TagSchema.pre("findOneAndUpdate", async function(
   // extract the content in the update
   const { content }: { content: string } = this.getUpdate();
 
-  // open a new update query, match templates to the pre-fetched templates
+  // open a new update template query, match the id on each template to the specific doc's id
   await Template.updateMany(
     { tags: { $elemMatch: { _id: doc._id } } },
     {
@@ -44,7 +44,7 @@ TagSchema.pre("findOneAndUpdate", async function(
     { new: true }
   ).exec();
 
-  // open a new update query, match the workouts to the pre-fetched workouts
+  // open a new update workout query, match the id on each workout to the specific doc's id
   await Workout.updateMany(
     { tags: { $elemMatch: { _id: doc._id } } },
     {
@@ -61,7 +61,6 @@ TagSchema.pre("findOneAndUpdate", async function(
 
 // cascade delete tags
 TagSchema.pre("remove", async function(next) {
-  
   // get the id off of the removed tag
   const tagId: Schema.Types.ObjectId = this._id;
 
