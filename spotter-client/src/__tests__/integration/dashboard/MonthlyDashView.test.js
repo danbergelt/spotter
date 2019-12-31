@@ -10,7 +10,7 @@ import mockMultipleWorkouts from "../../../__testUtils__/mockMultipleWorkouts";
 import axios from "axios";
 import Modal from "react-modal";
 import { reducer } from "../../../reducers/index.ts";
-import { SET_SCOPE } from "../../../actions/timeScopeActions";
+import { SET_SCOPE } from "../../../actions/globalActions";
 import { ADD_TOKEN } from "../../../actions/addTokenActions";
 import { FETCH_WORKOUTS_SUCCESS } from "../../../actions/fetchWorkoutsActions";
 
