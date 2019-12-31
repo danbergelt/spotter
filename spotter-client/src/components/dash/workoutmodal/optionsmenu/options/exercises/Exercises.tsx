@@ -26,6 +26,7 @@ const Exercises: React.FC<Props> = ({ setExercisesModal }) => {
   const [tab, setTab] = useState<number>(0);
   const [msg, setMsg] = useState<Msg>({});
 
+  // clear modal state on close
   const handleCloseExerciseModal = () => {
     setExercisesModal(false);
     setTab(0)

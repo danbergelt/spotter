@@ -62,14 +62,14 @@ const WorkoutGrid = () => {
     async date => {
       dispatch(addWorkoutModalAction({ ...paramsHelper, date }));
     },
-    [dispatch, history, t]
+    [dispatch, paramsHelper]
   );
   // opens modal to view a saved workout
   const openViewModal: (workout: Workout, date: Moment) => void = useCallback(
     async (workout, date) => {
       dispatch(viewWorkoutModalAction({ ...paramsHelper, date, workout }));
     },
-    [dispatch, history, t]
+    [dispatch, paramsHelper]
   );
   // resets state in various parts of application upon workout modal close
   const closeModal: () => void = useCallback(() => {
