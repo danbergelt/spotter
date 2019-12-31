@@ -5,6 +5,8 @@ import { History } from "history";
 import { ValidationSchema } from "./ValidationSchema";
 
 // component for login + signup forms
+// Formik components, while stuffed with useful functionality, are exceedingly long and not very developer-friendly
+// Consider looking into react-hook-form for shorter, less obtuse functionality
 
 interface Props {
   action: string;
@@ -42,10 +44,14 @@ const SpotterForm: React.FC<Props> = ({
               withCredentials: true
             });
             resetForm();
+            // adds token to memory for use in application (does not persist)
             addToken(res.data.token);
             history.push("/dashboard");
           } catch (error) {
             if (error.response) {
+              // "status" is essentially a type of state messaging system that allows us to push messages to the user
+              // in this case, that's an error
+              // useful for providing server-side errors in addition to the native Yup errors on the FE
               setStatus(error.response.data.error);
             } else {
               history.push("/500");

@@ -18,7 +18,6 @@ const FromTemplateHead: React.FC<Props> = ({
         <div className="from-template-title">Load Template</div>
         <div onClick={closeHandler} className="from-template-exit">
           <FiX
-            // inline styles as a convenience
             data-testid="quit-from"
             style={{ display: "flex", alignItems: "center" }}
           />

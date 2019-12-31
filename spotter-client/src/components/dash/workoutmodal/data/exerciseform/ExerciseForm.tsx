@@ -14,9 +14,9 @@ import { State } from "src/types/State";
 import { Queued, Refs } from "../../../../../types/Exercises";
 import { Exercise as E } from "../../../../../types/ExerciseOption";
 
-// READ: this component is a nightmare. Formik claims to make working with forms easer,
+// READ: Formik claims to make working with forms easer,
 // but it does not play nicely with other libraries. I need to figure out how to optimize this,
-// or consider other options going forward
+// or consider other options going forward (react-hook-form looks nice)
 
 interface Props {
   refs: Refs;
@@ -30,6 +30,8 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
     (state: State) => state.workoutReducer.queue
   ) as Queued;
 
+  // selecting exercises from state to populate auto-complete
+  // that way, if a user has an exercise saved and wants to track PRs, they can click via auto-complete and avoid spelling mistakes
   const exercises: Array<E> = useSelector(
     (state: State) => state.fetchExercisesReducer.savedExercises
   );
@@ -54,18 +56,20 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
           reps: (!isEmpty(queued) && queued.exercise.reps) || ""
         }}
         validationSchema={ValidationSchema}
+        // allow the form to populate with initial values after first render
+        // useful for repopulating the form with a queued exercise
         enableReinitialize={true}
         onSubmit={(values, { resetForm }) => {
           resetForm();
 
-          // aside from new exercise name, blur all fields on submit
+          // aside from name, blur all fields on submit
           refs.forEach((ref: React.RefObject<HTMLInputElement>) => {
             if (ref.current) {
               ref.current.blur();
             }
           });
 
-          // if we editing an exercise, submit an edit dispatch. otherwise submit an add dispatch
+          // if editing an exercise, submit an edit dispatch. otherwise submit an add dispatch
           if (isEmpty(queued)) {
             dispatch(addExerciseAction(values));
           } else {
@@ -82,8 +86,13 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
               {errors.name && touched.name && (
                 <p className="error-exercise-form">{errors.name}</p>
               )}
-
               <Autosuggest
+              // CODE SMELL
+              // this component is not actively maintained, and contains multiple unsafe lifecycle methods
+              // also - it's just plain complicated
+              // consider either namespacing the module, opting for a different library, or building a custom component
+
+                // control the input hooked up to autosuggest
                 inputProps={{
                   placeholder: "e.g. squat",
                   autoComplete: "off",
@@ -95,6 +104,8 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
                   className: "exercise-form-field"
                 }}
                 suggestions={suggestions}
+
+                // handles fetching autosuggestions in respect to field input
                 onSuggestionsFetchRequested={({ value }) => {
                   if (!value) {
                     setSuggestions([]);
@@ -107,11 +118,19 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
                     )
                   );
                 }}
+
+                // handles clearing suggestions (why is this prop necessary?)
                 onSuggestionsClearRequested={() => {
                   setSuggestions([]);
                 }}
+
+                // fetches suggestion from local state
                 getSuggestionValue={suggestion => suggestion.name}
+
+                // renders the autosuggest component with suggestions 
                 renderSuggestion={suggestion => <div>{suggestion.name}</div>}
+
+                // passes the clicked suggestion to the input
                 onSuggestionSelected={(event, { suggestion, method }) => {
                   if (method === "enter") {
                     event.preventDefault();
@@ -119,6 +138,7 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
                   setFieldValue("name", suggestion.name);
                 }}
               />
+
             </div>
             <div className="exercise-form-field-container">
               <label className="exercise-form-field-label">Weight</label>

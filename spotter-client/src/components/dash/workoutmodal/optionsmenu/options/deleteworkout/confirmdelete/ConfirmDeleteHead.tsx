@@ -11,7 +11,6 @@ const ConfirmDeleteHead: React.FC<Props> = ({ closeConfirmDelete }) => {
       <div className="delete-head">Delete Workout</div>
       <div onClick={closeConfirmDelete} className="delete-exit">
         <FiX
-          // inline styles for convenience
           data-testid="quit-template-save"
           style={{ display: "flex", alignItems: "center" }}
         />

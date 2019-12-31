@@ -11,7 +11,7 @@ import { State } from "src/types/State";
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
-// body for template generator
+// populate a workout from a template
 
 const FromTemplate: React.FC = () => {
   const [search, setSearch] = useState<string>("");

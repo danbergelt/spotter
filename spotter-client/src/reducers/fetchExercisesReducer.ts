@@ -11,7 +11,7 @@ const fetchExercisesState: FetchExercisesReducer = {
   savedExercises: []
 };
 
-// populates dashboard
+// controls saved exercises
 
 export const fetchExercisesReducer = (
   state = fetchExercisesState,

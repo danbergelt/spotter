@@ -1,3 +1,5 @@
+// utility class that allows for custom error messages
+
 class Err extends Error {
   statusCode: number;
   constructor(message: string, statusCode: number) {

@@ -1,6 +1,8 @@
 import React, { memo } from "react";
 import { Props } from '../../../../../types/Exercises';
 
+// either delete or edit an exercise
+
 const ExerciseActions: React.FC<Props> = ({
   exercise,
   i,

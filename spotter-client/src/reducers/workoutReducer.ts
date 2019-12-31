@@ -64,10 +64,13 @@ export const workoutReducer = (
         exercises: [...state.exercises, action.payload]
       };
     case TOGGLE_TAG:
+      // filters out unnecessary fields returned from MongoDB
       const testForMatches: TagOnWorkout | undefined = find(state.tags, t => {
         return isMatch(t, omit(action.payload, ["__v", "user"]));
       });
       return {
+        // if the current list of tags contains the toggled tag, then remove it
+        // otherwise, add it
         ...state,
         tags: testForMatches
           ? state.tags.filter(el => el._id !== action.payload._id)
@@ -80,6 +83,7 @@ export const workoutReducer = (
       };
     case UPDATE_TAG:
       const testForUpdates: TagOnWorkout | undefined = find(state.tags, t => {
+        // again, omit bad data from MongoDB and update the tag on the current workout
         return isMatch(
           omit(t, ["color", "content", "__v", "tag"]),
           omit(action.payload, ["color", "content", "__v", "user"])

@@ -35,10 +35,11 @@ const WorkoutColumns = () => {
     (state: State) => state.globalReducer
   );
 
+
+  // increment or decrement by one week/day at a time
   const inc = () => {
     dispatch(incOrDecAction("inc", timeSpan));
   };
-
   const dec = () => {
     dispatch(incOrDecAction("dec", timeSpan));
   };

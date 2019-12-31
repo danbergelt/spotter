@@ -12,6 +12,9 @@ interface Props {
   setMsg: React.Dispatch<React.SetStateAction<Msg>>;
 }
 
+// save a new exercise
+// saved exercises can be used to track PRs
+
 const AddExercises: React.FC<Props> = ({ msg, setMsg }) => {
   const [exercise, setExercise] = useState<string>("");
 

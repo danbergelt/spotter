@@ -9,6 +9,8 @@ interface Props {
   month: (num: number) => string
 }
 
+// controls incrementing/decrementing the date in view
+
 const DashControls: React.FC<Props> = ({ inc, dec, time, month }) => {
   return (
     <div className="controls-spacer">

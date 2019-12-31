@@ -16,12 +16,15 @@ interface Props {
 
 // a modal that provides a layer of protection before deleting a workout
 const ConfirmDelete: React.FC<Props> = ({ workoutId, closeParentModal }) => {
+
+  // confirmDelete modal state
   const confirmDelete: boolean = useSelector(
     (state: State) => state.optionsReducer.confirmDelete
   );
 
   const dispatch = useDispatch();
 
+  // close confirm delete modal
   const closeConfirmDelete: () => void = useCallback(() => {
     dispatch(setConfirmDeleteAction(false));
   }, [dispatch]);
