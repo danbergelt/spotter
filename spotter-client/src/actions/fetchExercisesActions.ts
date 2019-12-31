@@ -9,8 +9,8 @@ export const FETCH_EXERCISES_ERROR: string = "FETCH_EXERCISES_ERROR";
 export const CREATE_EXERCISE: string = "CREATE_EXERCISE";
 export const DELETE_SAVED_EXERCISE: string = "DELETE_SAVED_EXERCISE";
 
-// fetches saved exercises to track PRs on saved workouts
-
+// fetches saved exercises
+// only saved exercises can be used to track PRs
 export const fetchExercises = (history: History, t: string | null) => {
   return (dispatch: Dispatch<Action<any>>): Promise<void> => {
     return axiosWithAuth(t)
@@ -34,7 +34,7 @@ export const fetchExercises = (history: History, t: string | null) => {
   };
 };
 
-// @desc --> delete an exercise
+// delete an exercise
 type TDeleteExercise = (
   t: string | null,
   id: string
@@ -52,7 +52,7 @@ export const deleteExerciseAction: TDeleteExercise = (t, id) => {
   };
 };
 
-// @desc --> create a new exercise
+// create a new exercise
 type TCreateExercise = (
   t: string | null,
   exercise: string,
