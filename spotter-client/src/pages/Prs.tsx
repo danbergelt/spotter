@@ -25,7 +25,7 @@ const Prs: React.FC = () => {
   const prs: object = useSelector(getPrs);
   const t: string | null = useSelector(fetchToken);
 
-  useEffect((): void => {
+  useEffect(() => {
     dispatch(fetchPrs(t));
   }, [dispatch, t]);
 
@@ -37,11 +37,6 @@ const Prs: React.FC = () => {
     let allTime: SortedPrsRange = [];
     // if the prs are fetched
     if (Object.keys(prs).length) {
-
-      // if ("default" in moment) {
-      //   var momentDefault: any = moment["default"];
-      // }
-
       for (let pr in prs) {
         // find the diff between the current date and the current pr
         let diff: number = Number(

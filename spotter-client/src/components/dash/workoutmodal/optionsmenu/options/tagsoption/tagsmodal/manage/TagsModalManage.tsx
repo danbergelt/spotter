@@ -47,7 +47,7 @@ const TagsModalManage: React.FC<Props> = ({ setToDelete }) => {
       setUpdateInput("");
       dispatch(editTagAction(paramsHelper));
     },
-    [updateInput, dispatch, history, update, t]
+    [dispatch, paramsHelper]
   );
 
   if (!tags.length) {

@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { ReactComponent as SignUpLogo } from "../assets/spotter_register.svg";
 import Form from "../components/auth/Form";
 import { useDispatch } from "react-redux";
-import { ADD_TOKEN } from "../actions/addTokenActions";
+import { addTokenAction } from "src/actions/globalActions";
 
 const SignUp: React.FC = () => {
   const history = useHistory();
@@ -11,10 +11,7 @@ const SignUp: React.FC = () => {
 
   const addToken = useCallback(
     (t: string): void => {
-      dispatch<{ type: string; payload: string }>({
-        type: ADD_TOKEN,
-        payload: t
-      });
+      dispatch(addTokenAction(t));
     },
     [dispatch]
   );

@@ -1,12 +1,12 @@
 import { globalReducer } from "../../../reducers/globalReducer";
 import { ADD_TOKEN } from "../../../actions/addTokenActions";
-import { MODAL_CTX } from "../../../actions/ctxActions";
 import {
+  CHANGE_SCOPE,
   SET_SCOPE,
   SET_DATE,
-  SET_TIMESPAN
-} from "../../../actions/timeScopeActions";
-import { CHANGE_SCOPE } from "src/actions/globalActions";
+  SET_TIMESPAN,
+  MODAL_CTX
+} from "src/actions/globalActions";
 
 describe("global reducer", () => {
   test("should return initial state", () => {

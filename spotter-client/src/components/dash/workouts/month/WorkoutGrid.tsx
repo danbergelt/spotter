@@ -3,10 +3,12 @@ import { generateMonth, monthDashHead } from "../../../../utils/momentUtils";
 import DashControls from "../DashControls";
 import GridDay from "./GridDay";
 import { useSelector, useDispatch } from "react-redux";
-import { MODAL_CTX } from "../../../../actions/ctxActions";
-import { FROM_SAVED } from "../../../../actions/workoutActions";
+import {
+  incOrDecAction,
+  addWorkoutModalAction,
+  viewWorkoutModalAction
+} from "../../../../actions/globalActions";
 import WorkoutModal from "../../workoutmodal/WorkoutModal";
-import { SET_DATE, SET_TIMESPAN } from "../../../../actions/timeScopeActions";
 import { useHistory } from "react-router-dom";
 import reFetch from "../../../../utils/reFetch";
 import { fetchExercises } from "../../../../actions/fetchExercisesActions";
@@ -31,11 +33,12 @@ const WorkoutGrid = () => {
     id: null
   });
 
-  const fetchWorkouts = (state: State) => state.fetchWorkoutsReducer.workouts;
-  const workouts: Array<Workout> = useSelector(fetchWorkouts);
-
-  const globalReducer = (state: State) => state.globalReducer;
-  const { scope, t, timeSpan }: GlobalReducer = useSelector(globalReducer);
+  const workouts: Array<Workout> = useSelector(
+    (state: State) => state.fetchWorkoutsReducer.workouts
+  );
+  const { scope, t, timeSpan }: GlobalReducer = useSelector(
+    (state: State) => state.globalReducer
+  );
 
   // fetches up-to-date list of workouts on re-render
   useEffect(() => {
@@ -43,57 +46,28 @@ const WorkoutGrid = () => {
   }, [timeSpan, history, scope.value, t]);
 
   const inc = () => {
-    dispatch<{ type: string; payload: number }>({
-      type: SET_TIMESPAN,
-      payload: timeSpan + 1
-    });
+    dispatch(incOrDecAction("inc", timeSpan));
   };
 
   const dec = () => {
-    dispatch<{ type: string; payload: number }>({
-      type: SET_TIMESPAN,
-      payload: timeSpan - 1
-    });
+    dispatch(incOrDecAction("dec", timeSpan));
   };
 
   // opens modal to add a new workout
+  const paramsHelper = { setModal, fetchExercises, t, history };
   const openAddWorkoutModal: (date: Moment) => void = useCallback(
-    date => {
-      dispatch<{ type: string; payload: Moment }>({
-        type: SET_DATE,
-        payload: date
-      });
-      dispatch<{ type: string; payload: string }>({
-        type: MODAL_CTX,
-        payload: "add"
-      });
-      setModal(true);
-      dispatch(fetchExercises(history, t));
+    async date => {
+      dispatch(addWorkoutModalAction({ ...paramsHelper, date }));
     },
     [dispatch, history, t]
   );
-
   // opens modal to view a saved workout
   const openViewModal: (workout: Workout, date: Moment) => void = useCallback(
-    (workout, date) => {
-      dispatch<{ type: string; payload: Moment }>({
-        type: SET_DATE,
-        payload: date
-      });
-      dispatch<{ type: string; payload: string }>({
-        type: MODAL_CTX,
-        payload: "view"
-      });
-      dispatch<{ type: string; payload: Workout }>({
-        type: FROM_SAVED,
-        payload: workout
-      });
-      setModal(true);
-      dispatch(fetchExercises(history, t));
+    async (workout, date) => {
+      dispatch(viewWorkoutModalAction({ ...paramsHelper, date, workout }));
     },
     [dispatch, history, t]
   );
-
   // resets state in various parts of application upon workout modal close
   const closeModal: () => void = useCallback(() => {
     setModal(false);

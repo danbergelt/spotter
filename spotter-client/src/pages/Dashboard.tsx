@@ -7,9 +7,9 @@ import { useSelector } from "react-redux";
 import { State } from "src/types/State";
 
 const Dashboard: React.FC = () => {
-  const fetchScope = (state: State) => state.globalReducer.scope;
-
-  const scope: { value: string; label: string } = useSelector(fetchScope);
+  const scope: { value: string; label: string } = useSelector(
+    (state: State) => state.globalReducer.scope
+  );
 
   return (
     <>
