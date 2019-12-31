@@ -12,18 +12,20 @@ import { State } from "src/types/State";
 
 interface Props {
   closeParentModal: () => void;
-  time: number
+  time: number;
 }
 
 // container for sidebar menu on workout modal
 const WorkoutOptions: React.FC<Props> = ({ closeParentModal, time }) => {
   const iconClass: string = "add-workout-options-icon";
 
-  const fetchCtx = (state: State) => state.globalReducer.ctx;
-  const ctx: string | null = useSelector(fetchCtx);
+  const ctx: string | null = useSelector(
+    (state: State) => state.globalReducer.ctx
+  );
 
-  const fetchWorkoutId = (state: State) => state.workoutReducer._id
-  const workoutId: string | null = useSelector(fetchWorkoutId);
+  const workoutId: string | null = useSelector(
+    (state: State) => state.workoutReducer._id
+  );
 
   return (
     <div className="add-workout-options-container">

@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Loader from "react-loader-spinner";
-import { TOGGLE_TAG } from "../../../../../../../../actions/workoutActions";
+import { toggleTagAction } from "../../../../../../../../actions/workoutActions";
 import { styles as lStyles } from "../localutils/loaderStyles";
 import Tag from "./Tag";
 import { State } from "src/types/State";
@@ -14,21 +14,20 @@ interface TagsState {
 
 // tab - add tag to current workout
 const TagsModalAdd = () => {
-  const fetchTagsReducer = (state: State) => state.tagsReducer;
-  const { tags, isLoading }: TagsState = useSelector(fetchTagsReducer);
+  const { tags, isLoading }: TagsState = useSelector(
+    (state: State) => state.tagsReducer
+  );
+  const onWorkout: Array<T> = useSelector(
+    (state: State) => state.workoutReducer.tags
+  );
 
-  const fetchTagOnWorkout = (state: State) => state.workoutReducer.tags;
-  const onWorkout: Array<T> = useSelector(fetchTagOnWorkout);
   const dispatch = useDispatch();
 
   const [hover, setHover] = useState<null | string>(null);
 
   const toggleTag: (tag: T) => void = useCallback(
     tag => {
-      dispatch<{ type: string; payload: T }>({
-        type: TOGGLE_TAG,
-        payload: tag
-      });
+      dispatch(toggleTagAction(tag));
     },
     [dispatch]
   );

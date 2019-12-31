@@ -3,14 +3,8 @@ import { generateMonth, monthDashHead } from "../../../../utils/momentUtils";
 import DashControls from "../DashControls";
 import GridDay from "./GridDay";
 import { useSelector, useDispatch } from "react-redux";
-import { SET_SAVE_MSG } from "../../../../actions/optionsActions";
-import { RESET_TAGS } from "../../../../actions/tagsActions";
 import { MODAL_CTX } from "../../../../actions/ctxActions";
-import {
-  RESET_WORKOUT,
-  RESET_QUEUE,
-  FROM_SAVED
-} from "../../../../actions/workoutActions";
+import { FROM_SAVED } from "../../../../actions/workoutActions";
 import WorkoutModal from "../../workoutmodal/WorkoutModal";
 import { SET_DATE, SET_TIMESPAN } from "../../../../actions/timeScopeActions";
 import { useHistory } from "react-router-dom";
@@ -19,6 +13,7 @@ import { fetchExercises } from "../../../../actions/fetchExercisesActions";
 import { State } from "src/types/State";
 import { Workout } from "src/types/Workout";
 import { Moment } from "moment";
+import { closeWorkoutModalAction } from "src/actions/globalActions";
 
 interface GlobalReducer {
   scope: { value: string; label: string };
@@ -102,17 +97,7 @@ const WorkoutGrid = () => {
   // resets state in various parts of application upon workout modal close
   const closeModal: () => void = useCallback(() => {
     setModal(false);
-    dispatch<{ type: string }>({ type: RESET_WORKOUT });
-    dispatch<{ type: string }>({ type: RESET_TAGS });
-    dispatch<{ type: string }>({ type: RESET_QUEUE });
-    dispatch<{ type: string; payload: null }>({
-      type: MODAL_CTX,
-      payload: null
-    });
-    dispatch<{ type: string; payload: string }>({
-      type: SET_SAVE_MSG,
-      payload: ""
-    });
+    dispatch(closeWorkoutModalAction());
   }, [dispatch]);
 
   return (

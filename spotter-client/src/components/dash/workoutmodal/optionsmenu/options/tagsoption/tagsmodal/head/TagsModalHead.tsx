@@ -1,8 +1,8 @@
 import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { FiX } from "react-icons/fi";
-import { SET_ACTIVE } from "../../../../../../../../actions/optionsActions";
 import Tab from "./Tab";
+import { setActiveTabAction } from "src/actions/tagsActions";
 
 interface Props {
   active: number;
@@ -14,7 +14,7 @@ const TagsModalHead: React.FC<Props> = ({ active, closeTagModal }) => {
 
   const setActive: (id: number) => void = useCallback(
     id => {
-      dispatch<{ type: string, payload: number }>({ type: SET_ACTIVE, payload: id });
+      dispatch(setActiveTabAction(id));
     },
     [dispatch]
   );

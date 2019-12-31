@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import axiosWithAuth from "../../../../../../../../utils/axiosWithAuth";
 import { colors } from "../localutils/createTagStyles";
 import Loader from "react-loader-spinner";
 import Message from "./Message";
-import { fetchTags } from "../../../../../../../../actions/tagsActions";
+import { saveTagAction } from "../../../../../../../../actions/tagsActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Color from "./Color";
@@ -17,30 +16,25 @@ const TagsModalCreate = () => {
   const [name, setName] = useState<string>("");
   const [hover, setHover] = useState<null | string>(null);
   const [color, setColor] = useState<string>(colors[0]);
-  const [message, setMessage] = useState<{ success?: string; error?: string }>({});
+  const [message, setMessage] = useState<{ success?: string; error?: string }>(
+    {}
+  );
   const [loading, setLoading] = useState<boolean>(false);
 
   const t: string | null = useSelector(fetchToken);
 
+  const paramsHelper = {
+    setLoading,
+    t,
+    color,
+    history,
+    setMessage,
+    setName,
+    name
+  };
+
   const submitTag: () => Promise<void> = async () => {
-    setLoading(true);
-    try {
-      await axiosWithAuth(t).post(
-        `${process.env.REACT_APP_T_API}/api/auth/tags`,
-        {
-          color: color,
-          content: name
-        }
-      );
-      setMessage({ success: "New tag created" });
-      setLoading(false);
-      setName("");
-      dispatch(fetchTags(history, t));
-    } catch (error) {
-      setMessage(error.response.data);
-      setLoading(false);
-      setName("");
-    }
+    await dispatch(saveTagAction(paramsHelper));
   };
 
   return (
