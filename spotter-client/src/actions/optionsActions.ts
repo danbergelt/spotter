@@ -3,6 +3,8 @@ import { AxiosResponse } from "axios";
 import { Dispatch, Action } from "redux";
 import { Template } from "src/types/Template";
 import { WorkoutReducer } from "src/types/State";
+import { Moment } from "moment";
+import { History } from "history";
 
 export const OPEN_TAG_MODAL: string = "OPEN_TAG_MODAL";
 export const CLOSE_TAG_MODAL: string = "CLOSE_TAG_MODAL";
@@ -40,7 +42,9 @@ export const setFromTemplateModalAction: TSetFromTemplateModal = state => {
   return { type: SET_FROM_TEMPLATE, payload: state };
 };
 
-//@desc --> fetches templates on from template modal open
+//@desc --> fetches templates
+// ---------------------------------
+// ---------------------------------
 
 type TFetchTemplates = (
   t: string | null
@@ -75,7 +79,10 @@ export const fetchTemplatesAction: TFetchTemplates = t => {
   };
 };
 
-//@desc --> delete a template
+//@desc --> delete template
+// ---------------------------------
+// ---------------------------------
+
 type TDeleteTemplate = (
   t: string | null,
   id: string
@@ -101,6 +108,9 @@ export const setSaveTemplateModalAction: TSetSaveTemplateModal = state => {
 };
 
 //@desc --> save template
+// ---------------------------------
+// ---------------------------------
+
 type TSaveTemplate = (
   t: string | null,
   tempName: string,
@@ -139,4 +149,101 @@ export const saveTemplateAction: TSaveTemplate = async (
       setMessage({ error: error.response.data.error });
     }
   }
+};
+
+//@desc --> save workout
+// ---------------------------------
+// ---------------------------------
+
+interface ParamsHelper {
+  t: string | null;
+  workout: WorkoutReducer;
+  closeParentModal: Function;
+  time: number;
+  scope: { value: string; label: string };
+  history: History;
+  reFetch: Function;
+  date?: Moment | null;
+  workoutId?: string | null;
+}
+
+type TSaveWorkout = (
+  paramsHelper: ParamsHelper
+) => (dispatch: Dispatch<Action>) => void;
+
+export const saveWorkoutAction: TSaveWorkout = paramsHelper => {
+  const {
+    t,
+    workout,
+    closeParentModal,
+    time,
+    scope,
+    history,
+    reFetch,
+    date
+  } = paramsHelper;
+
+  return async dispatch => {
+    try {
+      await axiosWithAuth(t).post(
+        `${process.env.REACT_APP_T_API}/api/auth/workouts`,
+        {
+          date: date && date.format("MMM DD YYYY"),
+          title: workout.title,
+          notes: workout.notes,
+          exercises: workout.exercises,
+          tags: workout.tags
+        }
+      );
+      // refetch updated list of workouts
+      await reFetch(time, history, scope.value, t);
+      // // close modal and return to dashboard
+      closeParentModal();
+    } catch (err) {
+      dispatch({
+        type: SET_SAVE_MSG,
+        payload: { error: err.response.data.error }
+      });
+    }
+  };
+};
+
+//@desc --> edit workout
+// ---------------------------------
+// ---------------------------------
+
+export const editWorkoutAction: TSaveWorkout = paramsHelper => {
+  const {
+    t,
+    workout,
+    closeParentModal,
+    time,
+    scope,
+    history,
+    reFetch,
+    workoutId
+  } = paramsHelper;
+
+  return async dispatch => {
+    try {
+      await axiosWithAuth(t).put(
+        `${process.env.REACT_APP_T_API}/api/auth/workouts/${workoutId}`,
+        {
+          title: workout.title,
+          notes: workout.notes,
+          exercises: workout.exercises,
+          tags: workout.tags
+        }
+      );
+      // refetch updated list of workouts
+      await reFetch(time, history, scope.value, t);
+      // close modal and return to dashboard
+      closeParentModal();
+    } catch (err) {
+      dispatch<{ type: string; payload: { error: string } }>({
+        type: SET_SAVE_MSG,
+        payload: { error: err.response.data.error }
+      });
+    }
+  };
 };

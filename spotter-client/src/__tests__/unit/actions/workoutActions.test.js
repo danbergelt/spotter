@@ -19,7 +19,9 @@ import {
   ADD_WORKOUT_TITLE,
   addTitleAction,
   FROM_TEMPLATE,
-  generateTemplateAction
+  generateTemplateAction,
+  TOGGLE_TAG,
+  toggleTagAction
 } from "../../../actions/workoutActions";
 
 const mockStore = configureMockStore([thunk]);
@@ -125,6 +127,16 @@ describe("dispatches workout actions", () => {
     const store = mockStore();
 
     store.dispatch(generateTemplateAction("foo"));
+
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  test("toggle tag", () => {
+    const expectedActions = [{ type: TOGGLE_TAG, payload: "foo" }];
+
+    const store = mockStore();
+
+    store.dispatch(toggleTagAction("foo"));
 
     expect(store.getActions()).toEqual(expectedActions);
   });

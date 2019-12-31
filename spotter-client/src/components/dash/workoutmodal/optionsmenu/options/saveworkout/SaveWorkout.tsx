@@ -1,9 +1,11 @@
 import React, { memo } from "react";
 import { FiPlusCircle } from "react-icons/fi";
 import { useSelector, useDispatch } from "react-redux";
-import { SET_SAVE_MSG } from "../../../../../../actions/optionsActions";
+import {
+  saveWorkoutAction,
+  editWorkoutAction
+} from "../../../../../../actions/optionsActions";
 import { useHistory } from "react-router-dom";
-import axiosWithAuth from "../../../../../../utils/axiosWithAuth";
 import reFetch from "../../../../../../utils/reFetch";
 import { State, WorkoutReducer } from "src/types/State";
 import { Moment } from "moment";
@@ -30,6 +32,7 @@ const SaveWorkout: React.FC<Props> = ({
   ctx,
   iconClass
 }) => {
+  
   const saveMsg: Partial<{ error: string }> = useSelector(
     (state: State) => state.optionsReducer.saveMsg
   );
@@ -43,54 +46,28 @@ const SaveWorkout: React.FC<Props> = ({
   const dispatch = useDispatch();
   const history = useHistory();
 
+  // builds an object to clean up passing 5+ params to the workout dispatchers
+  const paramsHelper = {
+    t,
+    workout,
+    closeParentModal,
+    time,
+    scope,
+    history,
+    reFetch,
+    date,
+    workoutId
+  };
+
   const saveHandler: () => Promise<void> = async () => {
     // if user is adding a new workout
     if (ctx === "add") {
-      try {
-        await axiosWithAuth(t).post(
-          `${process.env.REACT_APP_T_API}/api/auth/workouts`,
-          {
-            date: date && date.format("MMM DD YYYY"),
-            title: workout.title,
-            notes: workout.notes,
-            exercises: workout.exercises,
-            tags: workout.tags
-          }
-        );
-        // refetch updated list of workouts
-        await reFetch(time, history, scope.value, t);
-        // // close modal and return to dashboard
-        closeParentModal();
-      } catch (err) {
-        dispatch<{ type: string; payload: { error: string } }>({
-          type: SET_SAVE_MSG,
-          payload: { error: err.response.data.error }
-        });
-      }
+      await dispatch(saveWorkoutAction(paramsHelper));
     }
 
     // if user is editing a saved workout
     if (ctx === "view") {
-      try {
-        await axiosWithAuth(t).put(
-          `${process.env.REACT_APP_T_API}/api/auth/workouts/${workoutId}`,
-          {
-            title: workout.title,
-            notes: workout.notes,
-            exercises: workout.exercises,
-            tags: workout.tags
-          }
-        );
-        // refetch updated list of workouts
-        await reFetch(time, history, scope.value, t);
-        // close modal and return to dashboard
-        closeParentModal();
-      } catch (err) {
-        dispatch<{ type: string; payload: { error: string } }>({
-          type: SET_SAVE_MSG,
-          payload: { error: err.response.data.error }
-        });
-      }
+      await dispatch(editWorkoutAction(paramsHelper));
     }
   };
 

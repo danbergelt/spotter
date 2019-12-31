@@ -1,5 +1,6 @@
 import { Exercise } from "src/types/Exercises";
 import { Template } from "src/types/Template";
+import { TagOnWorkout } from "src/types/TagOnWorkout";
 
 // synchronous workout actions, i.e. adding workout information
 // kept in redux store to allow for global access and flexible functionality, despite being largely input data and synchronous
@@ -83,4 +84,12 @@ type TGenerateTemplate = (
 ) => { type: string; payload: Template | {} };
 export const generateTemplateAction: TGenerateTemplate = template => {
   return { type: FROM_TEMPLATE, payload: template };
+};
+
+//@desc --> toggle tag on current workout
+type TToggleTag = (
+  tag: TagOnWorkout
+) => { type: string; payload: TagOnWorkout };
+export const toggleTagAction: TToggleTag = tag => {
+  return { type: TOGGLE_TAG, payload: tag };
 };

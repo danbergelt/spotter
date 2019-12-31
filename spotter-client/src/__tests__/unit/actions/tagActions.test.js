@@ -2,13 +2,17 @@ import {
   fetchTags,
   FETCH_TAGS_START,
   FETCH_TAGS_SUCCESS,
-  FETCH_TAGS_ERROR
+  FETCH_TAGS_ERROR,
+  setActiveTabAction,
+  closeTagModalAction,
+  openTagModalAction
 } from "../../../actions/tagsActions";
 import configureMockStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import axios from "axios";
 import mockTagRes from "../../../__testUtils__/mockTagRes";
 import { createMemoryHistory } from "history";
+import { SET_ACTIVE, CLOSE_TAG_MODAL, OPEN_TAG_MODAL } from "src/actions/optionsActions";
 
 const mockStore = configureMockStore([thunk]);
 
@@ -55,6 +59,36 @@ describe("tag actions", () => {
     const store = mockStore({ err: null });
 
     await store.dispatch(fetchTags(history, "token"));
+
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  test("delete tag", () => {
+    const expectedActions = [{ type: SET_ACTIVE, payload: 1 }];
+
+    const store = mockStore();
+
+    store.dispatch(setActiveTabAction(1));
+
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  test("close tag modal", () => {
+    const expectedActions = [{ type: CLOSE_TAG_MODAL }];
+
+    const store = mockStore();
+
+    store.dispatch(closeTagModalAction());
+
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  test("open tag modal", () => {
+    const expectedActions = [{ type: OPEN_TAG_MODAL }];
+
+    const store = mockStore();
+
+    store.dispatch(openTagModalAction());
 
     expect(store.getActions()).toEqual(expectedActions);
   });
