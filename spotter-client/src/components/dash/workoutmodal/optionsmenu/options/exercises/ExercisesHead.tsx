@@ -4,12 +4,12 @@ import { FiX } from "react-icons/fi";
 // tabs to control exercises modal
 
 interface Props {
-  setExercisesModal: (state: boolean) => void;
+  handleCloseExerciseModal: () => void;
   tab: number;
   setTab: React.Dispatch<React.SetStateAction<number>>
 }
 
-const ExercisesHead: React.FC<Props> = ({ setExercisesModal, tab, setTab }) => {
+const ExercisesHead: React.FC<Props> = ({ handleCloseExerciseModal, tab, setTab }) => {
   return (
     <>
       <div className="exercises-header">
@@ -38,7 +38,7 @@ const ExercisesHead: React.FC<Props> = ({ setExercisesModal, tab, setTab }) => {
           </div>
         </div>
         <div
-          onClick={() => setExercisesModal(false)}
+          onClick={() => handleCloseExerciseModal()}
           className="exercises-exit"
         >
           <FiX
