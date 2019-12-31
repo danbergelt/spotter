@@ -6,10 +6,16 @@ import NotesHead from "./NotesHead";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "src/types/State";
 
+// misc. notes to include on a workout.
+// can be anything worth noting that doesn't fit into a specific category
+
 const WorkoutNotes = () => {
   // actions include saving, deleting notes
   const [actions, setActions] = useState<boolean>(false);
+
+  // ref for focusing on-demand
   const notesRef = useRef<HTMLTextAreaElement>(null);
+
   const notes: string = useSelector(
     (state: State) => state.workoutReducer.notes
   );

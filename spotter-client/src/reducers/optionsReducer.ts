@@ -14,6 +14,8 @@ import {
 import { CLOSE_WORKOUT_MODAL } from '../actions/globalActions'
 import { OptionsReducer } from "src/types/State";
 
+// controls all the various options/settings in the workout modal, including the various modal states, populated content, error messages, etc.
+
 const optionsState: OptionsReducer = {
   active: 0,
   tagModal: false,

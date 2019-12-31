@@ -20,6 +20,8 @@ interface Props {
   setPopover: React.Dispatch<React.SetStateAction<P>>;
 }
 
+// an individual day in the 30 day+ workout grid
+
 const GridDay: React.FC<Props> = ({
   date,
   i,
@@ -32,6 +34,8 @@ const GridDay: React.FC<Props> = ({
   return (
     <div className="month-grid-day" data-testid={date.format("MMM DD YYYY")}>
       {i <= 6 ? (
+        // in the first week, also include the days of the week (e.g. Monday, Tuesday, etc.)
+        // not very DRY to have separate components, possibly pass a notifier prop to change the context, and use a single component?
         <GridHeadFirstWeek
           moment={moment}
           openAddWorkoutModal={openAddWorkoutModal}
@@ -46,6 +50,7 @@ const GridDay: React.FC<Props> = ({
         />
       )}
       {workouts
+        // if the workout matches this day's date, map over it and render it out into the day
         .filter(el => el.date === date.format("MMM DD YYYY"))
         .map(
           (data, i) =>
@@ -58,6 +63,7 @@ const GridDay: React.FC<Props> = ({
                 />
                 {workouts.filter(el => el.date === date.format("MMM DD YYYY"))
                   .length > 1 && (
+                  // if there is more than one workout in a day, render a popover to control overflow
                   <Popover
                     workouts={workouts}
                     popover={popover}

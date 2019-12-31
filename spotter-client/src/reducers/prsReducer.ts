@@ -11,6 +11,8 @@ const fetchPrsState: PrsReducer = {
   prs: {}
 };
 
+// controls the PRs as seens on the PRs page
+
 export const prsReducer = (
   state = fetchPrsState,
   action: { type: string; payload: any }

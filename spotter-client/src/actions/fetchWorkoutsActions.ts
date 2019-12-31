@@ -7,7 +7,7 @@ export const FETCH_WORKOUTS_SUCCESS: string = "FETCH_WORKOUTS_SUCCESS";
 export const FETCH_WORKOUTS_ERROR: string = "FETCH_WORKOUT_ERROR";
 export const DELETE_WORKOUT: string = "DELETE_WORKOUT";
 
-// @desc --> fetches workouts based on range (e.g. week or month)
+// fetches workouts based on range (e.g. week or month)
 interface Params {
   (range: Array<string>, history: History, t: string | null): (
     dispatch: Dispatch<AnyAction>
@@ -36,7 +36,7 @@ export const fetchWorkouts: Params = (range, history, t) => {
   };
 };
 
-// @desc --> delete workout (both locally in the store and remote in the DB)
+// delete workout (both locally in the store and remote in the DB)
 type TDeleteWorkout = (
   t: string | null,
   workoutId: string

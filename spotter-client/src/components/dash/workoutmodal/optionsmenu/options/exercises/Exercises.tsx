@@ -30,6 +30,7 @@ const Exercises: React.FC<Props> = ({ setExercisesModal }) => {
     <Modal
       style={
         tab === 1
+          // shrinks the size of the modal depending on the tab
           ? { ...styles, content: { ...styles.content, height: "185px" } }
           : styles
       }

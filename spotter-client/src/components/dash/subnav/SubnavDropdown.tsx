@@ -5,7 +5,7 @@ import { State } from "src/types/State";
 import { handleScopeChangeAction } from "src/actions/globalActions";
 import { Options, Option } from "./types/types";
 
-// controls workout range (determines range of workouts fetch call) - need to add active range to global state
+// determines scope of dashboard (either month view or weekly view)
 
 const SubnavDropdown = () => {
 
@@ -17,6 +17,8 @@ const SubnavDropdown = () => {
   const scope: Option = useSelector((state: State) => state.globalReducer.scope);
   const dispatch = useDispatch();
 
+  // react-select accepts a customStyles object to direct styling
+  // normally I prefer scss, but 3rd party libraries such as this can be a pain to modify via CSS
   const customStyles: Partial<Styles> = {
     control: (provided: CSSProperties) => ({
       ...provided,
@@ -38,6 +40,7 @@ const SubnavDropdown = () => {
     })
   };
 
+  // changes the scope - must be a controlled component
   const handleChange = (option: ValueType<Option>) => {
     dispatch(handleScopeChangeAction(option));
   };

@@ -1,5 +1,7 @@
 import * as Yup from "yup";
 
+// validation schema for exercise form
+
 export const ValidationSchema = Yup.object().shape({
   name: Yup.string()
     .required("Enter exercise name")

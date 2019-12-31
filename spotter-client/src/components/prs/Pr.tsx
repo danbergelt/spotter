@@ -3,7 +3,6 @@ import { FaCircle } from "react-icons/fa";
 import * as Moment from "moment";
 import { extendMoment } from "moment-range";
 import { Pr as P } from "src/types/Prs";
-
 const moment = extendMoment(Moment);
 let m = require("moment")
 if ("default" in m) {
@@ -16,8 +15,10 @@ interface Props {
 
 
 const Pr: React.FC<Props> = ({ pr }) => {
+
   const setClassName = (pr: P): string | undefined => {
 
+    // difference between the date on the pr and the current date
     const diff: number = m().diff(m(pr.date, "MMM DD YYYY"), "days");
 
     if (diff <= 31) {

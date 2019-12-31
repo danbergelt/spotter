@@ -3,6 +3,8 @@ import { FiPlusCircle } from "react-icons/fi";
 import { Moment } from "moment";
 import { MomentRange } from "moment-range";
 
+
+// HACKY - Moment default imports don't work very well with typescript, so need to import this way to satisfy TS errors
 let m = require("moment")
 if ("default" in m) {
   m = m["default"];
@@ -14,6 +16,8 @@ interface Props {
   moment: MomentRange &
     typeof import("/Users/dan/Documents/prod/spotter/spotter-client/node_modules/moment/moment");
 }
+
+// includes the button to add a new workout
 
 const GridHead: React.FC<Props> = ({ openAddWorkoutModal, date }) => {
 

@@ -3,7 +3,8 @@ import { FiPlusCircle } from "react-icons/fi";
 import { Moment } from "moment";
 import { MomentRange } from "moment-range";
 
-let m = require("moment")
+// HACKY - Moment default imports don't work very well with typescript, so need to import this way to satisfy TS errors
+let m = require("moment");
 if ("default" in m) {
   m = m["default"];
 }
@@ -16,17 +17,14 @@ interface Props {
     typeof import("/Users/dan/Documents/prod/spotter/spotter-client/node_modules/moment/moment");
 }
 
+// the first week also includes the week day + the date and the add workout button
+
 const GridHeadFirstWeek: React.FC<Props> = ({
   date,
   openAddWorkoutModal,
   i,
   moment
 }) => {
-
-  // if ("default" in moment) {
-  //   var momentFunc: any = moment["default"];
-  // }
-
   return (
     <>
       <div className="month-grid-day-head">
@@ -47,7 +45,7 @@ const GridHeadFirstWeek: React.FC<Props> = ({
             : undefined
         }
       >
-        {date.format("D") as any === 1 ? date.format("MMM D") : date.format("D")}
+        {date.format("D")}
       </div>
     </>
   );

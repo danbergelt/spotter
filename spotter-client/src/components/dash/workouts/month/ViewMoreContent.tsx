@@ -16,20 +16,20 @@ interface Props {
   date: M.Moment;
 }
 
+// content container in the popover (which holds workouts when there are more than one on a day)
+
 const ViewMoreContent: React.FC<Props> = ({
   setPopover,
   workouts,
   openViewModal,
   date
 }) => {
+
+  // closes the popover when a workout is selected
   const handlePopover: (workout: Workout, date: M.Moment) => void = workout => {
     setPopover({ open: false, id: null });
     openViewModal(workout, date);
   };
-
-  // if ("default" in moment) {
-  //   var momentFunc: any = moment["default"];
-  // }
 
   return (
     <>

@@ -2,11 +2,15 @@ import React from "react";
 import { useSelector } from "react-redux";
 import Tag from "./Tag";
 import { State } from "src/types/State";
-import {TagOnWorkout } from '../../../../../types/TagOnWorkout';
+import { TagOnWorkout } from "../../../../../types/TagOnWorkout";
+
+// tags on a workout
+// display only, functionality sequestered to the tags modal
 
 const WorkoutTags = () => {
-  const fetchTags = (state: State) => state.workoutReducer.tags
-  const tags: Array<TagOnWorkout> = useSelector(fetchTags);
+  const tags: Array<TagOnWorkout> = useSelector(
+    (state: State) => state.workoutReducer.tags
+  );
 
   return (
     <div className="workout-data-tags">

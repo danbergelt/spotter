@@ -3,6 +3,8 @@ import { FiArrowRight } from "react-icons/fi";
 import ExerciseActions from "./ExerciseActions";
 import { Props } from '../../../../../types/Exercises';
 
+// the rendered exercise, including all the exercise stats and ability to delete/edit
+
 const WorkoutExercise: React.FC<Props> = ({ exercise, i, handleQueue, delExercise }) => {
   return (
     exercise && (

@@ -28,6 +28,8 @@ const WorkoutGrid = () => {
   const dispatch = useDispatch();
 
   const [modal, setModal] = useState<boolean>(false);
+
+  // need to pass an id to control that each day has its own popover
   const [popover, setPopover] = useState<{ open: boolean; id: null | string }>({
     open: false,
     id: null
@@ -45,10 +47,11 @@ const WorkoutGrid = () => {
     reFetch(timeSpan, history, scope.value, t);
   }, [timeSpan, history, scope.value, t]);
 
+
+  // increment or decrement by one week/month at a time
   const inc = () => {
     dispatch(incOrDecAction("inc", timeSpan));
   };
-
   const dec = () => {
     dispatch(incOrDecAction("dec", timeSpan));
   };

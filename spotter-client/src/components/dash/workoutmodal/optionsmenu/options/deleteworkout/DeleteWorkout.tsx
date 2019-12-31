@@ -21,6 +21,7 @@ const DeleteWorkout: React.FC<Props> = ({
   const dispatch = useDispatch();
 
   // references global modal context to determine behavior of delete workout button
+  // either simply closes the modal or deletes the workout from the DB
   const delHandler: () => void = () => {
     return ctx === "view"
       ? dispatch(setConfirmDeleteAction(true))

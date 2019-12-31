@@ -16,20 +16,26 @@ type HandleQueue = (exercise: Exercise, i: number) => void;
 
 type DelExercise = (i: number) => void;
 
+// container to hold all exercises on a workout
+
 const WorkoutExercises = () => {
+
   const exercises: Array<Exercise> = useSelector(
     (state: State) => state.workoutReducer.exercises
   );
+
+  // the app reads the queued state, and if it's not empty will render the clear button
   const queued: Queued = useSelector(
     (state: State) => state.workoutReducer.queue
   ) as Queued;
 
   const dispatch = useDispatch();
 
-  // refs to handle blurring fields
+  // refs to handle blurring fields on submit the form
   const refs: Refs = [];
   times(3, i => (refs[i] = React.createRef()));
 
+  // adds an exercise to the queue
   const handleQueue: HandleQueue = useCallback(
     (exercise, i) => {
       dispatch(handleQueueAction(exercise, i));
@@ -37,6 +43,7 @@ const WorkoutExercises = () => {
     [dispatch]
   );
 
+  // deletes an exercise from the workout
   const delExercise: DelExercise = useCallback(
     i => {
       dispatch(delExerciseAction(i));

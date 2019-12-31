@@ -12,6 +12,7 @@ const NotesTextArea: React.FC<Props> = ({ notes, notesRef, setActions }) => {
   const dispatch = useDispatch();
 
   return (
+    // Grows the text area proportionally with the size of the content
     <TextareaAutosize
       inputRef={notesRef}
       onFocus={() => setActions(true)}

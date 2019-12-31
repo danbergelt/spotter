@@ -8,6 +8,8 @@ interface Props {
   date: Moment;
 }
 
+// prompt to view a pre-existing workout
+
 const GridWorkout: React.FC<Props> = ({ data, openViewModal, date }) => {
   return (
     <div

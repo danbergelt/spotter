@@ -13,7 +13,6 @@ export const FETCH_TAGS_ERROR: string = "FETCH_TAGS_ERROR";
 export const RESET_TAGS: string = "RESET_TAGS";
 
 // fetches tags and resets tags list on modal close
-
 export const fetchTags = (history: History, t: string | null) => {
   return async (dispatch: Dispatch<Action<any>>): Promise<void> => {
     dispatch({ type: FETCH_TAGS_START });
@@ -35,8 +34,7 @@ export const fetchTags = (history: History, t: string | null) => {
   };
 };
 
-//@desc --> save tag
-
+//save tag
 interface IParamsHelper {
   t: string | null;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -77,7 +75,9 @@ export const saveTagAction: TSaveTag = paramsHelper => {
           content: name
         }
       );
+      // confirmation message
       setMessage({ success: "New tag created" });
+      // resets submitting state
       setLoading(false);
       setName("");
       await dispatch(fetchTags(history, t));
@@ -89,15 +89,14 @@ export const saveTagAction: TSaveTag = paramsHelper => {
   };
 };
 
-//@desc - set active tags modal tab
-
+// set active tags modal tab
+// tabs include manage, create, delete (triggered in manage view by clicking delete button), add
 type TSetActiveTab = (id: number) => { type: string; payload: number };
 export const setActiveTabAction: TSetActiveTab = id => {
   return { type: SET_ACTIVE, payload: id };
 };
 
-//@desc --> delete tag
-
+//delete tag
 interface IDelTagHelper {
   t: string | null;
   toDelete: Partial<TagOnWorkout>;
@@ -130,17 +129,23 @@ export const deleteTagAction: TDeleteTag = paramsHelper => {
         type: DELETE_TAG,
         payload: toDelete
       });
+      // push user to first tab
       dispatch(setActiveTabAction(0));
+
+      // CODE SMELL
       await dispatch(fetchTags(history, t));
       await reFetch(timeSpan, history, scope.value, t);
+      // need to investigate filtering tag from state locally (both on workouts in view, and in tags)
+      // this is very hacky how I'm manually triggering a server call to 're-fetch' the data
+      // will clean up this code, create a cleaner transition into a new state (since I'm not relying on asynchronous side effects to usher in fresh state), and reduce BE hits
+      // CODE SMELL
     } catch (error) {
       setErr(error.response.data.error);
     }
   };
 };
 
-//@desc --> submit an edited tag
-
+// submit an edited tag
 interface IEditTagHelper {
   t: string | null;
   update: Partial<TagOnWorkout>;
@@ -165,19 +170,26 @@ export const editTagAction: TEditTag = paramsHelper => {
         type: UPDATE_TAG,
         payload: res.data.tag
       });
+      // CODE SMELL
       await dispatch(fetchTags(history, t));
+      // need to investigate filtering tag from state locally (both on workouts in view, and in tags)
+      // this is very hacky how I'm manually triggering a server call to 're-fetch' the data
+      // will clean up this code, create a cleaner transition into a new state (since I'm not relying on asynchronous side effects to usher in fresh state), and reduce BE hits
+      // CODE SMELL
+
+
     } catch (error) {
       setErr(error.response.data.error);
     }
   };
 };
 
-//@desc --> close tag modal
+// close tag modal
 export const closeTagModalAction = (): { type: string } => {
   return { type: CLOSE_TAG_MODAL };
 };
 
-//@desc --> open tag modal
+// open tag modal
 export const openTagModalAction = (): { type: string } => {
   return { type: OPEN_TAG_MODAL };
 };

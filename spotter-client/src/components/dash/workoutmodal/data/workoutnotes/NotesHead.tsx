@@ -4,6 +4,7 @@ import { NotesProps as Props } from '../../../../../types/Notes';
 
 const NotesHead: React.FC<Props> = ({ notes, notesRef }) => {
 
+  // focuses the notes when the edit button is clicked
   const handleFocus: () => void = () => {
     if(notesRef && notesRef.current){
       notesRef.current.focus()

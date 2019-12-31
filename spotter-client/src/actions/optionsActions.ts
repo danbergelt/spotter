@@ -18,15 +18,15 @@ export const SET_SAVE_MSG: string = "SET_SAVE_MSG";
 export const DELETE_TEMPLATE: string = "DELETE_TEMPLATE";
 export const SET_EXERCISES: string = "SET_EXERCISES";
 
-// all actions related to the various options/settings in the workout modal
+// all actions related to the various options/settings in the workout modal, e.g. template settings, tag settings, etc.
 
-//@desc --> sets the state of the confirm delete modal (open or closed)
+// sets the state of the confirm delete modal (open or closed)
 type TSetConfirmDelete = (state: boolean) => { type: string; payload: boolean };
 export const setConfirmDeleteAction: TSetConfirmDelete = state => {
   return { type: SET_CONFIRM_DELETE, payload: state };
 };
 
-//@desc --> sets the state of the exercise modal (open or closed)
+// sets the state of the exercise modal (open or closed)
 type TSetExercisesModal = (
   state: boolean
 ) => { type: string; payload: boolean };
@@ -34,7 +34,7 @@ export const setExercisesModalAction: TSetExercisesModal = state => {
   return { type: SET_EXERCISES, payload: state };
 };
 
-//@desc --> sets the state of the from template modal (open or closed)
+// sets the state of the from template modal (open or closed)
 type TSetFromTemplateModal = (
   state: boolean
 ) => { type: string; payload: boolean };
@@ -42,7 +42,7 @@ export const setFromTemplateModalAction: TSetFromTemplateModal = state => {
   return { type: SET_FROM_TEMPLATE, payload: state };
 };
 
-//@desc --> fetches templates
+// fetches templates
 // ---------------------------------
 // ---------------------------------
 
@@ -79,7 +79,7 @@ export const fetchTemplatesAction: TFetchTemplates = t => {
   };
 };
 
-//@desc --> delete template
+// delete template
 // ---------------------------------
 // ---------------------------------
 
@@ -99,7 +99,7 @@ export const deleteTemplateAction: TDeleteTemplate = (t, id) => {
   };
 };
 
-//@desc --> set template save modal state (open or closed)
+// set template save modal state (open or closed)
 type TSetSaveTemplateModal = (
   state: boolean
 ) => { type: string; payload: boolean };
@@ -107,7 +107,7 @@ export const setSaveTemplateModalAction: TSetSaveTemplateModal = state => {
   return { type: SET_TEMPLATE_SAVE, payload: state };
 };
 
-//@desc --> save template
+// save template
 // ---------------------------------
 // ---------------------------------
 
@@ -151,7 +151,7 @@ export const saveTemplateAction: TSaveTemplate = async (
   }
 };
 
-//@desc --> save workout
+// save workout
 // ---------------------------------
 // ---------------------------------
 
@@ -195,8 +195,13 @@ export const saveWorkoutAction: TSaveWorkout = paramsHelper => {
           tags: workout.tags
         }
       );
-      // refetch updated list of workouts
+      // CODE SMELL
       await reFetch(time, history, scope.value, t);
+      // need to look into removing this 'refetch' and simply adding the tag locally after the axios call
+      // this is very hacky how I'm manually triggering a server call to 're-fetch' the data
+      // will clean up this code, create a cleaner transition into a new state (since I'm not relying on asynchronous side effects to usher in fresh state), and reduce BE hits
+      // CODE SMELL
+
       // // close modal and return to dashboard
       closeParentModal();
     } catch (err) {
@@ -208,7 +213,7 @@ export const saveWorkoutAction: TSaveWorkout = paramsHelper => {
   };
 };
 
-//@desc --> edit workout
+// edit workout
 // ---------------------------------
 // ---------------------------------
 
@@ -235,8 +240,13 @@ export const editWorkoutAction: TSaveWorkout = paramsHelper => {
           tags: workout.tags
         }
       );
-      // refetch updated list of workouts
+      // CODE SMELL
       await reFetch(time, history, scope.value, t);
+      // need to look into removing this 'refetch' and simply adding the tag locally after the axios call
+      // this is very hacky how I'm manually triggering a server call to 're-fetch' the data
+      // will clean up this code, create a cleaner transition into a new state (since I'm not relying on asynchronous side effects to usher in fresh state), and reduce BE hits
+      // CODE SMELL
+
       // close modal and return to dashboard
       closeParentModal();
     } catch (err) {

@@ -14,7 +14,7 @@ export const SET_TIMESPAN: string = "SET_TIMESPAN";
 export const CHANGE_SCOPE: string = "CHANGE_SCOPE";
 export const CLOSE_WORKOUT_MODAL: string = "CLOSE_WORKOUT_MODAL";
 
-// @desc --> sets dashboard scope to either weekly/monthly
+// sets dashboard scope to either weekly/monthly
 type THandleScopeChange = (
   option: ValueType<Option>
 ) => { type: string; payload: ValueType<Option> };
@@ -25,13 +25,14 @@ export const handleScopeChangeAction: THandleScopeChange = option => {
   };
 };
 
-// @desc --> closes primary workout modal
+// closes primary workout modal
 type TCloseWorkoutModal = () => { type: string };
 export const closeWorkoutModalAction: TCloseWorkoutModal = () => {
   return { type: CLOSE_WORKOUT_MODAL };
 };
 
-//@desc --> increment/decrement timespan
+// increment/decrement timespan
+// e.g. move ahead/move back in time by one week/month at a time
 type TIncOrDec = (
   incOrDec: string,
   timespan: number
@@ -47,7 +48,17 @@ export const incOrDecAction: TIncOrDec = (incOrDec, timespan) => {
   return;
 };
 
-//@desc --> opens add workout modal
+
+
+// the add workout modal is the view that users get to add a new workout
+// the view workout modal is the view users get when they select a pre-exiting workout to view/modify/delete, etc.
+// both the view workout modal and add workout modal use the same component
+// the difference is that certain state functionality is triggered upon opening the modal that caters to either modal state
+// this includes save vs. update workout HTTP request, as well as loading saved data into the view workout modal
+
+
+
+// opens add workout modal
 interface IAddWorkoutModal {
   date: Moment;
   setModal: Function;
@@ -65,24 +76,32 @@ export const addWorkoutModalAction: TAddWorkoutModal = paramsHelper => {
   const { date, setModal, fetchExercises, t, history } = paramsHelper;
 
   return async dispatch => {
+    // saves the clicked date to state
+    // when saved, the date is then associated with that workout
     dispatch({
       type: SET_DATE,
       payload: date
     });
+
+    // this context is what determines the differences in functionality in the two modal types
     dispatch({
       type: MODAL_CTX,
       payload: "add"
     });
+    
+    //opens modal
     setModal(true);
+
+    // fetches exercises
     await dispatch(fetchExercises(history, t));
   };
 };
 
-//@desc --> opens view workout modal
-
+//opens view workout modal
 export const viewWorkoutModalAction: TAddWorkoutModal = paramsHelper => {
   const { date, setModal, fetchExercises, t, history, workout } = paramsHelper;
 
+  // functionality is largely the same as add workout, with some key differences
   return async dispatch => {
     dispatch({
       type: SET_DATE,
@@ -92,6 +111,8 @@ export const viewWorkoutModalAction: TAddWorkoutModal = paramsHelper => {
       type: MODAL_CTX,
       payload: "view"
     });
+
+    // matches the clicked workout, saves the clicked workout to state, and populates the modal with that clicked workout's data
     dispatch({
       type: FROM_SAVED,
       payload: workout
@@ -101,7 +122,8 @@ export const viewWorkoutModalAction: TAddWorkoutModal = paramsHelper => {
   };
 };
 
-//@desc --> opens view workout modal
+// logs a user out
+// removes token from memory, and fetches a dead refresh cookie from the server
 type TLogOut = () => (dispatch: any) => void;
 export const logOutAction: TLogOut = () => {
   return async dispatch => {
@@ -116,7 +138,8 @@ export const logOutAction: TLogOut = () => {
 };
 
 
-//@desc --> add token to state
+// add a token to state
+// this action is triggered on log in/sign up
 type TAddToken = (token: string) => {type: string, payload: string}
 export const addTokenAction: TAddToken = (token) => {
   return {type: ADD_TOKEN, payload: token}
