@@ -3,7 +3,6 @@
 
 .settings-container {
   .settings-section {
-    width: 80rem;
     margin: 5rem auto;
 
     .settings-head {
@@ -41,6 +40,7 @@
         padding: 1rem;
         color: white;
         width: max-content;
+        border-radius: 4px;
         margin-top: 2rem;
         cursor: pointer;
 
@@ -50,6 +50,7 @@
       }
       .export-data {
         background: $info;
+        border-radius: 4px;
         padding: 1rem;
         color: white;
         width: max-content;
