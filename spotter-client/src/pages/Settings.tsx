@@ -35,7 +35,7 @@ const Settings: React.FC = () => {
       </div>
       
       <div className="settings-section">
-        <div className="settings-head">Export Workout Data</div>
+        <div className="settings-head">Exports</div>
         <div className="settings-del-confirm">
           Export your workout data as a CSV file. Click below to start your
           download.

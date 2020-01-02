@@ -40,7 +40,7 @@ export const downloadData: TDownloadWorkoutData = async (
       blob.request.responseType === "blob" &&
       blob.response.data instanceof Blob &&
       blob.response.data.type &&
-      blob.response.data.type.toLowerCase().indexOf("json") != -1
+      blob.response.data.type.toLowerCase().indexOf("json") !== -1
     ) {
       // create a file reader
       // read the blob as text
