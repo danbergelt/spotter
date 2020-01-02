@@ -3,6 +3,9 @@ import asyncHandler from "../middleware/async";
 import Err from "../utils/Err";
 import { promisify } from "util";
 const hex = require("is-hexcolor");
+import stringify from "csv-stringify";
+import fs from "fs";
+import path from "path";
 import redis from "redis";
 import { IWorkout, ITag } from "src/types/models";
 
@@ -110,5 +113,45 @@ export const deleteWorkout = asyncHandler(async (req, res) => {
   res.status(200).json({
     success: true,
     data: "Workout deleted"
+  });
+});
+
+// @desc --> download workout data as a CSV
+// @route --> DELETE /api/auth/workouts/download
+// @access --> Private
+//@ts-ignore
+export const downloadWorkoutData = asyncHandler(async (req, res) => {
+  // fetch all workouts by the user id
+  const workouts = await Workout.find({ user: req.user._id });
+
+  // convert the workouts to JSON
+  //@ts-ignore
+  const workouts_JSON = JSON.parse(JSON.stringify(workouts));
+
+  // convert the JSON to CSV and write to a file via FS
+  const filename = `download-${req.user._id}.csv`;
+  const absPath = path.join(__dirname, "/static/", filename);
+
+  stringify(workouts_JSON, { header: true }, (err, output) => {
+    if (err) console.log(err);
+    fs.writeFile(absPath, output, err => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.download(absPath, err => {
+          if (err) {
+            console.log(err);
+          } else {
+            fs.unlink(absPath, err => {
+              if (err) {
+                console.log(err);
+              } else {
+                console.log("FILE [" + filename + "] REMOVED");
+              }
+            });
+          }
+        });
+      }
+    });
   });
 });

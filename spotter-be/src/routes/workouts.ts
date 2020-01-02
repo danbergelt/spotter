@@ -4,7 +4,8 @@ import {
   getWorkoutsByUserId,
   editWorkout,
   deleteWorkout,
-  workoutRangeByUserId
+  workoutRangeByUserId,
+  downloadWorkoutData
 } from "../controllers/workouts";
 
 import { protect } from "../middleware/auth";
@@ -23,5 +24,7 @@ router
   .delete(protect, deleteWorkout);
 
 router.route("/range").post(protect, workoutRangeByUserId);
+
+router.route("/download").get(protect, downloadWorkoutData);
 
 export default router;

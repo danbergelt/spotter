@@ -1,10 +1,31 @@
 import React, { useState } from "react";
 import ChangePassword from "../components/settings/changepassword/ChangePassword";
 import ChangeEmail from "../components/settings/changeemail/ChangeEmail";
+import axiosWithAuth from "src/utils/axiosWithAuth";
+import { useSelector } from "react-redux";
+import { fetchToken } from "src/types/State";
 
 const Settings: React.FC = () => {
   const [changePassword, setChangePassword] = useState<boolean>(false);
   const [changeEmail, setChangeEmail] = useState<boolean>(false);
+
+  const t: string | null = useSelector(fetchToken);
+
+  const downloadWorkoutData = async () => {
+    try {
+      const res = await axiosWithAuth(t).get(
+        `${process.env.REACT_APP_T_API}/api/auth/workouts/download`, {responseType: 'blob'}
+      );
+      const url = window.URL.createObjectURL(new Blob([res.data]))
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `download-${Date.now()}.csv`);
+      document.body.appendChild(link)
+      link.click();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="settings-container spacer">
@@ -33,7 +54,9 @@ const Settings: React.FC = () => {
         <div className="settings-del-confirm">
           Export your workout data as a CSV file. Click below to start your
           download.
-          <div className="export-data">Export Data</div>
+          <div onClick={() => downloadWorkoutData()} className="export-data">
+            Export Data
+          </div>
         </div>
       </div>
 
