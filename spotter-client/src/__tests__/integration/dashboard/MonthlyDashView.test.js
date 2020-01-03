@@ -71,15 +71,6 @@ describe("Weekly dash date settings", () => {
       container.contains(
         queryByTestId(
           moment()
-            .startOf("month")
-            .format("MMM DD YYYY")
-        )
-      )
-    ).toBeFalsy();
-    expect(
-      container.contains(
-        queryByTestId(
-          moment()
             .add(-2, "months")
             .startOf("month")
             .format("MMM DD YYYY")
