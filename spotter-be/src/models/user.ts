@@ -1,8 +1,14 @@
 import { NextFunction } from "connect";
 import mongoose, { Schema } from "mongoose";
-import * as bcrypt from "bcryptjs";
+import bcrypt from "bcryptjs";
+import redis from "redis";
+import { promisify } from "util";
 import { genToken } from "../utils/tokens";
 import { IUser } from "src/types/models";
+import Exercise from "./Exercise";
+import Tag from "./Tag";
+import Template from "./Template";
+import Workout from "./Workout";
 // User model
 
 const UserSchema = new Schema<IUser>({
@@ -31,6 +37,21 @@ const UserSchema = new Schema<IUser>({
     type: Date,
     default: Date.now
   }
+});
+
+// Cascade remove all models for this user on remove
+UserSchema.pre("remove", async function(next) {
+  // delete user from cache
+  const client: redis.RedisClient = redis.createClient();
+  const del: Function = promisify(client.del).bind(client);
+  await del(this._id.toString());
+
+  // cascade delete every model with this user id attached
+  await Exercise.deleteMany({ user: this._id });
+  await Tag.deleteMany({ user: this._id });
+  await Template.deleteMany({ user: this._id });
+  await Workout.deleteMany({ user: this._id });
+  next();
 });
 
 // Encrypt password on save

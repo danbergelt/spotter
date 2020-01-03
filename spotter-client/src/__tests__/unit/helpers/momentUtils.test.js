@@ -48,11 +48,6 @@ describe("moment utils", () => {
   });
 
   test("dashHead", () => {
-    expect(dashHead(0)).toMatch(
-      moment()
-        .startOf("day")
-        .format("MMMM")
-    );
     expect(dashHead(-4)).toMatch(
       moment()
         .add(-4, "weeks")

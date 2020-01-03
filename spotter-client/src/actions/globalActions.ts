@@ -6,9 +6,12 @@ import { FROM_SAVED } from "./workoutActions";
 import { Workout } from "src/types/Workout";
 import { ADD_TOKEN } from "./addTokenActions";
 import axios from "axios";
+import axiosWithAuth from "src/utils/axiosWithAuth";
+import { Dispatch } from "react";
+import { AnyAction } from "redux";
 
 export const MODAL_CTX: string = "MODAL_CTX";
-export const LOGOUT = "LOGOUT"
+export const LOGOUT: string = "LOGOUT";
 export const SET_SCOPE: string = "SET_SCOPE";
 export const SET_DATE: string = "SET_DATE";
 export const SET_TIMESPAN: string = "SET_TIMESPAN";
@@ -49,15 +52,11 @@ export const incOrDecAction: TIncOrDec = (incOrDec, timespan) => {
   return;
 };
 
-
-
 // the add workout modal is the view that users get to add a new workout
 // the view workout modal is the view users get when they select a pre-exiting workout to view/modify/delete, etc.
 // both the view workout modal and add workout modal use the same component
 // the difference is that certain state functionality is triggered upon opening the modal that caters to either modal state
 // this includes save vs. update workout HTTP request, as well as loading saved data into the view workout modal
-
-
 
 // opens add workout modal
 interface IAddWorkoutModal {
@@ -89,7 +88,7 @@ export const addWorkoutModalAction: TAddWorkoutModal = paramsHelper => {
       type: MODAL_CTX,
       payload: "add"
     });
-    
+
     //opens modal
     setModal(true);
 
@@ -137,10 +136,24 @@ export const logOutAction: TLogOut = () => {
   };
 };
 
+// deletes a user's account, empties state, pushes user to the signup page
+type TCloseAccount = (
+  t: string | null,
+  history: History
+) => (dispatch: Dispatch<AnyAction>) => void;
+export const closeAccountAction: TCloseAccount = (t, history) => {
+  return async dispatch => {
+    await axiosWithAuth(t).delete(
+      `${process.env.REACT_APP_T_API}/api/auth/user/delete`
+    );
+    dispatch({ type: LOGOUT });
+    history.push("/signup");
+  };
+};
 
 // add a token to state
 // this action is triggered on log in/sign up
-type TAddToken = (token: string) => {type: string, payload: string}
-export const addTokenAction: TAddToken = (token) => {
-  return {type: ADD_TOKEN, payload: token}
-}
+type TAddToken = (token: string) => { type: string; payload: string };
+export const addTokenAction: TAddToken = token => {
+  return { type: ADD_TOKEN, payload: token };
+};

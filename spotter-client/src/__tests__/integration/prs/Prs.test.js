@@ -1,7 +1,7 @@
 import React from "react";
 import Routes from "../../../routes";
 import Prs from "../../../pages/Prs";
-import { fireEvent, cleanup } from "@testing-library/react";
+import { fireEvent, cleanup, wait } from "@testing-library/react";
 import wrapper from "../../../__testUtils__/wrapper";
 import { reducer } from "../../../reducers/index";
 import axios from "axios";
@@ -26,7 +26,7 @@ describe("Prs page functionality", () => {
     expect(history.location.pathname).toEqual("/prs");
   });
 
-  test("displays pr", () => {
+  test("displays pr", async () => {
     axios.get.mockResolvedValue({});
     const { getByText, queryByText, store } = wrapper(reducer, <Prs />);
 
@@ -51,32 +51,40 @@ describe("Prs page functionality", () => {
       }
     });
 
-    expect(queryByText(/squat/i)).toBeFalsy();
+    await wait(() => getByText(/last month/i));
 
-    fireEvent.click(getByText(/last month/i));
+    expect(queryByText(/squat/i)).toBeTruthy();
 
-    expect(getByText(/squat/i)).toBeTruthy();
+    expect(queryByText(/deadlift/i)).toBeTruthy();
 
-    expect(queryByText(/deadlift/i)).toBeFalsy();
-
-    fireEvent.click(getByText(/last year/i));
-
-    expect(getByText(/deadlift/i)).toBeTruthy();
-
-    expect(queryByText(/bench/i)).toBeFalsy();
-
-    fireEvent.click(getByText(/all time/i));
-
-    expect(getByText(/bench/i)).toBeTruthy();
+    expect(queryByText(/bench/i)).toBeTruthy();
   });
 
-  test("displays no range found", () => {
+  test("displays no range found", async () => {
     axios.get.mockResolvedValue({});
     const { getByText, store } = wrapper(reducer, <Prs />);
 
     store.dispatch({ type: ADD_TOKEN, payload: "token" });
 
-    fireEvent.click(getByText(/last month/i));
+    store.dispatch({
+      type: FETCH_PRS_SUCCESS,
+      payload: {
+        deadlift: {
+          name: "deadlift",
+          date: moment()
+            .subtract(2, "months")
+            .format("MMM DD YYYY")
+        },
+        bench: {
+          name: "bench",
+          date: moment()
+            .subtract(2, "years")
+            .format("MMM DD YYYY")
+        }
+      }
+    });
+
+    await wait(() => getByText(/last month/i));
 
     expect(getByText(/no prs found in this range/i)).toBeTruthy();
   });
