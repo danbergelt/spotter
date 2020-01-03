@@ -3,6 +3,10 @@ import User from "../models/user";
 import bcrypt from "bcryptjs";
 import asyncHandler from "../middleware/async";
 import { IUser } from "src/types/models";
+import redis from "redis";
+import { promisify } from "util";
+
+const client: redis.RedisClient = redis.createClient();
 
 type TUserDetailKeys =
   | "oldEmail"
@@ -56,6 +60,7 @@ export const changeEmail = asyncHandler(async (req, res, next) => {
 // @access --> Private
 
 export const changePassword = asyncHandler(async (req, res, next) => {
+  // extract the user's input data
   const { oldPassword, newPassword, confirmPassword }: TUserDetails = req.body;
 
   if (!oldPassword || !newPassword || !confirmPassword) {
@@ -78,8 +83,8 @@ export const changePassword = asyncHandler(async (req, res, next) => {
     return next(new Err("Invalid credentials", 400));
   }
 
+  // hash the new password
   const salt: string = await bcrypt.genSalt(10);
-
   const hashedPassword: string = await bcrypt.hash(newPassword, salt);
 
   await User.findByIdAndUpdate(
@@ -90,8 +95,30 @@ export const changePassword = asyncHandler(async (req, res, next) => {
     { new: true }
   );
 
+  // return a success message after the user is updated
   res.status(200).json({
     success: true,
     data: "Password updated"
+  });
+});
+
+// @desc --> delete account
+// @route --> DELETE /api/auth/user/delete
+// @access --> Private
+
+//@ts-ignore
+export const deleteAccount = asyncHandler(async (req, res, next) => {
+  // delete user from cache
+  const del: Function = promisify(client.del).bind(client);
+  const deleted: number = await del(req.user._id.toString());
+
+  if (deleted < 1) {
+    return next(new Err("Error deleting account", 404));
+  }
+
+  await User.findByIdAndDelete(req.user._id);
+
+  return res.status(200).json({
+    success: true
   });
 });
