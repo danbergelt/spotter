@@ -39,7 +39,7 @@ export const TextBlocks: React.FC = () => {
           <div className="textblock-icon scale">
             <FiCalendar style={strokeWidth} />
           </div>
-          <div className="textblock-title">Stay organized long-term</div>
+          <div className="textblock-title">Stay organized</div>
           <div className="textblock-content">
             Spreadsheets are unwieldy.{" "}
             <span className="textblock-highlight">Access, view, and edit</span>{" "}

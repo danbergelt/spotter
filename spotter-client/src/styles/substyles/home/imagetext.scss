@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,700&display=swap");
+@import "../../variables.scss";
+
+.imagetext-container {
+  padding: 15rem 0;
+  background: #f6f8f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .imagetext-image {
+    width: 500px;
+    height: auto;
+    margin-right: 15rem;
+    box-shadow: 0 20px 30px 0 rgba(36,50,66,.14);
+  }
+
+  .imagetext-content-container {
+    width: 35rem;
+    font-family: "Nanum Gothic";
+
+    .imagetext-title {
+      font-size: 3rem;
+      color: $gray1;
+    }
+
+    .imagetext-text {
+      font-size: 1.75rem;
+      color: $gray2;
+      margin-top: 2.5rem;
+    }
+
+    .imagetext-cta {
+      font-family: "Roboto";
+      color: white;
+      font-size: 1.75rem;
+      background: $primary;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 40%;
+      padding: 1.5rem;
+      margin-top: 2.5rem;
+      text-align: center;
+      text-decoration: none;
+
+      &:hover {
+        background: darken($primary, 15%);
+      }
+    }
+  }
+}
