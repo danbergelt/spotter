@@ -16,7 +16,8 @@ interface Props {
 }
 
 const PrSection: React.FC<Props> = ({ title, prs }) => {
-  const [open, setOpen] = useState(false);
+
+  const [open, setOpen] = useState(true);
   const [hover, setHover] = useState(false);
 
   return (
@@ -46,11 +47,8 @@ const PrSection: React.FC<Props> = ({ title, prs }) => {
         )}
         <ReactTooltip place="top" id="pr-info" effect="solid">
           <div style={{ width: "200px" }}>
-            <div style={{ marginBottom: "1rem" }}>Want to view your PRs?</div>
-            <div>
-              Save your exercises when you add a workout - we'll track your PRs, 
-              and display them here.
-            </div>
+            Save the exercises you want tracked, and we'll show your PRs
+            on this page!
           </div>
         </ReactTooltip>
       </div>

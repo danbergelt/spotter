@@ -127,7 +127,7 @@ export const downloadWorkoutData = asyncHandler(async (req, res, next) => {
   // convert the workouts to JSON
   const workouts_JSON = JSON.parse(JSON.stringify(workouts));
 
-  // convert the JSON to CSV and write to a file via FS
+  // constants for saving the file locally
   const filename: string = `download-${req.user._id}-workouts.csv`;
   const absPath: string = path.join(__dirname, "/static/", filename);
 
@@ -155,7 +155,7 @@ export const downloadWorkoutData = asyncHandler(async (req, res, next) => {
 
     // remove the temporary file from the local static path
     await remove(absPath).catch(_ =>
-      next(new Err("An error occurred, unable to download file", 500))
+      next(new Err("Could not download, an error occurred", 500))
     );
   });
 });

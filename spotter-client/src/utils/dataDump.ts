@@ -8,7 +8,7 @@ type TDownloadWorkoutData = (
   data: string
 ) => Promise<void>;
 
-// download data as a blob from server, set to some sort of local state
+// download data as a blob from server, set errors to some sort of local state
 
 export const downloadData: TDownloadWorkoutData = async (
   setDataDump,
