@@ -57,6 +57,7 @@ export const createTag = asyncHandler(async (req, res, next) => {
 export const deleteTag = asyncHandler(async (req, res) => {
   const tag: ITag | null = await Tag.findById(req.params.id);
 
+  // was not able to implement pre-hooks with deleteOne, so opting for remove() instead
   if (tag) {
     await tag.remove();
   }

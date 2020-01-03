@@ -45,7 +45,7 @@
     "coverage": "nyc --reporter=lcov npm run src/test",
     "start": "NODE_ENV=production ts-node src/index",
     "dev": "tsnd --respawn src/index",
-    "wipe": "stop mongodb && run-mongodb"
+    "wipe": "stop mongodb && run-mongodb && stop redis && run-redis"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.2",

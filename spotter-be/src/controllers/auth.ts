@@ -3,10 +3,6 @@ import User from "../models/user";
 import bcrypt from "bcryptjs";
 import asyncHandler from "../middleware/async";
 import { IUser } from "src/types/models";
-import redis from "redis";
-import { promisify } from "util";
-
-const client: redis.RedisClient = redis.createClient();
 
 type TUserDetailKeys =
   | "oldEmail"
@@ -106,16 +102,13 @@ export const changePassword = asyncHandler(async (req, res, next) => {
 // @route --> DELETE /api/auth/user/delete
 // @access --> Private
 
-export const deleteAccount = asyncHandler(async (req, res, next) => {
-  // delete user from cache
-  const del: Function = promisify(client.del).bind(client);
-  const deleted: number = await del(req.user._id.toString());
+export const deleteAccount = asyncHandler(async (req, res) => {
+  const user: IUser | null = await User.findById(req.user._id);
 
-  if (deleted < 1) {
-    return next(new Err("Error deleting account", 404));
+  // was not able to implement pre-hooks with deleteOne, so opting for remove() instead
+  if (user) {
+    await user.remove();
   }
-
-  await User.findByIdAndDelete(req.user._id);
 
   return res.status(200).json({
     success: true
