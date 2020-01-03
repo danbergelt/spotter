@@ -106,7 +106,6 @@ export const changePassword = asyncHandler(async (req, res, next) => {
 // @route --> DELETE /api/auth/user/delete
 // @access --> Private
 
-//@ts-ignore
 export const deleteAccount = asyncHandler(async (req, res, next) => {
   // delete user from cache
   const del: Function = promisify(client.del).bind(client);

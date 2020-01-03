@@ -1,13 +1,9 @@
 import mongoose, { Model } from "mongoose";
 require("dotenv").config();
-import redis from "redis";
-import { promisify } from "util";
-const client: redis.RedisClient = redis.createClient();
-const flush = promisify(client.flushall).bind(client);
 
 // ES6 Promises (for mocking purposes)
 
-export const dbHelper = async (Collection: Model<any>) => {
+export const dbHelper = (Collection: Model<any>) => {
   mongoose.Promise = global.Promise;
 
   mongoose.connect(process.env.T_DB!, {
@@ -22,13 +18,8 @@ export const dbHelper = async (Collection: Model<any>) => {
     .on("error", error => {
       console.warn(`Error: ${error}`);
     });
-  
-  await mongoose.connection.dropDatabase()
 
   beforeEach(async () => {
     await Collection.deleteMany({});
-  });
-  afterEach(async () => {
-    await flush();
   });
 };
