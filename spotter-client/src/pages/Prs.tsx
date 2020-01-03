@@ -8,10 +8,12 @@ import { State, fetchToken } from "src/types/State";
 import { SortedPrs, SortedPrsRange } from "../types/Prs";
 
 const moment: MomentRange = extendMoment(Moment);
-let m = require("moment")
+let m = require("moment");
 if ("default" in m) {
   m = moment["default"];
 }
+
+const categories: Array<string> = ["Last Month", "Last Year", "All Time"];
 
 const Prs: React.FC = () => {
   const dispatch = useDispatch();
@@ -20,9 +22,9 @@ const Prs: React.FC = () => {
     lastYear: [],
     allTime: []
   });
+  const [loading, setLoading] = useState<boolean>(true);
 
-  const getPrs = (state: State) => state.prsReducer.prs;
-  const prs: object = useSelector(getPrs);
+  const prs: object = useSelector((state: State) => state.prsReducer.prs);
   const t: string | null = useSelector(fetchToken);
 
   useEffect(() => {
@@ -56,13 +58,21 @@ const Prs: React.FC = () => {
       lastYear,
       allTime
     });
+
+    // cleanup function to set loading to false, allowing the sections to be rendered
+    return () => setLoading(false);
   }, [prs]);
 
   return (
     <div className="prs-container spacer">
-      <PrSection title={"Last Month"} prs={sortedPrs.lastMonth} />
-      <PrSection title={"Last Year"} prs={sortedPrs.lastYear} />
-      <PrSection title={"All Time"} prs={sortedPrs.allTime} />
+      {!loading &&
+        Object.keys(sortedPrs).map((key, i) => (
+          <PrSection
+            key={categories[i]}
+            prs={sortedPrs[key]}
+            title={categories[i]}
+          />
+        ))}
     </div>
   );
 };

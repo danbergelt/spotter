@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { IoMdArrowDropdown, IoMdArrowDropright } from "react-icons/io";
 import Pr from "./Pr";
 import { Pr as P } from "src/types/Prs";
+import { FiInfo } from "react-icons/fi";
+import ReactTooltip from "react-tooltip";
 
 let m = require("moment");
 if ("default" in m) {
@@ -14,7 +16,8 @@ interface Props {
 }
 
 const PrSection: React.FC<Props> = ({ title, prs }) => {
-  const [open, setOpen] = useState(false);
+
+  const [open, setOpen] = useState(true);
   const [hover, setHover] = useState(false);
 
   return (
@@ -37,6 +40,17 @@ const PrSection: React.FC<Props> = ({ title, prs }) => {
           )}
           <div style={{ marginLeft: "1rem" }}>{title}</div>
         </div>
+        {title === "Last Month" && (
+          <div data-tip data-for="pr-info" className="pr-info">
+            <FiInfo />
+          </div>
+        )}
+        <ReactTooltip place="top" id="pr-info" effect="solid">
+          <div style={{ width: "200px" }}>
+            Save the exercises you want tracked, and we'll show your PRs
+            on this page!
+          </div>
+        </ReactTooltip>
       </div>
       {open && (
         <div className="pr-section-box">

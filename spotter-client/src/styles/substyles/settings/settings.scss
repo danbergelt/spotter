@@ -3,33 +3,35 @@
 
 .settings-container {
   .settings-section {
-    width: 80rem;
+    width: 70rem;
     margin: 5rem auto;
 
     .settings-head {
       border-bottom: 1px solid $gray4;
       padding-bottom: 1rem;
       color: $gray1;
-      font-size: 2.25rem;
+      font-size: $p;
+      font-weight: bold;
     }
 
     .settings-action {
       margin-top: 0.5rem;
       padding: 1.5rem;
-      font-size: $p;
+      font-size: 1.3rem;
       color: $gray1;
       cursor: pointer;
       text-decoration: underline;
       border-radius: 4px;
+      width: max-content;
 
       &:hover {
         background: $gray3;
       }
     }
 
-    .settings-del-confirm {
+    .settings-section-alt {
       padding: 1.5rem;
-      font-size: $p;
+      font-size: 1.3rem;
       color: $gray2;
 
       #del-account-danger {
@@ -41,6 +43,7 @@
         padding: 1rem;
         color: white;
         width: max-content;
+        border-radius: 4px;
         margin-top: 2rem;
         cursor: pointer;
 
@@ -48,11 +51,23 @@
           background: darken($primary, 15%);
         }
       }
+
+      .delete-account-disabled {
+        background: rgba($danger, 0.7);
+        padding: 1rem;
+        color: white;
+        width: max-content;
+        border-radius: 4px;
+        margin-top: 2rem;
+        cursor: not-allowed;
+      }
+
       .export-data {
         background: $info;
         padding: 1rem;
         color: white;
         width: max-content;
+        border-radius: 4px;
         margin-top: 2rem;
         cursor: pointer;
 
@@ -60,88 +75,99 @@
           background: darken($info, 15%);
         }
       }
-    }
-  }
-}
+      .confirm-close {
+        display: flex;
+        align-items: center;
+        margin-top: 2rem;
+        font-weight: bold;
+        color: $gray1;
 
-.change-popup {
-  background: white;
-  width: 275px;
-  height: 250px;
-  box-shadow: $box;
-  padding: 1rem;
-
-  .change-container {
-    height: 100%;
-
-    .popover-head {
-      @include popoverHead;
-      justify-content: flex-end;
-      font-size: 1.5rem;
-      margin-bottom: 0;
-
-      .close-popover {
-        @include closePopover;
+        .confirm-check {
+          margin-right: 1rem;
+        }
       }
     }
+  }
 
-    .change-form {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+  .change-popup {
+    background: white;
+    width: 275px;
+    height: 250px;
+    box-shadow: $box;
+    padding: 1rem;
 
-      .change-inp {
+    .change-container {
+      height: 100%;
+
+      .popover-head {
+        @include popoverHead;
+        justify-content: flex-end;
+        font-size: 1.5rem;
+        margin-bottom: 0;
+
+        .close-popover {
+          @include closePopover;
+        }
+      }
+
+      .change-form {
         display: flex;
         flex-direction: column;
-        margin-bottom: 1rem;
+        justify-content: space-between;
 
-        .change-label {
-          color: $gray2;
-          font-size: 1.2rem;
-          margin-bottom: 0.5rem;
+        .change-inp {
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 1rem;
+
+          .change-label {
+            color: $gray2;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+          }
+
+          .inp-component {
+            padding: 0.75rem;
+            border: 1px solid $gray4;
+            border-radius: 4px;
+            outline: 0;
+
+            &:hover {
+              background: $gray3;
+            }
+
+            &:focus {
+              border: 1px solid $primary;
+            }
+          }
         }
 
-        .inp-component {
-          padding: 0.75rem;
-          border: 1px solid $gray4;
+        .change-button {
+          color: white;
+          background: $primary;
           border-radius: 4px;
+          font-size: 1.3rem;
+          padding: 0.33rem 1rem;
+          cursor: pointer;
+          border: 0;
           outline: 0;
 
           &:hover {
-            background: $gray3;
-          }
-
-          &:focus {
-            border: 1px solid $primary;
+            background: $primary-hover;
           }
         }
-      }
 
-      .change-button {
-        color: white;
-        background: $primary;
-        border-radius: 4px;
-        font-size: 1.3rem;
-        padding: 0.33rem 1rem;
-        cursor: pointer;
-        border: 0;
-        outline: 0;
-
-        &:hover {
-          background: $primary-hover;
+        .change-err {
+          margin-right: 2rem;
+          color: $danger;
+          font-size: 1.3rem;
         }
-      }
 
-      .change-err {
-        margin-right: 2rem;
-        color: $danger;
-        font-size: 1.3rem;
-      }
-
-      .change-succ {
-        margin-right: 2rem;
-        color: $success;
-        font-size: 1.3rem;
+        .change-succ {
+          margin-right: 2rem;
+          color: $success;
+          font-size: 1.3rem;
+        }
       }
     }
   }

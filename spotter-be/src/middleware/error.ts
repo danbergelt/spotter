@@ -20,23 +20,20 @@ const errorHandler = (
   // Mongoose bad Object ID
   if (err.name === "CastError") {
     const message: string = "Resource not found";
-    //@ts-ignore
     error = new Err(message, 404);
   }
 
   // Dup field
   if (err.code === 11000) {
     const message: string = "Duplicate detected, try again";
-    //@ts-ignore
     error = new Err(message, 400);
   }
 
   // Validation err
   if (err.name === "ValidationError") {
-    const message: string | Array<any> = Object.values(err.errors).map(
+    const message: string = Object.values(err.errors).map(
       val => val.message
-    );
-    //@ts-ignore
+    ) as any;
     error = new Err(message, 400);
   }
 
