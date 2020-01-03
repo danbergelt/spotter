@@ -1,4 +1,4 @@
-import mongoose, { Model } from 'mongoose';
+import mongoose, { Model } from "mongoose";
 require("dotenv").config();
 
 // ES6 Promises (for mocking purposes)
@@ -6,15 +6,12 @@ require("dotenv").config();
 export const dbHelper = (Collection: Model<any>) => {
   mongoose.Promise = global.Promise;
 
-  mongoose.connect(
-  process.env.T_DB!,
-    {
-      useNewUrlParser: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-      useUnifiedTopology: true
-    }
-  );
+  mongoose.connect(process.env.T_DB!, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true
+  });
 
   mongoose.connection
     // .once('open', () => console.log('Connected!'.blue))
@@ -22,7 +19,6 @@ export const dbHelper = (Collection: Model<any>) => {
       console.warn(`Error: ${error}`);
     });
 
-  //@ts-ignore  
   beforeEach(async () => {
     await Collection.deleteMany({});
   });

@@ -8,6 +8,7 @@ import { ADD_TOKEN } from "./addTokenActions";
 import axios from "axios";
 
 export const MODAL_CTX: string = "MODAL_CTX";
+export const LOGOUT = "LOGOUT"
 export const SET_SCOPE: string = "SET_SCOPE";
 export const SET_DATE: string = "SET_DATE";
 export const SET_TIMESPAN: string = "SET_TIMESPAN";
@@ -128,8 +129,7 @@ type TLogOut = () => (dispatch: any) => void;
 export const logOutAction: TLogOut = () => {
   return async dispatch => {
     dispatch({
-      type: ADD_TOKEN,
-      payload: null
+      type: LOGOUT
     });
     await axios.get(`${process.env.REACT_APP_T_API}/api/auth/logout`, {
       withCredentials: true

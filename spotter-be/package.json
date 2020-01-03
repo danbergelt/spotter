@@ -41,11 +41,11 @@
     "typescript": "^3.7.4"
   },
   "scripts": {
-    "test": "ts-mocha -p tsconfig.json src/test/tests/**/**/*.test.ts",
+    "test": "ts-mocha -p tsconfig.json src/test/tests/**/**/*.test.ts --file src/test/utils/teardown.ts",
     "coverage": "nyc --reporter=lcov npm run src/test",
     "start": "NODE_ENV=production ts-node src/index",
     "dev": "tsnd --respawn src/index",
-    "lint": "eslint . --ext .js, .ts"
+    "wipe": "stop mongodb && run-mongodb"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.2",
