@@ -10,7 +10,7 @@ const ImageText: React.FC = () => {
       </div>
       <div className="imagetext-content-container">
         <div className="imagetext-title">
-          Built for people who lift, by people who lift
+          For people who lift, by people who lift
         </div>
         <div className="imagetext-text">
           Excel is a drag, tracking by hand is unsustainable, and other apps are

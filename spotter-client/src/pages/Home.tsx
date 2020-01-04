@@ -4,6 +4,7 @@ import Hero from "../components/home/HomeHero";
 import TextBlocks from "../components/home/TextBlocks";
 import ImageText from "../components/home/ImageText";
 import Features from "src/components/home/Features";
+import BottomCta from "src/components/home/BottomCta";
 
 const Home: React.FC = () => {
   return (
@@ -12,6 +13,7 @@ const Home: React.FC = () => {
       <TextBlocks />
       <ImageText />
       <Features />
+      <BottomCta />
     </>
   );
 };
