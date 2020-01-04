@@ -3,6 +3,7 @@ import Loader from "react-loader-spinner";
 import axios from "axios";
 import Routes from "./routes";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { ADD_TOKEN } from "./actions/addTokenActions";
 
 // this component renders in front of routes, checks for token, and returns proper authenticated data
@@ -11,6 +12,7 @@ import { ADD_TOKEN } from "./actions/addTokenActions";
 const App: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect((): void => {
     axios
@@ -24,8 +26,11 @@ const App: React.FC = () => {
         });
         setLoading(false);
       })
-      .catch(err => console.log(err.response));
-  }, [dispatch]);
+      .catch(_ => {
+        history.push("/500");
+        setLoading(false);
+      });
+  }, [dispatch, history]);
 
   if (loading) {
     return (

@@ -10,7 +10,7 @@ import { fetchToken } from "src/types/State";
 
 interface Props extends RouteProps{
   component: React.ComponentType<any>;
-  exact: boolean;
+  exact?: boolean;
   path: string;
 }
 
