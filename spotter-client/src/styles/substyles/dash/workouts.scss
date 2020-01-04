@@ -77,6 +77,7 @@
       @include flex-center;
       justify-content: center;
       border-radius: $border;
+      @include hover;
 
       &:hover {
         background: $gray3;
@@ -134,9 +135,10 @@
         cursor: pointer;
         padding: 0.33rem;
         color: $primary;
+        @include textHover;
 
         &:hover {
-          transform: scale(1.25);
+          color: darken($primary, 15%);
         }
       }
     }
@@ -169,6 +171,7 @@
       font-size: 1.2rem;
       padding: 0.3rem;
       cursor: pointer;
+      @include hover;
 
       &:hover {
         background: $gray3;
@@ -192,6 +195,7 @@
 
     .close-popover {
       @include closePopover;
+      @include hover;
     }
   }
 

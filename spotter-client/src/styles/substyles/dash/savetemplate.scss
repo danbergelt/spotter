@@ -14,6 +14,7 @@
 
     .save-template-exit {
       @include modalExit;
+      @include hover;
     }
   }
 
@@ -38,6 +39,7 @@
 
   .template-save-submit {
     @include templateButton;
+    @include hover;
   }
 
   .template-save {

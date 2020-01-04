@@ -1,9 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,700&display=swap");
 @import "../../variables.scss";
+@import "../../mixins.scss";
 
 .imagetext-container {
-  padding: 15rem 0;
+  padding: 20rem 0;
   background: #f6f8f9;
   display: flex;
   align-items: center;
@@ -43,6 +44,7 @@
       margin-top: 2.5rem;
       text-align: center;
       text-decoration: none;
+      @include hover;
 
       &:hover {
         background: darken($primary, 15%);

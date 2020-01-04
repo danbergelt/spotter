@@ -38,7 +38,7 @@ const Exercises: React.FC<Props> = ({ setExercisesModal }) => {
       style={
         tab === 1
           // shrinks the size of the modal depending on the tab
-          ? { ...styles, content: { ...styles.content, height: "185px" } }
+          ? { ...styles, content: { ...styles.content, height: "max-content" } }
           : styles
       }
       isOpen={modalState}

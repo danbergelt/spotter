@@ -23,6 +23,7 @@
       font-family: "Roboto";
       @include flex-center;
       cursor: pointer;
+      @include hover;
 
       &:hover {
         background: darken($gray4, 2.5%);
@@ -36,6 +37,7 @@
     .add-workout-options-button.delete {
       background: $danger;
       color: white;
+      @include hover;
 
       &:hover {
         background: darken($danger, 5%);
@@ -45,6 +47,7 @@
     .add-workout-options-button.publish {
       background: $success;
       color: white;
+      @include hover;
 
       &:hover {
         background: darken($success, 5%);

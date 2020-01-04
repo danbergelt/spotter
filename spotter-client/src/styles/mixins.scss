@@ -121,3 +121,17 @@
     background: $gray3;
   }
 }
+
+@mixin hover {
+  -webkit-transition: background-color .15s,color .15s ease-in-out;
+  -moz-transition: background-color .15s,color .15s ease-in-out;
+  -o-transition: background-color .15s,color .15s ease-in-out;
+  transition: background-color .15s,color .15s ease-in-out;
+}
+
+@mixin textHover {
+  -webkit-transition: color .15s,color .15s ease-in-out;
+  -moz-transition: color .15s,color .15s ease-in-out;
+  -o-transition: color .15s,color .15s ease-in-out;
+  transition: color .15s,color .15s ease-in-out;
+}
