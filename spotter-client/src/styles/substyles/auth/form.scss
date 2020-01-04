@@ -94,5 +94,18 @@
         outline: none;
       }
     }
+
+    .form-login-link {
+      font-size: 1.3rem;
+      margin-top: 1rem;
+      width: 100%;
+      text-align: center;
+
+      .form-login-link-clickable {
+        color: $info;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
   }
 }

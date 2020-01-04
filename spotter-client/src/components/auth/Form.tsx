@@ -2,6 +2,7 @@ import React, { ReactNode, memo } from "react";
 import { Form, Field, Formik, FormikActions } from "formik";
 import axios, { AxiosResponse } from "axios";
 import { History } from "history";
+import { Link } from 'react-router-dom';
 import { ValidationSchema } from "./ValidationSchema";
 
 // component for login + signup forms
@@ -92,6 +93,7 @@ const SpotterForm: React.FC<Props> = ({
                 {action}
               </button>
             </Form>
+            {action === "Sign Up" && <div className="form-login-link">Already have an account? <Link className="form-login-link-clickable" to="/login">Log in.</Link></div>}
           </div>
         )}
       </Formik>

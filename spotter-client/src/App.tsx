@@ -18,7 +18,7 @@ const App: React.FC = () => {
         withCredentials: true
       })
       .then(res => {
-        dispatch<{ type: string; payload: any }>({
+        dispatch<{ type: string; payload: string | null }>({
           type: ADD_TOKEN,
           payload: res.data.token
         });
