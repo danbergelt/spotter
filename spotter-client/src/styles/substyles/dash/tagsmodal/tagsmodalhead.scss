@@ -1,4 +1,5 @@
 @import "../../../variables.scss";
+@import "../../../mixins.scss";
 
 .tags-modal-head-container {
   width: 100%;
@@ -35,6 +36,7 @@
     cursor: pointer;
     border-radius: 50%;
     padding: 0.75rem;
+    @include hover;
 
     &:hover {
       background: $gray3;

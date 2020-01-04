@@ -1,4 +1,5 @@
 @import "../../variables.scss";
+@import "../../mixins.scss";
 
 .prs-container {
   width: 80rem;
@@ -26,6 +27,8 @@
         }
         .hover-pr-dropdown {
           color: $gray1;
+          @include hover;
+          
         }
       }
 

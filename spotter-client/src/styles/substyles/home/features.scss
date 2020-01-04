@@ -1,9 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,700&display=swap");
 @import "../../variables.scss";
+@import "../../mixins.scss";
 
 .features-container {
-  padding: 15rem 0;
+  padding: 20rem 0;
   display: flex;
   width: 100%;
   justify-content: center;
@@ -28,6 +29,7 @@
     .selected {
       border-right: 5px solid $primary;
       color: $primary;
+      @include textHover;
     }
   }
 

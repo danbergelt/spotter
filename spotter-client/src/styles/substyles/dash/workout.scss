@@ -1,4 +1,5 @@
 @import '../../variables.scss';
+@import "../../mixins.scss";
 
 .workout-card-container {
   margin: 0 1rem;
@@ -9,6 +10,7 @@
   flex-direction: column;
   align-items: flex-start;
   box-shadow: $box;
+  @include hover;
 
   &:hover {
     background: $gray3;

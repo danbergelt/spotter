@@ -13,6 +13,7 @@
 
     .from-template-exit {
       @include modalExit;
+      @include hover;
     }
   }
 
@@ -48,6 +49,7 @@
         margin: 0.5rem;
         font-size: 1.3rem;
         border-radius: 4px;
+        @include hover;
 
         &:hover {
           background: $gray4;
@@ -96,5 +98,6 @@
   .generate-template {
     margin-top: 2rem;
     @include templateButton;
+    @include hover;
   }
 }

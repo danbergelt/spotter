@@ -1,15 +1,15 @@
 @import url("https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,700&display=swap");
 @import "../../variables.scss";
+@import "../../mixins.scss";
 
 .bottomcta-container {
-  padding: 15rem 0;
+  padding: 20rem 0;
   background: #f6f8f9;
   display: flex;
   flex-direction: column;
   align-items: center;
   font-family: "Nanum Gothic";
-  margin-bottom: 15rem;
 
   .bottomcta-title {
     color: $gray1;
@@ -28,6 +28,7 @@
     padding: 1.5rem 2rem;
     text-align: center;
     text-decoration: none;
+    @include hover;
 
     &:hover {
       background: darken($primary, 15%);

@@ -29,6 +29,7 @@
 
     .exercises-exit {
       @include modalExit;
+      @include hover;
     }
   }
 
@@ -75,6 +76,7 @@
     border-radius: 4px;
     cursor: pointer;
     outline: 0;
+    @include hover;
 
     &:hover {
       background: darken($info, 5%);
@@ -99,14 +101,6 @@
         margin: 0.5rem;
         font-size: 1.3rem;
         border-radius: 4px;
-      }
-
-      .exercise.active {
-        border-left: 2px solid $primary;
-
-        &:hover {
-          background: $gray3;
-        }
       }
 
       .exercise-delete {
