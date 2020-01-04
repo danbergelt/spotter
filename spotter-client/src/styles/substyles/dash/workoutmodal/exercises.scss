@@ -85,10 +85,6 @@
       .exercise-form-button {
         font-size: $icon;
         cursor: pointer;
-
-        &:hover {
-          transform: $hover-scale;
-        }
       }
 
       .exercise-form-button.submit {
