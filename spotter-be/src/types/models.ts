@@ -29,8 +29,11 @@ export interface IUser extends Document {
   password: string;
   role: string;
   created: Date;
-  getToken(): any;
+  resetPasswordToken: string | undefined;
+  resetPasswordExpire: number | undefined;
+  getToken(): string;
   matchPassword(id: string): Promise<boolean>;
+  getResetPasswordToken(): any
 }
 
 export interface ITag extends Document {
