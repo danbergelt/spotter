@@ -2,7 +2,8 @@ import Err from "../utils/Err";
 import User from "../models/user";
 import bcrypt from "bcryptjs";
 import asyncHandler from "../middleware/async";
-import { IUser } from "src/types/models";
+import { IUser } from "../types/models";
+import { sendMail } from "../utils/forgotPassword";
 
 type TUserDetailKeys =
   | "oldEmail"
@@ -113,4 +114,51 @@ export const deleteAccount = asyncHandler(async (req, res) => {
   return res.status(200).json({
     success: true
   });
+});
+
+// @desc --> forgot password
+// @route --> POST /api/auth/user/forgotpassword
+// @access --> Public
+
+export const forgotPassword = asyncHandler(async (req, res, next) => {
+  const user = await User.findOne({ email: req.body.email });
+
+  if (!user) {
+    return next(new Err("No user found with that email", 404));
+  }
+
+  // get reset token
+  const resetToken = user.getResetPasswordToken();
+  await user.save({ validateBeforeSave: false });
+
+  // create reset url
+  const resetUrl: string = `https://www.getspotter.io/forgotpassword/${resetToken}`;
+
+  // draft some basic template HTML to send in body of email
+  const html: string = `
+  <html>
+  <div>Someone requested a password reset for your account. If this was not you, please disregard this email. If you'd like to continue click the link below.</div>
+  <br />
+  <div>This link will expire in 10 minutes.</div>
+  <br />
+  <a href="${resetUrl}">Reset your Spotter password</a>
+  </html>`;
+
+  try {
+    // send the message via Mailgun
+    await sendMail("dan.deadward@gmail.com", "Spotter | Forgot Password", html);
+    // if successful, return an object with the user
+    return res.status(200).json({
+      success: true,
+      data: user
+    });
+  } catch (error) {
+    // clear the reset field items on this user's document
+    user.resetPasswordExpire = undefined;
+    user.resetPasswordToken = undefined;
+
+    // save the user, return an error message
+    await user.save({ validateBeforeSave: false });
+    return next(new Err("Email could not be sent", 500));
+  }
 });

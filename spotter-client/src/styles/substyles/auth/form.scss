@@ -57,6 +57,12 @@
         padding: 1rem;
         font-size: $p;
         margin: 1.5rem 0;
+        outline: 0;
+        border: 1px solid darken($gray4, 20%);
+
+        &:focus {
+          border: 1px solid $primary;
+        }
 
         &::placeholder {
           color: lighten($gray2, 25%);
@@ -92,6 +98,19 @@
 
       .form-button:focus {
         outline: none;
+      }
+    }
+
+    .form-alt-link {
+      font-size: 1.3rem;
+      margin-top: 1rem;
+      width: 100%;
+      text-align: center;
+
+      .form-alt-link-clickable {
+        color: $info;
+        text-decoration: underline;
+        cursor: pointer;
       }
     }
   }

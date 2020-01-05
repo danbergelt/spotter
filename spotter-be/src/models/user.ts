@@ -1,6 +1,7 @@
 import { NextFunction } from "connect";
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcryptjs";
+import crypto from "crypto";
 import redis from "redis";
 import { promisify } from "util";
 import { genToken } from "../utils/tokens";
@@ -36,7 +37,9 @@ const UserSchema = new Schema<IUser>({
   created: {
     type: Date,
     default: Date.now
-  }
+  },
+  resetPasswordToken: String,
+  resetPasswordExpire: Date
 });
 
 // Cascade remove all models for this user on remove
@@ -63,6 +66,23 @@ UserSchema.pre<IUser>("save", async function(next: NextFunction) {
   const newPassword: string = await bcrypt.hash(this.password, salt);
   this.password = newPassword;
 });
+
+// Generate and hash reset password token
+UserSchema.methods.getResetPasswordToken = function() {
+  // generate tokens
+  const resetToken: string = crypto.randomBytes(20).toString("hex");
+
+  // hash token and set to field on this user's model
+  (this.resetPasswordToken as string) = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+
+  // set expire
+  this.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
+
+  return resetToken;
+};
 
 // Sign token and return
 UserSchema.methods.getToken = function(): string {

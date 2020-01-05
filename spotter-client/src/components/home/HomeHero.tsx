@@ -22,7 +22,7 @@ const Hero: React.FC = () => {
       <p className="home-hero-alt-signin">
         Already have an account?{" "}
         <Link to="/login" className="home-hero-alt-signin-link">
-          Sign in.
+          Log in.
         </Link>
       </p>
     </section>
