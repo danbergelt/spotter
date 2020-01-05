@@ -3,7 +3,6 @@
 
 .settings-container {
   .settings-section {
-    width: 70rem;
     margin: 5rem auto;
 
     .settings-head {
@@ -11,7 +10,6 @@
       padding-bottom: 1rem;
       color: $gray1;
       font-size: $p;
-      font-weight: bold;
     }
 
     .settings-action {
@@ -22,7 +20,6 @@
       cursor: pointer;
       text-decoration: underline;
       border-radius: 4px;
-      width: max-content;
       @include hover;
 
       &:hover {
@@ -30,13 +27,22 @@
       }
     }
 
-    .settings-section-alt {
+    .exports-container {
+      padding-top: 1.5rem;
+      font-size: 1.3rem;
+      color: $gray2;
+    }
+
+    .del-account-container {
       padding: 1.5rem;
       font-size: 1.3rem;
       color: $gray2;
 
       #del-account-danger {
         color: $danger;
+        font-weight: bold;
+        font-style: italic;
+        font-size: 1.5rem;
       }
 
       .delete-account {
@@ -64,33 +70,20 @@
         cursor: not-allowed;
       }
 
-      .export-data {
-        background: $info;
-        padding: 1rem;
-        color: white;
-        width: max-content;
-        border-radius: 4px;
-        margin-top: 2rem;
-        cursor: pointer;
-        @include hover;
-
-        &:hover {
-          background: darken($info, 15%);
-        }
-      }
       .confirm-close {
         display: flex;
         align-items: center;
         margin-top: 2rem;
-        color: $danger;
 
         .confirm-check {
           margin-right: 1rem;
+          cursor: pointer;
         }
       }
     }
   }
 }
+
 .change-popup {
   background: white;
   width: 275px;

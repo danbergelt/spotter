@@ -3,7 +3,7 @@ import User from "../models/user";
 import bcrypt from "bcryptjs";
 import asyncHandler from "../middleware/async";
 import { IUser } from "../types/models";
-import { sendMail } from "../utils/forgotPassword";
+import { sendMail, forgotPasswordTemplate } from "../utils/sendMail";
 
 type TUserDetailKeys =
   | "oldEmail"
@@ -132,21 +132,18 @@ export const forgotPassword = asyncHandler(async (req, res, next) => {
   await user.save({ validateBeforeSave: false });
 
   // create reset url
-  const resetUrl: string = `https://www.getspotter.io/forgotpassword/${resetToken}`;
-
-  // draft some basic template HTML to send in body of email
-  const html: string = `
-  <html>
-  <div>Someone requested a password reset for your account. If this was not you, please disregard this email. If you'd like to continue click the link below.</div>
-  <br />
-  <div>This link will expire in 10 minutes.</div>
-  <br />
-  <a href="${resetUrl}">Reset your Spotter password</a>
-  </html>`;
+  const resetUrl: string =
+    process.env.NODE_ENV === "production"
+      ? `https://www.getspotter.io/-/${resetToken}`
+      : `http://localhost:3000/-/${resetToken}`;
 
   try {
     // send the message via Mailgun
-    await sendMail("dan.deadward@gmail.com", "Spotter | Forgot Password", html);
+    await sendMail(
+      req.body.email,
+      "Spotter | Forgot Password",
+      forgotPasswordTemplate(resetUrl)
+    );
     // if successful, return an object with the user
     return res.status(200).json({
       success: true,
@@ -156,7 +153,6 @@ export const forgotPassword = asyncHandler(async (req, res, next) => {
     // clear the reset field items on this user's document
     user.resetPasswordExpire = undefined;
     user.resetPasswordToken = undefined;
-
     // save the user, return an error message
     await user.save({ validateBeforeSave: false });
     return next(new Err("Email could not be sent", 500));
