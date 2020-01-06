@@ -6,8 +6,9 @@ const ForgotPassword: React.FC = () => {
   return (
     <div className="forgot-password-container">
       <div className="forgot-password-title">Forgot your password?</div>
-      <label className="forgot-password-label">Email Address</label>
+      <label className="forgot-password-label">Email</label>
       <input
+        placeholder="name@email.com"
         onChange={e => setInput(e.target.value)}
         value={input}
         className="forgot-password-input"
