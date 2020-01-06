@@ -20,6 +20,9 @@
   .imagetext-content-container {
     width: 35rem;
     font-family: "Nanum Gothic";
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     .imagetext-title {
       font-size: 3rem;
@@ -34,16 +37,16 @@
     }
 
     .imagetext-cta {
+      text-align: center;
+      width: 40%;
+      padding: 1.5rem;
       font-family: "Roboto";
       color: white;
+      margin-top: 2.5rem;
       font-size: 1.75rem;
       background: $primary;
       border-radius: 4px;
       cursor: pointer;
-      width: 40%;
-      padding: 1.5rem;
-      margin-top: 2.5rem;
-      text-align: center;
       text-decoration: none;
       @include hover;
 
