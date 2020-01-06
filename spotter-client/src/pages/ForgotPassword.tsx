@@ -12,7 +12,7 @@ const ForgotPassword: React.FC = () => {
         value={input}
         className="forgot-password-input"
       />
-      <div className="forgot-password-submit">Send Me Instructions</div>
+      <div className="forgot-password-submit">Send Instructions</div>
     </div>
   );
 };
