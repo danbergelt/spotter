@@ -13,7 +13,7 @@ const CloseAccount: React.FC = () => {
   const t: string | null = useSelector(fetchToken);
 
   return (
-    <div className="settings-section-alt">
+    <div className="del-account-container">
       <span id="del-account-danger">Danger!</span> This action can't be undone.
       All of your data will be deleted, and you will be redirected to the Signup
       screen.

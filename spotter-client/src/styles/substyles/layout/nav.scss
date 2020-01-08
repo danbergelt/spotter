@@ -41,6 +41,7 @@
     .spotter-nav-link:nth-child(-n + 3) {
       margin-right: 3rem;
       color: $gray2;
+      @include textHover;
 
       &:hover {
         color: $primary;

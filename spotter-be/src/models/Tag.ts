@@ -2,7 +2,8 @@ import mongoose, { Schema, Query } from "mongoose";
 import Workout from "./Workout";
 import Template from "./Template";
 import { NextFunction } from "connect";
-import { ITag } from "src/types/models";
+import { ITag } from "../types/models";
+import { tagCascadeDel, tagCascadeUpdate } from "../utils/cascades";
 
 const TagSchema = new Schema<ITag>({
   color: {
@@ -33,28 +34,10 @@ TagSchema.pre("findOneAndUpdate", async function(
   const { content }: { content: string } = this.getUpdate();
 
   // open a new update template query, match the id on each template to the specific doc's id
-  await Template.updateMany(
-    { tags: { $elemMatch: { _id: doc._id } } },
-    {
-      // set the new content
-      $set: {
-        "tags.$.content": content
-      }
-    },
-    { new: true }
-  ).exec();
+  await tagCascadeUpdate(doc._id, Template, content);
 
   // open a new update workout query, match the id on each workout to the specific doc's id
-  await Workout.updateMany(
-    { tags: { $elemMatch: { _id: doc._id } } },
-    {
-      // set the new content
-      $set: {
-        "tags.$.content": content
-      }
-    },
-    { new: true }
-  ).exec();
+  await tagCascadeUpdate(doc._id, Workout, content);
 
   next();
 });
@@ -65,18 +48,11 @@ TagSchema.pre("remove", async function(next) {
   const tagId: Schema.Types.ObjectId = this._id;
 
   // loop through the workouts, pull the tags from the workout
-  await Workout.updateMany(
-    { tags: { $elemMatch: { _id: tagId } } },
-    { $pull: { tags: { _id: tagId } } },
-    { new: true }
-  ).exec();
+  await tagCascadeDel(tagId, Workout);
 
   // loop through the templates, pull the tags from the template
-  await Template.updateMany(
-    { tags: { $elemMatch: { _id: tagId } } },
-    { $pull: { tags: { _id: tagId } } },
-    { new: true }
-  ).exec();
+  await tagCascadeDel(tagId, Template);
+  
   next();
 });
 

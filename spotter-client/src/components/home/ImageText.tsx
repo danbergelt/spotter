@@ -19,11 +19,9 @@ const ImageText: React.FC = () => {
         <div className="imagetext-text">
           With Spotter, tracking your lifts has never been easier.
         </div>
-        <div className="imagetext-cta">
-          <Link style={{ color: "white", textDecoration: "none" }} to="/signup">
+          <Link className="imagetext-cta" to="/signup">
             Get Tracking
           </Link>
-        </div>
       </div>
     </div>
   );

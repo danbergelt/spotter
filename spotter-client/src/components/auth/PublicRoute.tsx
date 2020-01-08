@@ -1,12 +1,11 @@
 import React, { useMemo } from "react";
-
-import { Route, Redirect, RouteProps } from "react-router-dom";
-
 import { useSelector } from "react-redux";
 import { fetchToken } from "src/types/State";
+import { Route, Redirect, RouteProps } from "react-router-dom";
 
-// authenticated route component
-// this component accepts a token, verifies the token's contents, and either accepts the user or redirects them to log in
+// unauthenticated route component
+// this component accepts a token, verifies the token's contents, and either routes the accepted user to dashboard
+// or sends them to the unauthenticated page
 
 interface Props extends RouteProps {
   component: React.ComponentType<any>;
@@ -14,14 +13,12 @@ interface Props extends RouteProps {
   path: string;
 }
 
-const PrivateRoute: React.FC<Props> = ({
+const PublicRoute: React.FC<Props> = ({
   component: Component,
   ...rest
 }): JSX.Element => {
-
+  
   const token: string | null = useSelector(useMemo(() => fetchToken, []));
-
-  console.log(token)
 
   return (
     <>
@@ -29,13 +26,13 @@ const PrivateRoute: React.FC<Props> = ({
         {...rest}
         render={props => {
           if (token) {
-            return <Component {...props} />;
+            return <Redirect to="/dashboard" />;
           }
-          return <Redirect to="/login" />;
+          return <Component {...props} />;
         }}
       />
     </>
   );
 };
 
-export default PrivateRoute;
+export default PublicRoute;
