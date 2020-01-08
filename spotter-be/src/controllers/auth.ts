@@ -121,6 +121,7 @@ export const deleteAccount = asyncHandler(async (req, res) => {
 // @access --> Public
 
 export const forgotPassword = asyncHandler(async (req, res, next) => {
+
   const user = await User.findOne({ email: req.body.email });
 
   if (!user) {

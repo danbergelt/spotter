@@ -21,8 +21,6 @@ const PrivateRoute: React.FC<Props> = ({
 
   const token: string | null = useSelector(useMemo(() => fetchToken, []));
 
-  console.log(token)
-
   return (
     <>
       <Route
