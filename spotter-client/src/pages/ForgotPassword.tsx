@@ -1,20 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
+import { useLocation } from "react-router-dom";
+import ForgotPasswordInstructions from "src/components/auth/ForgotPassInstructions";
+import ForgotAndChangePass from "src/components/auth/ForgotAndChangePass";
 
 const ForgotPassword: React.FC = () => {
-  const [input, setInput] = useState<string>("");
+  const { pathname } = useLocation();
 
   return (
-    <div className="forgot-password-container">
-      <div className="forgot-password-title">Forgot your password?</div>
-      <label className="forgot-password-label">Email</label>
-      <input
-        placeholder="name@email.com"
-        onChange={e => setInput(e.target.value)}
-        value={input}
-        className="forgot-password-input"
-      />
-      <div className="forgot-password-submit">Send Instructions</div>
-    </div>
+    <>
+      {pathname === "/forgotpassword" ? (
+        <ForgotPasswordInstructions />
+      ) : (
+        <ForgotAndChangePass />
+      )}
+    </>
   );
 };
 
