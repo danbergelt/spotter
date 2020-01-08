@@ -78,10 +78,10 @@ const ChangeEmailForm: React.FC = () => {
               {errors.confirmEmail && touched.confirmEmail && (
                 <div className="change-err">{errors.confirmEmail}</div>
               )}
-              {status && status.error && (
+              {status?.error && (
                 <div className="change-err">{status.error}</div>
               )}
-              {status && status.data && (
+              {status?.data && (
                 <div className="change-succ">{status.data}</div>
               )}
             </div>

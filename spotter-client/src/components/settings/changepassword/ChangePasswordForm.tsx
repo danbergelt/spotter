@@ -81,10 +81,10 @@ const ChangePasswordForm: React.FC = () => {
               {errors.confirmPassword && touched.confirmPassword && (
                 <div className="change-err">{errors.confirmPassword}</div>
               )}
-              {status && status.error && (
+              {status?.error && (
                 <div className="change-err">{status.error}</div>
               )}
-              {status && status.data && (
+              {status?.data && (
                 <div className="change-succ">{status.data}</div>
               )}
             </div>

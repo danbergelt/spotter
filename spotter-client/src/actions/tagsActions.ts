@@ -162,7 +162,7 @@ export const editTagAction: TEditTag = paramsHelper => {
   return async dispatch => {
     try {
       const res: AxiosResponse<any> = await axiosWithAuth(t).put(
-        `${process.env.REACT_APP_T_API}/api/auth/tags/${update && update._id}`,
+        `${process.env.REACT_APP_T_API}/api/auth/tags/${update?._id}`,
         { content: updateInput }
       );
       setUpdate({});

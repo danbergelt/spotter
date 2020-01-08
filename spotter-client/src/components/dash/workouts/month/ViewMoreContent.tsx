@@ -54,7 +54,7 @@ const ViewMoreContent: React.FC<Props> = ({
             key={workout._id}
           >
             <div
-              style={{ background: workout.tags[0] && workout.tags[0].color }}
+              style={{ background: workout.tags[0]?.color }}
               className="view-more-workout"
             >
               {workout.title}

@@ -58,7 +58,7 @@ export const addWorkout = asyncHandler(async (req, res, next) => {
 
   let colorValidate: Array<ITag | false> = [];
 
-  if (req.body.tags && req.body.tags.length) {
+  if (req.body.tags?.length) {
     colorValidate = req.body.tags.map((el: ITag) => hex(el.color));
   }
 

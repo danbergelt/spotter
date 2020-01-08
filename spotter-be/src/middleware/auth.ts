@@ -9,10 +9,7 @@ import { IVerifiedToken } from "src/types/auth";
 export const protect = asyncHandler(async (req, _, next) => {
   let token: string | null = null;
 
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
-  ) {
+  if (req.headers.authorization?.startsWith("Bearer")) {
     // set token from bearer
     token = req.headers.authorization.split(" ")[1];
   }

@@ -188,7 +188,7 @@ export const saveWorkoutAction: TSaveWorkout = paramsHelper => {
       await axiosWithAuth(t).post(
         `${process.env.REACT_APP_T_API}/api/auth/workouts`,
         {
-          date: date && date.format("MMM DD YYYY"),
+          date: date?.format("MMM DD YYYY"),
           title: workout.title,
           notes: workout.notes,
           exercises: workout.exercises,
