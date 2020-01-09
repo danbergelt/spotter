@@ -19,7 +19,7 @@ export const prCache = asyncHandler(async (req, res, next) => {
   const cache: ICache = await hgetall(req.user!._id.toString());
 
   // if the user has a cache and the cache is not marked as stale, use that as the return object
-  if (cache?.stale === "false") {
+  if (cache && cache.stale === "false") {
     res.status(200).json({
       success: true,
       prs: JSON.parse(cache.prs)

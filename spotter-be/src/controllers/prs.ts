@@ -40,7 +40,7 @@ export const generatePrs = asyncHandler(async (req, res) => {
     // map over every exercise in every workout
     workout.exercises.forEach((exercise: ExerciseOnWorkoutSchema) => {
       // if the exercise is saved, and the exercise weight is greater than the current PR value
-      if (prs[exercise.name]?.pr < exercise.weight) {
+      if (prs[exercise.name] && prs[exercise.name].pr < exercise.weight) {
         // save the weight as a PR, save the date
         prs[exercise.name].pr = exercise.weight;
         prs[exercise.name].date = workout.date;

@@ -1,5 +1,5 @@
 import * as Moment from "moment";
-import { extendMoment, MomentRange } from "moment-range";
+import { extendMoment, MomentRange, DateRange } from "moment-range";
 
 let moment: MomentRange = extendMoment(Moment);
 
@@ -18,15 +18,15 @@ if ("default" in m) {
 
 export const generateWeek: Params = num => {
 
-  const start = m()
+  const start: Moment.Moment = m()
     .add(num, "weeks")
     .startOf("week");
-  const end = m()
+  const end: Moment.Moment = m()
     .add(num, "weeks")
     .endOf("week");
-  const range = moment.range(start, end);
+  const range: DateRange = moment.range(start, end);
 
-  const days = [];
+  const days: Array<Moment.Moment> = [];
 
   for (let day of range.by("day")) {
     days.push(day);
@@ -49,21 +49,21 @@ export const dashHead = (num: number): string => {
 
 export const generateMonth = (num: number): Moment.Moment[] => {
 
-  const start = m()
+  const start: Moment.Moment = m()
     .add(num, "months")
     .startOf("month")
     .startOf("week");
-  const end = m()
+  const end: Moment.Moment = m()
     .add(num, "months")
     .endOf("month");
 
-  let leftover = 34 - Number(end.diff(start, "days"));
+  let leftover: number = 34 - Number(end.diff(start, "days"));
 
   end.add(leftover, "days");
 
-  const range = moment.range(start, end);
+  const range: DateRange = moment.range(start, end);
 
-  const days = [];
+  const days: Array<Moment.Moment> = [];
 
   for (let day of range.by("day")) {
     days.push(day);
