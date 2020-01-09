@@ -1,12 +1,11 @@
 import Err from "../utils/Err";
 import User from "../models/user";
 import asyncHandler from "../middleware/async";
-import { refreshToken, genToken, clearRefreshToken } from "../utils/tokens";
+import { refreshToken, genToken, clearRefreshToken, sendToken } from "../utils/tokens";
 import jwt from "jsonwebtoken";
 import redis from "redis";
 import { IUser } from "src/types/models";
 import { promisify } from "util";
-import { Response } from "express";
 import { IVerifiedToken } from "../types/auth";
 
 const client: redis.RedisClient = redis.createClient();
@@ -123,22 +122,3 @@ export const refresh = asyncHandler(async (req, res) => {
 
   return sendToken(user, 200, res);
 });
-
-// Get token from model, send response
-const sendToken = (user: IUser, statusCode: number, res: Response): void => {
-  // Create token
-  const token: string = user.getToken();
-
-  const options: { expires: Date; httpOnly: boolean; secure?: boolean } = {
-    expires: new Date(
-      Date.now() + (process.env.JWT_EXPIRE as any) * 24 * 60 * 60 * 1000
-    ),
-    httpOnly: true
-  };
-
-  if (process.env.NODE_ENV === "production") {
-    options.secure = true;
-  }
-
-  res.status(statusCode).json({ success: true, token, id: user._id });
-};

@@ -1,9 +1,10 @@
 import Err from "../utils/Err";
 import User from "../models/user";
-import bcrypt from "bcryptjs";
+import crypto from "crypto";
 import asyncHandler from "../middleware/async";
 import { IUser } from "../types/models";
 import { sendMail, forgotPasswordTemplate } from "../utils/sendMail";
+import { sendToken } from "../utils/tokens";
 
 type TUserDetailKeys =
   | "oldEmail"
@@ -59,11 +60,9 @@ export const changeEmail = asyncHandler(async (req, res, next) => {
 export const changePassword = asyncHandler(async (req, res, next) => {
   // extract the user's input data
   const { oldPassword, newPassword, confirmPassword }: TUserDetails = req.body;
-
   if (!oldPassword || !newPassword || !confirmPassword) {
     return next(new Err("All fields are required", 400));
   }
-
   if (newPassword !== confirmPassword) {
     return next(new Err("New password fields must match", 400));
   }
@@ -72,25 +71,19 @@ export const changePassword = asyncHandler(async (req, res, next) => {
   const user: IUser | null = await User.findById(req.user._id).select(
     "+password"
   );
+  if (!user) {
+    return next(new Err("User not found", 404));
+  }
 
   // Check if password matches
   const isMatch: boolean = await user!.matchPassword(oldPassword);
-
   if (!isMatch) {
     return next(new Err("Invalid credentials", 400));
   }
 
-  // hash the new password
-  const salt: string = await bcrypt.genSalt(10);
-  const hashedPassword: string = await bcrypt.hash(newPassword, salt);
-
-  await User.findByIdAndUpdate(
-    req.user._id,
-    {
-      password: hashedPassword
-    },
-    { new: true }
-  );
+  // save the password to the user
+  user.password = newPassword;
+  await user.save();
 
   // return a success message after the user is updated
   res.status(200).json({
@@ -157,4 +150,49 @@ export const forgotPassword = asyncHandler(async (req, res, next) => {
     await user.save({ validateBeforeSave: false });
     return next(new Err("Email could not be sent", 500));
   }
+});
+
+// @desc --> change forgotten password
+// @route --> PUT /api/auth/user/forgotpassword/:id
+// @access --> Public
+
+export const changeForgottenPassword = asyncHandler(async (req, res, next) => {
+  // extract new password fields from body
+  const {
+    newPassword,
+    confirmPassword
+  }: { newPassword: string; confirmPassword: string } = req.body;
+
+  // check that passwords match and that both fields exist
+  if (!newPassword || !confirmPassword) {
+    return next(new Err("All fields are required", 400));
+  }
+  if (newPassword !== confirmPassword) {
+    return next(new Err("Fields must match", 400));
+  }
+
+  // get hashed token
+  const resetPasswordToken: string = crypto
+    .createHash("sha256")
+    .update(req.params.id)
+    .digest("hex");
+
+  // check for user with this token and a valid exp. date
+  const user: IUser | null = await User.findOne({
+    resetPasswordToken,
+    resetPasswordExpire: { $gt: Date.now() }
+  });
+
+  if (!user) {
+    return next(new Err("Invalid token", 404));
+  }
+
+  // reset the password, set auth fields to undefined
+  user.password = newPassword;
+  user.resetPasswordExpire = undefined;
+  user.resetPasswordExpire = undefined;
+
+  await user.save();
+
+  sendToken(user, 200, res);
 });

@@ -6,7 +6,7 @@ const NotesHead: React.FC<Props> = ({ notes, notesRef }) => {
 
   // focuses the notes when the edit button is clicked
   const handleFocus: () => void = () => {
-    if(notesRef && notesRef.current){
+    if(notesRef?.current){
       notesRef.current.focus()
     }
   }

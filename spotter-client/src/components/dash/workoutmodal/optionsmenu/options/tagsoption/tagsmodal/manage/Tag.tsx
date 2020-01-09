@@ -52,7 +52,7 @@ const Tag: React.FC<Props> = ({
         </div>
       </div>
       <div>
-        {update && update._id === tag._id && (
+        {update?._id === tag._id && (
           <UpdateTagForm
             handleSubmit={handleSubmit}
             updateInput={updateInput}

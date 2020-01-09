@@ -32,6 +32,6 @@ export const forgotPasswordTemplate = (url: string): string => {
   <br />
   <div>This link will expire in 10 minutes.</div>
   <br />
-  <a href="${url}">Reset your Spotter password</a>
+  <a href="${url}">${url}</a>
   </html>`;
 };
