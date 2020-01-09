@@ -159,16 +159,16 @@ export const forgotPassword = asyncHandler(async (req, res, next) => {
 export const changeForgottenPassword = asyncHandler(async (req, res, next) => {
   // extract new password fields from body
   const {
-    newPass,
-    confirmPass
-  }: { newPass: string; confirmPass: string } = req.body;
+    newPassword,
+    confirmPassword
+  }: { newPassword: string; confirmPassword: string } = req.body;
 
   // check that passwords match and that both fields exist
-  if (!newPass || !confirmPass) {
+  if (!newPassword || !confirmPassword) {
     return next(new Err("All fields are required", 400));
   }
-  if (newPass !== confirmPass) {
-    return next(new Err("New password fields must match", 400));
+  if (newPassword !== confirmPassword) {
+    return next(new Err("Fields must match", 400));
   }
 
   // get hashed token
@@ -188,7 +188,7 @@ export const changeForgottenPassword = asyncHandler(async (req, res, next) => {
   }
 
   // reset the password, set auth fields to undefined
-  user.password = confirmPass;
+  user.password = newPassword;
   user.resetPasswordExpire = undefined;
   user.resetPasswordExpire = undefined;
 
