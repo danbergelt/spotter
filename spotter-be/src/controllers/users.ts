@@ -117,7 +117,7 @@ export const refresh = asyncHandler(async (req, res) => {
 
   refreshToken(
     res,
-    genToken(user._id, process.env.REF_SECRET!, process.env.REF_EXPIRE as any)
+    genToken(user._id, process.env.REF_SECRET!, process.env.REF_EXPIRE!)
   );
 
   return sendToken(user, 200, res);
