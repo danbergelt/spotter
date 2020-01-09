@@ -1,6 +1,6 @@
 import React from "react";
 import wrapper from "../../../__testUtils__/wrapper";
-import Routes from "../../../Routes";
+import Routes from "../../../routes";
 import { cleanup, wait } from "@testing-library/react";
 import mockAxios from "axios";
 import mockWorkoutRes from "../../../__testUtils__/mockWorkoutRes";
@@ -19,9 +19,9 @@ describe("redirects and conditional rendering", () => {
   test("nav conditionally renders when logged out", () => {
     const { container, getByText, queryByText } = wrapper(reducer, <Routes />);
 
-    expect(container.contains(getByText(/log in/i))).toBeTruthy();
+    expect(container.contains(getByText(/about/i))).toBeTruthy();
     expect(container.contains(queryByText(/log out/i))).toBeFalsy();
-    expect(container.contains(queryByText(/dashboard/i))).toBeFalsy();
+    expect(container.contains(queryByText(/settings/i))).toBeFalsy();
   });
 
   test("nav conditionally renders when logged in", async () => {

@@ -4,7 +4,8 @@ import crypto from "crypto";
 import asyncHandler from "../middleware/async";
 import { IUser } from "../types/models";
 import { sendMail, forgotPasswordTemplate } from "../utils/sendMail";
-import { sendToken } from "../utils/tokens";
+import { sendToken, refreshToken } from "../utils/tokens";
+import { genToken } from "../utils/tokens";
 
 type TUserDetailKeys =
   | "oldEmail"
@@ -194,5 +195,10 @@ export const changeForgottenPassword = asyncHandler(async (req, res, next) => {
 
   await user.save();
 
-  sendToken(user, 200, res);
+  refreshToken(
+    res,
+    genToken(user._id, process.env.REF_SECRET!, process.env.REF_EXPIRE!)
+  );
+
+  return sendToken(user, 200, res);
 });

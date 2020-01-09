@@ -32,8 +32,7 @@ export const generatePrs = asyncHandler(async (req, res) => {
   });
 
   // PR generation === O(NM)
-  // need to explore replacements for this...although since I am traversing a matrix,
-  // and need to iterate over each element. Perhaps an LRU Cache could work
+  // need to explore replacements for this...Perhaps an LRU Cache could work
 
   // map over every workout
   workouts.forEach(workout => {

@@ -9,9 +9,8 @@ import Loader from "react-loader-spinner";
 // accessed via link sent out through mailgun
 // param is their reset password token
 
-
 // CODE SMELL
-// handling a lot of stuff manually here, 
+// handling a lot of stuff manually here,
 // consider refactoring to something like Formik for automation
 const ForgotAndChangePass: React.FC = () => {
   const { id } = useParams();
@@ -26,16 +25,14 @@ const ForgotAndChangePass: React.FC = () => {
   const changePass = async (e?: React.FormEvent<HTMLFormElement>) => {
     e?.preventDefault();
     setLoading(true);
-    setNewPassword("");
-    setConfirmPassword("");
     try {
       const res = await axios.put(
         `${process.env.REACT_APP_T_API}/api/auth/user/forgotpassword/${id}`,
-        { newPassword, confirmPassword }
+        { newPassword, confirmPassword },
+        { withCredentials: true }
       );
       dispatch(addTokenAction(res.data.token));
       history.push("/dashboard");
-      setLoading(false);
     } catch (error) {
       setLoading(false);
       setRes(error.response.data.error);
