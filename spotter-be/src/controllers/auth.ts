@@ -178,6 +178,7 @@ export const changeForgottenPassword = asyncHandler(async (req, res, next) => {
     .update(req.params.id)
     .digest("hex");
 
+
   // check for user with this token and a valid exp. date
   const user: IUser | null = await User.findOne({
     resetPasswordToken,

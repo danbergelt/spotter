@@ -43,7 +43,7 @@
     "typescript": "^3.7.4"
   },
   "scripts": {
-    "test": "ts-mocha -p tsconfig.json --file src/test/utils/setup.ts src/test/tests/**/**/*.test.ts --file src/test/utils/teardown.ts",
+    "test": "TESTING=true ts-mocha -p tsconfig.json --file src/test/utils/setup.ts src/test/tests/integration/auth/ForgotPassword.test.ts --file src/test/utils/teardown.ts",
     "coverage": "nyc --reporter=lcov npm run src/test",
     "start": "NODE_ENV=production ts-node src/index",
     "dev": "tsnd --respawn src/index",

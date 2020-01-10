@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+require("dotenv").config();
 before(async() => {
   mongoose.Promise = global.Promise;
 

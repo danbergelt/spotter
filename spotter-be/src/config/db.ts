@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-// connects to DB + test DB for
+// connects to DB + test DB
 
 // mongoose typing is wrong - need to extend the interface in order to get access to the host property
 interface MongooseConnection extends mongoose.Connection {
