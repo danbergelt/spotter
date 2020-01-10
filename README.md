@@ -1,2 +1,2 @@
 # spotter
-A simple, desktop-first, unopinionated workout tracker
+An unopinionated, lightweight, weightlifting-focused fitness pal.
