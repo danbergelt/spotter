@@ -91,6 +91,7 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
               // this component is not actively maintained, and contains multiple unsafe lifecycle methods
               // also - it's just plain complicated
               // consider either namespacing the module, opting for a different library, or building a custom component
+              // TO INVESTIGATE - ReachUI Combobox
 
                 // control the input hooked up to autosuggest
                 inputProps={{
