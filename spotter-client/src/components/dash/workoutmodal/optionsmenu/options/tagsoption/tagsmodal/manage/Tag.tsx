@@ -29,7 +29,7 @@ const Tag: React.FC<Props> = ({
 }) => {
   return (
     <div key={tag._id}>
-      <div className="tag-manage-container">
+      <section className="tag-manage-container">
         <div
           role="button"
           onClick={() => setUpdate(tag)}
@@ -52,8 +52,8 @@ const Tag: React.FC<Props> = ({
         >
           Delete
         </div>
-      </div>
-      <div>
+      </section>
+      <section>
         {update?._id === tag._id && (
           <UpdateTagForm
             handleSubmit={handleSubmit}
@@ -61,7 +61,7 @@ const Tag: React.FC<Props> = ({
             setUpdateInput={setUpdateInput}
           />
         )}
-      </div>
+      </section>
     </div>
   );
 };

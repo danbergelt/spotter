@@ -4,7 +4,7 @@ import { P } from "src/types/Grid";
 import { Workout } from "src/types/Workout";
 import * as M from "moment";
 
-let m = require("moment")
+let m = require("moment");
 if ("default" in m) {
   m = m["default"];
 }
@@ -24,7 +24,6 @@ const ViewMoreContent: React.FC<Props> = ({
   openViewModal,
   date
 }) => {
-
   // closes the popover when a workout is selected
   const handlePopover: (workout: Workout, date: M.Moment) => void = workout => {
     setPopover({ open: false, id: null });
@@ -55,12 +54,12 @@ const ViewMoreContent: React.FC<Props> = ({
             className="view-more-workouts-container"
             key={workout._id}
           >
-            <div
+            <p
               style={{ background: workout.tags[0] && workout.tags[0].color }}
               className="view-more-workout"
             >
               {workout.title}
-            </div>
+            </p>
           </div>
         ))}
     </>

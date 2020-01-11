@@ -1,12 +1,12 @@
 import React from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 interface Props {
   inc: () => void;
   dec: () => void;
   time: number;
-  month: (num: number) => string
+  month: (num: number) => string;
 }
 
 // controls incrementing/decrementing the date in view
@@ -14,7 +14,7 @@ interface Props {
 const DashControls: React.FC<Props> = ({ inc, dec, time, month }) => {
   return (
     <div className="controls-spacer">
-      <div className="workouts-head">
+      <section className="workouts-head">
         <div className="workouts-icons">
           <FiChevronLeft
             style={{ fontSize: "2.75rem" }}
@@ -30,8 +30,10 @@ const DashControls: React.FC<Props> = ({ inc, dec, time, month }) => {
           />
         </div>
         <div className="workouts-month-indicator">{month(time)}</div>
-      </div>
-      <Link to="/prs" className="prs-link">Personal bests</Link>
+      </section>
+      <Link to="/prs" className="prs-link">
+        Personal bests
+      </Link>
     </div>
   );
 };

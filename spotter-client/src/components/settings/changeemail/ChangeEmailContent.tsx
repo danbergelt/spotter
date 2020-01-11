@@ -8,8 +8,8 @@ interface Props {
 
 const ChangeEmailContent: React.FC<Props> = ({ setChangeEmail}) => {
   return (
-    <div className="change-container">
-      <div className="popover-head">
+    <article className="change-container">
+      <section className="popover-head">
         <div
           role="button"
           data-testid="close-popover"
@@ -18,9 +18,9 @@ const ChangeEmailContent: React.FC<Props> = ({ setChangeEmail}) => {
         >
           <FiX />
         </div>
-      </div>
+      </section>
       <ChangeEmailForm />
-    </div>
+    </article>
   );
 };
 

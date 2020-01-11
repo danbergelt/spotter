@@ -17,7 +17,7 @@ const WorkoutTitle: React.FC<Props> = ({ closeModal }) => {
   const dispatch = useDispatch();
 
   return (
-    <div className="workout-modal-head">
+    <section className="workout-modal-head">
       <div className="workout-modal-head-left">
         <FaCircle className="workout-spotter-logo" />
         <input
@@ -28,10 +28,10 @@ const WorkoutTitle: React.FC<Props> = ({ closeModal }) => {
           className="workout-title"
         />
       </div>
-      <div onClick={closeModal} className="workout-exit-modal">
+      <div role="button" onClick={closeModal} className="workout-exit-modal">
         <FiX data-testid="exit-modal" />
       </div>
-    </div>
+    </section>
   );
 };
 

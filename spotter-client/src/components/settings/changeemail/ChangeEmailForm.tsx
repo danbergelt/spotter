@@ -10,7 +10,7 @@ const ChangeEmailForm: React.FC = () => {
   const t: string | null = useSelector(fetchToken);
 
   return (
-    <div className="change-form">
+    <section className="change-form">
       <Formik
         validateOnChange={false}
         validateOnBlur={false}
@@ -76,19 +76,15 @@ const ChangeEmailForm: React.FC = () => {
                 Save
               </button>
               {errors.confirmEmail && touched.confirmEmail && (
-                <div className="change-err">{errors.confirmEmail}</div>
+                <p className="change-err">{errors.confirmEmail}</p>
               )}
-              {status?.error && (
-                <div className="change-err">{status.error}</div>
-              )}
-              {status?.data && (
-                <div className="change-succ">{status.data}</div>
-              )}
+              {status?.error && <p className="change-err">{status.error}</p>}
+              {status?.data && <p className="change-succ">{status.data}</p>}
             </div>
           </Form>
         )}
       </Formik>
-    </div>
+    </section>
   );
 };
 

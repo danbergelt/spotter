@@ -53,7 +53,7 @@ const SaveTemplate: React.FC<Props> = ({ close }) => {
       contentLabel="Save Template"
       isOpen={templateSave}
     >
-      <div className="save-template-container">
+      <section className="save-template-container">
         <SaveTemplateHead closeHandler={closeHandler} />
         <SaveTemplateForm
           handleSubmit={handleSubmit}
@@ -75,7 +75,7 @@ const SaveTemplate: React.FC<Props> = ({ close }) => {
             setMessage={setMessage}
           />
         )}
-      </div>
+      </section>
     </Modal>
   );
 };

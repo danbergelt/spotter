@@ -13,7 +13,7 @@ const CloseAccount: React.FC = () => {
   const t: string | null = useSelector(fetchToken);
 
   return (
-    <div className="del-account-container">
+    <article className="del-account-container">
       <span id="del-account-danger">Danger!</span> This action can't be undone.
       All of your data will be deleted, and you will be redirected to the Signup
       screen.
@@ -21,15 +21,15 @@ const CloseAccount: React.FC = () => {
       <br />
       <br />
       Are you sure you want to close your account?
-      <div className="confirm-close">
+      <section className="confirm-close">
         <input
           onChange={() => setConfirmClose(!confirmClose)}
           className="confirm-check"
           type="checkbox"
           data-testid="close-check"
         />
-        <div>Yes, I'm sure</div>
-      </div>
+        <p>Yes, I'm sure</p>
+      </section>
       <div
         role="button"
         data-testid={
@@ -40,7 +40,7 @@ const CloseAccount: React.FC = () => {
       >
         Close Account
       </div>
-    </div>
+    </article>
   );
 };
 

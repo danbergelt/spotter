@@ -5,15 +5,12 @@ import { deleteExerciseAction } from "../../../../../../actions/fetchExercisesAc
 import { Exercise as E } from "../../../../../../types/ExerciseOption";
 import { fetchToken } from "src/types/State";
 
-
 interface Props {
   exercises: Array<E>;
 }
 
-
 // search and delete exercises
 // look into including the ability to rename an exercise in place
-
 
 const ManageExercises: React.FC<Props> = ({ exercises }) => {
   const [search, setSearch] = useState<string>("");
@@ -46,7 +43,7 @@ const ManageExercises: React.FC<Props> = ({ exercises }) => {
       </div>
       {exercises.length ? (
         filter.length ? (
-          <div className="exercises">
+          <section className="exercises">
             {filter.map((exercise: E) => (
               <Exercise
                 key={exercise._id}
@@ -54,9 +51,9 @@ const ManageExercises: React.FC<Props> = ({ exercises }) => {
                 exercise={exercise}
               />
             ))}
-          </div>
+          </section>
         ) : (
-          <div
+          <p
             style={{
               fontSize: "1.3rem",
               textAlign: "center",
@@ -64,14 +61,14 @@ const ManageExercises: React.FC<Props> = ({ exercises }) => {
             }}
           >
             No exercises found
-          </div>
+          </p>
         )
       ) : (
-        <div
+        <p
           style={{ fontSize: "1.3rem", textAlign: "center", marginTop: "1rem" }}
         >
           No exercises found
-        </div>
+        </p>
       )}
     </>
   );

@@ -32,7 +32,7 @@ const GridDay: React.FC<Props> = ({
   setPopover
 }) => {
   return (
-    <div className="month-grid-day" data-testid={date.format("MMM DD YYYY")}>
+    <section className="month-grid-day" data-testid={date.format("MMM DD YYYY")}>
       {i <= 6 ? (
         // in the first week, also include the days of the week (e.g. Monday, Tuesday, etc.)
         // not very DRY to have separate components, possibly pass a notifier prop to change the context, and use a single component?
@@ -78,6 +78,7 @@ const GridDay: React.FC<Props> = ({
                           id: date.format("MMM DD YYYY")
                         })
                       }
+                      role="button"
                       className="grid-view-more"
                     >
                       View More
@@ -87,7 +88,7 @@ const GridDay: React.FC<Props> = ({
               </div>
             )
         )}
-    </div>
+    </section>
   );
 };
 

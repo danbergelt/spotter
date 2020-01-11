@@ -50,9 +50,9 @@ const TagsModalAdd = () => {
 
   return (
     <>
-      <div className="tag-add-head" data-testid="add-tag">
+      <p className="tag-add-head" data-testid="add-tag">
         Add
-      </div>
+      </p>
       {/* map list of created tags */}
       {tags.map(tag => (
         <Tag

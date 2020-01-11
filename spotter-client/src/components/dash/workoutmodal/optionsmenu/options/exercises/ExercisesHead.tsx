@@ -6,13 +6,17 @@ import { FiX } from "react-icons/fi";
 interface Props {
   handleCloseExerciseModal: () => void;
   tab: number;
-  setTab: React.Dispatch<React.SetStateAction<number>>
+  setTab: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const ExercisesHead: React.FC<Props> = ({ handleCloseExerciseModal, tab, setTab }) => {
+const ExercisesHead: React.FC<Props> = ({
+  handleCloseExerciseModal,
+  tab,
+  setTab
+}) => {
   return (
     <>
-      <div className="exercises-header">
+      <nav className="exercises-header">
         <div
           style={{
             display: "flex",
@@ -40,17 +44,17 @@ const ExercisesHead: React.FC<Props> = ({ handleCloseExerciseModal, tab, setTab 
           </div>
         </div>
         <div
+          role="button"
           onClick={() => handleCloseExerciseModal()}
           className="exercises-exit"
         >
           <FiX
-            role="button"
             // inline styles as a convenience
             data-testid="quit-exercises"
             style={{ display: "flex", alignItems: "center" }}
           />
         </div>
-      </div>
+      </nav>
     </>
   );
 };

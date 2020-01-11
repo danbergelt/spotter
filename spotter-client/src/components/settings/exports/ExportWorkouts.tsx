@@ -9,11 +9,11 @@ const ExportWorkouts: React.FC<Props> = ({ t }) => {
   const [dataDump, setDataDump] = useState<string>("");
 
   return (
-    <div className="exports-container">
-      <div style={{ paddingLeft: "1.5rem", paddingBottom: "1rem" }}>
+    <article className="exports-container">
+      <p style={{ paddingLeft: "1.5rem", paddingBottom: "1rem" }}>
         Export your workout data as a CSV file. Click below to start your
         download.
-      </div>
+      </p>
       <div
         role="button"
         onClick={() => downloadData(setDataDump, t, "workouts")}
@@ -22,7 +22,7 @@ const ExportWorkouts: React.FC<Props> = ({ t }) => {
         Export workout data...
       </div>
       <p>{dataDump && dataDump}</p>
-    </div>
+    </article>
   );
 };
 

@@ -51,12 +51,12 @@ const TagsModalManage: React.FC<Props> = ({ setToDelete }) => {
   );
 
   if (!tags.length) {
-    return <div className="no-tags-found">No tags found</div>;
+    return <p className="no-tags-found">No tags found</p>;
   }
 
   return (
     <>
-      <div className="tag-manage-head">Manage</div>
+      <p className="tag-manage-head">Manage</p>
       {err.length ? <Err err={err} setErr={setErr} /> : null}
       {tags.map(tag => (
         <Tag

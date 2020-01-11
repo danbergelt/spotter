@@ -35,7 +35,6 @@ const WorkoutColumns = () => {
     (state: State) => state.globalReducer
   );
 
-
   // increment or decrement by one week/day at a time
   const inc = () => {
     dispatch(incOrDecAction("inc", timeSpan));
@@ -75,7 +74,7 @@ const WorkoutColumns = () => {
   return (
     <div className="spacer">
       <DashControls inc={inc} dec={dec} time={timeSpan} month={dashHead} />
-      <div className="week-workouts-days">
+      <section className="week-workouts-days">
         {generateWeek(timeSpan).map((date, i) => (
           <WorkoutColumn
             date={date}
@@ -86,7 +85,7 @@ const WorkoutColumns = () => {
             workouts={workouts}
           />
         ))}
-      </div>
+      </section>
       <WorkoutModal time={timeSpan} modal={modal} closeModal={closeModal} />
     </div>
   );

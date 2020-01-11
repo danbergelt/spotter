@@ -13,7 +13,7 @@ const WorkoutTags = () => {
   );
 
   return (
-    <div className="workout-data-tags">
+    <section className="workout-data-tags">
       <h1 className="workout-data-tags-head">TAGS</h1>
       <div className="workout-data-tags-container">
         {!tags.length ? (
@@ -27,7 +27,7 @@ const WorkoutTags = () => {
           tags.map(tag => <Tag key={tag._id} tag={tag} />)
         )}
       </div>
-    </div>
+    </section>
   );
 };
 

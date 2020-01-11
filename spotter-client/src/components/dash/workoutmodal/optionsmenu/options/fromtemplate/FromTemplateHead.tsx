@@ -14,8 +14,8 @@ const FromTemplateHead: React.FC<Props> = ({
 }) => {
   return (
     <>
-      <div className="from-template-header">
-        <div className="from-template-title">Load Template</div>
+      <section className="from-template-header">
+        <p className="from-template-title">Load Template</p>
         <div
           role="button"
           onClick={closeHandler}
@@ -26,7 +26,7 @@ const FromTemplateHead: React.FC<Props> = ({
             style={{ display: "flex", alignItems: "center" }}
           />
         </div>
-      </div>
+      </section>
       <input
         autoFocus
         value={search}

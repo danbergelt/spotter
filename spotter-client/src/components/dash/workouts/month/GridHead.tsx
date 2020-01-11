@@ -3,9 +3,8 @@ import { FiPlusCircle } from "react-icons/fi";
 import { Moment } from "moment";
 import { MomentRange } from "moment-range";
 
-
 // HACKY - Moment default imports don't work very well with typescript, so need to import this way to satisfy TS errors
-let m = require("moment")
+let m = require("moment");
 if ("default" in m) {
   m = m["default"];
 }
@@ -20,10 +19,9 @@ interface Props {
 // includes the button to add a new workout
 
 const GridHead: React.FC<Props> = ({ openAddWorkoutModal, date }) => {
-
   return (
     <>
-      <div className="month-grid-day-head">
+      <section className="month-grid-day-head">
         <div
           role="button"
           onClick={() => openAddWorkoutModal(date)}
@@ -32,8 +30,8 @@ const GridHead: React.FC<Props> = ({ openAddWorkoutModal, date }) => {
         >
           <FiPlusCircle />
         </div>
-      </div>
-      <div
+      </section>
+      <p
         style={{ fontSize: "1.3rem" }}
         className={
           date.format("MMM DD YYYY") === m().format("MMM DD YYYY")
@@ -42,7 +40,7 @@ const GridHead: React.FC<Props> = ({ openAddWorkoutModal, date }) => {
         }
       >
         {date.format("D")}
-      </div>
+      </p>
     </>
   );
 };

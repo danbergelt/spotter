@@ -38,7 +38,7 @@ const FromTemplate: React.FC = () => {
       onRequestClose={closeHandler}
       contentLabel="Generate Template"
     >
-      <div className="from-template-container">
+      <section className="from-template-container">
         <FromTemplateHead
           closeHandler={closeHandler}
           search={search}
@@ -46,7 +46,7 @@ const FromTemplate: React.FC = () => {
         />
         <Templates search={search} active={active} setActive={setActive} />
         <GenerateTemplate active={active} setActive={setActive} />
-      </div>
+      </section>
     </Modal>
   );
 };

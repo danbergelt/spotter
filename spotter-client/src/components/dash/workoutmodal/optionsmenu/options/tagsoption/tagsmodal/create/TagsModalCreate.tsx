@@ -38,7 +38,7 @@ const TagsModalCreate = () => {
   };
 
   return (
-    <div className="tags-modal-create">
+    <section className="tags-modal-create">
       <input
         autoFocus
         value={name}
@@ -46,7 +46,7 @@ const TagsModalCreate = () => {
         placeholder="Set tag name..."
         className="tags-modal-create-name"
       />
-      <div className="tags-modal-colors">
+      <section className="tags-modal-colors">
         {colors.map(c => (
           <Color
             key={c}
@@ -57,7 +57,7 @@ const TagsModalCreate = () => {
             setColor={setColor}
           />
         ))}
-      </div>
+      </section>
       {message.error && (
         <Message message={message.error} setMessage={setMessage} />
       )}
@@ -71,7 +71,7 @@ const TagsModalCreate = () => {
           "Create Tag"
         )}
       </div>
-    </div>
+    </section>
   );
 };
 

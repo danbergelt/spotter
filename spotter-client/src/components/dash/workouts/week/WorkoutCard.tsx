@@ -6,29 +6,29 @@ import { Workout } from "src/types/Workout";
 // data represents data for each workout
 
 interface Props {
-  data: Workout
+  data: Workout;
 }
 
 const WorkoutCard: React.FC<Props> = ({ data }) => {
   return (
     <>
-      <div data-testid="workout-title" className="workout-card-title">
+      <p data-testid="workout-title" className="workout-card-title">
         {data.title}
-      </div>
+      </p>
       {data.notes || data.exercises.length ? (
         <FiAlignLeft className="workout-card-notes-ind" />
       ) : null}
-      <div className="workout-card-tag-container">
+      <section className="workout-card-tag-container">
         {data.tags.map(el => (
-          <div
+          <p
             className="workout-card-tag"
             key={el._id}
             style={{ background: el.color }}
           >
             {el.content.toUpperCase()}
-          </div>
+          </p>
         ))}
-      </div>
+      </section>
     </>
   );
 };

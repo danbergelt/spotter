@@ -8,8 +8,8 @@ interface Props {
 
 const ChangePasswordContent: React.FC<Props> = ({ setChangePassword }) => {
   return (
-    <div className="change-container">
-      <div className="popover-head">
+    <article className="change-container">
+      <section className="popover-head">
         <div
           role="button"
           data-testid="close-popover"
@@ -18,9 +18,9 @@ const ChangePasswordContent: React.FC<Props> = ({ setChangePassword }) => {
         >
           <FiX />
         </div>
-      </div>
+      </section>
       <ChangePasswordForm />
-    </div>
+    </article>
   );
 };
 

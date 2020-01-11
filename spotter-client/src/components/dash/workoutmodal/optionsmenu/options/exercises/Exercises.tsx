@@ -45,7 +45,7 @@ const Exercises: React.FC<Props> = ({ setExercisesModal }) => {
       contentLabel="Saved Exercises"
       onRequestClose={() => handleCloseExerciseModal()}
     >
-      <div className="exercises-container">
+      <section className="exercises-container">
         <ExercisesHead
           tab={tab}
           setTab={setTab}
@@ -53,7 +53,7 @@ const Exercises: React.FC<Props> = ({ setExercisesModal }) => {
         />
         {tab === 0 && <ManageExercises exercises={savedExercises} />}
         {tab === 1 && <AddExercises msg={msg} setMsg={setMsg} />}
-      </div>
+      </section>
     </Modal>
   );
 };
