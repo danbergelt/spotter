@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Props } from '../../../../../types/Exercises';
+import { Props } from "../../../../../types/Exercises";
 
 // either delete or edit an exercise
 
@@ -12,13 +12,18 @@ const ExerciseActions: React.FC<Props> = ({
   return (
     <div className="exercise-actions">
       <div
+        role="button"
         data-testid="del-ex"
         onClick={() => delExercise(i)}
         className="exercise-edit"
       >
         Delete
       </div>
-      <div onClick={() => handleQueue(exercise, i)} className="exercise-edit">
+      <div
+        role="button"
+        onClick={() => handleQueue(exercise, i)}
+        className="exercise-edit"
+      >
         Edit
       </div>
     </div>

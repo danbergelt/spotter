@@ -15,6 +15,7 @@ const ExportWorkouts: React.FC<Props> = ({ t }) => {
         download.
       </div>
       <div
+        role="button"
         onClick={() => downloadData(setDataDump, t, "workouts")}
         className="settings-action"
       >

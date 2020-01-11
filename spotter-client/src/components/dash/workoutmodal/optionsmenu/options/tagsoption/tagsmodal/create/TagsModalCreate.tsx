@@ -64,7 +64,7 @@ const TagsModalCreate = () => {
       {message.success && (
         <Message message={message.success} setMessage={setMessage} />
       )}
-      <div onClick={submitTag} className="tags-modal-create-submit">
+      <div role="button" onClick={submitTag} className="tags-modal-create-submit">
         {loading ? (
           <Loader color="white" height={10} width={50} type="ThreeDots" />
         ) : (

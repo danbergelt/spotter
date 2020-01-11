@@ -28,6 +28,7 @@ const Tags: React.FC<Props> = ({ iconClass }) => {
   return (
     <>
       <div
+        role="button"
         onClick={openTagsModal}
         className="add-workout-options-button"
         data-testid="tags-modal"

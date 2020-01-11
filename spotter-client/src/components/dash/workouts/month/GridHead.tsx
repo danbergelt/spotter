@@ -25,6 +25,7 @@ const GridHead: React.FC<Props> = ({ openAddWorkoutModal, date }) => {
     <>
       <div className="month-grid-day-head">
         <div
+          role="button"
           onClick={() => openAddWorkoutModal(date)}
           style={{ marginLeft: "auto" }}
           className="month-grid-add-workout"

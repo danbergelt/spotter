@@ -27,6 +27,7 @@ const TagsModalHead: React.FC<Props> = ({ active, closeTagModal }) => {
         <Tab active={active} setActive={setActive} text={"Create"} id={2} />
       </div>
       <div
+        role="button"
         data-testid="close-tag-modal"
         onClick={closeTagModal}
         className="tags-modal-head-exit"

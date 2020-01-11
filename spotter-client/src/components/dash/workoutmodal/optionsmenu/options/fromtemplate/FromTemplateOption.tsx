@@ -28,6 +28,7 @@ const FromTemplateOption: React.FC<Props> = ({ iconClass }) => {
   return (
     <>
       <div
+        role="button"
         onClick={openFromTemplateModal}
         className="add-workout-options-button"
       >

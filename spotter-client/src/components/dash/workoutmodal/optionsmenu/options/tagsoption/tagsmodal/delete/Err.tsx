@@ -11,6 +11,7 @@ const Err: React.FC<Props> = ({ err, setErr }) => {
     <div className="tag-delete-err">
       {err}
       <div
+        role="button"
         onClick={() => setErr("")}
         style={{ fontSize: "1.2rem", cursor: "pointer" }}
       >

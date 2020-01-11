@@ -21,7 +21,7 @@ const WorkoutColumn: React.FC<Props> = ({
   workouts
 }) => {
   return (
-    <div className="week-workouts-column">
+    <div role="button" className="week-workouts-column">
       <WorkoutColumnContent
         date={date}
         i={i}
@@ -36,6 +36,7 @@ const WorkoutColumn: React.FC<Props> = ({
               className="workout-card-container"
               onClick={() => openViewModal(data, date)}
               key={data._id}
+              role="button"
             >
               <WorkoutCard data={data} />
             </div>

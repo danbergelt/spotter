@@ -31,6 +31,7 @@ const CloseAccount: React.FC = () => {
         <div>Yes, I'm sure</div>
       </div>
       <div
+        role="button"
         data-testid={
           confirmClose ? "delete-account" : "delete-account-disabled"
         }

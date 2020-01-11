@@ -11,6 +11,7 @@ const ChangeEmailContent: React.FC<Props> = ({ setChangeEmail}) => {
     <div className="change-container">
       <div className="popover-head">
         <div
+          role="button"
           data-testid="close-popover"
           onClick={() => setChangeEmail(false)}
           className="close-popover"

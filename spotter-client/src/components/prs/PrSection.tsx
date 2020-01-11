@@ -24,6 +24,7 @@ const PrSection: React.FC<Props> = ({ title, prs }) => {
     <div className="pr-section">
       <div className={open ? "pr-title open" : "pr-title closed"}>
         <div
+          role="button"
           className="pr-spacer"
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
