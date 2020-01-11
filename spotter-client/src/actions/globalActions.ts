@@ -127,11 +127,11 @@ export const viewWorkoutModalAction: TAddWorkoutModal = paramsHelper => {
 type TLogOut = () => (dispatch: any) => void;
 export const logOutAction: TLogOut = () => {
   return async dispatch => {
-    dispatch({
-      type: LOGOUT
-    });
     await axios.get(`${process.env.REACT_APP_T_API}/api/auth/logout`, {
       withCredentials: true
+    });
+    dispatch({
+      type: LOGOUT
     });
   };
 };

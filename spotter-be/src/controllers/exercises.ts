@@ -73,6 +73,7 @@ export const deleteExercise = asyncHandler(async (req, res) => {
 // @access --> Private
 
 export const getExercises = asyncHandler(async (req, res) => {
+
   const exercises: Array<IExercise> = await Exercise.find({
     user: req.user._id
   });

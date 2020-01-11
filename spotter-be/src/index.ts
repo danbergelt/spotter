@@ -29,15 +29,31 @@ if (process.env.NODE_ENV === "production") {
 const app: Express = express();
 
 // CORS
+const whitelist = ["http://localhost:3000"];
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: (origin, res) => {
+      if (whitelist.indexOf(origin!) !== -1) {
+        res(null, true);
+      } else {
+        res(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true
   })
 );
 
 // Cookie parser
-app.use(cookieParser());
+app.use(
+  [
+    "/api/auth/login",
+    "/api/auth/register",
+    "/api/auth/user/forgotPassword/:id",
+    "/api/auth/logout",
+    "/api/auth/refresh"
+  ],
+  cookieParser()
+);
 
 // Dev logger
 if (process.env.NODE_ENV === "development") {

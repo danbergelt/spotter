@@ -14,7 +14,7 @@ const App: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  useEffect((): void => {
+  useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_T_API}/api/auth/refresh`, {
         withCredentials: true
