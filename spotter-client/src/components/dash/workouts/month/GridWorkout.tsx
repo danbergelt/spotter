@@ -15,6 +15,7 @@ const GridWorkout: React.FC<Props> = ({ data, openViewModal, date }) => {
     <div
       style={{ background: data.tags[0] && data.tags[0].color }}
       className="month-grid-workout"
+      role="button"
       onClick={() => openViewModal(data, date)}
       key={data._id}
     >

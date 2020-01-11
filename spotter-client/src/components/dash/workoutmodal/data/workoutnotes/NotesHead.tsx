@@ -17,6 +17,7 @@ const NotesHead: React.FC<Props> = ({ notes, notesRef }) => {
       <div className="workout-data-notes-title">Notes</div>
       {notes !== "" && (
         <div
+          role="button"
           className="workout-data-notes-edit"
           onClick={() => handleFocus()}
         >

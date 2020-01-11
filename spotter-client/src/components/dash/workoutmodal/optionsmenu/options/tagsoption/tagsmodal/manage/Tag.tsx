@@ -31,6 +31,7 @@ const Tag: React.FC<Props> = ({
     <div key={tag._id}>
       <div className="tag-manage-container">
         <div
+          role="button"
           onClick={() => setUpdate(tag)}
           onMouseEnter={() => setHover(tag._id)}
           onMouseLeave={() => setHover(null)}
@@ -44,6 +45,7 @@ const Tag: React.FC<Props> = ({
           {tag.content}
         </div>
         <div
+          role="button"
           onClick={() => handleDelete(tag)}
           className="tag-manage-delete"
           data-testid="trash-tag"

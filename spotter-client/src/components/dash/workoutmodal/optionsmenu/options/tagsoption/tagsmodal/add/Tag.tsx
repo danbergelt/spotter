@@ -22,6 +22,7 @@ const Tag: React.FC<Props> = ({
   return (
     <div className="tag-add-container">
       <div
+        role="button"
         data-testid="tag-to-add"
         onClick={() => toggleTag(tag)}
         // need to use state to manage hover due to CSS in JS

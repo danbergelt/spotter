@@ -21,6 +21,7 @@ const ExercisesHead: React.FC<Props> = ({ handleCloseExerciseModal, tab, setTab 
           }}
         >
           <div
+            role="button"
             onClick={() => setTab(0)}
             className={
               tab === 0 ? "exercises-title" : "exercises-title-not-active"
@@ -29,6 +30,7 @@ const ExercisesHead: React.FC<Props> = ({ handleCloseExerciseModal, tab, setTab 
             Manage
           </div>
           <div
+            role="button"
             onClick={() => setTab(1)}
             className={
               tab === 1 ? "exercises-title" : "exercises-title-not-active"
@@ -42,6 +44,7 @@ const ExercisesHead: React.FC<Props> = ({ handleCloseExerciseModal, tab, setTab 
           className="exercises-exit"
         >
           <FiX
+            role="button"
             // inline styles as a convenience
             data-testid="quit-exercises"
             style={{ display: "flex", alignItems: "center" }}

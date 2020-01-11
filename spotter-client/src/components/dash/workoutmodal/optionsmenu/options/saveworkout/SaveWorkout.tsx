@@ -74,6 +74,7 @@ const SaveWorkout: React.FC<Props> = ({
   return (
     <>
       <div
+        role="button"
         data-testid="save-workout"
         onClick={saveHandler}
         className="add-workout-options-button publish"

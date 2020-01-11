@@ -45,7 +45,7 @@ const TagsModalDelete: React.FC<Props> = ({ toDelete }) => {
         action.
       </div>
       {err.length ? <Err err={err} setErr={setErr} /> : null}
-      <div onClick={deleteTag} className="tag-delete-submit">
+      <div role="button" onClick={deleteTag} className="tag-delete-submit">
         Delete Tag
       </div>
     </div>

@@ -30,6 +30,7 @@ const GridHeadFirstWeek: React.FC<Props> = ({
       <div className="month-grid-day-head">
         <div className="month-grid-day-of-week">{date.format("ddd")}</div>
         <div
+          role="button"
           onClick={() => openAddWorkoutModal(date)}
           className="month-grid-add-workout"
           data-testid={i === 0 && "add-for-testing"}

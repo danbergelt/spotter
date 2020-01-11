@@ -39,7 +39,7 @@ const ConfirmDeleteBody: React.FC<Props> = ({
         >
           Delete
         </div>
-        <div onClick={closeConfirmDelete} className="delete-btn can">
+        <div role="button" onClick={closeConfirmDelete} className="delete-btn can">
           Cancel
         </div>
       </div>

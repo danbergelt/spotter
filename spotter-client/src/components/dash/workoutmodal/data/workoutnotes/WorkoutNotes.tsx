@@ -36,8 +36,9 @@ const WorkoutNotes = () => {
             : "workout-data-notes-actions"
         }
       >
-        <FiPlus className="workout-data-notes-submit" />
+        <FiPlus role="button" className="workout-data-notes-submit" />
         <FiTrash
+          role="button"
           data-testid="trash"
           onMouseDown={() => dispatch(resetNotesAction(""))}
           className="workout-data-notes-cancel"
