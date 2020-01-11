@@ -30,7 +30,7 @@ const WorkoutOptions: React.FC<Props> = ({ closeParentModal, time }) => {
   return (
     <div className="add-workout-options-container">
       <h1 className="add-workout-options-title sub">ACTIONS</h1>
-      <div className="add-workout-options-buttons">
+      <section className="add-workout-options-buttons">
         <TagsOption iconClass={iconClass} />
         <SaveTemplateOption iconClass={iconClass} />
         <FromTemplateOption iconClass={iconClass} />
@@ -48,7 +48,7 @@ const WorkoutOptions: React.FC<Props> = ({ closeParentModal, time }) => {
           ctx={ctx}
           iconClass={iconClass}
         />
-      </div>
+      </section>
     </div>
   );
 };

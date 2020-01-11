@@ -17,17 +17,18 @@ const WorkoutColumnContent: React.FC<Props> = ({
 }) => {
   return (
     <>
-      <div
+      <section
         className="week-workouts-day"
         data-testid={date.format("MMM DD YYYY")}
       >
-        <div className="week-workout-day-slug">{date.format("ddd")}</div>
-        <div className="week-workout-day-date">{date.format("D")}</div>
-      </div>
+        <p className="week-workout-day-slug">{date.format("ddd")}</p>
+        <p className="week-workout-day-date">{date.format("D")}</p>
+      </section>
       <div
         data-testid={i === 0 && "modal-click"}
         onClick={() => openAddWorkoutModal(date)}
         className="week-workouts-add-workout"
+        role="button"
       >
         {<FiPlusCircle className="week-workouts-add-icon" />} Add Workout
       </div>

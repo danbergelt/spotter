@@ -50,7 +50,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="app-container">
+    <main className="app-container">
       <Profiler
         id="app"
         onRender={(a, b, actualDuration, baseDuration) =>
@@ -59,7 +59,7 @@ const App: React.FC = () => {
       >
         <Routes />
       </Profiler>
-    </div>
+    </main>
   );
 };
 

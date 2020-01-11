@@ -9,8 +9,8 @@ interface Props {
 
 const Exercise: React.FC<Props> = ({ deleteExercise, exercise }) => {
   return (
-    <div className="exercise-container">
-      <div className="exercise">{exercise.name}</div>
+    <section className="exercise-container">
+      <p className="exercise">{exercise.name}</p>
       <div
         role="button"
         onClick={() => deleteExercise && deleteExercise(exercise._id)}
@@ -19,7 +19,7 @@ const Exercise: React.FC<Props> = ({ deleteExercise, exercise }) => {
       >
         <FiX />
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -16,8 +16,8 @@ const Settings: React.FC = () => {
     // account settings
     // e.g. change password, change email
     <div className="settings-container spacer">
-      <div className="settings-section">
-        <div className="settings-head">Account Settings</div>
+      <section className="settings-section">
+        <p className="settings-head">Account Settings</p>
         <ChangePassword
           changePassword={changePassword}
           setChangePassword={setChangePassword}
@@ -39,20 +39,20 @@ const Settings: React.FC = () => {
             Change email...
           </div>
         </ChangeEmail>
-      </div>
+      </section>
 
       {/* export workout data as a CSV file */}
-      <div className="settings-section">
+      <section className="settings-section">
         <div className="settings-head">Exports</div>
         <ExportWorkouts t={t} />
-      </div>
+      </section>
 
       {/* delete account permanently
       will wipe all account-related details and send user to signup */}
-      <div className="settings-section">
-        <div className="settings-head">Close Account</div>
+      <section className="settings-section">
+        <p className="settings-head">Close Account</p>
         <CloseAccount />
-      </div>
+      </section>
     </div>
   );
 };

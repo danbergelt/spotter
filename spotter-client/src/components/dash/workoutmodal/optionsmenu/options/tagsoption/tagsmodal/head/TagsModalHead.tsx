@@ -20,12 +20,15 @@ const TagsModalHead: React.FC<Props> = ({ active, closeTagModal }) => {
   );
 
   return (
-    <div data-testid="tags-modal-head" className="tags-modal-head-container">
-      <div className="tags-modal-head-tabs">
+    <section
+      data-testid="tags-modal-head"
+      className="tags-modal-head-container"
+    >
+      <nav className="tags-modal-head-tabs">
         <Tab active={active} setActive={setActive} text={"Add"} id={0} />
         <Tab active={active} setActive={setActive} text={"Manage"} id={1} />
         <Tab active={active} setActive={setActive} text={"Create"} id={2} />
-      </div>
+      </nav>
       <div
         role="button"
         data-testid="close-tag-modal"
@@ -34,7 +37,7 @@ const TagsModalHead: React.FC<Props> = ({ active, closeTagModal }) => {
       >
         <FiX />
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -16,12 +16,11 @@ interface Props {
 }
 
 const PrSection: React.FC<Props> = ({ title, prs }) => {
-
   const [open, setOpen] = useState(true);
   const [hover, setHover] = useState(false);
 
   return (
-    <div className="pr-section">
+    <section className="pr-section">
       <div className={open ? "pr-title open" : "pr-title closed"}>
         <div
           role="button"
@@ -47,17 +46,15 @@ const PrSection: React.FC<Props> = ({ title, prs }) => {
           </div>
         )}
         <ReactTooltip place="top" id="pr-info" effect="solid">
-          <div style={{ width: "200px" }}>
-            Save the exercises you want tracked, and we'll show your PRs
-            on this page!
-          </div>
+          <p style={{ width: "200px" }}>
+            Save the exercises you want tracked, and we'll show your PRs on this
+            page!
+          </p>
         </ReactTooltip>
       </div>
       {open && (
-        <div className="pr-section-box">
-          {!prs.length && (
-            <div className="no-prs">No PRs found in this range</div>
-          )}
+        <section className="pr-section-box">
+          {!prs.length && <p className="no-prs">No PRs found in this range</p>}
           {prs
             // sorting the prs by date (most recent comes first)
             .sort((a: P, b: P) =>
@@ -66,9 +63,9 @@ const PrSection: React.FC<Props> = ({ title, prs }) => {
             .map((pr: P) => (
               <Pr key={pr.name} pr={pr} />
             ))}
-        </div>
+        </section>
       )}
-    </div>
+    </section>
   );
 };
 

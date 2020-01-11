@@ -10,7 +10,7 @@ const ChangePasswordForm: React.FC = () => {
   const t: string | null = useSelector(fetchToken);
 
   return (
-    <div className="change-form">
+    <section className="change-form">
       <Formik
         validateOnChange={false}
         validateOnBlur={false}
@@ -79,19 +79,15 @@ const ChangePasswordForm: React.FC = () => {
                 Save
               </button>
               {errors.confirmPassword && touched.confirmPassword && (
-                <div className="change-err">{errors.confirmPassword}</div>
+                <p className="change-err">{errors.confirmPassword}</p>
               )}
-              {status?.error && (
-                <div className="change-err">{status.error}</div>
-              )}
-              {status?.data && (
-                <div className="change-succ">{status.data}</div>
-              )}
+              {status?.error && <p className="change-err">{status.error}</p>}
+              {status?.data && <p className="change-succ">{status.data}</p>}
             </div>
           </Form>
         )}
       </Formik>
-    </div>
+    </section>
   );
 };
 

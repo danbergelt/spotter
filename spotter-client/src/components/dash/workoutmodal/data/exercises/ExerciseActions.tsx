@@ -10,7 +10,7 @@ const ExerciseActions: React.FC<Props> = ({
   delExercise
 }) => {
   return (
-    <div className="exercise-actions">
+    <section className="exercise-actions">
       <div
         role="button"
         data-testid="del-ex"
@@ -26,7 +26,7 @@ const ExerciseActions: React.FC<Props> = ({
       >
         Edit
       </div>
-    </div>
+    </section>
   );
 };
 

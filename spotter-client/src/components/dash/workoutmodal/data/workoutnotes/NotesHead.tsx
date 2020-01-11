@@ -12,9 +12,9 @@ const NotesHead: React.FC<Props> = ({ notes, notesRef }) => {
   }
 
   return (
-    <div className="workout-data-notes-head">
+    <header className="workout-data-notes-head">
       <FiBookOpen className="workout-data-notes-icon" />
-      <div className="workout-data-notes-title">Notes</div>
+      <p className="workout-data-notes-title">Notes</p>
       {notes !== "" && (
         <div
           role="button"
@@ -24,7 +24,7 @@ const NotesHead: React.FC<Props> = ({ notes, notesRef }) => {
           Edit
         </div>
       )}
-    </div>
+    </header>
   );
 };
 

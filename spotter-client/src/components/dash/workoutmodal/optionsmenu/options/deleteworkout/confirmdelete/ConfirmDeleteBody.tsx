@@ -27,11 +27,11 @@ const ConfirmDeleteBody: React.FC<Props> = ({
 
   return (
     <>
-      <div style={{ fontSize: "1.3rem" }}>
+      <p style={{ fontSize: "1.3rem" }}>
         Are you sure you want to delete this workout? There is no undoing this
         action.
-      </div>
-      <div className="delete-btn-container">
+      </p>
+      <section className="delete-btn-container">
         <div
           data-testid="conf-del"
           onClick={deleteWorkout}
@@ -42,7 +42,7 @@ const ConfirmDeleteBody: React.FC<Props> = ({
         <div role="button" onClick={closeConfirmDelete} className="delete-btn can">
           Cancel
         </div>
-      </div>
+      </section>
     </>
   );
 };

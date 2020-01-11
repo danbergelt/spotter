@@ -40,12 +40,12 @@ const ForgotAndChangePass: React.FC = () => {
   };
 
   return (
-    <div className="forgot-password-container">
-      <div className="forgot-password-title">Change Password</div>
+    <section className="forgot-password-container">
+      <header className="forgot-password-title">Change Password</header>
       {res && (
-        <div style={{ marginTop: "2rem" }} className="forgot-password-res err">
+        <p style={{ marginTop: "2rem" }} className="forgot-password-res err">
           {res}
-        </div>
+        </p>
       )}
       <form onSubmit={e => !loading && changePass(e)}>
         <label className="forgot-password-label">New Password</label>
@@ -75,7 +75,7 @@ const ForgotAndChangePass: React.FC = () => {
           )}
         </button>
       </form>
-    </div>
+    </section>
   );
 };
 

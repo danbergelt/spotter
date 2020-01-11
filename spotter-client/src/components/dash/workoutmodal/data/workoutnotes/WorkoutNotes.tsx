@@ -22,14 +22,14 @@ const WorkoutNotes = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="workout-data-notes">
+    <section className="workout-data-notes">
       <NotesHead notes={notes} notesRef={notesRef} />
       <NotesTextArea
         notesRef={notesRef}
         setActions={setActions}
         notes={notes}
       />
-      <div
+      <section
         className={
           actions
             ? "workout-data-notes-actions active"
@@ -43,8 +43,8 @@ const WorkoutNotes = () => {
           onMouseDown={() => dispatch(resetNotesAction(""))}
           className="workout-data-notes-cancel"
         />
-      </div>
-    </div>
+      </section>
+    </section>
   );
 };
 

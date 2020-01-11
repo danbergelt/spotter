@@ -29,7 +29,7 @@ const SpotterForm: React.FC<Props> = ({
   addToken
 }) => {
   return (
-    <div className="form-container">
+    <section className="form-container">
       <div className="logo-container">
         <div>{children}</div>
       </div>
@@ -61,8 +61,8 @@ const SpotterForm: React.FC<Props> = ({
         }}
       >
         {({ status, errors, touched }) => (
-          <div className="form-sub-container">
-            <p className="form-head">{action}</p>
+          <section className="form-sub-container">
+            <header className="form-head">{action}</header>
             {status && <p className="api-err-box">{status}</p>}
             <Form data-testid="test-form" className="form">
               <label className="form-label">Email</label>
@@ -94,25 +94,25 @@ const SpotterForm: React.FC<Props> = ({
               </button>
             </Form>
             {action === "Sign Up" && (
-              <div className="form-alt-link">
+              <section className="form-alt-link">
                 Already have an account?{" "}
                 <Link className="form-alt-link-clickable" to="/login">
                   Log in.
                 </Link>
-              </div>
+              </section>
             )}
             {action === "Log In" && (
-              <div className="form-alt-link">
+              <section className="form-alt-link">
                 Forgot your password?{" "}
                 <Link className="form-alt-link-clickable" to="/forgotpassword">
                   Click here.
                 </Link>
-              </div>
+              </section>
             )}
-          </div>
+          </section>
         )}
       </Formik>
-    </div>
+    </section>
   );
 };
 

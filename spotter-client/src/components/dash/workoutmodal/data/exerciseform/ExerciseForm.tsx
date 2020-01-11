@@ -44,7 +44,7 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
   const [suggestions, setSuggestions] = useState<Array<E>>([]);
 
   return (
-    <div className="exercise-form-container">
+    <section className="exercise-form-container">
       <Formik
         validateOnChange={false}
         validateOnBlur={false}
@@ -211,7 +211,7 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
           </Form>
         )}
       </Formik>
-    </div>
+    </section>
   );
 };
 

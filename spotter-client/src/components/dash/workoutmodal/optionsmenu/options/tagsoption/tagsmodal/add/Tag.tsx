@@ -20,7 +20,7 @@ const Tag: React.FC<Props> = ({
   setHover
 }) => {
   return (
-    <div className="tag-add-container">
+    <section className="tag-add-container">
       <div
         role="button"
         data-testid="tag-to-add"
@@ -52,7 +52,7 @@ const Tag: React.FC<Props> = ({
             )
         )}
       </div>
-    </div>
+    </section>
   );
 };
 

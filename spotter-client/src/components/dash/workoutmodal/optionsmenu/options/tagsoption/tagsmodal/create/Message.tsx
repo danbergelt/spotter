@@ -13,7 +13,7 @@ interface Props {
 
 const Message: React.FC<Props> = ({ message, setMessage }) => {
   return (
-    <div
+    <section
       className={
         message !== "New tag created"
           ? "tag-creation failure"
@@ -28,7 +28,7 @@ const Message: React.FC<Props> = ({ message, setMessage }) => {
       >
         <FiX />
       </div>
-    </div>
+    </section>
   );
 };
 

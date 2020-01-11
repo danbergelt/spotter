@@ -4,7 +4,7 @@ import * as Moment from "moment";
 import { extendMoment } from "moment-range";
 import { Pr as P } from "src/types/Prs";
 const moment = extendMoment(Moment);
-let m = require("moment")
+let m = require("moment");
 if ("default" in m) {
   m = moment["default"];
 }
@@ -13,11 +13,8 @@ interface Props {
   pr: P;
 }
 
-
 const Pr: React.FC<Props> = ({ pr }) => {
-
   const setClassName = (pr: P): string | undefined => {
-
     // difference between the date on the pr and the current date
     const diff: number = m().diff(m(pr.date, "MMM DD YYYY"), "days");
 
@@ -33,7 +30,7 @@ const Pr: React.FC<Props> = ({ pr }) => {
   };
 
   return (
-    <div className="pr">
+    <article className="pr">
       <div style={{ display: "flex", alignItems: "center" }}>
         <div
           // color-coding circle to indicate if a PR is recent or old
@@ -41,13 +38,13 @@ const Pr: React.FC<Props> = ({ pr }) => {
         >
           <FaCircle />
         </div>
-        <div>{pr.name}</div>
+        <p>{pr.name}</p>
       </div>
       <div style={{ display: "flex" }}>
-        <div className="pr-date">{pr.date}</div>
-        <div style={{ fontWeight: "bold" }}>{pr.pr}lbs</div>
+        <p className="pr-date">{pr.date}</p>
+        <p style={{ fontWeight: "bold" }}>{pr.pr}lbs</p>
       </div>
-    </div>
+    </article>
   );
 };
 

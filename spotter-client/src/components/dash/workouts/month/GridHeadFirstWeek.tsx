@@ -27,8 +27,8 @@ const GridHeadFirstWeek: React.FC<Props> = ({
 }) => {
   return (
     <>
-      <div className="month-grid-day-head">
-        <div className="month-grid-day-of-week">{date.format("ddd")}</div>
+      <section className="month-grid-day-head">
+        <p className="month-grid-day-of-week">{date.format("ddd")}</p>
         <div
           role="button"
           onClick={() => openAddWorkoutModal(date)}
@@ -37,8 +37,8 @@ const GridHeadFirstWeek: React.FC<Props> = ({
         >
           <FiPlusCircle />
         </div>
-      </div>
-      <div
+      </section>
+      <p
         style={{ fontSize: "1.3rem" }}
         className={
           date.format("MMM DD YYYY") === m().format("MMM DD YYYY")
@@ -47,7 +47,7 @@ const GridHeadFirstWeek: React.FC<Props> = ({
         }
       >
         {date.format("D")}
-      </div>
+      </p>
     </>
   );
 };

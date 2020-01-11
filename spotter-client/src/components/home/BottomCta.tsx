@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 const BottomCta: React.FC = () => {
   return (
-    <div className="bottomcta-container">
-      <div className="bottomcta-title">Log your first workout</div>
+    <section className="bottomcta-container">
+      <p className="bottomcta-title">Log your first workout</p>
       <Link
         className="bottomcta-cta"
         style={{ color: "white", textDecoration: "none" }}
@@ -12,7 +12,7 @@ const BottomCta: React.FC = () => {
       >
         Get Tracking
       </Link>
-    </div>
+    </section>
   );
 };
 

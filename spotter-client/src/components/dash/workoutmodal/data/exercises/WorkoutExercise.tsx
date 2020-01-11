@@ -9,26 +9,26 @@ const WorkoutExercise: React.FC<Props> = ({ exercise, i, handleQueue, delExercis
   return (
     exercise && (
       <div className={i % 2 === 0 ? "exercise-row even" : "exercise-row odd"}>
-        <div className="exercise-results">
+        <section className="exercise-results">
           <div>
-            <div className="exercise-name">{exercise.name}</div>
+            <p className="exercise-name">{exercise.name}</p>
             <div className="exercise-stats">
               {exercise.weight && (
-                <div className="exercise-stat">{exercise.weight} lbs</div>
+                <p className="exercise-stat">{exercise.weight} lbs</p>
               )}
               {exercise.weight && exercise.reps && exercise.sets && (
                 <FiArrowRight />
               )}
               {exercise.sets && (
-                <div style={{ paddingLeft: "1rem" }} className="exercise-stat">
+                <p style={{ paddingLeft: "1rem" }} className="exercise-stat">
                   {exercise.sets} sets
-                </div>
+                </p>
               )}
               {exercise.reps && exercise.sets && (
                 <div className="exercise-stat">x</div>
               )}
               {exercise.reps && (
-                <div className="exercise-stat">{exercise.reps} reps</div>
+                <p className="exercise-stat">{exercise.reps} reps</p>
               )}
             </div>
           </div>
@@ -38,7 +38,7 @@ const WorkoutExercise: React.FC<Props> = ({ exercise, i, handleQueue, delExercis
             handleQueue={handleQueue}
             delExercise={delExercise}
           />
-        </div>
+        </section>
       </div>
     )
   );

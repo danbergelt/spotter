@@ -47,7 +47,6 @@ const WorkoutGrid = () => {
     reFetch(timeSpan, history, scope.value, t);
   }, [timeSpan, history, scope.value, t]);
 
-
   // increment or decrement by one week/month at a time
   const inc = () => {
     dispatch(incOrDecAction("inc", timeSpan));
@@ -80,7 +79,7 @@ const WorkoutGrid = () => {
   return (
     <div className="spacer">
       <DashControls inc={inc} dec={dec} time={timeSpan} month={monthDashHead} />
-      <div className="month-workout-days">
+      <section className="month-workout-days">
         {generateMonth(timeSpan).map((date, i) => (
           <GridDay
             openAddWorkoutModal={openAddWorkoutModal}
@@ -94,7 +93,7 @@ const WorkoutGrid = () => {
           />
         ))}
         <WorkoutModal time={timeSpan} modal={modal} closeModal={closeModal} />
-      </div>
+      </section>
     </div>
   );
 };

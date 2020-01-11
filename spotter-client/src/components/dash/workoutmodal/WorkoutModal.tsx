@@ -22,10 +22,10 @@ const WorkoutModal: React.FC<Props> = ({ modal, closeModal, time }) => {
       style={mStyles}
       data-testid="modal"
     >
-      <div className="workout-modal-content">
+      <section className="workout-modal-content">
         <WorkoutTitle closeModal={closeModal} />
         <WorkoutContent closeModal={closeModal} time={time} />
-      </div>
+      </section>
     </Modal>
   );
 };
