@@ -1,19 +1,12 @@
 import React from "react";
+import { slide as Menu } from "react-burger-menu";
+import { useWindowSize } from "react-use";
+import { styles } from './MobileMenuStyles';
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchToken } from "src/types/State";
-import { logOutAction } from "src/actions/globalActions";
-import { HashLink } from "react-router-hash-link";
+import NavLinks from "./NavLinks";
 
 const Nav = () => {
-  const token: string | null = useSelector(fetchToken);
-
-  const dispatch = useDispatch();
-
-  const logOut: () => Promise<void> = async () => {
-    // clears refresh token and access token
-    dispatch(logOutAction());
-  };
+  const { width } = useWindowSize();
 
   return (
     <div className="spotter-nav spacer">
@@ -22,50 +15,13 @@ const Nav = () => {
           spotter<span className="spot">.</span>
         </Link>
       </section>
-      <nav className="spotter-nav-links">
-        {!token && (
-          <HashLink smooth to="/#about" className="spotter-nav-link">
-            About
-          </HashLink>
-        )}
-        {token && (
-          <Link
-            data-testid="settings"
-            className="spotter-nav-link"
-            to="/settings"
-          >
-            Settings
-          </Link>
-        )}
-        {token && (
-          <Link
-            data-testid="logout"
-            onClick={logOut}
-            className="spotter-nav-link styled"
-            to="/login"
-          >
-            Log Out{" "}
-          </Link>
-        )}
-        {!token && (
-          <Link
-            data-testid="login"
-            className="spotter-nav-link dashboard"
-            to="/login"
-          >
-            Log In
-          </Link>
-        )}
-        {!token && (
-          <Link
-            data-testid="signup"
-            className="spotter-nav-link styled"
-            to="/signup"
-          >
-            Sign Up
-          </Link>
-        )}
-      </nav>
+      {width <= 500 ? (
+        <Menu right styles={styles}>
+          <NavLinks />
+        </Menu>
+      ) : (
+        <NavLinks />
+      )}
     </div>
   );
 };
