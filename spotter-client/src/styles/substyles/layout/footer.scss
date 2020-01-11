@@ -1,0 +1,31 @@
+@import '../../variables.scss';
+
+.spotter-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+  padding-bottom: 2rem;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+
+  .spotter-footer-link {
+    color: $primary;
+    text-decoration: none;
+    font-size: 1.4rem;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .spotter-footer-link:nth-child(1) {
+    padding-right: 1.5rem;
+    border-right: 1px solid $gray1;
+  }
+
+  .spotter-footer-link:nth-child(2) {
+    padding-left: 1.5rem;
+  }
+}
