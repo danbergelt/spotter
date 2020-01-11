@@ -5,7 +5,7 @@ export const TextBlocks: React.FC = () => {
   const strokeWidth = { strokeWidth: 1.25 };
 
   return (
-    <div className="textblocks-container">
+    <div className="textblocks-container" id="about">
       <div className="textblocks-title">
         Spotter is a lifting-focused fitness pal that helps you...
       </div>

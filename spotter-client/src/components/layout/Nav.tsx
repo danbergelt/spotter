@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchToken } from "src/types/State";
 import { logOutAction } from "src/actions/globalActions";
+import { HashLink } from 'react-router-hash-link';
 
 const Nav = () => {
   const token: string | null = useSelector(fetchToken);
@@ -23,9 +24,9 @@ const Nav = () => {
       </div>
       <div className="spotter-nav-links">
         {!token && (
-          <Link to="/" className="spotter-nav-link">
+          <HashLink smooth to="/#about" className="spotter-nav-link">
             About
-          </Link>
+          </HashLink>
         )}
         {token && (
           <Link
