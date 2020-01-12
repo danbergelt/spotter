@@ -28,6 +28,10 @@
       font-size: 3.5rem;
     }
 
+    @include small {
+      font-size: 3rem;
+    }
+
     .home-hero-main-point {
       font-weight: bold;
       color: $primary;
@@ -74,6 +78,10 @@
       padding: 1rem 3rem;
       font-size: $p;
       margin-top: 1rem;
+    }
+
+    @include small {
+      padding: 0.75rem 2rem;
     }
 
     &:hover {
