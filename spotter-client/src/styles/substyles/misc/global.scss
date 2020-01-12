@@ -3,6 +3,7 @@
    License: none (public domain)
 */
 @import "../../variables.scss";
+@import "../../mixins.scss";
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,700&display=swap");
 
 html,
@@ -153,15 +154,7 @@ html {
 .spacer {
   margin: 0rem 10rem;
 
-  @media (max-width: 1000px) {
-    margin: 0rem 7.5rem;
-  }
-
-  @media (max-width: 800px) {
-    margin: 0rem 5rem;
-  }
-
-  @media (max-width: 500px) {
+  @include large {
     margin: 0rem 2.5rem;
   }
 }
