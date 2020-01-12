@@ -2,14 +2,19 @@ import React, { useState } from "react";
 import weeklyview from "../../assets/weeklyview.png";
 import monthlyview from "../../assets/monthlyview.png";
 import prpage from "../../assets/prpage.png";
+import FeatureOptionsLarge from "./FeatureOptionsLarge";
+import FeatureOptions from "./FeatureOptions";
+import { useWindowSize } from "react-use";
 
 const Features: React.FC = () => {
-  const [selected, setSelected] = useState<number>(0);
+  const [selected, setSelected] = useState<string>("Week View");
+
+  const { width }: { width: number } = useWindowSize();
 
   const setImage = () => {
-    if (selected === 0) {
+    if (selected === "Week View") {
       return weeklyview;
-    } else if (selected === 1) {
+    } else if (selected === "Month View") {
       return monthlyview;
     } else {
       return prpage;
@@ -18,27 +23,11 @@ const Features: React.FC = () => {
 
   return (
     <article className="features-container">
-      <section className="features-tabs-container">
-        <p className="features-title">Features</p>
-        <p
-          onMouseEnter={() => setSelected(0)}
-          className={selected === 0 ? "feature selected" : "feature"}
-        >
-          Week View
-        </p>
-        <p
-          onMouseEnter={() => setSelected(1)}
-          className={selected === 1 ? "feature selected" : "feature"}
-        >
-          Month View
-        </p>
-        <p
-          onMouseEnter={() => setSelected(2)}
-          className={selected === 2 ? "feature selected" : "feature"}
-        >
-          PR Tracking
-        </p>
-      </section>
+      {width <= 1000 ? (
+        <FeatureOptions selected={selected} setSelected={setSelected} />
+      ) : (
+        <FeatureOptionsLarge selected={selected} setSelected={setSelected} />
+      )}
       <img className="features-img" src={setImage()} alt="Weekly View" />
     </article>
   );

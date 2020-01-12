@@ -11,10 +11,24 @@
   align-items: center;
   font-family: "Nanum Gothic";
 
+  @include medium {
+    padding: 15rem 5rem;
+  }
+
+  @include small {
+    padding: 10rem 5rem;
+  }
+
+
   .bottomcta-title {
     color: $gray1;
     font-size: 4rem;
     margin-bottom: 4rem;
+    text-align: center;
+
+    @include medium {
+      font-size: 3rem;
+    }
   }
 
   .bottomcta-cta {
@@ -29,6 +43,11 @@
     text-align: center;
     text-decoration: none;
     @include hover;
+
+    @include medium {
+      font-size: $p;
+      padding: 1.25rem 1.5rem;;
+    }
 
     &:hover {
       background: darken($primary, 15%);
