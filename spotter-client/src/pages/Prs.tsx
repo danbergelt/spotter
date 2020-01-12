@@ -31,8 +31,6 @@ const Prs: React.FC = () => {
     dispatch(fetchPrs(t));
   }, [dispatch, t]);
 
-  console.log(prs)
-
   // set PRs to state organized by time period in which the PR was set
   useEffect(() => {
     // temporary variables for sorted prs

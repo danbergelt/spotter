@@ -15,7 +15,6 @@ export const fetchPrs = (t: string | null) => {
       );
       dispatch({ type: FETCH_PRS_SUCCESS, payload: res.data.prs });
     } catch (error) {
-      console.log(error.response)
       dispatch({ type: FETCH_PRS_ERROR, payload: error.response });
     }
   };
