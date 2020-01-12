@@ -11,8 +11,12 @@
   @include flex-center;
   background-image: linear-gradient(0deg, #f6f8f9 3%, #fff);
 
-  @media (max-width: 1200px) {
-    padding: 20rem 5rem;
+  @include medium {
+    padding: 15rem 5rem;
+  }
+
+  @include small {
+    padding: 10rem 5rem;
   }
 
   .home-hero-main-text {
@@ -20,6 +24,13 @@
     font-size: 5rem;
     color: $gray1;
     font-family: "Nanum Gothic";
+    @include medium {
+      font-size: 3.5rem;
+    }
+
+    @include small {
+      font-size: 3rem;
+    }
 
     .home-hero-main-point {
       font-weight: bold;
@@ -35,12 +46,20 @@
   .home-hero-sub {
     padding-top: 4rem;
     padding-bottom: 2rem;
+    @include medium {
+      padding-top: 2rem;
+      padding-bottom: 1rem;
+    }
 
     .home-hero-sub-text {
       line-height: 1.5;
       font-size: 2rem;
       color: darken($gray2, 10%);
       font-family: "Nanum Gothic";
+
+      @include medium {
+        font-size: $p;
+      }
     }
   }
 
@@ -55,6 +74,16 @@
     text-decoration: none;
     @include hover;
 
+    @include medium {
+      padding: 1rem 3rem;
+      font-size: $p;
+      margin-top: 1rem;
+    }
+
+    @include small {
+      padding: 0.75rem 2rem;
+    }
+
     &:hover {
       cursor: pointer;
       background-color: $primary-hover;
@@ -64,6 +93,9 @@
   .home-hero-alt-signin {
     margin-top: 1.5rem;
     font-size: 1.3rem;
+    @include medium {
+      font-size: 1.1rem;
+    }
 
     .home-hero-alt-signin-link {
       color: $info;

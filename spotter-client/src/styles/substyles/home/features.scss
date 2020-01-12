@@ -10,20 +10,56 @@
   justify-content: center;
   font-family: "Nanum Gothic";
 
+  @include large {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @include medium {
+    padding: 15rem 5rem;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @include small {
+    padding: 10rem 5rem;
+  }
+
   .features-tabs-container {
+    @include large {
+      text-align: center;
+    }
+
+    .feature-tabs-select {
+      margin-bottom: 4rem;
+      width: 225px;
+      font-size: $p;
+      outline: 0;
+      border: 1px solid $gray4;
+      padding: 0.5rem;
+      color: $gray2;
+      background: transparent;
+    }
+
     .features-title {
       color: $gray1;
-      font-size: 2.5rem;
+      font-size: 3rem;
       margin-bottom: 2.5rem;
     }
 
     .feature {
-      width: 300px;
+      width: 325px;
       color: $gray2;
-      font-size: $p;
+      font-size: 1.75rem;
       padding: 1.5rem 0;
       padding-right: 20rem;
       cursor: pointer;
+
+      @include xLarge {
+        width: 250px;
+        padding-right: 5rem;
+        font-size: $p;
+      }
     }
 
     .selected {
@@ -37,5 +73,21 @@
     width: 900px;
     height: auto;
     box-shadow: 0 20px 30px 0 rgba(36,50,66,.14);
+
+    @include xLarge {
+      width: 700px;
+    }
+
+    @include medium {
+      width: 500px;
+    }
+
+    @include small {
+      width: 400px;
+    }
+
+    @media(max-width: 400px) {
+      width: 320px;
+    }
   }
 }

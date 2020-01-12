@@ -155,6 +155,10 @@ html {
   margin: 0rem 10rem;
 
   @include large {
+    margin: 0rem 5rem;
+  }
+
+  @include medium {
     margin: 0rem 2.5rem;
   }
 }

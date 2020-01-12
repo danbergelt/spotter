@@ -136,6 +136,12 @@
   transition: color .15s,color .15s ease-in-out;
 }
 
+@mixin xLarge {
+  @media (max-width: 1500px) {
+    @content;
+  }
+}
+
 @mixin large {
   @media (max-width: 1000px) {
     @content;

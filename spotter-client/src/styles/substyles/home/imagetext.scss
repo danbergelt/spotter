@@ -10,19 +10,47 @@
   align-items: center;
   justify-content: center;
 
+  @include medium {
+    padding: 15rem 5rem;
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  @include small {
+    padding: 10rem 5rem;
+  }
+
   .imagetext-image {
     width: 500px;
     height: auto;
     margin-right: 15rem;
     box-shadow: 0 20px 30px 0 rgba(36,50,66,.14);
+
+    @include large {
+      width: 400px;
+      height: auto;
+      margin-right: 10rem;
+    }
+
+    @include medium {
+      margin-right: 0;
+    }
+
+    @include small {
+      width: 320px;
+    }
   }
 
   .imagetext-content-container {
-    width: 35rem;
+    width: 30%;
     font-family: "Nanum Gothic";
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    @include medium {
+      width: 85%;
+      margin-bottom: 5rem;
+    }
 
     .imagetext-title {
       font-size: 3rem;
@@ -34,11 +62,15 @@
       color: $gray2;
       margin-top: 2.5rem;
       line-height: 1.5;
+
+      @include medium {
+        font-size: $p;
+      }
     }
 
     .imagetext-cta {
       text-align: center;
-      width: 40%;
+      width: max-content;
       padding: 1.5rem;
       font-family: "Roboto";
       color: white;
@@ -49,6 +81,15 @@
       cursor: pointer;
       text-decoration: none;
       @include hover;
+
+      @include large {
+        padding: 1rem;
+        font-size: 1.3rem;
+      }
+
+      @include medium {
+        width: max-content;
+      }
 
       &:hover {
         background: darken($primary, 15%);
