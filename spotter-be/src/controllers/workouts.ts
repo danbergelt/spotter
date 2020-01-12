@@ -1,15 +1,12 @@
 import Workout from "../models/Workout";
 import asyncHandler from "../middleware/async";
+import { promisify } from 'util';
 import Err from "../utils/Err";
-import { promisify } from "util";
 const hex = require("is-hexcolor");
 const stringify = require("csv-stringify");
 import fs from "fs";
 import path from "path";
-import redis from "redis";
 import { IWorkout, ITag } from "src/types/models";
-
-const client: redis.RedisClient = redis.createClient();
 
 // @desc --> get all workouts by user id
 // @route --> GET /api/auth/workouts
@@ -68,9 +65,6 @@ export const addWorkout = asyncHandler(async (req, res, next) => {
 
   const workout: IWorkout = await Workout.create(req.body);
 
-  const hset: Function = promisify(client.hset).bind(client);
-  await hset(req.user._id.toString(), "stale", "true");
-
   return res.status(201).json({
     success: true,
     data: workout
@@ -91,9 +85,6 @@ export const editWorkout = asyncHandler(async (req, res) => {
     }
   );
 
-  const hset: Function = promisify(client.hset).bind(client);
-  await hset(req.user._id.toString(), "stale", "true");
-
   return res.status(200).json({
     success: true,
     data: workout
@@ -106,9 +97,6 @@ export const editWorkout = asyncHandler(async (req, res) => {
 
 export const deleteWorkout = asyncHandler(async (req, res) => {
   await Workout.findByIdAndDelete(req.params.id);
-
-  const hset: Function = promisify(client.hset).bind(client);
-  await hset(req.user._id.toString(), "stale", "true");
 
   return res.status(200).json({
     success: true,

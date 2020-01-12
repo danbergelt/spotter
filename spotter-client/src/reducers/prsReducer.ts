@@ -8,7 +8,7 @@ import { PrsReducer } from "src/types/State";
 const fetchPrsState: PrsReducer = {
   err: null,
   isLoading: false,
-  prs: {}
+  prs: []
 };
 
 // controls the PRs as seens on the PRs page

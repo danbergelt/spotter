@@ -31,7 +31,7 @@ export interface TagsReducer {
 export interface PrsReducer {
   err: any;
   isLoading: boolean;
-  prs: object;
+  prs: Array<any>;
 }
 
 export interface OptionsReducer {

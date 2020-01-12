@@ -3,12 +3,8 @@ import User from "../models/user";
 import asyncHandler from "../middleware/async";
 import { refreshToken, genToken, clearRefreshToken, sendToken } from "../utils/tokens";
 import jwt from "jsonwebtoken";
-import redis from "redis";
 import { IUser } from "src/types/models";
-import { promisify } from "util";
 import { IVerifiedToken } from "../types/auth";
-
-const client: redis.RedisClient = redis.createClient();
 
 interface UserDetails {
   email: string;
@@ -29,11 +25,6 @@ export const register = asyncHandler(async (req, res) => {
     password,
     role
   });
-
-  const hset: Function = promisify(client.hset).bind(client);
-
-  // initialize PR cache for this user
-  await hset(user._id.toString(), "stale", "false", "prs", JSON.stringify({}));
 
   refreshToken(
     res,

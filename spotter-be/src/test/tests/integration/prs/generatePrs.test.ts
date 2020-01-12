@@ -54,10 +54,9 @@ describe("Personal records generations", () => {
       .get(`/api/auth/prs`)
       .set("Authorization", `Bearer ${token}`);
 
-    console.log(res.body.prs.name.name)
-    res.body.prs.name.name.should.equal("name");
-    res.body.prs.name.pr.should.equal(100);
-    res.body.prs.name.date.should.equal("Jan 01 1999");
+    res.body.prs[0].name.should.equal("name");
+    res.body.prs[0].pr.should.equal(100);
+    res.body.prs[0].date.should.equal("Jan 01 1999");
   });
 
   it("updates a PR when workout is updated", async () => {
@@ -73,9 +72,9 @@ describe("Personal records generations", () => {
       .get(`/api/auth/prs`)
       .set("Authorization", `Bearer ${token}`);
 
-    res.body.prs.name.name.should.equal("name");
-    res.body.prs.name.pr.should.equal(200);
-    res.body.prs.name.date.should.equal("Jan 01 1999");
+    res.body.prs[0].name.should.equal("name");
+    res.body.prs[0].pr.should.equal(200);
+    res.body.prs[0].date.should.equal("Jan 01 1999");
 
     await chai
       .request(app)
@@ -88,9 +87,9 @@ describe("Personal records generations", () => {
       .get(`/api/auth/prs`)
       .set("Authorization", `Bearer ${token}`);
 
-    res2.body.prs.name.name.should.equal("name");
-    res2.body.prs.name.pr.should.equal(98);
-    res2.body.prs.name.date.should.equal("Jan 02 1999");
+    res2.body.prs[0].name.should.equal("name");
+    res2.body.prs[0].pr.should.equal(98);
+    res2.body.prs[0].date.should.equal("Jan 02 1999");
   });
 
   it("updates PR when workout is created", async () => {
@@ -100,9 +99,9 @@ describe("Personal records generations", () => {
       .get(`/api/auth/prs`)
       .set("Authorization", `Bearer ${token}`);
 
-    res.body.prs.name.name.should.equal("name");
-    res.body.prs.name.pr.should.equal(100);
-    res.body.prs.name.date.should.equal("Jan 01 1999");
+    res.body.prs[0].name.should.equal("name");
+    res.body.prs[0].pr.should.equal(100);
+    res.body.prs[0].date.should.equal("Jan 01 1999");
 
     await chai
       .request(app)
@@ -120,9 +119,9 @@ describe("Personal records generations", () => {
       .get(`/api/auth/prs`)
       .set("Authorization", `Bearer ${token}`);
 
-    res2.body.prs.name.name.should.equal("name");
-    res2.body.prs.name.pr.should.equal(500);
-    res2.body.prs.name.date.should.equal("Jan 10 1999");
+    res2.body.prs[0].name.should.equal("name");
+    res2.body.prs[0].pr.should.equal(500);
+    res2.body.prs[0].date.should.equal("Jan 10 1999");
   });
 
   it("updates PR when workout is deleted", async () => {
@@ -132,9 +131,9 @@ describe("Personal records generations", () => {
       .get(`/api/auth/prs`)
       .set("Authorization", `Bearer ${token}`);
 
-    res.body.prs.name.name.should.equal("name");
-    res.body.prs.name.pr.should.equal(100);
-    res.body.prs.name.date.should.equal("Jan 01 1999");
+    res.body.prs[0].name.should.equal("name");
+    res.body.prs[0].pr.should.equal(100);
+    res.body.prs[0].date.should.equal("Jan 01 1999");
 
     await chai
       .request(app)
@@ -146,9 +145,9 @@ describe("Personal records generations", () => {
       .get(`/api/auth/prs`)
       .set("Authorization", `Bearer ${token}`);
 
-    res2.body.prs.name.name.should.equal("name");
-    res2.body.prs.name.pr.should.equal(98);
-    res2.body.prs.name.date.should.equal("Jan 02 1999");
+    res2.body.prs[0].name.should.equal("name");
+    res2.body.prs[0].pr.should.equal(98);
+    res2.body.prs[0].date.should.equal("Jan 02 1999");
   });
 
   it("updates PR when workout is deleted", async () => {
@@ -158,9 +157,9 @@ describe("Personal records generations", () => {
       .get(`/api/auth/prs`)
       .set("Authorization", `Bearer ${token}`);
 
-    res.body.prs.name.name.should.equal("name");
-    res.body.prs.name.pr.should.equal(100);
-    res.body.prs.name.date.should.equal("Jan 01 1999");
+    res.body.prs[0].name.should.equal("name");
+    res.body.prs[0].pr.should.equal(100);
+    res.body.prs[0].date.should.equal("Jan 01 1999");
 
     await chai
       .request(app)

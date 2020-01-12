@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 import NavLinks from "./NavLinks";
 
 const Nav = () => {
-  const { width } = useWindowSize();
+  const { width }: { width: number} = useWindowSize();
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return width <= 500 ? (
     <div style={{ display: "flex", alignItems: "center" }}>

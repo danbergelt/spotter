@@ -2,8 +2,6 @@ import { NextFunction } from "connect";
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
-import redis from "redis";
-import { promisify } from "util";
 import { genToken } from "../utils/tokens";
 import { IUser } from "src/types/models";
 import Exercise from "./Exercise";
@@ -44,10 +42,6 @@ const UserSchema = new Schema<IUser>({
 
 // Cascade remove all models for this user on remove
 UserSchema.pre("remove", async function(next) {
-  // delete user from cache
-  const client: redis.RedisClient = redis.createClient();
-  const del: Function = promisify(client.del).bind(client);
-  await del(this._id.toString());
 
   // cascade delete every model with this user id attached
   await Exercise.deleteMany({ user: this._id });

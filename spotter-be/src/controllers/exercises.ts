@@ -1,11 +1,7 @@
 import Err from "../utils/Err";
 import Exercise from "../models/Exercise";
 import asyncHandler from "../middleware/async";
-import { promisify } from "util";
-import redis from "redis";
 import { IExercise } from "src/types/models";
-
-const client: redis.RedisClient = redis.createClient();
 
 // @desc --> create exercise
 // @route --> POST /api/auth/exercises
@@ -24,10 +20,6 @@ export const createExercise = asyncHandler(async (req, res, next) => {
   }
 
   const createdExercise: IExercise = await Exercise.create(req.body);
-
-  const hset: Function = promisify(client.hset).bind(client);
-
-  await hset(req.user._id.toString(), "stale", "true");
 
   res.status(201).json({
     success: true,
@@ -73,7 +65,6 @@ export const deleteExercise = asyncHandler(async (req, res) => {
 // @access --> Private
 
 export const getExercises = asyncHandler(async (req, res) => {
-
   const exercises: Array<IExercise> = await Exercise.find({
     user: req.user._id
   });
