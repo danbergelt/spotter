@@ -7,7 +7,7 @@ const Hero: React.FC = () => {
       <section className="home-hero-main">
         <p className="home-hero-main-text">
           A{" "}
-          <span className="home-hero-sub-text-highlight">lifting tracker</span>{" "}
+          <span className="home-hero-sub-text-highlight">lifting pal</span>{" "}
           that includes what you need, and cuts the BS
         </p>
       </section>

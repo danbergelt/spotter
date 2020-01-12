@@ -29,7 +29,8 @@ if (process.env.NODE_ENV === "production") {
 const app: Express = express();
 
 // CORS
-const whitelist = ["http://localhost:3000"];
+
+const whitelist: Array<string> = ["http://localhost:3000"];
 app.use(
   cors({
     origin: (origin, res) => {

@@ -6,7 +6,6 @@ import {
   getExercises
 } from "../controllers/exercises";
 import { protect } from "../middleware/auth";
-import { delExerciseFromCache } from "../middleware/cache";
 
 const router: Router = express.Router();
 
@@ -19,6 +18,6 @@ router
 router
   .route("/:id")
   .put(protect, updateExercise)
-  .delete(protect, delExerciseFromCache, deleteExercise);
+  .delete(protect, deleteExercise);
 
 export default router;
