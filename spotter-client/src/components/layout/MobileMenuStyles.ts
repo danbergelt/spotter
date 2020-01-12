@@ -1,44 +1,49 @@
+const css = require("../../styles/variables.scss")
+
 export const styles = {
   bmBurgerButton: {
-    position: "fixed",
-    width: "36px",
-    height: "30px",
-    left: "95%",
-    top: "36px"
+    position: 'absolute',
+    width: '14px',
+    height: '12px',
+    left: "92.5%",
+    zIndex: "0",
+
   },
   bmBurgerBars: {
-    background: "#373a47"
+    background: css.gray1,
   },
   bmBurgerBarsHover: {
-    background: "#a90000"
+    background: css.gray3
   },
   bmCrossButton: {
-    height: "24px",
-    width: "24px"
+    height: '24px',
+    width: '24px',
   },
   bmCross: {
-    background: "#bdc3c7"
+    background: css.gray2,
   },
   bmMenuWrap: {
-    position: "fixed",
-    height: "100%"
+    position: 'fixed',
+    height: '100%'
   },
   bmMenu: {
-    background: "#373a47",
-    padding: "2.5em 1.5em 0",
-    fontSize: "1.15em"
+    background: css.gray3,
+    padding: '2.5em 1.5em 0',
+    fontSize: '1.15em',
+    position: "relative",
+    bottom: "20px"
+
   },
   bmMorphShape: {
-    fill: "#373a47"
   },
   bmItemList: {
-    color: "#b8b7ad",
-    padding: "0.8em"
+    outline: "0"
   },
   bmItem: {
-    display: "inline-block"
+    outline: "0"
   },
   bmOverlay: {
-    background: "rgba(0, 0, 0, 0.3)"
+    background: 'rgba(0.0, 0.0, 0.0, 0.3)',
+    bottom: "0px"
   }
-};
+}

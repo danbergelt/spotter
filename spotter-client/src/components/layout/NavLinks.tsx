@@ -5,7 +5,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchToken } from "../../types/State";
 import { logOutAction } from "../../actions/globalActions";
 
-const NavLinks: React.FC = () => {
+interface Props {
+  setIsOpen? : any;
+  isOpen? : boolean;
+}
+
+const NavLinks: React.FC<Props> = ({setIsOpen, isOpen}) => {
 
   const token: string | null = useSelector(fetchToken);
 
@@ -14,12 +19,13 @@ const NavLinks: React.FC = () => {
   const logOut: () => Promise<void> = async () => {
     // clears refresh token and access token
     dispatch(logOutAction());
+    setIsOpen(!isOpen);
   };
 
   return (
     <nav className="spotter-nav-links">
     {!token && (
-      <HashLink smooth to="/#about" className="spotter-nav-link">
+      <HashLink smooth to="/#about" className="spotter-nav-link" onClick={() => setIsOpen(!isOpen)}>
         About
       </HashLink>
     )}
@@ -28,6 +34,7 @@ const NavLinks: React.FC = () => {
         data-testid="settings"
         className="spotter-nav-link"
         to="/settings"
+        onClick={() => setIsOpen(!isOpen)}
       >
         Settings
       </Link>
@@ -47,6 +54,7 @@ const NavLinks: React.FC = () => {
         data-testid="login"
         className="spotter-nav-link dashboard"
         to="/login"
+        onClick={() => setIsOpen(!isOpen)}
       >
         Log In
       </Link>
@@ -56,6 +64,7 @@ const NavLinks: React.FC = () => {
         data-testid="signup"
         className="spotter-nav-link styled"
         to="/signup"
+        onClick={() => setIsOpen(!isOpen)}
       >
         Sign Up
       </Link>
