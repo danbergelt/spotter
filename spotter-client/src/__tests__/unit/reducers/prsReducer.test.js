@@ -10,7 +10,7 @@ describe("prs reducer", () => {
     expect(prsReducer(undefined, {})).toEqual({
       isLoading: false,
       err: null,
-      prs: {}
+      prs: []
     });
   });
 
@@ -18,7 +18,7 @@ describe("prs reducer", () => {
     expect(prsReducer(undefined, { type: FETCH_PRS_START })).toEqual({
       isLoading: true,
       err: null,
-      prs: {}
+      prs: []
     });
   });
 
@@ -34,7 +34,7 @@ describe("prs reducer", () => {
     expect(prsReducer(undefined, { type: FETCH_PRS_ERROR, payload: "err" })).toEqual({
       isLoading: false,
       err: "err",
-      prs: {}
+      prs: []
     });
   });
 });

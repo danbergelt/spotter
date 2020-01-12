@@ -34,21 +34,21 @@ describe("Prs page functionality", () => {
 
     store.dispatch({
       type: FETCH_PRS_SUCCESS,
-      payload: {
-        squat: { name: "squat", date: moment().format("MMM DD YYYY") },
-        deadlift: {
+      payload: [
+        { name: "squat", date: moment().format("MMM DD YYYY") },
+        {
           name: "deadlift",
           date: moment()
             .subtract(2, "months")
             .format("MMM DD YYYY")
         },
-        bench: {
+        {
           name: "bench",
           date: moment()
             .subtract(2, "years")
             .format("MMM DD YYYY")
         }
-      }
+      ]
     });
 
     await wait(() => getByText(/last month/i));
@@ -68,20 +68,20 @@ describe("Prs page functionality", () => {
 
     store.dispatch({
       type: FETCH_PRS_SUCCESS,
-      payload: {
-        deadlift: {
+      payload: [
+        {
           name: "deadlift",
           date: moment()
             .subtract(2, "months")
             .format("MMM DD YYYY")
         },
-        bench: {
+        {
           name: "bench",
           date: moment()
             .subtract(2, "years")
             .format("MMM DD YYYY")
         }
-      }
+      ]
     });
 
     await wait(() => getByText(/last month/i));

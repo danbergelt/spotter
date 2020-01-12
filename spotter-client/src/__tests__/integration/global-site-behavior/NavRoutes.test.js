@@ -17,7 +17,7 @@ describe("Nav routes", () => {
     const { container, getByTestId } = wrapper(reducer, <Routes />);
 
     // home route
-    expect(container.innerHTML).toMatch(/tracker/i);
+    expect(container.innerHTML).toMatch(/pal/i);
 
     // login page
     fireEvent.click(getByTestId(/login/i));
@@ -29,7 +29,7 @@ describe("Nav routes", () => {
 
     // back to home
     fireEvent.click(getByTestId(/spotter/i));
-    expect(container.innerHTML).toMatch(/tracker/i);
+    expect(container.innerHTML).toMatch(/pal/i);
   });
 
   test("logout functionality works", () => {

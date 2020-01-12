@@ -24,12 +24,14 @@ const Prs: React.FC = () => {
   });
   const [loading, setLoading] = useState<boolean>(true);
 
-  const prs: object = useSelector((state: State) => state.prsReducer.prs);
+  const prs: Array<any> = useSelector((state: State) => state.prsReducer.prs);
   const t: string | null = useSelector(fetchToken);
 
   useEffect(() => {
     dispatch(fetchPrs(t));
   }, [dispatch, t]);
+
+  console.log(prs)
 
   // set PRs to state organized by time period in which the PR was set
   useEffect(() => {
@@ -37,21 +39,20 @@ const Prs: React.FC = () => {
     let lastMonth: SortedPrsRange = [];
     let lastYear: SortedPrsRange = [];
     let allTime: SortedPrsRange = [];
-    // if the prs are fetched
-    if (Object.keys(prs).length) {
-      for (let pr in prs) {
-        // find the diff between the current date and the current pr
-        let diff: number = Number(
-          m().diff(m(prs[pr].date, "MMM DD YYYY"), "days")
+    // loop through prs, and partition by date
+    if (prs.length) {
+      prs.forEach(pr => {
+        const diff: number = Number(
+          m().diff(m(pr.date, "MMM DD YYYY"), "days")
         );
         if (diff <= 31) {
-          lastMonth = [...lastMonth, prs[pr]];
+          lastMonth = [...lastMonth, pr];
         } else if (diff <= 365) {
-          lastYear = [...lastYear, prs[pr]];
+          lastYear = [...lastYear, pr];
         } else {
-          allTime = [...allTime, prs[pr]];
+          allTime = [...allTime, pr];
         }
-      }
+      });
     }
     setSortedPrs({
       lastMonth,
