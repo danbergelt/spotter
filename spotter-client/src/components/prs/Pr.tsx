@@ -2,7 +2,6 @@ import React from "react";
 import { FaCircle } from "react-icons/fa";
 import * as Moment from "moment";
 import { extendMoment } from "moment-range";
-import { Pr as P } from "src/types/Prs";
 const moment = extendMoment(Moment);
 let m = require("moment");
 if ("default" in m) {
@@ -10,13 +9,13 @@ if ("default" in m) {
 }
 
 interface Props {
-  pr: P;
+  pr: any;
 }
 
 const Pr: React.FC<Props> = ({ pr }) => {
-  const setClassName = (pr: P): string | undefined => {
+  const setClassName = (pr: any): string | undefined => {
     // difference between the date on the pr and the current date
-    const diff: number = m().diff(m(pr.date, "MMM DD YYYY"), "days");
+    const diff: number = m().diff(m(pr.prDate, "MMM DD YYYY"), "days");
 
     if (diff <= 31) {
       return "pr-circle lastMonth";
@@ -41,7 +40,7 @@ const Pr: React.FC<Props> = ({ pr }) => {
         <p>{pr.name}</p>
       </div>
       <div style={{ display: "flex" }}>
-        <p className="pr-date">{pr.date}</p>
+        <p className="pr-date">{pr.prDate}</p>
         <p style={{ fontWeight: "bold" }}>{pr.pr}lbs</p>
       </div>
     </article>

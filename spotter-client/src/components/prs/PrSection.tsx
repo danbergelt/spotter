@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { IoMdArrowDropdown, IoMdArrowDropright } from "react-icons/io";
 import Pr from "./Pr";
-import { Pr as P } from "src/types/Prs";
 import { FiInfo } from "react-icons/fi";
 import ReactTooltip from "react-tooltip";
 
@@ -57,10 +56,10 @@ const PrSection: React.FC<Props> = ({ title, prs }) => {
           {!prs.length && <p className="no-prs">No PRs found in this range</p>}
           {prs
             // sorting the prs by date (most recent comes first)
-            .sort((a: P, b: P) =>
-              m(b.date, "MMM DD YYYY").diff(m(a.date, "MMM DD YYYY"))
+            .sort((a: any, b: any) =>
+              m(b.prDate, "MMM DD YYYY").diff(m(a.prDate, "MMM DD YYYY"))
             )
-            .map((pr: P) => (
+            .map((pr: any) => (
               <Pr key={pr.name} pr={pr} />
             ))}
         </section>

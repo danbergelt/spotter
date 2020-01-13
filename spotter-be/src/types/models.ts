@@ -4,6 +4,9 @@ export interface IExercise extends Document {
   name: string;
   user: Schema.Types.ObjectId;
   createdAt: Date;
+  pr: number;
+  prDate: string;
+  allLifts: Array<number>;
 }
 
 // helper schema for the workout interface
@@ -12,6 +15,7 @@ export interface ExerciseOnWorkoutSchema {
   weight: number;
   sets: number;
   reps: number;
+  _id: Schema.Types.ObjectId;
 }
 
 export interface IWorkout extends Document {
@@ -33,7 +37,7 @@ export interface IUser extends Document {
   resetPasswordExpire: number | undefined;
   getToken(): string;
   matchPassword(id: string): Promise<boolean>;
-  getResetPasswordToken(): any
+  getResetPasswordToken(): any;
 }
 
 export interface ITag extends Document {

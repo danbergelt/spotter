@@ -13,6 +13,12 @@ const ExerciseSchema = new Schema<IExercise>({
     required: [true, "User validation failed"],
     immutable: true
   },
+  pr: {
+    type: Number,
+    default: 0
+  },
+  prDate: String,
+  allLifts: [],
   createdAt: {
     type: Date,
     default: Date.now
