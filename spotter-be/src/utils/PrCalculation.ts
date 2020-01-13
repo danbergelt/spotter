@@ -28,7 +28,7 @@ export const prCalculation = async (workout: IWorkout) => {
         pr: pr.length ? pr[0].exercises.weight : 0,
         prDate: pr.length ? pr[0].date : undefined
       },
-      { runValidators: true }
+      { runValidators: true, new: true }
     );
   }
 };

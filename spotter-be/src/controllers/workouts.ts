@@ -82,10 +82,11 @@ export const editWorkout = asyncHandler(async (req, res) => {
     req.params.id,
     req.body,
     {
-      new: true,
       runValidators: true
     }
   );
+
+  console.log(workout);
 
   if (workout) {
     prCalculation(workout);

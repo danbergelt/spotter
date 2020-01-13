@@ -35,7 +35,7 @@ const Prs: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchExercises(history, t));
-  }, [dispatch, t]);
+  }, [dispatch, t, history]);
 
   // finds the difference between two moment dates
   const findDiff = (exercise: any): number => 
