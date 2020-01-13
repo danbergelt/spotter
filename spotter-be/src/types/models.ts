@@ -25,7 +25,7 @@ export interface IWorkout extends Document {
   tags: Array<{ content: string; color: string }>;
   notes: string;
   exercises: Array<ExerciseOnWorkoutSchema>;
-  user: typeof Schema.Types.ObjectId;
+  user: Schema.Types.ObjectId;
 }
 
 export interface IUser extends Document {

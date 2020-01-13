@@ -65,7 +65,7 @@ export const addWorkout = asyncHandler(async (req, res, next) => {
 
   const workout: IWorkout = await Workout.create(req.body);
 
-  prCalculation(workout);
+  await prCalculation(workout);
 
   return res.status(201).json({
     success: true,
@@ -82,14 +82,13 @@ export const editWorkout = asyncHandler(async (req, res) => {
     req.params.id,
     req.body,
     {
+      new: req.body.exercises.length ? true : false,
       runValidators: true
     }
   );
 
-  console.log(workout);
-
   if (workout) {
-    prCalculation(workout);
+    await prCalculation(workout);
   }
 
   return res.status(200).json({
@@ -108,7 +107,7 @@ export const deleteWorkout = asyncHandler(async (req, res) => {
   );
 
   if (workout) {
-    prCalculation(workout);
+    await prCalculation(workout);
   }
 
   return res.status(200).json({

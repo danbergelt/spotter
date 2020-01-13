@@ -1,7 +1,8 @@
 import Err from "../utils/Err";
 import Exercise from "../models/Exercise";
 import asyncHandler from "../middleware/async";
-import { IExercise } from "src/types/models";
+import { IExercise } from "../types/models";
+import { prCalculation } from "../utils/PrCalculation";
 
 // @desc --> create exercise
 // @route --> POST /api/auth/exercises
@@ -20,6 +21,8 @@ export const createExercise = asyncHandler(async (req, res, next) => {
   }
 
   const createdExercise: IExercise = await Exercise.create(req.body);
+
+  await prCalculation(createdExercise);
 
   res.status(201).json({
     success: true,
@@ -41,6 +44,10 @@ export const updateExercise = asyncHandler(async (req, res) => {
     }
   );
 
+  if (exercise) {
+    await prCalculation(exercise);
+  }
+
   res.status(201).json({
     success: true,
     exercise
@@ -52,7 +59,11 @@ export const updateExercise = asyncHandler(async (req, res) => {
 // @access --> Private
 
 export const deleteExercise = asyncHandler(async (req, res) => {
-  await Exercise.findByIdAndDelete(req.params.id);
+  const exercise = await Exercise.findByIdAndDelete(req.params.id);
+
+  if (exercise) {
+    await prCalculation(exercise);
+  }
 
   res.status(200).json({
     success: true,
