@@ -1,12 +1,13 @@
 import Workout from "../models/Workout";
 import asyncHandler from "../middleware/async";
-import { promisify } from 'util';
+import { promisify } from "util";
 import Err from "../utils/Err";
 const hex = require("is-hexcolor");
 const stringify = require("csv-stringify");
 import fs from "fs";
 import path from "path";
-import { IWorkout, ITag } from "src/types/models";
+import { IWorkout, ITag } from "../types/models";
+import { prCalculation } from "../utils/PrCalculation";
 
 // @desc --> get all workouts by user id
 // @route --> GET /api/auth/workouts
@@ -53,17 +54,18 @@ export const workoutRangeByUserId = asyncHandler(async (req, res, next) => {
 export const addWorkout = asyncHandler(async (req, res, next) => {
   req.body.user = req.user._id;
 
+  // validate the tag colors
   let colorValidate: Array<ITag | false> = [];
-
   if (req.body.tags && req.body.tags.length) {
     colorValidate = req.body.tags.map((el: ITag) => hex(el.color));
   }
-
   if (colorValidate.includes(false)) {
     return next(new Err("Invalid color detected", 400));
   }
 
   const workout: IWorkout = await Workout.create(req.body);
+
+  prCalculation(workout);
 
   return res.status(201).json({
     success: true,
@@ -76,7 +78,7 @@ export const addWorkout = asyncHandler(async (req, res, next) => {
 // @access --> Private
 
 export const editWorkout = asyncHandler(async (req, res) => {
-  let workout: IWorkout | null = await Workout.findByIdAndUpdate(
+  const workout: IWorkout | null = await Workout.findByIdAndUpdate(
     req.params.id,
     req.body,
     {
@@ -84,6 +86,10 @@ export const editWorkout = asyncHandler(async (req, res) => {
       runValidators: true
     }
   );
+
+  if (workout) {
+    prCalculation(workout);
+  }
 
   return res.status(200).json({
     success: true,
@@ -96,7 +102,13 @@ export const editWorkout = asyncHandler(async (req, res) => {
 // @access --> Private
 
 export const deleteWorkout = asyncHandler(async (req, res) => {
-  await Workout.findByIdAndDelete(req.params.id);
+  const workout: IWorkout | null = await Workout.findByIdAndDelete(
+    req.params.id
+  );
+
+  if (workout) {
+    prCalculation(workout);
+  }
 
   return res.status(200).json({
     success: true,

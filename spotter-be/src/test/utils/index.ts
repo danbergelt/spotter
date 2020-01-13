@@ -10,7 +10,6 @@ import tags from '../../routes/tags'
 import templates from '../../routes/templates';
 import auth from '../../routes/auth'
 import exercises from '../../routes/exercises'
-import prs from '../../routes/prs'
 
 // Connect to DB and run server
 const app = express();
@@ -25,7 +24,6 @@ app.use("/api/auth/tags", tags);
 app.use("/api/auth/templates", templates);
 app.use("/api/auth/user", auth);
 app.use("/api/auth/exercises", exercises);
-app.use("/api/auth/prs", prs);
 
 // Error handling
 app.use(errorHandler);

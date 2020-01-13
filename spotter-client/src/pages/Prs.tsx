@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPrs } from "../actions/prActions";
+import { useHistory } from "react-router-dom";
 import * as Moment from "moment";
 import { extendMoment, MomentRange } from "moment-range";
 import PrSection from "../components/prs/PrSection";
 import { State, fetchToken } from "src/types/State";
 import { SortedPrs, SortedPrsRange } from "../types/Prs";
+import { fetchExercises } from "src/actions/fetchExercisesActions";
 
 const moment: MomentRange = extendMoment(Moment);
 let m = require("moment");
@@ -24,12 +25,21 @@ const Prs: React.FC = () => {
   });
   const [loading, setLoading] = useState<boolean>(true);
 
-  const prs: Array<any> = useSelector((state: State) => state.prsReducer.prs);
+  const exercises: Array<any> = useSelector(
+    (state: State) => state.fetchExercisesReducer.savedExercises
+  );
+
   const t: string | null = useSelector(fetchToken);
+  
+  const history = useHistory();
 
   useEffect(() => {
-    dispatch(fetchPrs(t));
+    dispatch(fetchExercises(history, t));
   }, [dispatch, t]);
+
+  // finds the difference between two moment dates
+  const findDiff = (exercise: any): number => 
+    m().diff(m(exercise.prDate, "MMM DD YYYY"), "days");
 
   // set PRs to state organized by time period in which the PR was set
   useEffect(() => {
@@ -38,17 +48,17 @@ const Prs: React.FC = () => {
     let lastYear: SortedPrsRange = [];
     let allTime: SortedPrsRange = [];
     // loop through prs, and partition by date
-    if (prs.length) {
-      prs.forEach(pr => {
-        const diff: number = Number(
-          m().diff(m(pr.date, "MMM DD YYYY"), "days")
-        );
-        if (diff <= 31) {
-          lastMonth = [...lastMonth, pr];
-        } else if (diff <= 365) {
-          lastYear = [...lastYear, pr];
-        } else {
-          allTime = [...allTime, pr];
+    if (exercises.length) {
+      exercises.forEach(exercise => {
+        const diff = findDiff(exercise);
+        if (exercise.pr > 0 && exercise.prDate) {
+          if (diff <= 31) {
+            lastMonth = [...lastMonth, exercise];
+          } else if (diff <= 365) {
+            lastYear = [...lastYear, exercise];
+          } else {
+            allTime = [...allTime, exercise];
+          }
         }
       });
     }
@@ -60,7 +70,7 @@ const Prs: React.FC = () => {
 
     // cleanup function to set loading to false, allowing the sections to be rendered
     return () => setLoading(false);
-  }, [prs]);
+  }, [exercises]);
 
   return (
     <div className="prs-container spacer">
