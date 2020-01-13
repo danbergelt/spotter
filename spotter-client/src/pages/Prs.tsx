@@ -28,12 +28,18 @@ const Prs: React.FC = () => {
   const exercises: Array<any> = useSelector(
     (state: State) => state.fetchExercisesReducer.savedExercises
   );
+
   const t: string | null = useSelector(fetchToken);
+  
   const history = useHistory();
 
   useEffect(() => {
     dispatch(fetchExercises(history, t));
   }, [dispatch, t]);
+
+  // finds the difference between two moment dates
+  const findDiff = (exercise: any): number => 
+    m().diff(m(exercise.prDate, "MMM DD YYYY"), "days");
 
   // set PRs to state organized by time period in which the PR was set
   useEffect(() => {
@@ -44,10 +50,8 @@ const Prs: React.FC = () => {
     // loop through prs, and partition by date
     if (exercises.length) {
       exercises.forEach(exercise => {
+        const diff = findDiff(exercise);
         if (exercise.pr > 0 && exercise.prDate) {
-          const diff: number = Number(
-            m().diff(m(exercise.prDate, "MMM DD YYYY"), "days")
-          );
           if (diff <= 31) {
             lastMonth = [...lastMonth, exercise];
           } else if (diff <= 365) {
