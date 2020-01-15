@@ -125,7 +125,12 @@ export const downloadWorkoutData = asyncHandler(async (req, res, next) => {
   const workouts: Array<IWorkout> = await Workout.find({ user: req.user._id });
 
   // convert the workouts to JSON
-  const workouts_JSON = JSON.parse(JSON.stringify(workouts));
+  let workouts_JSON;
+  try {
+    workouts_JSON = JSON.parse(JSON.stringify(workouts));
+  } catch (_) {
+    return next(new Err("Could not download, an error occurred", 500))
+  }
 
   // constants for saving the file locally
   const filename: string = `download-${req.user._id}-workouts.csv`;

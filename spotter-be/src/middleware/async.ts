@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from "express";
 
 
 // wrapper that abstracts try/catch blocks
-// is there a way I can implement this on the FE?
 
 
 const asyncHandler = (

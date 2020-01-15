@@ -39,6 +39,7 @@ export const register = asyncHandler(async (req, res) => {
 // @access --> Public
 
 export const login = asyncHandler(async (req, res, next) => {
+  
   const { email, password }: Partial<UserDetails> = req.body;
 
   // Validate email and password
