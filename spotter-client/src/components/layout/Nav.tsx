@@ -19,7 +19,6 @@ const Nav = () => {
         width={210}
         right
         styles={styles}
-        noTransition
       >
         <div className="spotter-nav spacer">
           <section className="spotter-nav-head"></section>
