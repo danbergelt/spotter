@@ -7,8 +7,9 @@ import PrSection from "../components/prs/PrSection";
 import { State, fetchToken } from "src/types/State";
 import { SortedPrs, SortedPrsRange } from "../types/Prs";
 import { fetchExercises } from "src/actions/fetchExercisesActions";
-
 const moment: MomentRange = extendMoment(Moment);
+
+// Hacky fix to resolve error with default imports from moment and typescript
 let m = require("moment");
 if ("default" in m) {
   m = moment["default"];
@@ -35,7 +36,7 @@ const Prs: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchExercises(history, t));
-  }, [dispatch, t]);
+  }, [dispatch, t, history]);
 
   // finds the difference between two moment dates
   const findDiff = (exercise: any): number => 

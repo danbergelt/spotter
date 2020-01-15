@@ -3,6 +3,8 @@ import { FaCircle } from "react-icons/fa";
 import * as Moment from "moment";
 import { extendMoment } from "moment-range";
 const moment = extendMoment(Moment);
+
+// Hacky fix to resolve error with default imports from moment and typescript
 let m = require("moment");
 if ("default" in m) {
   m = moment["default"];

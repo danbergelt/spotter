@@ -65,7 +65,7 @@ export const addWorkout = asyncHandler(async (req, res, next) => {
 
   const workout: IWorkout = await Workout.create(req.body);
 
-  prCalculation(workout);
+  await prCalculation(workout);
 
   return res.status(201).json({
     success: true,
@@ -77,24 +77,28 @@ export const addWorkout = asyncHandler(async (req, res, next) => {
 // @route --> PUT /api/auth/workouts/:id
 // @access --> Private
 
-export const editWorkout = asyncHandler(async (req, res) => {
+export const editWorkout = asyncHandler(async (req, res, next) => {
   const workout: IWorkout | null = await Workout.findByIdAndUpdate(
     req.params.id,
     req.body,
     {
-      new: true,
+      new: req.body.exercises && req.body.exercises.length ? true : false,
       runValidators: true
     }
   );
 
   if (workout) {
-    prCalculation(workout);
+    await prCalculation(workout);
+    // since we don't always return the new workout above, we must find it again below and send that
+    // ensures we are always sending the client the updated workout
+    const updated = await Workout.findById(workout._id);
+    return res.status(200).json({
+      success: true,
+      data: updated
+    });
+  } else {
+    return next(new Err("Workout not found", 404));
   }
-
-  return res.status(200).json({
-    success: true,
-    data: workout
-  });
 });
 
 // @desc --> delete workout
@@ -107,7 +111,7 @@ export const deleteWorkout = asyncHandler(async (req, res) => {
   );
 
   if (workout) {
-    prCalculation(workout);
+    await prCalculation(workout);
   }
 
   return res.status(200).json({
@@ -125,7 +129,12 @@ export const downloadWorkoutData = asyncHandler(async (req, res, next) => {
   const workouts: Array<IWorkout> = await Workout.find({ user: req.user._id });
 
   // convert the workouts to JSON
-  const workouts_JSON = JSON.parse(JSON.stringify(workouts));
+  let workouts_JSON;
+  try {
+    workouts_JSON = JSON.parse(JSON.stringify(workouts));
+  } catch (_) {
+    return next(new Err("Could not download, an error occurred", 500));
+  }
 
   // constants for saving the file locally
   const filename: string = `download-${req.user._id}-workouts.csv`;

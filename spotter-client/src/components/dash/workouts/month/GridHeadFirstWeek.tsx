@@ -3,7 +3,7 @@ import { FiPlusCircle } from "react-icons/fi";
 import { Moment } from "moment";
 import { MomentRange } from "moment-range";
 
-// HACKY - Moment default imports don't work very well with typescript, so need to import this way to satisfy TS errors
+// Hacky fix to resolve error with default imports from moment and typescript
 let m = require("moment");
 if ("default" in m) {
   m = m["default"];

@@ -4,6 +4,7 @@ import Pr from "./Pr";
 import { FiInfo } from "react-icons/fi";
 import ReactTooltip from "react-tooltip";
 
+// Hacky fix to resolve error with default imports from moment and typescript
 let m = require("moment");
 if ("default" in m) {
   m = m["default"];

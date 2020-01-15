@@ -4,6 +4,7 @@ import { P } from "src/types/Grid";
 import { Workout } from "src/types/Workout";
 import * as M from "moment";
 
+// Hacky fix to resolve error with default imports from moment and typescript
 let m = require("moment");
 if ("default" in m) {
   m = m["default"];

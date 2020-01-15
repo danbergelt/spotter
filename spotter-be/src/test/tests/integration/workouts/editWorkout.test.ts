@@ -1,16 +1,16 @@
 const app = require("../../../utils/index");
-import { genToken } from '../../../utils/genToken';
+import { genToken } from "../../../utils/genToken";
 import { describe, beforeEach, it } from "mocha";
-import { createWorkout } from '../../../utils/createWorkout';
-import chaiHttp from 'chai-http';
-import chai from 'chai';
-import chaiAsPromised from 'chai-as-promised';
+import { createWorkout } from "../../../utils/createWorkout";
+import chaiHttp from "chai-http";
+import chai from "chai";
+import chaiAsPromised from "chai-as-promised";
 chai.use(chaiAsPromised);
 const should = chai.should();
-import Workout from '../../../../models/Workout';
+import Workout from "../../../../models/Workout";
 import { dbHelper } from "../../../utils/db";
-import {createUser} from "../../../utils/createUser";
-import { template} from "../../../utils/templateWorkout";
+import { createUser } from "../../../utils/createUser";
+import { template } from "../../../utils/templateWorkout";
 
 // configure Chai HTTP
 chai.use(chaiHttp);
@@ -208,9 +208,7 @@ describe("PUT edit workout by workout id", () => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(400);
-        res.body.error.should.equal(
-          "25 character max"
-        );
+        res.body.error.should.equal("25 character max");
         done();
       });
   });

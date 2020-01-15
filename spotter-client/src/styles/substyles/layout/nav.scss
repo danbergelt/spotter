@@ -20,9 +20,10 @@
     @include small {
       flex-direction: column;
       font-weight: bold;
-      justify-content: center;
+      justify-content: space-between;
       position: relative;
       top: 5px;
+      height: 100px;
     }
 
     .spotter-nav-link {
@@ -37,9 +38,9 @@
         padding: 0.66rem 1.25rem;
       }
       @include small {
+        padding: 0;
         width: max-content;
         font-size: $p;
-        margin-bottom: 2rem;
       }
     }
 
