@@ -23,7 +23,7 @@
       justify-content: space-between;
       position: relative;
       top: 5px;
-      height: 100px;
+      height: max-content;
     }
 
     .spotter-nav-link {
@@ -38,6 +38,7 @@
         padding: 0.66rem 1.25rem;
       }
       @include small {
+        margin-bottom: 2.5rem;
         padding: 0;
         width: max-content;
         font-size: $p;
@@ -94,6 +95,7 @@
         color: $gray2;
         background: none;
         margin-right: 2rem;
+        margin-bottom: 0;
 
         &:hover {
           color: $primary;
