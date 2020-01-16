@@ -1,6 +1,7 @@
 import React, { memo } from "react";
 import { FiPlusCircle } from "react-icons/fi";
 import { Moment } from "moment";
+import { useWindowSize } from "react-use";
 
 // includes the add workout button and date details (e.g. --> day of week, month, etc.)
 
@@ -15,6 +16,8 @@ const WorkoutColumnContent: React.FC<Props> = ({
   openAddWorkoutModal,
   i
 }) => {
+  const { width } = useWindowSize();
+
   return (
     <>
       <section
@@ -30,7 +33,8 @@ const WorkoutColumnContent: React.FC<Props> = ({
         className="week-workouts-add-workout"
         role="button"
       >
-        {<FiPlusCircle className="week-workouts-add-icon" />} Add Workout
+        {<FiPlusCircle className="week-workouts-add-icon" />}{" "}
+        {width <= 500 ? null : width < 800 ? "Add" : "Add Workout"}
       </div>
     </>
   );

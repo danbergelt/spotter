@@ -5,7 +5,7 @@ export const styles = {
     position: 'absolute',
     width: '14px',
     height: '12px',
-    left: "92.5%",
+    left: "90%",
     zIndex: "0",
 
   },

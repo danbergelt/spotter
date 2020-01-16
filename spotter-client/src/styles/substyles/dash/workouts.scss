@@ -14,12 +14,29 @@
     display: flex;
     align-items: center;
 
+    @include medium {
+      font-size: 1.75rem;
+    }
+
+    @include small {
+      margin-top: 1rem;
+      font-size: $p;
+    }
+
     .workouts-icons {
       margin-right: 2rem;
       color: $gray2;
 
+      @include small {
+        margin-right: 0.5rem;
+      }
+
       .workouts-head-icon {
         margin-right: 1.5rem;
+
+        @include small {
+          margin-right: 0.33rem;
+        }
 
         &:hover {
           background: $gray3;
@@ -41,6 +58,16 @@
     font-size: $p;
     cursor: pointer;
     text-decoration: none;
+
+    @include medium {
+      font-size: 1.3rem;
+      padding: 0.66rem 1.25rem;
+    }
+
+    @include small {
+      padding: 0.5rem 1rem;
+      font-size: 1.1rem;
+    }
   }
 }
 
@@ -49,6 +76,10 @@
   margin-top: 2rem;
   font-size: 1.3rem;
   color: $gray1;
+
+  @include large {
+    font-size: 1.2rem;
+  }
 
   .week-workouts-column {
     width: 15%;
@@ -62,10 +93,26 @@
         margin-bottom: 1rem;
         font-size: $p;
         color: $gray1;
+
+        @include medium {
+          font-size: 1.3rem;
+        }
+
+        @include small {
+          font-size: 1.1rem;
+        }
       }
 
       .week-workout-day-date {
         color: $gray2;
+
+        @include medium {
+          font-size: 1.2rem;
+        }
+
+        @include small {
+          font-size: 1.1rem;
+        }
       }
     }
 
@@ -79,6 +126,19 @@
       border-radius: $border;
       @include hover;
 
+      @include large {
+        margin: 0.5rem;
+      }
+
+      @include small {
+        margin: 0.5rem 0.33rem;
+      }
+
+      @include small {
+        font-size: 1.1rem;
+        padding: 0.75rem;
+      }
+
       &:hover {
         background: $gray3;
         cursor: pointer;
@@ -88,6 +148,16 @@
         margin-right: 1rem;
         font-size: 1.3rem;
         color: $primary;
+
+        @include large {
+          font-size: 1.2rem;
+          margin-right: 0.8rem;
+        }
+
+        @include small {
+          margin: 0;
+          font-size: 1.3rem;
+        }
       }
     }
   }

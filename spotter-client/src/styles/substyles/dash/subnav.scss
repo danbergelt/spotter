@@ -6,6 +6,10 @@
   padding-top: 2rem;
   font-size: $p;
 
+  @include medium {
+    font-size: 1.3rem;
+  }
+
   .subnav-menu {
     color: $gray1;
     @include flex-center;
@@ -21,6 +25,10 @@
 
     .subnav-menu-icon.left.dropdown {
       width: 88px;
+
+      @include small {
+        width: 80px;
+      }
 
       .css-1hwfws3 {
         padding: 0;

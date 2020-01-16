@@ -1,4 +1,4 @@
-@import '../../variables.scss';
+@import "../../variables.scss";
 @import "../../mixins.scss";
 
 .workout-card-container {
@@ -11,6 +11,21 @@
   align-items: flex-start;
   box-shadow: $box;
   @include hover;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  @include large {
+    padding: 1rem;
+    margin: 0rem 0.5rem;
+  }
+
+  @include medium {
+    padding: 0.5rem;
+  }
+
+  @include small {
+    margin: 0rem 0.33rem;
+  }
 
   &:hover {
     background: $gray3;
@@ -20,12 +35,27 @@
   .workout-card-title {
     font-size: 1.3rem;
     color: $gray1;
+    word-break: break-all;
+    /* Instead use this non-standard one: */
+    word-break: break-word;
+
+    @include medium {
+      font-size: 1.2rem;
+    }
+
+    @include small {
+      font-size: 1.1rem;
+    }
   }
 
   .workout-card-notes-ind {
     font-size: 1.5rem;
     margin-top: 0.5rem;
     color: $gray1;
+
+    @include medium {
+      font-size: 1.2rem;
+    }
   }
 
   .workout-card-tag-container {
@@ -41,6 +71,16 @@
       padding: 0.25rem 1.25rem;
       border-radius: 8px;
       color: $gray3;
+
+      @include medium {
+        padding: 0.25rem 0.75rem;
+        font-size: 0.6rem;
+        min-height: 0;
+      }
+
+      @include small {
+        padding: 0.25rem 0.5rem;
+      }
     }
   }
 }
