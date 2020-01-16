@@ -10,6 +10,9 @@
   }
 
   .spotter-nav-head {
+    display: flex;
+    justify-content: center;
+
     &:hover {
       cursor: pointer;
     }
