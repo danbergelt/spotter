@@ -11,7 +11,7 @@ const Nav = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return width <= 500 ? (
-    <div style={{ display: "flex", alignItems: "center" }}>
+    <div className="spacer" style={{ display: "flex", alignItems: "center" }}>
       <Menu
         isOpen={isOpen}
         onStateChange={state => setIsOpen(state.isOpen)}
@@ -28,7 +28,6 @@ const Nav = () => {
       <Link
         data-testid="spotter"
         className="spotter-nav-head-logo"
-        style={{ marginLeft: "2.5rem" }}
         to={"/"}
       >
         spotter<span className="spot">.</span>

@@ -1,6 +1,7 @@
 import React, { memo } from "react";
 import { Workout } from "src/types/Workout";
 import { Moment } from "moment";
+import { useWindowSize } from "react-use";
 
 interface Props {
   data: Workout;
@@ -11,6 +12,8 @@ interface Props {
 // prompt to view a pre-existing workout
 
 const GridWorkout: React.FC<Props> = ({ data, openViewModal, date }) => {
+  const { width }: { width: number } = useWindowSize();
+
   return (
     <div
       style={{ background: data.tags[0] && data.tags[0].color }}
@@ -19,7 +22,11 @@ const GridWorkout: React.FC<Props> = ({ data, openViewModal, date }) => {
       onClick={() => openViewModal(data, date)}
       key={data._id}
     >
-      {data.title}
+      {width <= 800
+        ? data.title.length > 5
+          ? `${data.title.slice(0, 4)}...`
+          : data.title
+        : data.title}
     </div>
   );
 };

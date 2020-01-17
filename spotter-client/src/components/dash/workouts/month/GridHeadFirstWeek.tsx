@@ -2,6 +2,7 @@ import React, { memo } from "react";
 import { FiPlusCircle } from "react-icons/fi";
 import { Moment } from "moment";
 import { MomentRange } from "moment-range";
+import { useWindowSize } from "react-use";
 
 // Hacky fix to resolve error with default imports from moment and typescript
 let m = require("moment");
@@ -25,6 +26,8 @@ const GridHeadFirstWeek: React.FC<Props> = ({
   i,
   moment
 }) => {
+  const { width }: { width: number } = useWindowSize();
+
   return (
     <>
       <section className="month-grid-day-head">
@@ -39,7 +42,7 @@ const GridHeadFirstWeek: React.FC<Props> = ({
         </div>
       </section>
       <p
-        style={{ fontSize: "1.3rem" }}
+        style={{ fontSize: width <= 800 ? "1.1rem" : "1.3rem" }}
         className={
           date.format("MMM DD YYYY") === m().format("MMM DD YYYY")
             ? "today-date"

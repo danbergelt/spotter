@@ -19,6 +19,12 @@
       height: 250px;
       position: relative;
       bottom: 10px;
+
+      @include medium {
+        width: 200px;
+        height: 200px;
+        margin-top: 2rem;
+      }
     }
   }
 
@@ -32,6 +38,10 @@
       background: rgba($danger, 0.5);
       padding: 1.5rem;
       margin: 2.5rem 0;
+
+      @include medium {
+        font-size: 1.3rem;
+      }
     }
 
     .form-head {
@@ -39,6 +49,10 @@
       margin-bottom: 2rem;
       color: $gray1;
       text-align: center;
+
+      @include medium {
+        font-size: 3rem;
+      }
     }
 
     .form {
@@ -46,11 +60,23 @@
       flex-direction: column;
       width: 400px;
 
+      @include medium {
+        width: 350px;
+      }
+
+      @include small {
+        width: 300px;
+      }
+
 
       .form-label {
         font-size: 2rem;
         color: $gray2;
         margin: 1rem 0;
+
+        @include medium {
+          font-size: $p;
+        }
       }
 
       .form-field {
@@ -60,6 +86,10 @@
         margin: 1.5rem 0;
         outline: 0;
         border: 1px solid darken($gray4, 20%);
+
+        @include medium {
+          font-size: 1.3rem;
+        }
 
         &:focus {
           border: 1px solid $primary;
@@ -73,6 +103,10 @@
       .form-error {
         font-size: 1.4rem;
         color: $danger;
+
+        @include medium {
+          font-size: 1.2rem;
+        }
       }
 
       .form-error.email {
@@ -91,6 +125,10 @@
         border-radius: $border;
         @include hover;
 
+        @include medium {
+          font-size: $p;
+        }
+
         &:hover {
           cursor: pointer;
           background: $primary-hover;
@@ -107,6 +145,10 @@
       margin-top: 1rem;
       width: 100%;
       text-align: center;
+
+      @include small {
+        font-size: 1.2rem;
+      }
 
       .form-alt-link-clickable {
         color: $info;
