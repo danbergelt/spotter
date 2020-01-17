@@ -1,7 +1,7 @@
 import React, { useState, memo } from "react";
 import Modal from "react-modal";
 import { useSelector } from "react-redux";
-import { styles } from "./utils/styles";
+import { useSaveTemplateStyles } from "./utils/styles";
 import SaveTemplateMsg from "./SaveTemplateMsg";
 import SaveTemplateBtn from "./SaveTemplateBtn";
 import SaveTemplateForm from "./SaveTemplateForm";
@@ -48,7 +48,7 @@ const SaveTemplate: React.FC<Props> = ({ close }) => {
 
   return (
     <Modal
-      style={styles}
+      style={useSaveTemplateStyles()}
       onRequestClose={closeHandler}
       contentLabel="Save Template"
       isOpen={templateSave}

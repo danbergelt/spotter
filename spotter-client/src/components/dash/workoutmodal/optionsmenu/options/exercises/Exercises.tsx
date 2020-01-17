@@ -1,7 +1,7 @@
 import React, { useState, memo } from "react";
 import Modal from "react-modal";
 import { useSelector } from "react-redux";
-import { styles } from "./styles";
+import { useExerciseModalStyles } from "./styles";
 import ExercisesHead from "./ExercisesHead";
 import ManageExercises from "./ManageExercises";
 import AddExercises from "./AddExercises";
@@ -32,6 +32,8 @@ const Exercises: React.FC<Props> = ({ setExercisesModal }) => {
     setTab(0)
     setMsg({})
   }
+
+  const styles = useExerciseModalStyles();
 
   return (
     <Modal

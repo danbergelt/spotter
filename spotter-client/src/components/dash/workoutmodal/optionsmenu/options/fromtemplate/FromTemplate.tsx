@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import Modal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
-import { styles } from "./styles";
+import { useFromTemplateStyles } from "./styles";
 import { setFromTemplateModalAction } from "../../../../../../actions/optionsActions";
 import Templates from "./Templates";
 import FromTemplateHead from "./FromTemplateHead";
@@ -33,7 +33,7 @@ const FromTemplate: React.FC = () => {
 
   return (
     <Modal
-      style={styles}
+      style={useFromTemplateStyles()}
       isOpen={fromTemplate}
       onRequestClose={closeHandler}
       contentLabel="Generate Template"

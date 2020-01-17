@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import Modal from "react-modal";
 import WorkoutTitle from "./data/WorkoutTitle";
 import WorkoutContent from "./data/WorkoutContent";
-import { mStyles } from "../workouts/modalStyles";
+import { useModalStyles } from "../workouts/modalStyles";
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
@@ -19,7 +19,7 @@ const WorkoutModal: React.FC<Props> = ({ modal, closeModal, time }) => {
     <Modal
       contentLabel="Add Workout Modal"
       isOpen={modal}
-      style={mStyles}
+      style={useModalStyles()}
       data-testid="modal"
     >
       <section className="workout-modal-content">

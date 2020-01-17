@@ -38,6 +38,10 @@
       margin-bottom: 3rem;
       margin-left: 3rem;
 
+      @include medium {
+        margin-bottom: 1rem;
+      }
+
       .exercise-form-field-container {
         position: relative;
         right: 1px;
@@ -76,6 +80,10 @@
           font-size: 1.3rem;
           border: 1px solid $gray4;
 
+          @include medium {
+            width: 100%;
+          }
+
           &:focus {
             outline: 0;
             box-shadow: 0 0 0 1px $primary;
@@ -104,6 +112,11 @@
       margin-top: 2rem;
       margin-left: 2.8rem;
       width: 100%;
+
+      @include medium {
+        width: 75%;
+        margin-bottom: 5rem;
+      }
 
       .exercise-row {
         padding: 1rem 0.5rem;
