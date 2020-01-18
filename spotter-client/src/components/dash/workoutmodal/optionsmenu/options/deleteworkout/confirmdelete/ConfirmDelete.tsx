@@ -1,7 +1,7 @@
 import React, { useCallback, memo } from "react";
 import Modal from "react-modal";
 import ConfirmDeleteHead from "./ConfirmDeleteHead";
-import { styles } from "./confirmDeleteStyles";
+import { useDeleteWorkoutStyles } from "./confirmDeleteStyles";
 import { useSelector, useDispatch } from "react-redux";
 import { setConfirmDeleteAction } from "../../../../../../../actions/optionsActions";
 import ConfirmDeleteBody from "./ConfirmDeleteBody";
@@ -31,7 +31,7 @@ const ConfirmDelete: React.FC<Props> = ({ workoutId, closeParentModal }) => {
 
   return (
     <Modal
-      style={styles}
+      style={useDeleteWorkoutStyles()}
       isOpen={confirmDelete}
       onRequestClose={closeConfirmDelete}
       contentLabel="Confirm Delete Workout"

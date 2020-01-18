@@ -19,7 +19,6 @@ const CloseAccount: React.FC = () => {
       screen.
       <br />
       <br />
-      <br />
       Are you sure you want to close your account?
       <section className="confirm-close">
         <input

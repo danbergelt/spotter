@@ -7,6 +7,7 @@ import GridWorkout from "./GridWorkout";
 import Popover from "./PopoverContainer";
 import { Workout } from "src/types/Workout";
 import { P } from "src/types/Grid";
+import { useWindowSize } from "react-use";
 
 const moment = extendMoment(M);
 
@@ -31,6 +32,8 @@ const GridDay: React.FC<Props> = ({
   popover,
   setPopover
 }) => {
+  const { width }: { width: number } = useWindowSize();
+
   return (
     <section
       className="month-grid-day"
@@ -92,7 +95,7 @@ const GridDay: React.FC<Props> = ({
                       role="button"
                       className="grid-view-more"
                     >
-                      View More
+                      {width <= 500 ? "More" : "View More"}
                     </div>
                   </Popover>
                 )}

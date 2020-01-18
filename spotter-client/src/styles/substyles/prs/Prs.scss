@@ -5,9 +5,21 @@
   width: 80rem;
   margin: 5rem auto;
 
+  @include medium {
+    width: 50rem;
+  }
+
+  @include small {
+    width: 30rem;
+  }
+
   .pr-section {
     font-size: 1.9rem;
     color: $gray1;
+
+    @include medium {
+      font-size: 1.5rem;
+    }
 
     .pr-title {
       padding-bottom: 1rem;
@@ -51,12 +63,20 @@
         text-align: center;
         font-size: 1.5rem;
         color: $danger;
+
+        @include medium {
+          font-size: 1.3rem;
+        }
       }
 
       .pr {
         display: flex;
         justify-content: space-between;
         font-size: 1.5rem;
+
+        @include medium {
+          font-sizE: 1.3rem;
+        }
 
         .pr-circle {
           margin-right: 1rem;

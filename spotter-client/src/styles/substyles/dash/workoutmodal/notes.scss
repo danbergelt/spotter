@@ -8,6 +8,10 @@
     color: $gray1;
     margin-top: 3rem;
 
+    @include small {
+      font-size: 1.5rem;
+    }
+
     .workout-data-notes-icon {
       font-size: $icon;
     }
@@ -23,6 +27,10 @@
       padding: 0.75rem;
       font-weight: normal;
       @include hover;
+
+      @include small {
+        font-size: 1.2rem;
+      }
 
       &:hover {
         background: darken($gray4, 2.5%);
@@ -42,6 +50,10 @@
     padding: 0;
     font-size: 1.3rem;
     border-radius: $border;
+
+    @include small {
+      font-size: 1.2rem;
+    }
 
     &:focus {
       padding: 1rem;

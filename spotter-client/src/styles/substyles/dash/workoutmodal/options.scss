@@ -5,6 +5,11 @@
   width: 35%;
   height: max-content;
 
+  @include medium {
+    margin-left: 20px;
+    margin-top: 1rem;
+  }
+
   .add-workout-options-title {
     font-size: 1.3rem;
     color: $gray2;
@@ -12,6 +17,19 @@
 
   .add-workout-options-buttons {
     margin: 1.25rem 0;
+    @include medium {
+      display: flex;
+    }
+
+    @include small {
+      flex-direction: column;
+    }
+
+    .options-left {
+      @include medium {
+        margin-right: 2rem;
+      }
+    }
 
     .add-workout-options-button {
       font-size: 1.3rem;
@@ -24,6 +42,15 @@
       @include flex-center;
       cursor: pointer;
       @include hover;
+
+      @include medium {
+        width: 150px;
+      }
+
+      @include small {
+        width: 200px;
+        font-size: 1.2rem;
+      }
 
       &:hover {
         background: darken($gray4, 2.5%);

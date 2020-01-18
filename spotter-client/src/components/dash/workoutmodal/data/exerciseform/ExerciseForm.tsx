@@ -43,6 +43,16 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
 
   const [suggestions, setSuggestions] = useState<Array<E>>([]);
 
+  type TButtonStyles<T> = {
+    [K: string]: T;
+  };
+  const buttonStyles: TButtonStyles<string> = {
+    border: "none",
+    background: "none",
+    padding: "0",
+    outline: "none"
+  };
+
   return (
     <section className="exercise-form-container">
       <Formik
@@ -87,11 +97,11 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
                 <p className="error-exercise-form">{errors.name}</p>
               )}
               <Autosuggest
-              // CODE SMELL
-              // this component is not actively maintained, and contains multiple unsafe lifecycle methods
-              // also - it's just plain complicated
-              // consider either namespacing the module, opting for a different library, or building a custom component
-              // TO INVESTIGATE - ReachUI Combobox
+                // CODE SMELL
+                // this component is not actively maintained, and contains multiple unsafe lifecycle methods
+                // also - it's just plain complicated
+                // consider either namespacing the module, opting for a different library, or building a custom component
+                // TO INVESTIGATE - ReachUI Combobox
 
                 // control the input hooked up to autosuggest
                 inputProps={{
@@ -105,7 +115,6 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
                   className: "exercise-form-field"
                 }}
                 suggestions={suggestions}
-
                 // handles fetching autosuggestions in respect to field input
                 onSuggestionsFetchRequested={({ value }) => {
                   if (!value) {
@@ -119,18 +128,14 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
                     )
                   );
                 }}
-
                 // handles clearing suggestions (why is this prop necessary?)
                 onSuggestionsClearRequested={() => {
                   setSuggestions([]);
                 }}
-
                 // fetches suggestion from local state
                 getSuggestionValue={suggestion => suggestion.name}
-
-                // renders the autosuggest component with suggestions 
+                // renders the autosuggest component with suggestions
                 renderSuggestion={suggestion => <div>{suggestion.name}</div>}
-
                 // passes the clicked suggestion to the input
                 onSuggestionSelected={(event, { suggestion, method }) => {
                   if (method === "enter") {
@@ -139,7 +144,6 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
                   setFieldValue("name", suggestion.name);
                 }}
               />
-
             </div>
             <div className="exercise-form-field-container">
               <label className="exercise-form-field-label">Weight</label>
@@ -180,34 +184,30 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
                 type="number"
               />
             </div>
-            <button
-              data-testid="submit-exercise"
-              style={{
-                border: "none",
-                background: "none",
-                padding: "0",
-                outline: "none"
-              }}
-              type="submit"
-            >
-              <FiPlus className="exercise-form-button submit" />
-            </button>
-            <button
-              style={{
-                border: "none",
-                background: "none",
-                padding: "0",
-                outline: "none"
-              }}
-              type="button"
-            >
-              <FiTrash
-                data-testid="trash-exercise"
-                className="exercise-form-button clear"
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <button
+                data-testid="submit-exercise"
+                style={buttonStyles}
+                type="submit"
+              >
+                <FiPlus className="exercise-form-button submit" />
+              </button>
+              <button
+                style={{
+                  ...buttonStyles,
+                  position: "relative",
+                  top: "3px"
+                }}
                 type="button"
-                onClick={() => resetHandler(handleReset)}
-              />
-            </button>
+              >
+                <FiTrash
+                  data-testid="trash-exercise"
+                  className="exercise-form-button clear"
+                  type="button"
+                  onClick={() => resetHandler(handleReset)}
+                />
+              </button>
+            </div>
           </Form>
         )}
       </Formik>

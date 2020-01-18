@@ -6,7 +6,7 @@ import TagsModalCreate from "./create/TagsModalCreate";
 import TagsModalManage from "./manage/TagsModalManage";
 import TagsModalDelete from "./delete/TagsModalDelete";
 import TagsModalAdd from "./add/TagsModalAdd";
-import { styles } from "./localutils/tagsModalStyles";
+import { useTagModalStyles } from "./localutils/tagsModalStyles";
 import { TagOnWorkout as Tag } from "../../../../../../../types/TagOnWorkout";
 import { State } from "src/types/State";
 import { closeTagModalAction } from "src/actions/tagsActions";
@@ -26,6 +26,8 @@ const TagsModal = () => {
   const { active, tagModal: modal }: OptionsReducer = useSelector(
     (state: State) => state.optionsReducer
   );
+
+  const styles = useTagModalStyles();
 
   const dispatch = useDispatch();
   const closeTagModal: () => void = useCallback(() => {
