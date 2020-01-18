@@ -6,8 +6,9 @@ const hex = require("is-hexcolor");
 const stringify = require("csv-stringify");
 import fs from "fs";
 import path from "path";
-import { IWorkout, ITag } from "../types/models";
+import { IWorkout, ITag, IExercise } from "../types/models";
 import { prCalculation } from "../utils/PrCalculation";
+import Exercise from "../models/Exercise";
 
 // @desc --> get all workouts by user id
 // @route --> GET /api/auth/workouts
@@ -82,19 +83,26 @@ export const editWorkout = asyncHandler(async (req, res, next) => {
     req.params.id,
     req.body,
     {
-      new: req.body.exercises && req.body.exercises.length ? true : false,
+      new: true,
       runValidators: true
     }
   );
 
+  // fetch all exercises, and pass to formula to update all PRs
+  const exercises: Array<IExercise> = await Exercise.find({
+    user: req.user._id
+  });
+
+  const obj: { user: string; exercises: Array<IExercise> } = {
+    user: req.user._id,
+    exercises
+  };
+
   if (workout) {
-    await prCalculation(workout);
-    // since we don't always return the new workout above, we must find it again below and send that
-    // ensures we are always sending the client the updated workout
-    const updated = await Workout.findById(workout._id);
+    await prCalculation(obj);
     return res.status(200).json({
       success: true,
-      data: updated
+      data: workout
     });
   } else {
     return next(new Err("Workout not found", 404));

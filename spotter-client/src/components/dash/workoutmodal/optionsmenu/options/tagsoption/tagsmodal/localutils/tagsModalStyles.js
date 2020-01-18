@@ -1,5 +1,4 @@
 import { useWindowSize } from "react-use";
-import { Z_FIXED } from "zlib";
 
 export const useTagModalStyles = () => {
   const { width } = useWindowSize();
