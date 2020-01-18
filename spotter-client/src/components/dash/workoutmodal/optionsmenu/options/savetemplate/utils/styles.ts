@@ -7,9 +7,10 @@ export const useSaveTemplateStyles = () => {
       background: "transparent"
     },
     content: {
-      width: "250px",
+      width: width <= 500 ? "275px" : "250px",
       height: "max-content",
-      marginLeft: width <= 800 ? "40vw" : "60vw",
+      marginLeft:
+        (width <= 500 && "14vw") || (width <= 800 && "40vw") || "60vw",
       marginTop: width <= 800 ? "58vh" : "18vh"
     }
   };

@@ -8,9 +8,10 @@ export const useFromTemplateStyles = () => {
       background: "transparent"
     },
     content: {
-      width: "235px",
+      width: width <= 500 ? "275px" : "250px",
       height: "325px",
-      marginLeft: width <= 800 ? "40vw" : "60vw",
+      marginLeft:
+        (width <= 500 && "14vw") || (width <= 800 && "40vw") || "60vw",
       marginTop: width <= 800 ? "50vh" : "23vh"
     }
   };

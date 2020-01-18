@@ -41,6 +41,10 @@
     font-size: 1.2rem;
     display: flex;
     justify-content: space-between;
+
+    @include small {
+      padding: 0.5rem;
+    }
   }
 
   .tag-creation.failure {
@@ -61,6 +65,10 @@
     font-size: 1.3rem;
     cursor: pointer;
     @include hover;
+
+    @include small {
+      padding: 0.75rem;
+    }
 
     &:hover {
       background: darken($info, 10%);

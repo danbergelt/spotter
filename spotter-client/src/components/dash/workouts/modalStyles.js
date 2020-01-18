@@ -1,21 +1,23 @@
 import styles from "../../../styles/variables.scss";
-import { useWindowSize } from 'react-use';
+import { useWindowSize } from "react-use";
 
 export const useModalStyles = () => {
-
   const { width } = useWindowSize();
 
   const sizes = {
     large: "750px",
-    medium: "500px",
+    largeMedium: "585px",
+    medium: "450px",
     small: "300px"
   };
 
   const setModalSize = () => {
     if (width <= 500) {
       return sizes.small;
-    } else if (width <= 800) {
+    } else if (width <= 650) {
       return sizes.medium;
+    } else if (width <= 800) {
+      return sizes.largeMedium;
     } else {
       return sizes.large;
     }

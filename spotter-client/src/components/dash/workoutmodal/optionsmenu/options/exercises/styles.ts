@@ -10,7 +10,8 @@ export const useExerciseModalStyles = () => {
     content: {
       width: "275px",
       height: "max-content",
-      marginLeft: width <= 800 ? "40vw" : "60vw",
+      marginLeft:
+        (width <= 500 && "14vw") || (width <= 800 && "40vw") || "60vw",
       marginTop: width <= 800 ? "60vh" : "29.5vh"
     }
   };

@@ -9,9 +9,9 @@ export const useTagModalStyles = () => {
       background: "transparent"
     },
     content: {
-      width: width <= 800 ? "290px" : "300px",
+      width: (width <= 500 && "275px") || (width <= 800 && "290px") || "300px",
       height: "350px",
-      marginLeft: width <= 800 ? "40vw" : "55vw",
+      marginLeft: (width <= 500 && "14vw") || (width <= 800 && "40vw") || "55vw",
       marginTop: width <= 800 ? "50vh" : 0
     }
   };

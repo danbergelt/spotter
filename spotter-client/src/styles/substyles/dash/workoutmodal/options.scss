@@ -48,7 +48,8 @@
       }
 
       @include small {
-        width: 225px;
+        width: 200px;
+        font-size: 1.2rem;
       }
 
       &:hover {
