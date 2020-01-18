@@ -6,6 +6,10 @@
   flex-direction: column;
   margin-left: 2rem;
 
+  @include small {
+    margin-left: 1rem;
+  }
+
   .workout-body-container {
     display: flex;
     justify-content: space-between;

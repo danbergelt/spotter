@@ -21,6 +21,10 @@
       display: flex;
     }
 
+    @include small {
+      flex-direction: column;
+    }
+
     .options-left {
       @include medium {
         margin-right: 2rem;
@@ -41,6 +45,10 @@
 
       @include medium {
         width: 150px;
+      }
+
+      @include small {
+        width: 225px;
       }
 
       &:hover {

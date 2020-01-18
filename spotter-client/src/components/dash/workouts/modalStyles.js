@@ -12,7 +12,7 @@ export const useModalStyles = () => {
   };
 
   const setModalSize = () => {
-    if (width <= 550) {
+    if (width <= 500) {
       return sizes.small;
     } else if (width <= 800) {
       return sizes.medium;
@@ -26,7 +26,8 @@ export const useModalStyles = () => {
       width: setModalSize(),
       margin: "0 auto",
       background: styles.gray3,
-      border: 0
+      border: 0,
+      padding: width <= 500 ? "10px" : "20px"
     }
   };
 };
