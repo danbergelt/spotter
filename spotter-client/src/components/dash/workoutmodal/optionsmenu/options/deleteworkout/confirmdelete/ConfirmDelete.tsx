@@ -33,9 +33,9 @@ const ConfirmDelete: React.FC<Props> = ({ workoutId, closeParentModal }) => {
       style={useDeleteWorkoutStyles()}
       isOpen={confirmDelete}
       onRequestClose={closeConfirmDelete}
-      contentLabel="Confirm Delete Workout"
+      contentLabel='Confirm Delete Workout'
     >
-      <section className="delete-container">
+      <section className='delete-container'>
         <ConfirmDeleteHead closeConfirmDelete={closeConfirmDelete} />
         <ConfirmDeleteBody
           workoutId={workoutId}

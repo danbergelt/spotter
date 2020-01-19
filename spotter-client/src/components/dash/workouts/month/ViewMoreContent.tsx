@@ -34,13 +34,13 @@ const ViewMoreContent: React.FC<Props> = ({
 
   return (
     <>
-      <div className="popover-head">
+      <div className='popover-head'>
         {date.format('MMM D')}
         <div
-          role="button"
-          data-testid="close-popover"
+          role='button'
+          data-testid='close-popover'
           onClick={() => setPopover({ open: false, id: null })}
-          className="close-popover"
+          className='close-popover'
         >
           <FiX />
         </div>
@@ -52,13 +52,13 @@ const ViewMoreContent: React.FC<Props> = ({
             onClick={() =>
               handlePopover(workout, m(workout.date, 'MMM DD YYYY'))
             }
-            role="button"
-            className="view-more-workouts-container"
+            role='button'
+            className='view-more-workouts-container'
             key={workout._id}
           >
             <p
               style={{ background: workout.tags[0] && workout.tags[0].color }}
-              className="view-more-workout"
+              className='view-more-workout'
             >
               {workout.title}
             </p>

@@ -43,7 +43,7 @@ const TagsModal = () => {
           : styles
       }
       onRequestClose={closeTagModal}
-      contentLabel="Tags Modal"
+      contentLabel='Tags Modal'
       isOpen={modal}
     >
       <TagsModalHead active={active} closeTagModal={closeTagModal} />

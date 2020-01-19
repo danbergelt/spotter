@@ -10,7 +10,7 @@ const ChangeEmailForm: React.FC = () => {
   const t: string | null = useSelector(fetchToken);
 
   return (
-    <section className="change-form">
+    <section className='change-form'>
       <Formik
         validateOnChange={false}
         validateOnBlur={false}
@@ -37,28 +37,28 @@ const ChangeEmailForm: React.FC = () => {
       >
         {({ errors, touched, status }) => (
           <Form>
-            <div className="change-inp">
-              <label className="change-label">Old Email</label>
+            <div className='change-inp'>
+              <label className='change-label'>Old Email</label>
               <Field
-                data-testid="old"
-                className="inp-component"
-                name="oldEmail"
+                data-testid='old'
+                className='inp-component'
+                name='oldEmail'
               />
             </div>
-            <div className="change-inp">
-              <label className="change-label">New Email</label>
+            <div className='change-inp'>
+              <label className='change-label'>New Email</label>
               <Field
-                data-testid="new"
-                className="inp-component"
-                name="newEmail"
+                data-testid='new'
+                className='inp-component'
+                name='newEmail'
               />
             </div>
-            <div className="change-inp">
-              <label className="change-label">Confirm Email</label>
+            <div className='change-inp'>
+              <label className='change-label'>Confirm Email</label>
               <Field
-                data-testid="confirm"
-                className="inp-component"
-                name="confirmEmail"
+                data-testid='confirm'
+                className='inp-component'
+                name='confirmEmail'
               />
             </div>
             <div
@@ -69,17 +69,17 @@ const ChangeEmailForm: React.FC = () => {
               }}
             >
               <button
-                data-testid="save"
-                className="change-button"
-                type="submit"
+                data-testid='save'
+                className='change-button'
+                type='submit'
               >
                 Save
               </button>
               {errors.confirmEmail && touched.confirmEmail && (
-                <p className="change-err">{errors.confirmEmail}</p>
+                <p className='change-err'>{errors.confirmEmail}</p>
               )}
-              {status?.error && <p className="change-err">{status.error}</p>}
-              {status?.data && <p className="change-succ">{status.data}</p>}
+              {status?.error && <p className='change-err'>{status.error}</p>}
+              {status?.data && <p className='change-succ'>{status.data}</p>}
             </div>
           </Form>
         )}

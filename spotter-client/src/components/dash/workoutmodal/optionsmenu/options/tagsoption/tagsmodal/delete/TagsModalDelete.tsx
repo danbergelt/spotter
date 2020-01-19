@@ -37,13 +37,13 @@ const TagsModalDelete: React.FC<Props> = ({ toDelete }) => {
   };
 
   return (
-    <section className="tag-delete-container">
-      <p className="tag-delete">
+    <section className='tag-delete-container'>
+      <p className='tag-delete'>
         Are you sure you want to delete this tag? There is no undoing this
         action.
       </p>
       {err.length ? <Err err={err} setErr={setErr} /> : null}
-      <div role="button" onClick={deleteTag} className="tag-delete-submit">
+      <div role='button' onClick={deleteTag} className='tag-delete-submit'>
         Delete Tag
       </div>
     </section>

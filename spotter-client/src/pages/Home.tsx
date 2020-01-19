@@ -1,7 +1,7 @@
 import React from 'react';
-import Features from 'src/components/home/Features';
-import BottomCta from 'src/components/home/BottomCta';
 import { Helmet } from 'react-helmet-async';
+import Features from '../components/home/Features';
+import BottomCta from '../components/home/BottomCta';
 import Hero from '../components/home/HomeHero';
 import TextBlocks from '../components/home/TextBlocks';
 import ImageText from '../components/home/ImageText';

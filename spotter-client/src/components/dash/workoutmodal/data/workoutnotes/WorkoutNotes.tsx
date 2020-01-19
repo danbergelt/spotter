@@ -22,7 +22,7 @@ const WorkoutNotes = () => {
   const dispatch = useDispatch();
 
   return (
-    <section className="workout-data-notes">
+    <section className='workout-data-notes'>
       <NotesHead notes={notes} notesRef={notesRef} />
       <NotesTextArea
         notesRef={notesRef}
@@ -36,12 +36,12 @@ const WorkoutNotes = () => {
             : 'workout-data-notes-actions'
         }
       >
-        <FiPlus role="button" className="workout-data-notes-submit" />
+        <FiPlus role='button' className='workout-data-notes-submit' />
         <FiTrash
-          role="button"
-          data-testid="trash"
+          role='button'
+          data-testid='trash'
           onMouseDown={() => dispatch(resetNotesAction(''))}
-          className="workout-data-notes-cancel"
+          className='workout-data-notes-cancel'
         />
       </section>
     </section>

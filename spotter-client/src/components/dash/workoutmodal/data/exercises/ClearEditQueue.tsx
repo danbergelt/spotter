@@ -10,9 +10,9 @@ const ClearEditQueue: React.FC = () => {
 
   return (
     <div
-      role="button"
+      role='button'
       onClick={() => dispatch(resetQueueAction())}
-      className="workout-data-exercises-editing"
+      className='workout-data-exercises-editing'
     >
       Clear
     </div>

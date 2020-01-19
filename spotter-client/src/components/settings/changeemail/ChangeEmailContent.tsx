@@ -8,13 +8,13 @@ interface Props {
 
 const ChangeEmailContent: React.FC<Props> = ({ setChangeEmail }) => {
   return (
-    <article className="change-container">
-      <section className="popover-head">
+    <article className='change-container'>
+      <section className='popover-head'>
         <div
-          role="button"
-          data-testid="close-popover"
+          role='button'
+          data-testid='close-popover'
           onClick={() => setChangeEmail(false)}
-          className="close-popover"
+          className='close-popover'
         >
           <FiX />
         </div>

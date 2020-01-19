@@ -77,9 +77,9 @@ const WorkoutGrid = () => {
   }, [dispatch]);
 
   return (
-    <div className="spacer">
+    <div className='spacer'>
       <DashControls inc={inc} dec={dec} time={timeSpan} month={monthDashHead} />
-      <section className="month-workout-days">
+      <section className='month-workout-days'>
         {generateMonth(timeSpan).map((date, i) => (
           <GridDay
             openAddWorkoutModal={openAddWorkoutModal}

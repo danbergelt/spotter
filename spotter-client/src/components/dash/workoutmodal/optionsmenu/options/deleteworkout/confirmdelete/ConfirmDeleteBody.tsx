@@ -31,18 +31,18 @@ const ConfirmDeleteBody: React.FC<Props> = ({
         Are you sure you want to delete this workout? There is no undoing this
         action.
       </p>
-      <section className="delete-btn-container">
+      <section className='delete-btn-container'>
         <div
-          data-testid="conf-del"
+          data-testid='conf-del'
           onClick={deleteWorkout}
-          className="delete-btn del"
+          className='delete-btn del'
         >
           Delete
         </div>
         <div
-          role="button"
+          role='button'
           onClick={closeConfirmDelete}
-          className="delete-btn can"
+          className='delete-btn can'
         >
           Cancel
         </div>

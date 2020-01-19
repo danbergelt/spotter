@@ -7,11 +7,11 @@ interface Props {
 
 const ConfirmDeleteHead: React.FC<Props> = ({ closeConfirmDelete }) => {
   return (
-    <div className="delete-head-container">
-      <header className="delete-head">Delete Workout</header>
-      <div role="button" onClick={closeConfirmDelete} className="delete-exit">
+    <div className='delete-head-container'>
+      <header className='delete-head'>Delete Workout</header>
+      <div role='button' onClick={closeConfirmDelete} className='delete-exit'>
         <FiX
-          data-testid="quit-template-save"
+          data-testid='quit-template-save'
           style={{ display: 'flex', alignItems: 'center' }}
         />
       </div>

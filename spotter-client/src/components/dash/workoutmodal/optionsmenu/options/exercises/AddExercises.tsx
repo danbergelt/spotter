@@ -42,23 +42,23 @@ const AddExercises: React.FC<Props> = ({ msg, setMsg }) => {
           autoFocus
           value={exercise}
           onChange={e => setExercise(e.target.value)}
-          placeholder="Create exercise..."
-          className="exercises-add"
+          placeholder='Create exercise...'
+          className='exercises-add'
         />
-        <button data-testid="create-exercise" className="btn-exercise">
+        <button data-testid='create-exercise' className='btn-exercise'>
           Create
         </button>
       </form>
       {msg.error && (
         <SaveExerciseMsg
-          errOrSucc="exercise-save error"
+          errOrSucc='exercise-save error'
           msg={msg.error}
           setMsg={setMsg}
         />
       )}
       {msg.success && (
         <SaveExerciseMsg
-          errOrSucc="exercise-save success"
+          errOrSucc='exercise-save success'
           msg={msg.success}
           setMsg={setMsg}
         />

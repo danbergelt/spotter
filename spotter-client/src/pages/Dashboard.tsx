@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { useSelector } from 'react-redux';
-import { State } from 'src/types/State';
 import { Helmet } from 'react-helmet-async';
+import { State } from '../types/State';
 import SubNav from '../components/dash/subnav/SubNav';
 import WorkoutColumns from '../components/dash/workouts/week/WorkoutColumns';
 import WorkoutGrid from '../components/dash/workouts/month/WorkoutGrid';

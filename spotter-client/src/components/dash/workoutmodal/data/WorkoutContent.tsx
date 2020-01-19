@@ -11,7 +11,7 @@ interface Props {
 
 const WorkoutContent: React.FC<Props> = ({ closeModal, time }) => {
   return (
-    <div className="workout-body-container">
+    <div className='workout-body-container'>
       <WorkoutData />
       <WorkoutOptions closeParentModal={closeModal} time={time} />
     </div>

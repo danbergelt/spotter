@@ -15,15 +15,15 @@ const UpdateTagForm: React.FC<Props> = ({
     <form onSubmit={e => handleSubmit(e)}>
       <input
         autoFocus
-        className="tag-manage-update-input"
-        placeholder="Update tag name..."
+        className='tag-manage-update-input'
+        placeholder='Update tag name...'
         value={updateInput}
         onChange={e => setUpdateInput(e.target.value)}
       />
       <button
-        data-testid="save-tag"
-        className="tag-manage-update-submit"
-        type="submit"
+        data-testid='save-tag'
+        className='tag-manage-update-submit'
+        type='submit'
       >
         Save
       </button>

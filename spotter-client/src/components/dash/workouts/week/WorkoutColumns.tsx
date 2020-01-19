@@ -72,9 +72,9 @@ const WorkoutColumns = () => {
   }, [dispatch]);
 
   return (
-    <div className="spacer">
+    <div className='spacer'>
       <DashControls inc={inc} dec={dec} time={timeSpan} month={dashHead} />
-      <section className="week-workouts-days">
+      <section className='week-workouts-days'>
         {generateWeek(timeSpan).map((date, i) => (
           <WorkoutColumn
             date={date}

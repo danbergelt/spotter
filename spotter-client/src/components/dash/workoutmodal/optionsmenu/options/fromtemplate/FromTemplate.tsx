@@ -36,9 +36,9 @@ const FromTemplate: React.FC = () => {
       style={useFromTemplateStyles()}
       isOpen={fromTemplate}
       onRequestClose={closeHandler}
-      contentLabel="Generate Template"
+      contentLabel='Generate Template'
     >
-      <section className="from-template-container">
+      <section className='from-template-container'>
         <FromTemplateHead
           closeHandler={closeHandler}
           search={search}

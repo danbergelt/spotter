@@ -71,15 +71,15 @@ const SaveWorkout: React.FC<Props> = ({
   return (
     <>
       <div
-        role="button"
-        data-testid="save-workout"
+        role='button'
+        data-testid='save-workout'
         onClick={saveHandler}
-        className="add-workout-options-button publish"
+        className='add-workout-options-button publish'
       >
         <FiPlusCircle className={iconClass} />
         {ctx === 'add' ? 'Save' : 'Update'}
       </div>
-      {saveMsg.error && <div className="save error">{saveMsg.error}</div>}
+      {saveMsg.error && <div className='save error'>{saveMsg.error}</div>}
     </>
   );
 };

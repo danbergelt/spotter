@@ -9,13 +9,13 @@ interface Props {
 
 const Exercise: React.FC<Props> = ({ deleteExercise, exercise }) => {
   return (
-    <section className="exercise-container">
-      <p className="exercise">{exercise.name}</p>
+    <section className='exercise-container'>
+      <p className='exercise'>{exercise.name}</p>
       <div
-        role="button"
+        role='button'
         onClick={() => deleteExercise && deleteExercise(exercise._id)}
-        className="exercise-delete"
-        data-testid="exercise-delete"
+        className='exercise-delete'
+        data-testid='exercise-delete'
       >
         <FiX />
       </div>

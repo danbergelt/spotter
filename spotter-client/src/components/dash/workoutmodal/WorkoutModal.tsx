@@ -17,12 +17,12 @@ interface Props {
 const WorkoutModal: React.FC<Props> = ({ modal, closeModal, time }) => {
   return (
     <Modal
-      contentLabel="Add Workout Modal"
+      contentLabel='Add Workout Modal'
       isOpen={modal}
       style={useModalStyles()}
-      data-testid="modal"
+      data-testid='modal'
     >
-      <section className="workout-modal-content">
+      <section className='workout-modal-content'>
         <WorkoutTitle closeModal={closeModal} />
         <WorkoutContent closeModal={closeModal} time={time} />
       </section>

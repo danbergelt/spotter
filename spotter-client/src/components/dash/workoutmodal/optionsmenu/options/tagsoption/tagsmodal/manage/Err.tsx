@@ -8,7 +8,7 @@ interface Props {
 
 const Err: React.FC<Props> = ({ err, setErr }) => {
   return (
-    <div className="tag-delete-err">
+    <div className='tag-delete-err'>
       {err}
       <div
         onClick={() => setErr('')}

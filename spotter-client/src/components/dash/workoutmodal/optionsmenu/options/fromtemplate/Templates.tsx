@@ -37,7 +37,7 @@ const Templates: React.FC<Props> = ({ setActive, active, search }) => {
   );
 
   return (
-    <div className="templates-container">
+    <div className='templates-container'>
       {/* if there are templates + if there are results from the search filter, display those templates */}
       {templates.length ? (
         filter.length ? (
@@ -51,12 +51,12 @@ const Templates: React.FC<Props> = ({ setActive, active, search }) => {
             />
           ))
         ) : (
-          <div className="no-templates-found"> No templates found</div>
+          <div className='no-templates-found'> No templates found</div>
         )
       ) : (
-        <div className="no-templates-found">No templates found</div>
+        <div className='no-templates-found'>No templates found</div>
       )}
-      {err && <div className="no-templates-found">{err}</div>}
+      {err && <div className='no-templates-found'>{err}</div>}
     </div>
   );
 };

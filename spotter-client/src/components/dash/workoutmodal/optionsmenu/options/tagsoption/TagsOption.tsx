@@ -28,10 +28,10 @@ const Tags: React.FC<Props> = ({ iconClass }) => {
   return (
     <>
       <div
-        role="button"
+        role='button'
         onClick={openTagsModal}
-        className="add-workout-options-button"
-        data-testid="tags-modal"
+        className='add-workout-options-button'
+        data-testid='tags-modal'
       >
         <FiTag className={iconClass} /> Tags
       </div>

@@ -21,11 +21,11 @@ const PrSection: React.FC<Props> = ({ title, prs }) => {
   const [hover, setHover] = useState(false);
 
   return (
-    <section className="pr-section">
+    <section className='pr-section'>
       <div className={open ? 'pr-title open' : 'pr-title closed'}>
         <div
-          role="button"
-          className="pr-spacer"
+          role='button'
+          className='pr-spacer'
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
           onClick={() => setOpen(!open)}
@@ -42,11 +42,11 @@ const PrSection: React.FC<Props> = ({ title, prs }) => {
           <div style={{ marginLeft: '1rem' }}>{title}</div>
         </div>
         {title === 'Last Month' && (
-          <div data-tip data-for="pr-info" className="pr-info">
+          <div data-tip data-for='pr-info' className='pr-info'>
             <FiInfo />
           </div>
         )}
-        <ReactTooltip place="top" id="pr-info" effect="solid">
+        <ReactTooltip place='top' id='pr-info' effect='solid'>
           <p style={{ width: '200px' }}>
             Save the exercises you want tracked, and we'll show your PRs on this
             page!
@@ -54,8 +54,8 @@ const PrSection: React.FC<Props> = ({ title, prs }) => {
         </ReactTooltip>
       </div>
       {open && (
-        <section className="pr-section-box">
-          {!prs.length && <p className="no-prs">No PRs found in this range</p>}
+        <section className='pr-section-box'>
+          {!prs.length && <p className='no-prs'>No PRs found in this range</p>}
           {prs
             // sorting the prs by date (most recent comes first)
             .sort((a: any, b: any) =>

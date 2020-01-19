@@ -6,7 +6,7 @@ import {
   AnyAction
 } from 'redux';
 import thunk from 'redux-thunk';
-import { reducer } from './reducers/index';
+import reducer from './reducers/index';
 import { State } from './types/State';
 
 const store: Store<CombinedState<State>, AnyAction> = createStore(

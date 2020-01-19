@@ -49,7 +49,7 @@ const SubnavDropdown = () => {
   return (
     <>
       <Select
-        className="subnav-menu-icon left dropdown"
+        className='subnav-menu-icon left dropdown'
         styles={customStyles}
         options={options}
         value={scope}

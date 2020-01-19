@@ -15,7 +15,7 @@ const SaveExerciseMsg: React.FC<Props> = ({ errOrSucc, setMsg, msg }) => {
     <div className={errOrSucc}>
       {msg}
       <div
-        role="button"
+        role='button'
         onClick={() => setMsg({})}
         style={{ fontSize: '1.2rem', cursor: 'pointer' }}
       >

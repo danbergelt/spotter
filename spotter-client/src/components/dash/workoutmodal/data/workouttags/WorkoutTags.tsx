@@ -13,12 +13,12 @@ const WorkoutTags = () => {
   );
 
   return (
-    <section className="workout-data-tags">
-      <h1 className="workout-data-tags-head">TAGS</h1>
-      <div className="workout-data-tags-container">
+    <section className='workout-data-tags'>
+      <h1 className='workout-data-tags-head'>TAGS</h1>
+      <div className='workout-data-tags-container'>
         {!tags.length ? (
           <p
-            className="workout-data-tags-head"
+            className='workout-data-tags-head'
             style={{ fontSize: '1.2rem', margin: 0 }}
           >
             No tags

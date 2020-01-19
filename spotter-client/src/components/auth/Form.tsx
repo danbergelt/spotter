@@ -29,8 +29,8 @@ const SpotterForm: React.FC<Props> = ({
   addToken
 }) => {
   return (
-    <section className="form-container">
-      <div className="logo-container">
+    <section className='form-container'>
+      <div className='logo-container'>
         <div>{children}</div>
       </div>
       <Formik
@@ -62,50 +62,50 @@ const SpotterForm: React.FC<Props> = ({
         }}
       >
         {({ status, errors, touched }) => (
-          <section className="form-sub-container">
-            <header className="form-head">{action}</header>
-            {status && <p className="api-err-box">{status}</p>}
-            <Form data-testid="test-form" className="form">
-              <label className="form-label">Email</label>
+          <section className='form-sub-container'>
+            <header className='form-head'>{action}</header>
+            {status && <p className='api-err-box'>{status}</p>}
+            <Form data-testid='test-form' className='form'>
+              <label className='form-label'>Email</label>
               <Field
-                className="form-field"
-                name="email"
-                placeholder="name@email.com"
-                type="email"
+                className='form-field'
+                name='email'
+                placeholder='name@email.com'
+                type='email'
               />
               {touched.email && errors.email && (
-                <p className="form-error email">{errors.email}</p>
+                <p className='form-error email'>{errors.email}</p>
               )}
-              <label className="form-label">Password</label>
+              <label className='form-label'>Password</label>
               <Field
-                className="form-field"
-                name="password"
-                placeholder="Password"
-                type="password"
+                className='form-field'
+                name='password'
+                placeholder='Password'
+                type='password'
               />
               {touched.password && errors.password && (
-                <p className="form-error pass">{errors.password}</p>
+                <p className='form-error pass'>{errors.password}</p>
               )}
               <button
-                data-testid="form-submit"
-                className="form-button"
-                type="submit"
+                data-testid='form-submit'
+                className='form-button'
+                type='submit'
               >
                 {action}
               </button>
             </Form>
             {action === 'Sign Up' && (
-              <section className="form-alt-link">
+              <section className='form-alt-link'>
                 Already have an account?{' '}
-                <Link className="form-alt-link-clickable" to="/login">
+                <Link className='form-alt-link-clickable' to='/login'>
                   Log in.
                 </Link>
               </section>
             )}
             {action === 'Log In' && (
-              <section className="form-alt-link">
+              <section className='form-alt-link'>
                 Forgot your password?{' '}
-                <Link className="form-alt-link-clickable" to="/forgotpassword">
+                <Link className='form-alt-link-clickable' to='/forgotpassword'>
                   Click here.
                 </Link>
               </section>

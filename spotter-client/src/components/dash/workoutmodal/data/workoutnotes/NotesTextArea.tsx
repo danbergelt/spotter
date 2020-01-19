@@ -19,8 +19,8 @@ const NotesTextArea: React.FC<Props> = ({ notes, notesRef, setActions }) => {
       onBlur={() => setActions(false)}
       value={notes}
       onChange={e => dispatch(addNotesAction(e.target.value))}
-      className="workout-data-notes-content"
-      placeholder="Click to enter some notes..."
+      className='workout-data-notes-content'
+      placeholder='Click to enter some notes...'
     />
   );
 };

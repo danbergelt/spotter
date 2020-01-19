@@ -20,10 +20,10 @@ const Tag: React.FC<Props> = ({
   setHover
 }) => {
   return (
-    <section className="tag-add-container">
+    <section className='tag-add-container'>
       <div
-        role="button"
-        data-testid="tag-to-add"
+        role='button'
+        data-testid='tag-to-add'
         onClick={() => toggleTag(tag)}
         // need to use state to manage hover due to CSS in JS
         onMouseEnter={() => setHover(tag._id)}

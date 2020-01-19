@@ -41,8 +41,8 @@ const App: React.FC = () => {
           justifyContent: 'center',
           alignItems: 'center'
         }}
-        type="ThreeDots"
-        color="#E9503F"
+        type='ThreeDots'
+        color='#E9503F'
         height={40}
         width={150}
       />
@@ -50,7 +50,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <main className="app-container">
+    <main className='app-container'>
       <Routes />
     </main>
   );

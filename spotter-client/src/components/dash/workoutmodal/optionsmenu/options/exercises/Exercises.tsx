@@ -44,10 +44,10 @@ const Exercises: React.FC<Props> = ({ setExercisesModal }) => {
           : styles
       }
       isOpen={modalState}
-      contentLabel="Saved Exercises"
+      contentLabel='Saved Exercises'
       onRequestClose={() => handleCloseExerciseModal()}
     >
-      <section className="exercises-container">
+      <section className='exercises-container'>
         <ExercisesHead
           tab={tab}
           setTab={setTab}

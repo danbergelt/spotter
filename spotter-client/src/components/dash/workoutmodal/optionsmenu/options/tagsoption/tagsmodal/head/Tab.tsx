@@ -10,7 +10,7 @@ interface Props {
 const Tab: React.FC<Props> = ({ active, setActive, text, id }) => {
   return (
     <div
-      role="button"
+      role='button'
       className={
         active === id ? 'tags-modal-tab-active' : 'tags-modal-tab-not-active'
       }

@@ -31,12 +31,12 @@ const GridHeadFirstWeek: React.FC<Props> = ({
 
   return (
     <>
-      <section className="month-grid-day-head">
-        <p className="month-grid-day-of-week">{date.format('ddd')}</p>
+      <section className='month-grid-day-head'>
+        <p className='month-grid-day-of-week'>{date.format('ddd')}</p>
         <div
-          role="button"
+          role='button'
           onClick={() => openAddWorkoutModal(date)}
-          className="month-grid-add-workout"
+          className='month-grid-add-workout'
           data-testid={i === 0 && 'add-for-testing'}
         >
           <FiPlusCircle />

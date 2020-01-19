@@ -31,10 +31,10 @@ const DeleteWorkout: React.FC<Props> = ({
   return (
     <>
       <div
-        role="button"
-        data-testid="del-workout"
+        role='button'
+        data-testid='del-workout'
         onClick={delHandler}
-        className="add-workout-options-button delete"
+        className='add-workout-options-button delete'
       >
         <FiDelete className={iconClass} /> Delete
       </div>

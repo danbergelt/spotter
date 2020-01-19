@@ -36,7 +36,7 @@ const GridDay: React.FC<Props> = ({
 
   return (
     <section
-      className="month-grid-day"
+      className='month-grid-day'
       data-testid={date.format('MMM DD YYYY')}
     >
       {i <= 6 ? (
@@ -92,8 +92,8 @@ const GridDay: React.FC<Props> = ({
                           id: date.format('MMM DD YYYY')
                         })
                       }
-                      role="button"
-                      className="grid-view-more"
+                      role='button'
+                      className='grid-view-more'
                     >
                       {width <= 500 ? 'More' : 'View More'}
                     </div>

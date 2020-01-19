@@ -16,7 +16,7 @@ const Template: React.FC<Props> = ({
   setActive
 }) => {
   return (
-    <div key={template._id} className="template-container">
+    <div key={template._id} className='template-container'>
       <div
         onClick={() => setActive(template)}
         className={template._id === active._id ? 'template active' : 'template'}
@@ -25,8 +25,8 @@ const Template: React.FC<Props> = ({
       </div>
       <div
         onClick={() => deleteTemplate(template._id)}
-        className="template-delete"
-        data-testid="template-delete"
+        className='template-delete'
+        data-testid='template-delete'
       >
         <FiX />
       </div>

@@ -24,11 +24,11 @@ const PopoverContainer: React.FC<Props> = ({
 }) => {
   return (
     <Popover
-      containerClassName="view-more-popup"
+      containerClassName='view-more-popup'
       isOpen={
         popover.open === true && popover.id === date.format('MMM DD YYYY')
       }
-      position="top"
+      position='top'
       onClickOutside={() => setPopover({ open: false, id: null })}
       content={
         <ViewMoreContent

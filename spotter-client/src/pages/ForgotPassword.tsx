@@ -1,8 +1,8 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import ForgotPasswordInstructions from 'src/components/auth/ForgotPassInstructions';
-import ForgotAndChangePass from 'src/components/auth/ForgotAndChangePass';
 import { Helmet } from 'react-helmet-async';
+import ForgotPasswordInstructions from '../components/auth/ForgotPassInstructions';
+import ForgotAndChangePass from '../components/auth/ForgotAndChangePass';
 
 const ForgotPassword: React.FC = () => {
   const { pathname } = useLocation();

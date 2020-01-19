@@ -28,7 +28,7 @@ const PrivateRoute: React.FC<Props> = ({
           if (token) {
             return <Component {...props} />;
           }
-          return <Redirect to="/login" />;
+          return <Redirect to='/login' />;
         }}
       />
     </>

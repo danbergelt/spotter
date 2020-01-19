@@ -8,7 +8,7 @@ interface Props {
 
 const Tag: React.FC<Props> = ({ tag }) => {
   return (
-    <div data-testid="mapped-tag" style={tagStyles(tag.color)}>
+    <div data-testid='mapped-tag' style={tagStyles(tag.color)}>
       {tag.content.toUpperCase()}
     </div>
   );

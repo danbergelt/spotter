@@ -11,13 +11,13 @@ const NotesHead: React.FC<Props> = ({ notes, notesRef }) => {
   };
 
   return (
-    <header className="workout-data-notes-head">
-      <FiBookOpen className="workout-data-notes-icon" />
-      <p className="workout-data-notes-title">Notes</p>
+    <header className='workout-data-notes-head'>
+      <FiBookOpen className='workout-data-notes-icon' />
+      <p className='workout-data-notes-title'>Notes</p>
       {notes !== '' && (
         <div
-          role="button"
-          className="workout-data-notes-edit"
+          role='button'
+          className='workout-data-notes-edit'
           onClick={() => handleFocus()}
         >
           Edit

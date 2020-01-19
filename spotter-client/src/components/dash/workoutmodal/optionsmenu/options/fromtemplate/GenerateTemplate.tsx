@@ -24,10 +24,10 @@ const GenerateTemplate: React.FC<Props> = ({ active, setActive }) => {
 
   return (
     <div
-      role="button"
+      role='button'
       onClick={() => (!isEmpty(active) ? genHandler(active) : null)}
-      className="generate-template"
-      data-testid="generate-template"
+      className='generate-template'
+      data-testid='generate-template'
     >
       Generate
     </div>

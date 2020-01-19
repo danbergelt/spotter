@@ -29,25 +29,25 @@ const ForgotPasswordInstructions: React.FC = () => {
   };
 
   return (
-    <section className="forgot-password-container">
-      <header className="forgot-password-title">Forgot your password?</header>
-      {res.err && <p className="forgot-password-res err">{res.err}</p>}
-      {res.succ && <p className="forgot-password-res succ">{res.succ}</p>}
-      <label className="forgot-password-label">Email</label>
+    <section className='forgot-password-container'>
+      <header className='forgot-password-title'>Forgot your password?</header>
+      {res.err && <p className='forgot-password-res err'>{res.err}</p>}
+      {res.succ && <p className='forgot-password-res succ'>{res.succ}</p>}
+      <label className='forgot-password-label'>Email</label>
       <form onSubmit={e => !loading && sendInstructions(e)}>
         <input
-          placeholder="name@email.com"
+          placeholder='name@email.com'
           onChange={e => setEmail(e.target.value)}
           value={email}
-          className="forgot-password-input"
+          className='forgot-password-input'
         />
         <button
           style={{ border: 0, outline: 0 }}
           onClick={e => !loading && sendInstructions(e)}
-          className="forgot-password-submit"
+          className='forgot-password-submit'
         >
           {loading ? (
-            <Loader type="ThreeDots" color="white" height={10} width={30} />
+            <Loader type='ThreeDots' color='white' height={10} width={30} />
           ) : (
             'Send Instructions'
           )}

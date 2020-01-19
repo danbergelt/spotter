@@ -15,7 +15,7 @@ const WorkoutCard: React.FC<Props> = ({ data }) => {
 
   return (
     <>
-      <p data-testid="workout-title" className="workout-card-title">
+      <p data-testid='workout-title' className='workout-card-title'>
         {width <= 500
           ? data.title.length > 4
             ? `${data.title.slice(0, 4)}...`
@@ -23,12 +23,12 @@ const WorkoutCard: React.FC<Props> = ({ data }) => {
           : data.title}
       </p>
       {data.notes || data.exercises.length ? (
-        <FiAlignLeft className="workout-card-notes-ind" />
+        <FiAlignLeft className='workout-card-notes-ind' />
       ) : null}
-      <section className="workout-card-tag-container">
+      <section className='workout-card-tag-container'>
         {data.tags.map(el => (
           <p
-            className="workout-card-tag"
+            className='workout-card-tag'
             key={el._id}
             style={{ background: el.color }}
           >

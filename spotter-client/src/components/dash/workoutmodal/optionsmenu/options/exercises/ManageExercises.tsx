@@ -37,13 +37,13 @@ const ManageExercises: React.FC<Props> = ({ exercises }) => {
           autoFocus
           value={search}
           onChange={e => setSearch(e.target.value)}
-          placeholder="Search exercises..."
-          className="exercises-add"
+          placeholder='Search exercises...'
+          className='exercises-add'
         />
       </div>
       {exercises.length ? (
         filter.length ? (
-          <section className="exercises">
+          <section className='exercises'>
             {filter.map((exercise: E) => (
               <Exercise
                 key={exercise._id}

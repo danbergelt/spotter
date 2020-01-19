@@ -18,9 +18,9 @@ const ChangePassword: React.FC<Props> = ({
       isOpen={changePassword}
       onClickOutside={() => setChangePassword(false)}
       content={<ChangePasswordContent setChangePassword={setChangePassword} />}
-      align="start"
-      position="bottom"
-      containerClassName="change-popup"
+      align='start'
+      position='bottom'
+      containerClassName='change-popup'
     >
       {children}
     </Popover>

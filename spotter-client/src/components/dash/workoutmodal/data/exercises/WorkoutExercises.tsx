@@ -51,15 +51,15 @@ const WorkoutExercises = () => {
   );
 
   return (
-    <section className="workout-data-exercises">
-      <header className="workout-data-exercises-head">
-        <FiStar className="workout-data-exercises-icon" />
-        <div className="workout-data-exercises-title">Workout</div>
+    <section className='workout-data-exercises'>
+      <header className='workout-data-exercises-head'>
+        <FiStar className='workout-data-exercises-icon' />
+        <div className='workout-data-exercises-title'>Workout</div>
         {!isEmpty(queued) && <ClearEditQueue />}
       </header>
-      <section className="workout-data-exercises-content">
+      <section className='workout-data-exercises-content'>
         <ExerciseForm refs={refs} />
-        <div className="workout-data-exercises-list">
+        <div className='workout-data-exercises-list'>
           {exercises.map((exercise, i) => (
             <WorkoutExercise
               key={i}

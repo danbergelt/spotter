@@ -21,10 +21,10 @@ const ExerciseOption: React.FC<Props> = ({ iconClass }) => {
   return (
     <>
       <div
-        role="button"
+        role='button'
         onClick={() => setExercisesModal(true)}
-        data-testid="exercises-modal"
-        className="add-workout-options-button"
+        data-testid='exercises-modal'
+        className='add-workout-options-button'
       >
         <FiTrendingUp className={iconClass} /> Exercises
       </div>

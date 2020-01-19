@@ -28,9 +28,9 @@ const FromTemplateOption: React.FC<Props> = ({ iconClass }) => {
   return (
     <>
       <div
-        role="button"
+        role='button'
         onClick={openFromTemplateModal}
-        className="add-workout-options-button"
+        className='add-workout-options-button'
       >
         <FiPackage className={iconClass} /> Load Template
       </div>

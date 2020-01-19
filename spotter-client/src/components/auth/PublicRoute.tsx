@@ -25,7 +25,7 @@ const PublicRoute: React.FC<Props> = ({
         {...rest}
         render={props => {
           if (token) {
-            return <Redirect to="/dashboard" />;
+            return <Redirect to='/dashboard' />;
           }
           return <Component {...props} />;
         }}

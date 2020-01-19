@@ -10,7 +10,7 @@ const ChangePasswordForm: React.FC = () => {
   const t: string | null = useSelector(fetchToken);
 
   return (
-    <section className="change-form">
+    <section className='change-form'>
       <Formik
         validateOnChange={false}
         validateOnBlur={false}
@@ -37,31 +37,31 @@ const ChangePasswordForm: React.FC = () => {
       >
         {({ errors, touched, status }) => (
           <Form>
-            <div className="change-inp">
-              <label className="change-label">Old Password</label>
+            <div className='change-inp'>
+              <label className='change-label'>Old Password</label>
               <Field
-                data-testid="old"
-                className="inp-component"
-                name="oldPassword"
-                type="password"
+                data-testid='old'
+                className='inp-component'
+                name='oldPassword'
+                type='password'
               />
             </div>
-            <div className="change-inp">
-              <label className="change-label">New Password</label>
+            <div className='change-inp'>
+              <label className='change-label'>New Password</label>
               <Field
-                data-testid="new"
-                className="inp-component"
-                name="newPassword"
-                type="password"
+                data-testid='new'
+                className='inp-component'
+                name='newPassword'
+                type='password'
               />
             </div>
-            <div className="change-inp">
-              <label className="change-label">Confirm Password</label>
+            <div className='change-inp'>
+              <label className='change-label'>Confirm Password</label>
               <Field
-                data-testid="confirm"
-                className="inp-component"
-                name="confirmPassword"
-                type="password"
+                data-testid='confirm'
+                className='inp-component'
+                name='confirmPassword'
+                type='password'
               />
             </div>
             <div
@@ -72,17 +72,17 @@ const ChangePasswordForm: React.FC = () => {
               }}
             >
               <button
-                data-testid="save"
-                className="change-button"
-                type="submit"
+                data-testid='save'
+                className='change-button'
+                type='submit'
               >
                 Save
               </button>
               {errors.confirmPassword && touched.confirmPassword && (
-                <p className="change-err">{errors.confirmPassword}</p>
+                <p className='change-err'>{errors.confirmPassword}</p>
               )}
-              {status?.error && <p className="change-err">{status.error}</p>}
-              {status?.data && <p className="change-succ">{status.data}</p>}
+              {status?.error && <p className='change-err'>{status.error}</p>}
+              {status?.data && <p className='change-succ'>{status.data}</p>}
             </div>
           </Form>
         )}

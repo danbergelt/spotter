@@ -13,24 +13,24 @@ const CloseAccount: React.FC = () => {
   const t: string | null = useSelector(fetchToken);
 
   return (
-    <article className="del-account-container">
-      <span id="del-account-danger">Danger!</span> This action can't be undone.
+    <article className='del-account-container'>
+      <span id='del-account-danger'>Danger!</span> This action can't be undone.
       All of your data will be deleted, and you will be redirected to the Signup
       screen.
       <br />
       <br />
       Are you sure you want to close your account?
-      <section className="confirm-close">
+      <section className='confirm-close'>
         <input
           onChange={() => setConfirmClose(!confirmClose)}
-          className="confirm-check"
-          type="checkbox"
-          data-testid="close-check"
+          className='confirm-check'
+          type='checkbox'
+          data-testid='close-check'
         />
         <p>Yes, I'm sure</p>
       </section>
       <div
-        role="button"
+        role='button'
         data-testid={
           confirmClose ? 'delete-account' : 'delete-account-disabled'
         }

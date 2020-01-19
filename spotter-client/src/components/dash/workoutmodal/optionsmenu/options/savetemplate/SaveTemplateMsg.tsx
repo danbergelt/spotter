@@ -23,7 +23,7 @@ const SaveTemplateMsg: React.FC<Props> = ({
     <div className={errOrSucc}>
       {message}
       <div
-        role="button"
+        role='button'
         onClick={() => setMessage({})}
         style={{ fontSize: '1.2rem', cursor: 'pointer' }}
       >

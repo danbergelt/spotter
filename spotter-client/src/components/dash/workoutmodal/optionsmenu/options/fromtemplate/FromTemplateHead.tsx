@@ -14,15 +14,15 @@ const FromTemplateHead: React.FC<Props> = ({
 }) => {
   return (
     <>
-      <section className="from-template-header">
-        <p className="from-template-title">Load Template</p>
+      <section className='from-template-header'>
+        <p className='from-template-title'>Load Template</p>
         <div
-          role="button"
+          role='button'
           onClick={closeHandler}
-          className="from-template-exit"
+          className='from-template-exit'
         >
           <FiX
-            data-testid="quit-from"
+            data-testid='quit-from'
             style={{ display: 'flex', alignItems: 'center' }}
           />
         </div>
@@ -31,8 +31,8 @@ const FromTemplateHead: React.FC<Props> = ({
         autoFocus
         value={search}
         onChange={e => setSearch(e.target.value)}
-        placeholder="Search..."
-        className="from-template-search"
+        placeholder='Search...'
+        className='from-template-search'
       />
     </>
   );

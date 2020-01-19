@@ -28,16 +28,16 @@ const WorkoutOptions: React.FC<Props> = ({ closeParentModal, time }) => {
   );
 
   return (
-    <div className="add-workout-options-container">
-      <h1 className="add-workout-options-title sub">ACTIONS</h1>
-      <section className="add-workout-options-buttons">
-        <div className="options-left">
+    <div className='add-workout-options-container'>
+      <h1 className='add-workout-options-title sub'>ACTIONS</h1>
+      <section className='add-workout-options-buttons'>
+        <div className='options-left'>
           <TagsOption iconClass={iconClass} />
           <SaveTemplateOption iconClass={iconClass} />
           <FromTemplateOption iconClass={iconClass} />
           <ExerciseOption iconClass={iconClass} />
         </div>
-        <div className="options-right">
+        <div className='options-right'>
           <DeleteWorkout
             closeParentModal={closeParentModal}
             workoutId={workoutId}

@@ -25,12 +25,12 @@ const GridHead: React.FC<Props> = ({ openAddWorkoutModal, date }) => {
 
   return (
     <>
-      <section className="month-grid-day-head">
+      <section className='month-grid-day-head'>
         <div
-          role="button"
+          role='button'
           onClick={() => openAddWorkoutModal(date)}
           style={{ marginLeft: 'auto' }}
-          className="month-grid-add-workout"
+          className='month-grid-add-workout'
         >
           <FiPlusCircle />
         </div>

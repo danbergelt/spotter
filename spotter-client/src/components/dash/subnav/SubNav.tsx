@@ -6,8 +6,8 @@ import SubnavDropdown from './SubnavDropdown';
 
 const SubNav: React.FC = () => {
   return (
-    <div className="subnav-container spacer">
-      <section className="subnav-menu left">
+    <div className='subnav-container spacer'>
+      <section className='subnav-menu left'>
         <SubnavDropdown />
       </section>
     </div>

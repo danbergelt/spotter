@@ -13,17 +13,17 @@ const SaveTemplateForm: React.FC<Props> = ({
 }) => {
   return (
     <form
-      data-testid="template-form"
-      id="save"
-      className="template-form"
+      data-testid='template-form'
+      id='save'
+      className='template-form'
       onSubmit={e => handleSubmit(e)}
     >
       <input
         autoFocus
         value={tempName}
-        placeholder="Template name (must be unique)"
+        placeholder='Template name (must be unique)'
         onChange={e => setTempName(e.target.value)}
-        className="template-save-name"
+        className='template-save-name'
       />
     </form>
   );

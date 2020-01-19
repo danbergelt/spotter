@@ -34,7 +34,7 @@ const Pr: React.FC<Props> = ({ pr }) => {
   };
 
   return (
-    <article className="pr">
+    <article className='pr'>
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <div
           // color-coding circle to indicate if a PR is recent or old
@@ -45,7 +45,7 @@ const Pr: React.FC<Props> = ({ pr }) => {
         <p>{pr.name}</p>
       </div>
       <div style={{ display: 'flex' }}>
-        <p className="pr-date">{pr.prDate}</p>
+        <p className='pr-date'>{pr.prDate}</p>
         <p style={{ fontWeight: 'bold' }}>
           {pr.pr}
           lbs

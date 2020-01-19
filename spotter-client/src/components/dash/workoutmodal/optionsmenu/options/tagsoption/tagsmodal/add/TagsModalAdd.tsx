@@ -36,8 +36,8 @@ const TagsModalAdd = () => {
     return (
       <Loader
         style={lStyles}
-        type="ThreeDots"
-        color="#E9503F"
+        type='ThreeDots'
+        color='#E9503F'
         height={15}
         width={60}
       />
@@ -45,12 +45,12 @@ const TagsModalAdd = () => {
   }
 
   if (!tags.length) {
-    return <div className="no-tags-found">No tags found</div>;
+    return <div className='no-tags-found'>No tags found</div>;
   }
 
   return (
     <>
-      <p className="tag-add-head" data-testid="add-tag">
+      <p className='tag-add-head' data-testid='add-tag'>
         Add
       </p>
       {/* map list of created tags */}

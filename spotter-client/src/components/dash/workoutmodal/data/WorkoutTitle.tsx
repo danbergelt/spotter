@@ -17,19 +17,19 @@ const WorkoutTitle: React.FC<Props> = ({ closeModal }) => {
   const dispatch = useDispatch();
 
   return (
-    <section className="workout-modal-head">
-      <div className="workout-modal-head-left">
-        <FaCircle className="workout-spotter-logo" />
+    <section className='workout-modal-head'>
+      <div className='workout-modal-head-left'>
+        <FaCircle className='workout-spotter-logo' />
         <input
-          data-testid="inp"
-          placeholder="Click to enter a title..."
+          data-testid='inp'
+          placeholder='Click to enter a title...'
           value={title}
           onChange={e => dispatch(addTitleAction(e.target.value))}
-          className="workout-title"
+          className='workout-title'
         />
       </div>
-      <div role="button" onClick={closeModal} className="workout-exit-modal">
-        <FiX data-testid="exit-modal" />
+      <div role='button' onClick={closeModal} className='workout-exit-modal'>
+        <FiX data-testid='exit-modal' />
       </div>
     </section>
   );

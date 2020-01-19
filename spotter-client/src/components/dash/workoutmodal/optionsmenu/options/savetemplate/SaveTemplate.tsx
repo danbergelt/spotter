@@ -50,10 +50,10 @@ const SaveTemplate: React.FC<Props> = ({ close }) => {
     <Modal
       style={useSaveTemplateStyles()}
       onRequestClose={closeHandler}
-      contentLabel="Save Template"
+      contentLabel='Save Template'
       isOpen={templateSave}
     >
-      <section className="save-template-container">
+      <section className='save-template-container'>
         <SaveTemplateHead closeHandler={closeHandler} />
         <SaveTemplateForm
           handleSubmit={handleSubmit}
@@ -63,14 +63,14 @@ const SaveTemplate: React.FC<Props> = ({ close }) => {
         <SaveTemplateBtn />
         {message.error && (
           <SaveTemplateMsg
-            errOrSucc="template-save error"
+            errOrSucc='template-save error'
             message={message.error}
             setMessage={setMessage}
           />
         )}
         {message.success && (
           <SaveTemplateMsg
-            errOrSucc="template-save success"
+            errOrSucc='template-save success'
             message={message.success}
             setMessage={setMessage}
           />

@@ -21,12 +21,12 @@ const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
   };
 
   return (
-    <nav className="spotter-nav-links">
+    <nav className='spotter-nav-links'>
       {!token && (
         <HashLink
           smooth
-          to="/#about"
-          className="spotter-nav-link"
+          to='/#about'
+          className='spotter-nav-link'
           onClick={() => setIsOpen && setIsOpen(!isOpen)}
         >
           About
@@ -34,9 +34,9 @@ const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
       )}
       {token && (
         <Link
-          data-testid="settings"
-          className="spotter-nav-link"
-          to="/settings"
+          data-testid='settings'
+          className='spotter-nav-link'
+          to='/settings'
           onClick={() => setIsOpen && setIsOpen(!isOpen)}
         >
           Settings
@@ -44,19 +44,19 @@ const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
       )}
       {token && (
         <Link
-          data-testid="logout"
+          data-testid='logout'
           onClick={logOut}
-          className="spotter-nav-link styled"
-          to="/login"
+          className='spotter-nav-link styled'
+          to='/login'
         >
           Log Out{' '}
         </Link>
       )}
       {!token && (
         <Link
-          data-testid="login"
-          className="spotter-nav-link dashboard"
-          to="/login"
+          data-testid='login'
+          className='spotter-nav-link dashboard'
+          to='/login'
           onClick={() => setIsOpen && setIsOpen(!isOpen)}
         >
           Log In
@@ -64,9 +64,9 @@ const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
       )}
       {!token && (
         <Link
-          data-testid="signup"
-          className="spotter-nav-link styled"
-          to="/signup"
+          data-testid='signup'
+          className='spotter-nav-link styled'
+          to='/signup'
           onClick={() => setIsOpen && setIsOpen(!isOpen)}
         >
           Sign Up

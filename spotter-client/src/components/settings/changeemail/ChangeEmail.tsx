@@ -18,9 +18,9 @@ const ChangeEmail: React.FC<Props> = ({
       isOpen={changeEmail}
       onClickOutside={() => setChangeEmail(false)}
       content={<ChangeEmailContent setChangeEmail={setChangeEmail} />}
-      align="start"
-      position="bottom"
-      containerClassName="change-popup"
+      align='start'
+      position='bottom'
+      containerClassName='change-popup'
     >
       {children}
     </Popover>

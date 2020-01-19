@@ -38,15 +38,15 @@ const TagsModalCreate = () => {
   };
 
   return (
-    <section className="tags-modal-create">
+    <section className='tags-modal-create'>
       <input
         autoFocus
         value={name}
         onChange={e => setName(e.target.value)}
-        placeholder="Set tag name..."
-        className="tags-modal-create-name"
+        placeholder='Set tag name...'
+        className='tags-modal-create-name'
       />
-      <section className="tags-modal-colors">
+      <section className='tags-modal-colors'>
         {colors.map(c => (
           <Color
             key={c}
@@ -65,12 +65,12 @@ const TagsModalCreate = () => {
         <Message message={message.success} setMessage={setMessage} />
       )}
       <div
-        role="button"
+        role='button'
         onClick={submitTag}
-        className="tags-modal-create-submit"
+        className='tags-modal-create-submit'
       >
         {loading ? (
-          <Loader color="white" height={10} width={50} type="ThreeDots" />
+          <Loader color='white' height={10} width={50} type='ThreeDots' />
         ) : (
           'Create Tag'
         )}

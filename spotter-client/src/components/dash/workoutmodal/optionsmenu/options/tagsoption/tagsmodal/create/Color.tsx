@@ -24,10 +24,10 @@ const Color: React.FC<Props> = ({ c, hover, color, setHover, setColor }) => {
       onMouseEnter={() => setHover(c)}
       onMouseLeave={() => setHover(null)}
       data-testid={c === color && 'selected-tag'}
-      aria-label="tag-colors"
+      aria-label='tag-colors'
     >
       {c === color && (
-        <div className="active-tag-color">
+        <div className='active-tag-color'>
           <FiCheck />
         </div>
       )}

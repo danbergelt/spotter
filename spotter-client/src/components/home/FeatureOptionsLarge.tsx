@@ -7,8 +7,8 @@ interface Props {
 
 const FeatureOptionsLarge: React.FC<Props> = ({ setSelected, selected }) => {
   return (
-    <section className="features-tabs-container">
-      <p className="features-title">Features</p>
+    <section className='features-tabs-container'>
+      <p className='features-title'>Features</p>
       <p
         onMouseEnter={() => setSelected('Week View')}
         className={selected === 'Week View' ? 'feature selected' : 'feature'}

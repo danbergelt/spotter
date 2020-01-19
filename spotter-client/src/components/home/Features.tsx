@@ -22,13 +22,13 @@ const Features: React.FC = () => {
   };
 
   return (
-    <article className="features-container">
+    <article className='features-container'>
       {width <= 1000 ? (
         <FeatureOptions selected={selected} setSelected={setSelected} />
       ) : (
         <FeatureOptionsLarge selected={selected} setSelected={setSelected} />
       )}
-      <img className="features-img" src={setImage()} alt="Weekly View" />
+      <img className='features-img' src={setImage()} alt='Weekly View' />
     </article>
   );
 };
