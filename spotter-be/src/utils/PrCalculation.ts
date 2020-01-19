@@ -33,7 +33,10 @@ const aggregator: TAggregator = async (user, name) => {
   return aggregated.filter(agg => agg.exercises.name === name);
 };
 
-// update an exercise's pr details based on passed in data
+/*
+  aggregate the PRs for each exercise, and update that exercise's PR and and prDate
+*/
+
 type TSetPr = (
   workout: Schema.Types.ObjectId,
   exercise: string
@@ -51,7 +54,10 @@ const setPr: TSetPr = async (user, exercise) => {
   );
 };
 
-// utility function that updates a person's PRs
+/* 
+  Loop through the passed in data, and set the PR for each exercise within that data
+  Passed-in data could be an exercise model, or a workout with an array of exercises nested inside it
+*/
 
 type TPrCalculation = (data: any) => Promise<void>;
 

@@ -47,5 +47,5 @@ export const deleteWorkoutAction: TDeleteWorkout = (t, workoutId) => {
       `${process.env.REACT_APP_T_API}/api/auth/workouts/${workoutId}`
     );
     return dispatch({ type: DELETE_WORKOUT, payload: workoutId });
-  }
+  };
 };
