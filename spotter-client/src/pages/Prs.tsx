@@ -7,6 +7,7 @@ import PrSection from "../components/prs/PrSection";
 import { State, fetchToken } from "src/types/State";
 import { SortedPrs, SortedPrsRange } from "../types/Prs";
 import { fetchExercises } from "src/actions/fetchExercisesActions";
+import { Helmet } from "react-helmet-async";
 const moment: MomentRange = extendMoment(Moment);
 
 // Hacky fix to resolve error with default imports from moment and typescript
@@ -31,7 +32,7 @@ const Prs: React.FC = () => {
   );
 
   const t: string | null = useSelector(fetchToken);
-  
+
   const history = useHistory();
 
   useEffect(() => {
@@ -39,7 +40,7 @@ const Prs: React.FC = () => {
   }, [dispatch, t, history]);
 
   // finds the difference between two moment dates
-  const findDiff = (exercise: any): number => 
+  const findDiff = (exercise: any): number =>
     m().diff(m(exercise.prDate, "MMM DD YYYY"), "days");
 
   // set PRs to state organized by time period in which the PR was set
@@ -74,16 +75,21 @@ const Prs: React.FC = () => {
   }, [exercises]);
 
   return (
-    <div className="prs-container spacer">
-      {!loading &&
-        Object.keys(sortedPrs).map((key, i) => (
-          <PrSection
-            key={categories[i]}
-            prs={sortedPrs[key]}
-            title={categories[i]}
-          />
-        ))}
-    </div>
+    <>
+      <Helmet>
+        <title>Prs | Spotter</title>
+      </Helmet>
+      <div className="prs-container spacer">
+        {!loading &&
+          Object.keys(sortedPrs).map((key, i) => (
+            <PrSection
+              key={categories[i]}
+              prs={sortedPrs[key]}
+              title={categories[i]}
+            />
+          ))}
+      </div>
+    </>
   );
 };
 

@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { fetchToken } from "src/types/State";
 import ExportWorkouts from "src/components/settings/exports/ExportWorkouts";
 import CloseAccount from "src/components/settings/closeaccount/CloseAccount";
+import { Helmet } from "react-helmet-async";
 
 const Settings: React.FC = () => {
   const [changePassword, setChangePassword] = useState<boolean>(false);
@@ -15,45 +16,53 @@ const Settings: React.FC = () => {
   return (
     // account settings
     // e.g. change password, change email
-    <div className="settings-container spacer">
-      <section className="settings-section">
-        <p className="settings-head">Account Settings</p>
-        <ChangePassword
-          changePassword={changePassword}
-          setChangePassword={setChangePassword}
-        >
-          <div
-            role="button"
-            onClick={() => setChangePassword(true)}
-            className="settings-action"
+    <>
+      <Helmet>
+        <title>Settings | Spotter</title>
+      </Helmet>
+      <div className="settings-container spacer">
+        <section className="settings-section">
+          <p className="settings-head">Account Settings</p>
+          <ChangePassword
+            changePassword={changePassword}
+            setChangePassword={setChangePassword}
           >
-            Change password...
-          </div>
-        </ChangePassword>
-        <ChangeEmail changeEmail={changeEmail} setChangeEmail={setChangeEmail}>
-          <div
-            role="button"
-            onClick={() => setChangeEmail(true)}
-            className="settings-action"
+            <div
+              role="button"
+              onClick={() => setChangePassword(true)}
+              className="settings-action"
+            >
+              Change password...
+            </div>
+          </ChangePassword>
+          <ChangeEmail
+            changeEmail={changeEmail}
+            setChangeEmail={setChangeEmail}
           >
-            Change email...
-          </div>
-        </ChangeEmail>
-      </section>
+            <div
+              role="button"
+              onClick={() => setChangeEmail(true)}
+              className="settings-action"
+            >
+              Change email...
+            </div>
+          </ChangeEmail>
+        </section>
 
-      {/* export workout data as a CSV file */}
-      <section className="settings-section">
-        <div className="settings-head">Exports</div>
-        <ExportWorkouts t={t} />
-      </section>
+        {/* export workout data as a CSV file */}
+        <section className="settings-section">
+          <div className="settings-head">Exports</div>
+          <ExportWorkouts t={t} />
+        </section>
 
-      {/* delete account permanently
+        {/* delete account permanently
       will wipe all account-related details and send user to signup */}
-      <section className="settings-section">
-        <p className="settings-head">Close Account</p>
-        <CloseAccount />
-      </section>
-    </div>
+        <section className="settings-section">
+          <p className="settings-head">Close Account</p>
+          <CloseAccount />
+        </section>
+      </div>
+    </>
   );
 };
 

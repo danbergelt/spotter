@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Profiler } from "react";
+import React, { useState, useEffect} from "react";
 import Loader from "react-loader-spinner";
 import axios from "axios";
 import Routes from "./routes";
@@ -51,14 +51,7 @@ const App: React.FC = () => {
 
   return (
     <main className="app-container">
-      <Profiler
-        id="app"
-        onRender={(a, b, actualDuration, baseDuration) =>
-          console.log(actualDuration)
-        }
-      >
-        <Routes />
-      </Profiler>
+      <Routes />
     </main>
   );
 };
