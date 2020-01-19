@@ -1,7 +1,7 @@
-import React, { memo } from "react";
-import { Workout } from "src/types/Workout";
-import { Moment } from "moment";
-import { useWindowSize } from "react-use";
+import React, { memo } from 'react';
+import { Workout } from 'src/types/Workout';
+import { Moment } from 'moment';
+import { useWindowSize } from 'react-use';
 
 interface Props {
   data: Workout;

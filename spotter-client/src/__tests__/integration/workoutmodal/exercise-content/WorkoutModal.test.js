@@ -1,22 +1,22 @@
-import React from "react";
-import WorkoutColumns from "../../../../components/dash/workouts/week/WorkoutColumns";
-import WorkoutModal from "../../../../components/dash/workoutmodal/WorkoutModal";
-import WorkoutData from "../../../../components/dash/workoutmodal/data/WorkoutData";
-import { cleanup, fireEvent, wait } from "@testing-library/react";
-import wrapper from "../../../../__testUtils__/wrapper";
-import Modal from "react-modal";
-import axios from "axios";
-import mockWorkoutRes from "../../../../__testUtils__/mockWorkoutRes";
-import { reducer } from "../../../../reducers/index";
-import { CREATE_EXERCISE } from "../../../../actions/fetchExercisesActions";
-import userEvent from "@testing-library/user-event";
+import React from 'react';
+import { cleanup, fireEvent, wait } from '@testing-library/react';
+import Modal from 'react-modal';
+import axios from 'axios';
+import userEvent from '@testing-library/user-event';
+import WorkoutColumns from '../../../../components/dash/workouts/week/WorkoutColumns';
+import WorkoutModal from '../../../../components/dash/workoutmodal/WorkoutModal';
+import WorkoutData from '../../../../components/dash/workoutmodal/data/WorkoutData';
+import wrapper from '../../../../__testUtils__/wrapper';
+import mockWorkoutRes from '../../../../__testUtils__/mockWorkoutRes';
+import { reducer } from '../../../../reducers/index';
+import { CREATE_EXERCISE } from '../../../../actions/fetchExercisesActions';
 
-describe("add workout modal functionality", () => {
+describe('add workout modal functionality', () => {
   // initial setup
   afterEach(cleanup);
-  Modal.setAppElement(document.createElement("div"));
+  Modal.setAppElement(document.createElement('div'));
 
-  test("open and close modal functionality", () => {
+  test('open and close modal functionality', () => {
     // suppresses warning for rendering document.body directly in render function
     console.error = jest.fn();
     axios.post.mockResolvedValue(mockWorkoutRes);
@@ -40,36 +40,36 @@ describe("add workout modal functionality", () => {
     expect(axios.post).toHaveBeenCalledTimes(1);
   });
 
-  test("can hold user-entered text in title and notes", () => {
+  test('can hold user-entered text in title and notes', () => {
     const { container, queryByTestId, getByPlaceholderText, store } = wrapper(
       reducer,
-      <WorkoutModal modal={true} />
+      <WorkoutModal modal />
     );
 
     expect(queryByTestId(/exit-modal/i)).toBeTruthy();
 
     const title = getByPlaceholderText(/click to enter a title.../i);
 
-    fireEvent.change(title, { target: { value: "test title" } });
+    fireEvent.change(title, { target: { value: 'test title' } });
 
     expect(container.innerHTML).toMatch(/test title/i);
 
     const notes = getByPlaceholderText(/click to enter some notes.../i);
 
-    fireEvent.change(notes, { target: { value: "test notes" } });
+    fireEvent.change(notes, { target: { value: 'test notes' } });
 
     expect(container.innerHTML).toMatch(/test notes/i);
   });
 
-  test("edit notes focuses notes", () => {
+  test('edit notes focuses notes', () => {
     const { container, queryByText, getByPlaceholderText, store } = wrapper(
       reducer,
-      <WorkoutModal modal={true} />
+      <WorkoutModal modal />
     );
 
     const notes = getByPlaceholderText(/click to enter some notes.../i);
 
-    fireEvent.change(notes, { target: { value: "test notes" } });
+    fireEvent.change(notes, { target: { value: 'test notes' } });
 
     expect(container.innerHTML).toMatch(/test notes/i);
 
@@ -82,15 +82,15 @@ describe("add workout modal functionality", () => {
     expect(document.activeElement).toEqual(notes);
   });
 
-  test("trashcan empties notes", () => {
+  test('trashcan empties notes', () => {
     const { container, getByTestId, getByPlaceholderText, store } = wrapper(
       reducer,
-      <WorkoutModal modal={true} />
+      <WorkoutModal modal />
     );
 
     const notes = getByPlaceholderText(/click to enter some notes.../i);
 
-    fireEvent.change(notes, { target: { value: "test notes" } });
+    fireEvent.change(notes, { target: { value: 'test notes' } });
 
     expect(container.innerHTML).toMatch(/test notes/i);
 
@@ -101,10 +101,10 @@ describe("add workout modal functionality", () => {
     expect(container.innerHTML).not.toMatch(/test notes/i);
   });
 
-  test("exercise form inputs work", () => {
+  test('exercise form inputs work', () => {
     const { getByPlaceholderText, store } = wrapper(
       reducer,
-      <WorkoutModal modal={true} />
+      <WorkoutModal modal />
     );
 
     const name = getByPlaceholderText(/e.g. squat/i);
@@ -112,43 +112,43 @@ describe("add workout modal functionality", () => {
     const sets = getByPlaceholderText(/# of sets/i);
     const reps = getByPlaceholderText(/# of reps/i);
 
-    fireEvent.change(name, { target: { value: "test name" } });
-    expect(name.value).toEqual("test name");
+    fireEvent.change(name, { target: { value: 'test name' } });
+    expect(name.value).toEqual('test name');
 
     fireEvent.change(weight, { target: { value: 100 } });
-    expect(weight.value).toEqual("100");
+    expect(weight.value).toEqual('100');
 
     fireEvent.change(sets, { target: { value: 100 } });
-    expect(sets.value).toEqual("100");
+    expect(sets.value).toEqual('100');
 
     fireEvent.change(reps, { target: { value: 100 } });
-    expect(reps.value).toEqual("100");
+    expect(reps.value).toEqual('100');
   });
 
   test("can't enter letters in number inputs", () => {
     const { getByPlaceholderText, store } = wrapper(
       reducer,
-      <WorkoutModal modal={true} />
+      <WorkoutModal modal />
     );
 
     const weight = getByPlaceholderText(/lbs/i);
     const sets = getByPlaceholderText(/# of sets/i);
     const reps = getByPlaceholderText(/# of reps/i);
 
-    fireEvent.change(weight, { target: { value: "a" } });
-    expect(weight.value).toEqual("");
+    fireEvent.change(weight, { target: { value: 'a' } });
+    expect(weight.value).toEqual('');
 
-    fireEvent.change(sets, { target: { value: "a" } });
-    expect(sets.value).toEqual("");
+    fireEvent.change(sets, { target: { value: 'a' } });
+    expect(sets.value).toEqual('');
 
-    fireEvent.change(reps, { target: { value: "a" } });
-    expect(reps.value).toEqual("");
+    fireEvent.change(reps, { target: { value: 'a' } });
+    expect(reps.value).toEqual('');
   });
 
-  test("trashcan empties exercise inputs", () => {
+  test('trashcan empties exercise inputs', () => {
     const { getByPlaceholderText, getByTestId, store } = wrapper(
       reducer,
-      <WorkoutModal modal={true} />
+      <WorkoutModal modal />
     );
 
     const name = getByPlaceholderText(/e.g. squat/i);
@@ -156,53 +156,53 @@ describe("add workout modal functionality", () => {
     const sets = getByPlaceholderText(/# of sets/i);
     const reps = getByPlaceholderText(/# of reps/i);
 
-    fireEvent.change(name, { target: { value: "test name" } });
-    expect(name.value).toEqual("test name");
+    fireEvent.change(name, { target: { value: 'test name' } });
+    expect(name.value).toEqual('test name');
     fireEvent.change(weight, { target: { value: 100 } });
-    expect(weight.value).toEqual("100");
+    expect(weight.value).toEqual('100');
     fireEvent.change(sets, { target: { value: 100 } });
-    expect(sets.value).toEqual("100");
+    expect(sets.value).toEqual('100');
     fireEvent.change(reps, { target: { value: 100 } });
-    expect(reps.value).toEqual("100");
+    expect(reps.value).toEqual('100');
 
     fireEvent.click(getByTestId(/trash-exercise/i));
 
-    expect(name.value).toEqual("");
-    expect(weight.value).toEqual("");
-    expect(sets.value).toEqual("");
-    expect(reps.value).toEqual("");
+    expect(name.value).toEqual('');
+    expect(weight.value).toEqual('');
+    expect(sets.value).toEqual('');
+    expect(reps.value).toEqual('');
   });
 
-  test("submitted exercise renders on page", async () => {
+  test('submitted exercise renders on page', async () => {
     const {
       store,
       container,
       getByPlaceholderText,
       getByTestId,
       getByText
-    } = wrapper(reducer, <WorkoutModal modal={true} />);
+    } = wrapper(reducer, <WorkoutModal modal />);
 
     const name = getByPlaceholderText(/e.g. squat/i);
     const weight = getByPlaceholderText(/lbs/i);
     const sets = getByPlaceholderText(/# of sets/i);
     const reps = getByPlaceholderText(/# of reps/i);
 
-    fireEvent.change(name, { target: { value: "test name" } });
-    expect(name.value).toEqual("test name");
+    fireEvent.change(name, { target: { value: 'test name' } });
+    expect(name.value).toEqual('test name');
     fireEvent.change(weight, { target: { value: 100 } });
-    expect(weight.value).toEqual("100");
+    expect(weight.value).toEqual('100');
     fireEvent.change(sets, { target: { value: 100 } });
-    expect(sets.value).toEqual("100");
+    expect(sets.value).toEqual('100');
     fireEvent.change(reps, { target: { value: 100 } });
-    expect(reps.value).toEqual("100");
+    expect(reps.value).toEqual('100');
 
     fireEvent.click(getByTestId(/submit-exercise/i));
 
     await wait(() => {
-      expect(name.value).toEqual("");
-      expect(weight.value).toEqual("");
-      expect(sets.value).toEqual("");
-      expect(reps.value).toEqual("");
+      expect(name.value).toEqual('');
+      expect(weight.value).toEqual('');
+      expect(sets.value).toEqual('');
+      expect(reps.value).toEqual('');
       expect(container.contains(getByText(/test name/i))).toBeTruthy();
       expect(container.contains(getByText(/100 lbs/i))).toBeTruthy();
       expect(container.contains(getByText(/100 reps/i))).toBeTruthy();
@@ -210,7 +210,7 @@ describe("add workout modal functionality", () => {
     });
   });
 
-  test("exercise autosuggestion", async () => {
+  test('exercise autosuggestion', async () => {
     const { store, getByPlaceholderText, queryByText, getByText } = wrapper(
       reducer,
       <WorkoutData />
@@ -218,12 +218,12 @@ describe("add workout modal functionality", () => {
 
     store.dispatch({
       type: CREATE_EXERCISE,
-      payload: { name: "deadlift", _id: 1 }
+      payload: { name: 'deadlift', _id: 1 }
     });
 
     expect(queryByText(/deadlift/i)).toBeFalsy();
     const name = getByPlaceholderText(/e.g. squat/i);
-    await userEvent.type(name, "d");
+    await userEvent.type(name, 'd');
     name.focus();
     await wait(() => expect(getByText(/deadlift/i)).toBeTruthy());
   });

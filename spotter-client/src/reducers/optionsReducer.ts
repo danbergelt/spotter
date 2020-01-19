@@ -1,3 +1,5 @@
+import { AnyAction } from 'redux';
+import { OptionsReducer } from '../types/State';
 import {
   OPEN_TAG_MODAL,
   CLOSE_TAG_MODAL,
@@ -10,9 +12,8 @@ import {
   SET_TEMPLATE_SAVE,
   DELETE_TEMPLATE,
   SET_EXERCISES
-} from "../actions/optionsActions";
-import { CLOSE_WORKOUT_MODAL } from '../actions/globalActions'
-import { OptionsReducer } from "src/types/State";
+} from '../actions/optionsActions';
+import { CLOSE_WORKOUT_MODAL } from '../actions/globalActions';
 
 // controls all the various options/settings in the workout modal, including the various modal states, populated content, error messages, etc.
 
@@ -24,13 +25,13 @@ const optionsState: OptionsReducer = {
   confirmDelete: false,
   exercises: false,
   templates: [],
-  templatesErr: "",
+  templatesErr: '',
   saveMsg: {}
 };
 
-export const optionsReducer = (
+const optionsReducer = (
   state = optionsState,
-  action: { type: string; payload: any }
+  action: AnyAction
 ): OptionsReducer => {
   switch (action.type) {
     case OPEN_TAG_MODAL:
@@ -62,8 +63,10 @@ export const optionsReducer = (
       return {
         ...state,
         saveMsg: {}
-      }
+      };
     default:
       return state;
   }
 };
+
+export default optionsReducer;

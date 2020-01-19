@@ -1,6 +1,6 @@
-import React from "react";
-import { tagStyles } from "./tagstyles";
-import { TagOnWorkout } from "../../../../../types/TagOnWorkout";
+import React from 'react';
+import { tagStyles } from './tagstyles';
+import { TagOnWorkout } from '../../../../../types/TagOnWorkout';
 
 interface Props {
   tag: TagOnWorkout;

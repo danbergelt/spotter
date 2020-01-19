@@ -1,14 +1,14 @@
-import React, { memo } from "react";
-import { useSelector } from "react-redux";
+import React, { memo } from 'react';
+import { useSelector } from 'react-redux';
 
 // components
-import TagsOption from "./options/tagsoption/TagsOption";
-import SaveTemplateOption from "./options/savetemplate/SaveTemplateOption";
-import FromTemplateOption from "./options/fromtemplate/FromTemplateOption";
-import ExerciseOption from "./options/exercises/ExerciseOption";
-import DeleteWorkout from "./options/deleteworkout/DeleteWorkout";
-import SaveWorkout from "./options/saveworkout/SaveWorkout";
-import { State } from "src/types/State";
+import { State } from 'src/types/State';
+import TagsOption from './options/tagsoption/TagsOption';
+import SaveTemplateOption from './options/savetemplate/SaveTemplateOption';
+import FromTemplateOption from './options/fromtemplate/FromTemplateOption';
+import ExerciseOption from './options/exercises/ExerciseOption';
+import DeleteWorkout from './options/deleteworkout/DeleteWorkout';
+import SaveWorkout from './options/saveworkout/SaveWorkout';
 
 interface Props {
   closeParentModal: () => void;
@@ -17,7 +17,7 @@ interface Props {
 
 // container for sidebar menu on workout modal
 const WorkoutOptions: React.FC<Props> = ({ closeParentModal, time }) => {
-  const iconClass: string = "add-workout-options-icon";
+  const iconClass = 'add-workout-options-icon';
 
   const ctx: string | null = useSelector(
     (state: State) => state.globalReducer.ctx

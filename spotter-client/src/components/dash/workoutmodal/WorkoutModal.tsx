@@ -1,10 +1,10 @@
-import React, { memo } from "react";
-import Modal from "react-modal";
-import WorkoutTitle from "./data/WorkoutTitle";
-import WorkoutContent from "./data/WorkoutContent";
-import { useModalStyles } from "../workouts/modalStyles";
+import React, { memo } from 'react';
+import Modal from 'react-modal';
+import WorkoutTitle from './data/WorkoutTitle';
+import WorkoutContent from './data/WorkoutContent';
+import { useModalStyles } from '../workouts/modalStyles';
 
-if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
+if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#root');
 
 interface Props {
   modal: boolean;

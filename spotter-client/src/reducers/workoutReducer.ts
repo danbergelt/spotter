@@ -1,3 +1,8 @@
+import { find, isMatch, isEqual, omit, pick, keys } from 'lodash';
+import { AnyAction } from 'redux';
+import { WorkoutReducer } from '../types/State';
+import { TagOnWorkout } from '../types/TagOnWorkout';
+import { CLOSE_WORKOUT_MODAL } from '../actions/globalActions';
 import {
   ADD_WORKOUT_TITLE,
   RESET_WORKOUT,
@@ -13,26 +18,69 @@ import {
   HANDLE_EDIT,
   RESET_QUEUE,
   FROM_SAVED
-} from "../actions/workoutActions";
-import { CLOSE_WORKOUT_MODAL } from "../actions/globalActions";
-import { find, isMatch, isEqual, omit, pick, keys } from "lodash";
-import { WorkoutReducer } from "src/types/State";
-import { TagOnWorkout } from "src/types/TagOnWorkout";
+} from '../actions/workoutActions';
+import { Template } from '../types/Template';
+import { Exercise } from '../types/Exercises';
 
 const workoutState: WorkoutReducer = {
-  title: "",
-  notes: "",
+  title: '',
+  notes: '',
   exercises: [],
   tags: [],
   queue: {},
   _id: null
 };
 
+/*
+  HELPER FUNCTIONS
+  used to make deep comparisons, pick fields off of nested objects, etc.
+*/
+
+// Test an object for matches with a comparison object
+type TestForMatches = (
+  state: WorkoutReducer,
+  payload: TagOnWorkout
+) => TagOnWorkout | undefined;
+
+const testForMatches: TestForMatches = (state, payload) => {
+  return find(state.tags, t => {
+    return isMatch(t, omit(payload, ['__v', 'user']));
+  });
+};
+
+// Test an object for changes between it and a comparison object
+type TestForUpdates = (
+  tags: Array<TagOnWorkout>,
+  payload: {}
+) => TagOnWorkout | undefined;
+const testForUpdates: TestForUpdates = (tags, payload) =>
+  find(tags, t => {
+    // again, omit bad data from MongoDB and update the tag on the current workout
+    return isMatch(
+      omit(t, ['color', 'content', '__v', 'tag']),
+      omit(payload, ['color', 'content', '__v', 'user'])
+    );
+  });
+
+// Object with null values to pick fields for comparison
+const pickFields = (payload: Template): Array<Exercise> => {
+  const exercises = {
+    name: null,
+    sets: null,
+    reps: null,
+    weight: null
+  };
+
+  return payload.exercises.map(el => pick(el, keys(exercises))) as Array<
+    Exercise
+  >;
+};
+
 // contains active workout details to be shared globally
 
-export const workoutReducer = (
+const workoutReducer = (
   state = workoutState,
-  action: { type: string; payload: any }
+  action: AnyAction
 ): WorkoutReducer => {
   switch (action.type) {
     case ADD_WORKOUT_TITLE:
@@ -48,15 +96,15 @@ export const workoutReducer = (
     case RESET_WORKOUT:
       return {
         ...state,
-        title: "",
-        notes: "",
+        title: '',
+        notes: '',
         exercises: [],
         tags: []
       };
     case RESET_NOTES:
       return {
         ...state,
-        notes: ""
+        notes: ''
       };
     case ADD_EXERCISE:
       return {
@@ -65,14 +113,11 @@ export const workoutReducer = (
       };
     case TOGGLE_TAG:
       // filters out unnecessary fields returned from MongoDB
-      const testForMatches: TagOnWorkout | undefined = find(state.tags, t => {
-        return isMatch(t, omit(action.payload, ["__v", "user"]));
-      });
       return {
         // if the current list of tags contains the toggled tag, then remove it
         // otherwise, add it
         ...state,
-        tags: testForMatches
+        tags: testForMatches(state, action.payload)
           ? state.tags.filter(el => el._id !== action.payload._id)
           : [...state.tags, action.payload]
       };
@@ -82,35 +127,21 @@ export const workoutReducer = (
         tags: state.tags.filter(el => el._id !== action.payload._id)
       };
     case UPDATE_TAG:
-      const testForUpdates: TagOnWorkout | undefined = find(state.tags, t => {
-        // again, omit bad data from MongoDB and update the tag on the current workout
-        return isMatch(
-          omit(t, ["color", "content", "__v", "tag"]),
-          omit(action.payload, ["color", "content", "__v", "user"])
-        );
-      });
       return {
         ...state,
-        tags: testForUpdates
+        tags: testForUpdates(state.tags, action.payload)
           ? state.tags.map(t =>
-              isEqual(t, testForUpdates) ? action.payload : t
+              isEqual(t, testForUpdates(state.tags, action.payload))
+                ? action.payload
+                : t
             )
           : [...state.tags]
       };
     case FROM_TEMPLATE:
-      const exercises = {
-        name: null,
-        sets: null,
-        reps: null,
-        weight: null
-      };
-      action.payload.exercises = action.payload.exercises.map((el: object) =>
-        pick(el, keys(exercises))
-      );
       return {
         ...state,
         title: action.payload.title,
-        exercises: action.payload.exercises,
+        exercises: pickFields(action.payload),
         notes: action.payload.notes,
         tags: action.payload.tags
       };
@@ -150,8 +181,8 @@ export const workoutReducer = (
       return {
         ...state,
         queue: {},
-        title: "",
-        notes: "",
+        title: '',
+        notes: '',
         exercises: [],
         tags: []
       };
@@ -159,3 +190,5 @@ export const workoutReducer = (
       return state;
   }
 };
+
+export default workoutReducer;

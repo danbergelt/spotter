@@ -1,16 +1,19 @@
-import axiosWithAuth from "../utils/axiosWithAuth";
-import { History } from "history";
-import { Dispatch, Action } from "redux";
-import { AxiosResponse } from "axios";
-import { DELETE_TAG, UPDATE_TAG } from "./workoutActions";
-import { SET_ACTIVE, CLOSE_TAG_MODAL, OPEN_TAG_MODAL } from "./optionsActions";
-import { TagOnWorkout } from "src/types/TagOnWorkout";
+import { History } from 'history';
+import { Dispatch, Action, AnyAction } from 'redux';
+import { AxiosResponse } from 'axios';
+import { TagOnWorkout } from 'src/types/TagOnWorkout';
+import { ThunkDispatch } from 'redux-thunk';
+import { State } from 'src/types/State';
+import { DELETE_TAG, UPDATE_TAG } from './workoutActions';
+import { SET_ACTIVE, CLOSE_TAG_MODAL, OPEN_TAG_MODAL } from './optionsActions';
+import axiosWithAuth from '../utils/axiosWithAuth';
+import { fetchWorkouts } from './fetchWorkoutsActions';
 
-export const FETCH_TAGS_START: string = "FETCH_TAGS_START";
-export const FETCH_TAGS_SUCCESS: string = "FETCH_TAGS_SUCCESS";
-export const FETCH_TAGS_ERROR: string = "FETCH_TAGS_ERROR";
+export const FETCH_TAGS_START = 'FETCH_TAGS_START';
+export const FETCH_TAGS_SUCCESS = 'FETCH_TAGS_SUCCESS';
+export const FETCH_TAGS_ERROR = 'FETCH_TAGS_ERROR';
 
-export const RESET_TAGS: string = "RESET_TAGS";
+export const RESET_TAGS = 'RESET_TAGS';
 
 // fetches tags and resets tags list on modal close
 export const fetchTags = (history: History, t: string | null) => {
@@ -28,13 +31,13 @@ export const fetchTags = (history: History, t: string | null) => {
           payload: error.response.data.error
         });
       } else {
-        history.push("/500");
+        history.push('/500');
       }
     }
   };
 };
 
-//save tag
+// save tag
 interface IParamsHelper {
   t: string | null;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -71,20 +74,20 @@ export const saveTagAction: TSaveTag = paramsHelper => {
       await axiosWithAuth(t).post(
         `${process.env.REACT_APP_T_API}/api/auth/tags`,
         {
-          color: color,
+          color,
           content: name
         }
       );
       // confirmation message
-      setMessage({ success: "New tag created" });
+      setMessage({ success: 'New tag created' });
       // resets submitting state
       setLoading(false);
-      setName("");
+      setName('');
       await dispatch(fetchTags(history, t));
     } catch (error) {
       setMessage(error.response.data);
       setLoading(false);
-      setName("");
+      setName('');
     }
   };
 };
@@ -96,33 +99,26 @@ export const setActiveTabAction: TSetActiveTab = id => {
   return { type: SET_ACTIVE, payload: id };
 };
 
-//delete tag
+// delete tag
 interface IDelTagHelper {
   t: string | null;
   toDelete: Partial<TagOnWorkout>;
   history: History;
-  reFetch: Function;
   timeSpan: number;
   scope: { value: string; label: string };
   setErr: Function;
 }
 
-type TDeleteTag = (paramsHelper: IDelTagHelper) => (dispatch: any) => void;
+type TDeleteTag = (
+  paramsHelper: IDelTagHelper
+) => (dispatch: ThunkDispatch<State, void, AnyAction>) => void;
 
 export const deleteTagAction: TDeleteTag = paramsHelper => {
-  const {
-    t,
-    toDelete,
-    history,
-    reFetch,
-    timeSpan,
-    scope,
-    setErr
-  } = paramsHelper;
+  const { t, toDelete, history, timeSpan, scope, setErr } = paramsHelper;
 
   return async dispatch => {
     try {
-      await axiosWithAuth(t).delete(
+      await axiosWithAuth(t)['delete'](
         `${process.env.REACT_APP_T_API}/api/auth/tags/${toDelete._id}`
       );
       dispatch({
@@ -134,7 +130,7 @@ export const deleteTagAction: TDeleteTag = paramsHelper => {
 
       // CODE SMELL
       await dispatch(fetchTags(history, t));
-      await reFetch(timeSpan, history, scope.value, t);
+      await dispatch(fetchWorkouts(timeSpan, history, scope.value, t));
       // need to investigate filtering tag from state locally (both on workouts in view, and in tags)
       // this is very hacky how I'm manually triggering a server call to 're-fetch' the data
       // will clean up this code, create a cleaner transition into a new state (since I'm not relying on asynchronous side effects to usher in fresh state), and reduce BE hits
@@ -155,15 +151,19 @@ interface IEditTagHelper {
   setErr: Function;
 }
 
-type TEditTag = (paramsHelper: IEditTagHelper) => (dispatch: any) => void;
+type TEditTag = (
+  paramsHelper: IEditTagHelper
+) => (dispatch: ThunkDispatch<State, void, AnyAction>) => void;
 
 export const editTagAction: TEditTag = paramsHelper => {
   const { t, update, updateInput, setUpdate, history, setErr } = paramsHelper;
   return async dispatch => {
     try {
-      const res: AxiosResponse<any> = await axiosWithAuth(t).put(
+      const res = await axiosWithAuth(t).put(
         `${process.env.REACT_APP_T_API}/api/auth/tags/${update._id}`,
-        { content: updateInput }
+        {
+          content: updateInput
+        }
       );
       setUpdate({});
       dispatch({
@@ -176,8 +176,6 @@ export const editTagAction: TEditTag = paramsHelper => {
       // this is very hacky how I'm manually triggering a server call to 're-fetch' the data
       // will clean up this code, create a cleaner transition into a new state (since I'm not relying on asynchronous side effects to usher in fresh state), and reduce BE hits
       // CODE SMELL
-
-
     } catch (error) {
       setErr(error.response.data.error);
     }

@@ -1,9 +1,9 @@
-import { Queued, Exercise } from "./Exercises";
-import { Exercise as E } from "./ExerciseOption";
-import { TagOnWorkout as Tag } from "./TagOnWorkout";
-import { Workout } from "./Workout";
-import { Moment } from "moment";
-import { Template } from "./Template";
+import { Moment } from 'moment';
+import { Queued, Exercise } from './Exercises';
+import { Exercise as E } from './ExerciseOption';
+import { TagOnWorkout as Tag } from './TagOnWorkout';
+import { Workout } from './Workout';
+import { Template } from './Template';
 
 export interface GlobalReducer {
   t: null | string;
@@ -24,14 +24,8 @@ export interface WorkoutReducer {
 
 export interface TagsReducer {
   isLoading: boolean;
-  err: any;
+  err: string | null;
   tags: Array<Tag>;
-}
-
-export interface PrsReducer {
-  err: any;
-  isLoading: boolean;
-  prs: Array<any>;
 }
 
 export interface OptionsReducer {
@@ -47,13 +41,13 @@ export interface OptionsReducer {
 }
 
 export interface FetchWorkoutsReducer {
-  err: any;
+  err: string | null;
   isLoading: boolean;
   workouts: Array<Workout>;
 }
 
 export interface FetchExercisesReducer {
-  err: any;
+  err: string | null;
   savedExercises: Array<E>;
 }
 
@@ -63,8 +57,8 @@ export interface State {
   fetchExercisesReducer: FetchExercisesReducer;
   fetchWorkoutsReducer: FetchWorkoutsReducer;
   optionsReducer: OptionsReducer;
-  prsReducer: PrsReducer;
   tagsReducer: TagsReducer;
 }
 
-export const fetchToken = (state: State) => state.globalReducer.t;
+export const fetchToken = (state: State): string | null =>
+  state.globalReducer.t;

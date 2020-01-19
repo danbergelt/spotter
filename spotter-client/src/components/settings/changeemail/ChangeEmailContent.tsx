@@ -1,12 +1,12 @@
-import React from "react";
-import { FiX } from "react-icons/fi";
-import ChangeEmailForm from './ChangeEmailForm'
+import React from 'react';
+import { FiX } from 'react-icons/fi';
+import ChangeEmailForm from './ChangeEmailForm';
 
 interface Props {
-  setChangeEmail: React.Dispatch<React.SetStateAction<boolean>>
+  setChangeEmail: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ChangeEmailContent: React.FC<Props> = ({ setChangeEmail}) => {
+const ChangeEmailContent: React.FC<Props> = ({ setChangeEmail }) => {
   return (
     <article className="change-container">
       <section className="popover-head">

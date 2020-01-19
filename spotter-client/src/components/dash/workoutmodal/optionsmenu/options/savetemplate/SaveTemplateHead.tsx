@@ -1,5 +1,5 @@
-import React, { memo } from "react";
-import { FiX } from "react-icons/fi";
+import React, { memo } from 'react';
+import { FiX } from 'react-icons/fi';
 
 interface Props {
   closeHandler: () => void;
@@ -12,7 +12,7 @@ const SaveTemplateHead: React.FC<Props> = ({ closeHandler }) => {
       <div onClick={closeHandler} role="button" className="save-template-exit">
         <FiX
           data-testid="quit-template-save"
-          style={{ display: "flex", alignItems: "center" }}
+          style={{ display: 'flex', alignItems: 'center' }}
         />
       </div>
     </section>

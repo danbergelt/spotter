@@ -1,8 +1,8 @@
-import React, { useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { FiX } from "react-icons/fi";
-import Tab from "./Tab";
-import { setActiveTabAction } from "src/actions/tagsActions";
+import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { FiX } from 'react-icons/fi';
+import { setActiveTabAction } from 'src/actions/tagsActions';
+import Tab from './Tab';
 
 interface Props {
   active: number;
@@ -25,9 +25,9 @@ const TagsModalHead: React.FC<Props> = ({ active, closeTagModal }) => {
       className="tags-modal-head-container"
     >
       <nav className="tags-modal-head-tabs">
-        <Tab active={active} setActive={setActive} text={"Add"} id={0} />
-        <Tab active={active} setActive={setActive} text={"Manage"} id={1} />
-        <Tab active={active} setActive={setActive} text={"Create"} id={2} />
+        <Tab active={active} setActive={setActive} text="Add" id={0} />
+        <Tab active={active} setActive={setActive} text="Manage" id={1} />
+        <Tab active={active} setActive={setActive} text="Create" id={2} />
       </nav>
       <div
         role="button"

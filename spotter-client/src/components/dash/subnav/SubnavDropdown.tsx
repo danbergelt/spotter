@@ -1,20 +1,21 @@
-import React, { CSSProperties } from "react";
-import Select, { Styles, ValueType } from "react-select";
-import { useDispatch, useSelector } from "react-redux";
-import { State } from "src/types/State";
-import { handleScopeChangeAction } from "src/actions/globalActions";
-import { Options, Option } from "./types/types";
+import React, { CSSProperties } from 'react';
+import Select, { Styles, ValueType } from 'react-select';
+import { useDispatch, useSelector } from 'react-redux';
+import { State } from 'src/types/State';
+import { handleScopeChangeAction } from 'src/actions/globalActions';
+import { Options, Option } from './types/types';
 
 // determines scope of dashboard (either month view or weekly view)
 
 const SubnavDropdown = () => {
-
   const options: Options = [
-    { value: "Week", label: "Week" },
-    { value: "Month", label: "Month" }
+    { value: 'Week', label: 'Week' },
+    { value: 'Month', label: 'Month' }
   ];
 
-  const scope: Option = useSelector((state: State) => state.globalReducer.scope);
+  const scope: Option = useSelector(
+    (state: State) => state.globalReducer.scope
+  );
   const dispatch = useDispatch();
 
   // react-select accepts a customStyles object to direct styling
@@ -22,21 +23,21 @@ const SubnavDropdown = () => {
   const customStyles: Partial<Styles> = {
     control: (provided: CSSProperties) => ({
       ...provided,
-      border: "none",
-      boxShadow: "none",
-      cursor: "pointer"
+      border: 'none',
+      boxShadow: 'none',
+      cursor: 'pointer'
     }),
     indicatorSeparator: () => ({
-      display: "none"
+      display: 'none'
     }),
     dropdownIndicator: (provided: CSSProperties) => ({
       ...provided,
-      position: "relative",
-      right: "10px"
+      position: 'relative',
+      right: '10px'
     }),
     option: (provided: CSSProperties) => ({
       ...provided,
-      cursor: "pointer"
+      cursor: 'pointer'
     })
   };
 
@@ -61,8 +62,8 @@ const SubnavDropdown = () => {
           ...theme,
           colors: {
             ...theme.colors,
-            primary50: "white",
-            primary25: "white"
+            primary50: 'white',
+            primary25: 'white'
           }
         })}
       />

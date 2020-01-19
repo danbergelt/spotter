@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { createExerciseAction } from "../../../../../../actions/fetchExercisesActions";
-import SaveExerciseMsg from "./SaveExerciseMsg";
-import { fetchToken } from "src/types/State";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchToken } from 'src/types/State';
+import { createExerciseAction } from '../../../../../../actions/fetchExercisesActions';
+import SaveExerciseMsg from './SaveExerciseMsg';
 import { Msg } from '../../../../../../types/ExerciseOption';
 
 // create exercise
@@ -16,15 +16,15 @@ interface Props {
 // saved exercises can be used to track PRs
 
 const AddExercises: React.FC<Props> = ({ msg, setMsg }) => {
-  const [exercise, setExercise] = useState<string>("");
+  const [exercise, setExercise] = useState<string>('');
 
   const t: string | null = useSelector(fetchToken);
   const dispatch = useDispatch();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setExercise("");
-    await dispatch(createExerciseAction(t, exercise, setMsg))
+    setExercise('');
+    await dispatch(createExerciseAction(t, exercise, setMsg));
   };
 
   return (
@@ -32,10 +32,10 @@ const AddExercises: React.FC<Props> = ({ msg, setMsg }) => {
       <form
         onSubmit={e => handleSubmit(e)}
         style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          alignItems: "center"
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          alignItems: 'center'
         }}
       >
         <input
@@ -51,14 +51,14 @@ const AddExercises: React.FC<Props> = ({ msg, setMsg }) => {
       </form>
       {msg.error && (
         <SaveExerciseMsg
-          errOrSucc={"exercise-save error"}
+          errOrSucc="exercise-save error"
           msg={msg.error}
           setMsg={setMsg}
         />
       )}
       {msg.success && (
         <SaveExerciseMsg
-          errOrSucc={"exercise-save success"}
+          errOrSucc="exercise-save success"
           msg={msg.success}
           setMsg={setMsg}
         />

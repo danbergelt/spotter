@@ -1,6 +1,6 @@
-import React from "react";
-import image from "../../assets/imagetext.png";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import image from '../../assets/imagetext.png';
 
 const ImageText: React.FC = () => {
   return (

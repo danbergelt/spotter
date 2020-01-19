@@ -1,10 +1,10 @@
-import React, { useState, useRef } from "react";
-import { FiPlus, FiTrash } from "react-icons/fi";
-import { resetNotesAction } from "../../../../../actions/workoutActions";
-import NotesTextArea from "./NotesTextArea";
-import NotesHead from "./NotesHead";
-import { useDispatch, useSelector } from "react-redux";
-import { State } from "src/types/State";
+import React, { useState, useRef } from 'react';
+import { FiPlus, FiTrash } from 'react-icons/fi';
+import { useDispatch, useSelector } from 'react-redux';
+import { State } from 'src/types/State';
+import { resetNotesAction } from '../../../../../actions/workoutActions';
+import NotesTextArea from './NotesTextArea';
+import NotesHead from './NotesHead';
 
 // misc. notes to include on a workout.
 // can be anything worth noting that doesn't fit into a specific category
@@ -32,15 +32,15 @@ const WorkoutNotes = () => {
       <section
         className={
           actions
-            ? "workout-data-notes-actions active"
-            : "workout-data-notes-actions"
+            ? 'workout-data-notes-actions active'
+            : 'workout-data-notes-actions'
         }
       >
         <FiPlus role="button" className="workout-data-notes-submit" />
         <FiTrash
           role="button"
           data-testid="trash"
-          onMouseDown={() => dispatch(resetNotesAction(""))}
+          onMouseDown={() => dispatch(resetNotesAction(''))}
           className="workout-data-notes-cancel"
         />
       </section>

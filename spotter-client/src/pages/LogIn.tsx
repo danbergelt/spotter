@@ -1,10 +1,10 @@
-import React, { useCallback } from "react";
-import { useHistory } from "react-router-dom";
-import { ReactComponent as LogInLogo } from "../assets/spotter_login.svg";
-import Form from "../components/auth/Form";
-import { useDispatch } from "react-redux";
-import { addTokenAction } from "src/actions/globalActions";
-import { Helmet } from "react-helmet-async";
+import React, { useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addTokenAction } from 'src/actions/globalActions';
+import { Helmet } from 'react-helmet-async';
+import Form from '../components/auth/Form';
+import { ReactComponent as LogInLogo } from '../assets/spotter_login.svg';
 
 const LogIn: React.FC = () => {
   const history = useHistory();

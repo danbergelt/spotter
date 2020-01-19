@@ -1,10 +1,10 @@
-import React, { memo } from "react";
-import { FiX } from "react-icons/fi";
+import React, { memo } from 'react';
+import { FiX } from 'react-icons/fi';
 import { Exercise as E } from '../../../../../../types/ExerciseOption';
 
-interface Props { 
-  deleteExercise: (id: string) => Promise<void>
-  exercise: E
+interface Props {
+  deleteExercise: (id: string) => Promise<void>;
+  exercise: E;
 }
 
 const Exercise: React.FC<Props> = ({ deleteExercise, exercise }) => {

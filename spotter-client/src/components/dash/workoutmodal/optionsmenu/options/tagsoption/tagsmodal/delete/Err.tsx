@@ -1,5 +1,5 @@
-import React from "react";
-import { FiX } from "react-icons/fi";
+import React from 'react';
+import { FiX } from 'react-icons/fi';
 
 interface Props {
   err: string;
@@ -12,8 +12,8 @@ const Err: React.FC<Props> = ({ err, setErr }) => {
       {err}
       <div
         role="button"
-        onClick={() => setErr("")}
-        style={{ fontSize: "1.2rem", cursor: "pointer" }}
+        onClick={() => setErr('')}
+        style={{ fontSize: '1.2rem', cursor: 'pointer' }}
       >
         <FiX />
       </div>

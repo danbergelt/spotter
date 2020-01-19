@@ -1,8 +1,8 @@
-import React, { memo } from "react";
-import adjust from "../../../../../../../../utils/darkenColorInJS";
-import styles from "../tagStyles";
-import UpdateTagForm from "./UpdateTagForm";
-import { TagOnWorkout as T } from "../../../../../../../../types/TagOnWorkout";
+import React, { memo } from 'react';
+import adjust from '../../../../../../../../utils/darkenColorInJS';
+import styles from '../tagStyles';
+import UpdateTagForm from './UpdateTagForm';
+import { TagOnWorkout as T } from '../../../../../../../../types/TagOnWorkout';
 
 interface Props {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;

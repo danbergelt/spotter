@@ -1,18 +1,17 @@
-import React, { useState } from "react";
-import Err from "./Err";
-import { deleteTagAction } from "../../../../../../../../actions/tagsActions";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { TagOnWorkout as Tag } from "src/types/TagOnWorkout";
-import { fetchToken, State } from "src/types/State";
-import reFetch from "src/utils/reFetch";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { TagOnWorkout as Tag } from 'src/types/TagOnWorkout';
+import { fetchToken, State } from 'src/types/State';
+import { deleteTagAction } from '../../../../../../../../actions/tagsActions';
+import Err from './Err';
 
 interface Props {
   toDelete: Partial<Tag>;
 }
 
 const TagsModalDelete: React.FC<Props> = ({ toDelete }) => {
-  const [err, setErr] = useState<string>("");
+  const [err, setErr] = useState<string>('');
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -28,14 +27,13 @@ const TagsModalDelete: React.FC<Props> = ({ toDelete }) => {
     t,
     toDelete,
     history,
-    reFetch,
     timeSpan,
     scope,
     setErr
   };
 
   const deleteTag: () => Promise<void> = async () => {
-    await dispatch(deleteTagAction(paramsHelper))
+    await dispatch(deleteTagAction(paramsHelper));
   };
 
   return (

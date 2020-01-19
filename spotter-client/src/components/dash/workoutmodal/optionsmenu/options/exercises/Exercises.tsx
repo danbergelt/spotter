@@ -1,14 +1,14 @@
-import React, { useState, memo } from "react";
-import Modal from "react-modal";
-import { useSelector } from "react-redux";
-import { useExerciseModalStyles } from "./styles";
-import ExercisesHead from "./ExercisesHead";
-import ManageExercises from "./ManageExercises";
-import AddExercises from "./AddExercises";
-import { State } from "src/types/State";
-import { Exercise, Msg } from "../../../../../../types/ExerciseOption";
+import React, { useState, memo } from 'react';
+import Modal from 'react-modal';
+import { useSelector } from 'react-redux';
+import { State } from 'src/types/State';
+import { useExerciseModalStyles } from './styles';
+import ExercisesHead from './ExercisesHead';
+import ManageExercises from './ManageExercises';
+import AddExercises from './AddExercises';
+import { Exercise, Msg } from '../../../../../../types/ExerciseOption';
 
-if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
+if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#root');
 
 interface Props {
   setExercisesModal: (state: boolean) => void;
@@ -29,9 +29,9 @@ const Exercises: React.FC<Props> = ({ setExercisesModal }) => {
   // clear modal state on close
   const handleCloseExerciseModal = () => {
     setExercisesModal(false);
-    setTab(0)
-    setMsg({})
-  }
+    setTab(0);
+    setMsg({});
+  };
 
   const styles = useExerciseModalStyles();
 
@@ -39,8 +39,8 @@ const Exercises: React.FC<Props> = ({ setExercisesModal }) => {
     <Modal
       style={
         tab === 1
-          // shrinks the size of the modal depending on the tab
-          ? { ...styles, content: { ...styles.content, height: "max-content" } }
+          ? // shrinks the size of the modal depending on the tab
+            { ...styles, content: { ...styles.content, height: 'max-content' } }
           : styles
       }
       isOpen={modalState}

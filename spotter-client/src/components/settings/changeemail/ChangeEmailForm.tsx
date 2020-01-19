@@ -1,10 +1,10 @@
-import React from "react";
-import { Formik, Form, Field } from "formik";
-import { ValidationSchema } from "./ValidationSchema";
-import { AxiosResponse } from "axios";
-import axiosWithAuth from "src/utils/axiosWithAuth";
-import { useSelector } from "react-redux";
-import { fetchToken } from "src/types/State";
+import React from 'react';
+import { Formik, Form, Field } from 'formik';
+import { AxiosResponse } from 'axios';
+import axiosWithAuth from 'src/utils/axiosWithAuth';
+import { useSelector } from 'react-redux';
+import { fetchToken } from 'src/types/State';
+import { ValidationSchema } from './ValidationSchema';
 
 const ChangeEmailForm: React.FC = () => {
   const t: string | null = useSelector(fetchToken);
@@ -15,9 +15,9 @@ const ChangeEmailForm: React.FC = () => {
         validateOnChange={false}
         validateOnBlur={false}
         initialValues={{
-          oldEmail: "",
-          newEmail: "",
-          confirmEmail: ""
+          oldEmail: '',
+          newEmail: '',
+          confirmEmail: ''
         }}
         validationSchema={ValidationSchema}
         onSubmit={async (values, { resetForm, setStatus }) => {
@@ -63,9 +63,9 @@ const ChangeEmailForm: React.FC = () => {
             </div>
             <div
               style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between"
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between'
               }}
             >
               <button

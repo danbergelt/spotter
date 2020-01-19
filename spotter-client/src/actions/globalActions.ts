@@ -1,22 +1,22 @@
-import { ValueType } from "react-select";
-import { Option } from "src/components/dash/subnav/types/types";
-import { Moment } from "moment";
-import { History } from "history";
-import { FROM_SAVED } from "./workoutActions";
-import { Workout } from "src/types/Workout";
-import { ADD_TOKEN } from "./addTokenActions";
-import axios from "axios";
-import axiosWithAuth from "src/utils/axiosWithAuth";
-import { Dispatch } from "react";
-import { AnyAction } from "redux";
+import { ValueType } from 'react-select';
+import { Option } from 'src/components/dash/subnav/types/types';
+import { Moment } from 'moment';
+import { History } from 'history';
+import { Workout } from 'src/types/Workout';
+import axios from 'axios';
+import axiosWithAuth from 'src/utils/axiosWithAuth';
+import { Dispatch } from 'react';
+import { AnyAction } from 'redux';
+import { ADD_TOKEN } from './addTokenActions';
+import { FROM_SAVED } from './workoutActions';
 
-export const MODAL_CTX: string = "MODAL_CTX";
-export const LOGOUT: string = "LOGOUT";
-export const SET_SCOPE: string = "SET_SCOPE";
-export const SET_DATE: string = "SET_DATE";
-export const SET_TIMESPAN: string = "SET_TIMESPAN";
-export const CHANGE_SCOPE: string = "CHANGE_SCOPE";
-export const CLOSE_WORKOUT_MODAL: string = "CLOSE_WORKOUT_MODAL";
+export const MODAL_CTX = 'MODAL_CTX';
+export const LOGOUT = 'LOGOUT';
+export const SET_SCOPE = 'SET_SCOPE';
+export const SET_DATE = 'SET_DATE';
+export const SET_TIMESPAN = 'SET_TIMESPAN';
+export const CHANGE_SCOPE = 'CHANGE_SCOPE';
+export const CLOSE_WORKOUT_MODAL = 'CLOSE_WORKOUT_MODAL';
 
 // sets dashboard scope to either weekly/monthly
 type THandleScopeChange = (
@@ -43,13 +43,11 @@ type TIncOrDec = (
 ) => { type: string; payload: number } | undefined;
 
 export const incOrDecAction: TIncOrDec = (incOrDec, timespan) => {
-  if (incOrDec === "inc") {
+  if (incOrDec === 'inc') {
     return { type: SET_TIMESPAN, payload: timespan + 1 };
   }
-  if (incOrDec === "dec") {
-    return { type: SET_TIMESPAN, payload: timespan - 1 };
-  }
-  return;
+
+  return { type: SET_TIMESPAN, payload: timespan - 1 };
 };
 
 // the add workout modal is the view that users get to add a new workout
@@ -86,10 +84,10 @@ export const addWorkoutModalAction: TAddWorkoutModal = paramsHelper => {
     // this context is what determines the differences in functionality in the two modal types
     dispatch({
       type: MODAL_CTX,
-      payload: "add"
+      payload: 'add'
     });
 
-    //opens modal
+    // opens modal
     setModal(true);
 
     // fetches exercises
@@ -97,7 +95,7 @@ export const addWorkoutModalAction: TAddWorkoutModal = paramsHelper => {
   };
 };
 
-//opens view workout modal
+// opens view workout modal
 export const viewWorkoutModalAction: TAddWorkoutModal = paramsHelper => {
   const { date, setModal, fetchExercises, t, history, workout } = paramsHelper;
 
@@ -109,7 +107,7 @@ export const viewWorkoutModalAction: TAddWorkoutModal = paramsHelper => {
     });
     dispatch({
       type: MODAL_CTX,
-      payload: "view"
+      payload: 'view'
     });
 
     // matches the clicked workout, saves the clicked workout to state, and populates the modal with that clicked workout's data
@@ -143,11 +141,11 @@ type TCloseAccount = (
 ) => (dispatch: Dispatch<AnyAction>) => void;
 export const closeAccountAction: TCloseAccount = (t, history) => {
   return async dispatch => {
-    await axiosWithAuth(t).delete(
+    await axiosWithAuth(t)['delete'](
       `${process.env.REACT_APP_T_API}/api/auth/user/delete`
     );
     dispatch({ type: LOGOUT });
-    history.push("/signup");
+    history.push('/signup');
   };
 };
 

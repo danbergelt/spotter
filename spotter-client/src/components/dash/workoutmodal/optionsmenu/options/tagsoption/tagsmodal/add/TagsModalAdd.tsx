@@ -1,11 +1,11 @@
-import React, { useCallback, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import Loader from "react-loader-spinner";
-import { toggleTagAction } from "../../../../../../../../actions/workoutActions";
-import { styles as lStyles } from "../localutils/loaderStyles";
-import Tag from "./Tag";
-import { State } from "src/types/State";
-import { TagOnWorkout as T } from "src/types/TagOnWorkout";
+import React, { useCallback, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import Loader from 'react-loader-spinner';
+import { State } from 'src/types/State';
+import { TagOnWorkout as T } from 'src/types/TagOnWorkout';
+import { toggleTagAction } from '../../../../../../../../actions/workoutActions';
+import { styles as lStyles } from '../localutils/loaderStyles';
+import Tag from './Tag';
 
 interface TagsState {
   tags: Array<T>;

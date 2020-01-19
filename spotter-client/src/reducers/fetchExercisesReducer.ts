@@ -1,10 +1,11 @@
+import { AnyAction } from 'redux';
+import { FetchExercisesReducer } from '../types/State';
 import {
   FETCH_EXERCISES_ERROR,
   FETCH_EXERCISES_SUCCESS,
   CREATE_EXERCISE,
   DELETE_SAVED_EXERCISE
-} from "../actions/fetchExercisesActions";
-import { FetchExercisesReducer } from "src/types/State";
+} from '../actions/fetchExercisesActions';
 
 const fetchExercisesState: FetchExercisesReducer = {
   err: null,
@@ -13,9 +14,9 @@ const fetchExercisesState: FetchExercisesReducer = {
 
 // controls saved exercises
 
-export const fetchExercisesReducer = (
+const fetchExercisesReducer = (
   state = fetchExercisesState,
-  action: { type: string; payload: any }
+  action: AnyAction
 ): FetchExercisesReducer => {
   switch (action.type) {
     case FETCH_EXERCISES_SUCCESS:
@@ -45,3 +46,5 @@ export const fetchExercisesReducer = (
       return state;
   }
 };
+
+export default fetchExercisesReducer;

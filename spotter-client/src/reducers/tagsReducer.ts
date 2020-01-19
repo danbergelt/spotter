@@ -1,11 +1,12 @@
+import { AnyAction } from 'redux';
+import { TagsReducer } from '../types/State';
 import {
   FETCH_TAGS_START,
   FETCH_TAGS_SUCCESS,
   FETCH_TAGS_ERROR,
   RESET_TAGS
-} from "../actions/tagsActions";
-import { CLOSE_WORKOUT_MODAL } from "../actions/globalActions";
-import { TagsReducer } from "src/types/State";
+} from '../actions/tagsActions';
+import { CLOSE_WORKOUT_MODAL } from '../actions/globalActions';
 
 const tagsState: TagsReducer = {
   isLoading: false,
@@ -15,10 +16,7 @@ const tagsState: TagsReducer = {
 
 // for tags modal
 
-export const tagsReducer = (
-  state = tagsState,
-  action: { type: string; payload: any }
-): TagsReducer => {
+const tagsReducer = (state = tagsState, action: AnyAction): TagsReducer => {
   switch (action.type) {
     case FETCH_TAGS_START:
       return {
@@ -51,3 +49,5 @@ export const tagsReducer = (
       return state;
   }
 };
+
+export default tagsReducer;

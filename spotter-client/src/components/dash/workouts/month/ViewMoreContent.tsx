@@ -1,13 +1,14 @@
-import React, { memo } from "react";
-import { FiX } from "react-icons/fi";
-import { P } from "src/types/Grid";
-import { Workout } from "src/types/Workout";
-import * as M from "moment";
+import React, { memo } from 'react';
+import { FiX } from 'react-icons/fi';
+import { P } from 'src/types/Grid';
+import { Workout } from 'src/types/Workout';
+import * as M from 'moment';
 
 // Hacky fix to resolve error with default imports from moment and typescript
-let m = require("moment");
-if ("default" in m) {
-  m = m["default"];
+let m = require('moment');
+
+if ('default' in m) {
+  m = m['default'];
 }
 
 interface Props {
@@ -34,7 +35,7 @@ const ViewMoreContent: React.FC<Props> = ({
   return (
     <>
       <div className="popover-head">
-        {date.format("MMM D")}
+        {date.format('MMM D')}
         <div
           role="button"
           data-testid="close-popover"
@@ -45,11 +46,11 @@ const ViewMoreContent: React.FC<Props> = ({
         </div>
       </div>
       {workouts
-        .filter(el => el.date === date.format("MMM DD YYYY"))
+        .filter(el => el.date === date.format('MMM DD YYYY'))
         .map(workout => (
           <div
             onClick={() =>
-              handlePopover(workout, m(workout.date, "MMM DD YYYY"))
+              handlePopover(workout, m(workout.date, 'MMM DD YYYY'))
             }
             role="button"
             className="view-more-workouts-container"

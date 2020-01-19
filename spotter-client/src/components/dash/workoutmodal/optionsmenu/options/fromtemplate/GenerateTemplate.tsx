@@ -1,9 +1,9 @@
-import React from "react";
-import { isEmpty } from "lodash";
-import { useDispatch } from "react-redux";
-import { generateTemplateAction } from "../../../../../../actions/workoutActions";
-import { Template } from "src/types/Template";
-import { setFromTemplateModalAction } from "src/actions/optionsActions";
+import React from 'react';
+import { isEmpty } from 'lodash';
+import { useDispatch } from 'react-redux';
+import { Template } from 'src/types/Template';
+import { setFromTemplateModalAction } from 'src/actions/optionsActions';
+import { generateTemplateAction } from '../../../../../../actions/workoutActions';
 
 interface Props {
   active: Partial<Template>;

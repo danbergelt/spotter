@@ -1,13 +1,13 @@
-import React from "react";
-import TagsModal from "./tagsmodal/TagsModal";
-import { FiTag } from "react-icons/fi";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import React from 'react';
+import { FiTag } from 'react-icons/fi';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { fetchToken } from 'src/types/State';
 import {
   fetchTags,
   openTagModalAction
-} from "../../../../../../actions/tagsActions";
-import { fetchToken } from "src/types/State";
+} from '../../../../../../actions/tagsActions';
+import TagsModal from './tagsmodal/TagsModal';
 
 interface Props {
   iconClass: string;

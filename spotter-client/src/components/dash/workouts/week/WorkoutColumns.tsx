@@ -1,21 +1,21 @@
-import React, { useState, useEffect, useCallback } from "react";
-import WorkoutColumn from "./WorkoutColumn";
-import WorkoutModal from "../../workoutmodal/WorkoutModal";
-import { generateWeek, dashHead } from "../../../../utils/momentUtils";
-import DashControls from "../DashControls";
-import { useHistory } from "react-router-dom";
-import reFetch from "../../../../utils/reFetch";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect, useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { State } from 'src/types/State';
+import { Workout } from 'src/types/Workout';
+import { Moment } from 'moment';
+import { closeWorkoutModalAction } from 'src/actions/globalActions';
+import { fetchWorkouts } from 'src/actions/fetchWorkoutsActions';
+import WorkoutColumn from './WorkoutColumn';
+import WorkoutModal from '../../workoutmodal/WorkoutModal';
+import { generateWeek, dashHead } from '../../../../utils/momentUtils';
+import DashControls from '../DashControls';
 import {
   incOrDecAction,
   addWorkoutModalAction,
   viewWorkoutModalAction
-} from "../../../../actions/globalActions";
-import { fetchExercises } from "../../../../actions/fetchExercisesActions";
-import { State } from "src/types/State";
-import { Workout } from "src/types/Workout";
-import { Moment } from "moment";
-import { closeWorkoutModalAction } from "src/actions/globalActions";
+} from '../../../../actions/globalActions';
+import { fetchExercises } from '../../../../actions/fetchExercisesActions';
 
 interface GlobalReducer {
   scope: { value: string; label: string };
@@ -37,16 +37,16 @@ const WorkoutColumns = () => {
 
   // increment or decrement by one week/day at a time
   const inc = () => {
-    dispatch(incOrDecAction("inc", timeSpan));
+    dispatch(incOrDecAction('inc', timeSpan));
   };
   const dec = () => {
-    dispatch(incOrDecAction("dec", timeSpan));
+    dispatch(incOrDecAction('dec', timeSpan));
   };
 
   // refetches data upon dashboard state change
   useEffect(() => {
-    reFetch(timeSpan, history, scope.value, t);
-  }, [timeSpan, history, scope.value, t]);
+    dispatch(fetchWorkouts(timeSpan, history, scope.value, t));
+  }, [timeSpan, history, scope.value, t, dispatch]);
 
   // opens modal to add a new workout
   const paramsHelper = { setModal, fetchExercises, t, history };

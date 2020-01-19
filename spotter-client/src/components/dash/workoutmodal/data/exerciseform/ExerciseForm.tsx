@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import { Form, Field, Formik } from "formik";
-import { FiPlus, FiTrash } from "react-icons/fi";
-import { useSelector, useDispatch } from "react-redux";
-import { isEmpty } from "lodash";
-import { ValidationSchema } from "./ValidationSchema";
+import React, { useState } from 'react';
+import { Form, Field, Formik } from 'formik';
+import { FiPlus, FiTrash } from 'react-icons/fi';
+import { useSelector, useDispatch } from 'react-redux';
+import { isEmpty } from 'lodash';
+import Autosuggest from 'react-autosuggest';
+import { State } from 'src/types/State';
+import { ValidationSchema } from './ValidationSchema';
 import {
   resetExerciseFormAction,
   addExerciseAction,
   editExerciseAction
-} from "../../../../../actions/workoutActions";
-import Autosuggest from "react-autosuggest";
-import { State } from "src/types/State";
-import { Queued, Refs } from "../../../../../types/Exercises";
-import { Exercise as E } from "../../../../../types/ExerciseOption";
+} from '../../../../../actions/workoutActions';
+import { Queued, Refs } from '../../../../../types/Exercises';
+import { Exercise as E } from '../../../../../types/ExerciseOption';
 
 // READ: Formik claims to make working with forms easer,
 // but it does not play nicely with other libraries. I need to figure out how to optimize this,
@@ -47,10 +47,10 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
     [K: string]: T;
   };
   const buttonStyles: TButtonStyles<string> = {
-    border: "none",
-    background: "none",
-    padding: "0",
-    outline: "none"
+    border: 'none',
+    background: 'none',
+    padding: '0',
+    outline: 'none'
   };
 
   return (
@@ -60,15 +60,15 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
         validateOnBlur={false}
         // if an exercise is queued, populate with that exercise. otherwise, initialize to empty fields
         initialValues={{
-          name: (!isEmpty(queued) && queued.exercise.name) || "",
-          weight: (!isEmpty(queued) && queued.exercise.weight) || "",
-          sets: (!isEmpty(queued) && queued.exercise.sets) || "",
-          reps: (!isEmpty(queued) && queued.exercise.reps) || ""
+          name: (!isEmpty(queued) && queued.exercise.name) || '',
+          weight: (!isEmpty(queued) && queued.exercise.weight) || '',
+          sets: (!isEmpty(queued) && queued.exercise.sets) || '',
+          reps: (!isEmpty(queued) && queued.exercise.reps) || ''
         }}
         validationSchema={ValidationSchema}
         // allow the form to populate with initial values after first render
         // useful for repopulating the form with a queued exercise
-        enableReinitialize={true}
+        enableReinitialize
         onSubmit={(values, { resetForm }) => {
           resetForm();
 
@@ -105,14 +105,14 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
 
                 // control the input hooked up to autosuggest
                 inputProps={{
-                  placeholder: "e.g. squat",
-                  autoComplete: "off",
-                  name: "name",
+                  placeholder: 'e.g. squat',
+                  autoComplete: 'off',
+                  name: 'name',
                   onChange: (_, { newValue }) => {
-                    setFieldValue("name", newValue);
+                    setFieldValue('name', newValue);
                   },
                   value: values.name,
-                  className: "exercise-form-field"
+                  className: 'exercise-form-field'
                 }}
                 suggestions={suggestions}
                 // handles fetching autosuggestions in respect to field input
@@ -138,10 +138,10 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
                 renderSuggestion={suggestion => <div>{suggestion.name}</div>}
                 // passes the clicked suggestion to the input
                 onSuggestionSelected={(event, { suggestion, method }) => {
-                  if (method === "enter") {
+                  if (method === 'enter') {
                     event.preventDefault();
                   }
-                  setFieldValue("name", suggestion.name);
+                  setFieldValue('name', suggestion.name);
                 }}
               />
             </div>
@@ -184,7 +184,7 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
                 type="number"
               />
             </div>
-            <div style={{ display: "flex", alignItems: "center" }}>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
               <button
                 data-testid="submit-exercise"
                 style={buttonStyles}
@@ -195,8 +195,8 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
               <button
                 style={{
                   ...buttonStyles,
-                  position: "relative",
-                  top: "3px"
+                  position: 'relative',
+                  top: '3px'
                 }}
                 type="button"
               >

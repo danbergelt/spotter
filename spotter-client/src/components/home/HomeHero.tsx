@@ -1,13 +1,13 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Hero: React.FC = () => {
   return (
     <article className="home-hero-container" style={{ margin: 0 }}>
       <section className="home-hero-main">
         <p className="home-hero-main-text">
-          A{" "}
-          <span className="home-hero-sub-text-highlight">lifting pal</span>{" "}
+          A <span className="home-hero-sub-text-highlight">lifting pal</span>
+{' '}
           that includes what you need, and cuts the BS
         </p>
       </section>
@@ -20,7 +20,7 @@ const Hero: React.FC = () => {
         Sign up
       </Link>
       <p className="home-hero-alt-signin">
-        Already have an account?{" "}
+        Already have an account?{' '}
         <Link to="/login" className="home-hero-alt-signin-link">
           Log in.
         </Link>

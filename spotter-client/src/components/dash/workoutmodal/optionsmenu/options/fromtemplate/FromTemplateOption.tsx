@@ -1,12 +1,12 @@
-import React from "react";
-import FromTemplate from "./FromTemplate";
-import { useDispatch, useSelector } from "react-redux";
-import { FiPackage } from "react-icons/fi";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { FiPackage } from 'react-icons/fi';
+import { fetchToken } from 'src/types/State';
 import {
   setFromTemplateModalAction,
   fetchTemplatesAction
-} from "../../../../../../actions/optionsActions";
-import { fetchToken } from "src/types/State";
+} from '../../../../../../actions/optionsActions';
+import FromTemplate from './FromTemplate';
 
 interface Props {
   iconClass: string;

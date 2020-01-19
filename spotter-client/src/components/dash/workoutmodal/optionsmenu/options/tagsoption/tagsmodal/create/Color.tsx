@@ -1,7 +1,7 @@
-import React from "react";
-import { FiCheck } from "react-icons/fi";
-import { colorStyles } from "../localutils/createTagStyles";
-import adjust from "../../../../../../../../utils/darkenColorInJS";
+import React from 'react';
+import { FiCheck } from 'react-icons/fi';
+import { colorStyles } from '../localutils/createTagStyles';
+import adjust from '../../../../../../../../utils/darkenColorInJS';
 
 interface Props {
   c: string;
@@ -23,7 +23,7 @@ const Color: React.FC<Props> = ({ c, hover, color, setHover, setColor }) => {
       onClick={() => setColor(c)}
       onMouseEnter={() => setHover(c)}
       onMouseLeave={() => setHover(null)}
-      data-testid={c === color && "selected-tag"}
+      data-testid={c === color && 'selected-tag'}
       aria-label="tag-colors"
     >
       {c === color && (

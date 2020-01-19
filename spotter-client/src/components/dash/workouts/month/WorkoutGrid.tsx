@@ -1,21 +1,21 @@
-import React, { useState, useCallback, useEffect } from "react";
-import { generateMonth, monthDashHead } from "../../../../utils/momentUtils";
-import DashControls from "../DashControls";
-import GridDay from "./GridDay";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState, useCallback, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { State } from 'src/types/State';
+import { Workout } from 'src/types/Workout';
+import { Moment } from 'moment';
+import { closeWorkoutModalAction } from 'src/actions/globalActions';
+import { fetchWorkouts } from 'src/actions/fetchWorkoutsActions';
+import { generateMonth, monthDashHead } from '../../../../utils/momentUtils';
+import DashControls from '../DashControls';
+import GridDay from './GridDay';
 import {
   incOrDecAction,
   addWorkoutModalAction,
   viewWorkoutModalAction
-} from "../../../../actions/globalActions";
-import WorkoutModal from "../../workoutmodal/WorkoutModal";
-import { useHistory } from "react-router-dom";
-import reFetch from "../../../../utils/reFetch";
-import { fetchExercises } from "../../../../actions/fetchExercisesActions";
-import { State } from "src/types/State";
-import { Workout } from "src/types/Workout";
-import { Moment } from "moment";
-import { closeWorkoutModalAction } from "src/actions/globalActions";
+} from '../../../../actions/globalActions';
+import WorkoutModal from '../../workoutmodal/WorkoutModal';
+import { fetchExercises } from '../../../../actions/fetchExercisesActions';
 
 interface GlobalReducer {
   scope: { value: string; label: string };
@@ -44,15 +44,15 @@ const WorkoutGrid = () => {
 
   // fetches up-to-date list of workouts on re-render
   useEffect(() => {
-    reFetch(timeSpan, history, scope.value, t);
-  }, [timeSpan, history, scope.value, t]);
+    dispatch(fetchWorkouts(timeSpan, history, scope.value, t));
+  }, [timeSpan, history, scope.value, t, dispatch]);
 
   // increment or decrement by one week/month at a time
   const inc = () => {
-    dispatch(incOrDecAction("inc", timeSpan));
+    dispatch(incOrDecAction('inc', timeSpan));
   };
   const dec = () => {
-    dispatch(incOrDecAction("dec", timeSpan));
+    dispatch(incOrDecAction('dec', timeSpan));
   };
 
   // opens modal to add a new workout
@@ -84,7 +84,7 @@ const WorkoutGrid = () => {
           <GridDay
             openAddWorkoutModal={openAddWorkoutModal}
             openViewModal={openViewModal}
-            key={date.format("MMM DD YYYY")}
+            key={date.format('MMM DD YYYY')}
             date={date}
             i={i}
             workouts={workouts}

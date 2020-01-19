@@ -1,8 +1,8 @@
-import React, { memo } from "react";
-import styles from "../tagStyles";
-import adjust from "../../../../../../../../utils/darkenColorInJS";
-import { FiCheck } from "react-icons/fi";
-import { TagOnWorkout as T } from "src/types/TagOnWorkout";
+import React, { memo } from 'react';
+import { FiCheck } from 'react-icons/fi';
+import { TagOnWorkout as T } from 'src/types/TagOnWorkout';
+import styles from '../tagStyles';
+import adjust from '../../../../../../../../utils/darkenColorInJS';
 
 interface Props {
   toggleTag: (tag: T) => void;
@@ -35,16 +35,16 @@ const Tag: React.FC<Props> = ({
         }
       >
         {tag.content}
-        {/* if the tag is on a workout, insert a check so the user is notified in-modal*/}
+        {/* if the tag is on a workout, insert a check so the user is notified in-modal */}
         {onWorkout.map(
           activeT =>
             activeT._id === tag._id && (
               <div
                 key={activeT._id}
                 style={{
-                  color: "white",
-                  fontSize: "1.75rem",
-                  marginLeft: "auto"
+                  color: 'white',
+                  fontSize: '1.75rem',
+                  marginLeft: 'auto'
                 }}
               >
                 <FiCheck />

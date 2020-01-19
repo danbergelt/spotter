@@ -1,3 +1,13 @@
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import axios from 'axios';
+import { createMemoryHistory } from 'history';
+import {
+  SET_ACTIVE,
+  CLOSE_TAG_MODAL,
+  OPEN_TAG_MODAL
+} from 'src/actions/optionsActions';
+import mockTagRes from '../../../__testUtils__/mockTagRes';
 import {
   fetchTags,
   FETCH_TAGS_START,
@@ -6,22 +16,16 @@ import {
   setActiveTabAction,
   closeTagModalAction,
   openTagModalAction
-} from "../../../actions/tagsActions";
-import configureMockStore from "redux-mock-store";
-import thunk from "redux-thunk";
-import axios from "axios";
-import mockTagRes from "../../../__testUtils__/mockTagRes";
-import { createMemoryHistory } from "history";
-import { SET_ACTIVE, CLOSE_TAG_MODAL, OPEN_TAG_MODAL } from "src/actions/optionsActions";
+} from '../../../actions/tagsActions';
 
 const mockStore = configureMockStore([thunk]);
 
-describe("tag actions", () => {
+describe('tag actions', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  test("can fetch tags", async () => {
+  test('can fetch tags', async () => {
     axios.get.mockResolvedValue(mockTagRes);
 
     const expectedActions = [
@@ -33,18 +37,18 @@ describe("tag actions", () => {
 
     const history = createMemoryHistory();
 
-    await store.dispatch(fetchTags(history, "token"));
+    await store.dispatch(fetchTags(history, 'token'));
 
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  test("proper rejection", async () => {
+  test('proper rejection', async () => {
     const history = createMemoryHistory();
 
     const err = {
       response: {
         data: {
-          error: "TEST Error"
+          error: 'TEST Error'
         }
       }
     };
@@ -58,12 +62,12 @@ describe("tag actions", () => {
 
     const store = mockStore({ err: null });
 
-    await store.dispatch(fetchTags(history, "token"));
+    await store.dispatch(fetchTags(history, 'token'));
 
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  test("delete tag", () => {
+  test('delete tag', () => {
     const expectedActions = [{ type: SET_ACTIVE, payload: 1 }];
 
     const store = mockStore();
@@ -73,7 +77,7 @@ describe("tag actions", () => {
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  test("close tag modal", () => {
+  test('close tag modal', () => {
     const expectedActions = [{ type: CLOSE_TAG_MODAL }];
 
     const store = mockStore();
@@ -83,7 +87,7 @@ describe("tag actions", () => {
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  test("open tag modal", () => {
+  test('open tag modal', () => {
     const expectedActions = [{ type: OPEN_TAG_MODAL }];
 
     const store = mockStore();

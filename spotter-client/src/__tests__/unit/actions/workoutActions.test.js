@@ -1,5 +1,5 @@
-import configureMockStore from "redux-mock-store";
-import thunk from "redux-thunk";
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 import {
   resetExerciseFormAction,
   RESET_QUEUE,
@@ -22,12 +22,12 @@ import {
   generateTemplateAction,
   TOGGLE_TAG,
   toggleTagAction
-} from "../../../actions/workoutActions";
+} from '../../../actions/workoutActions';
 
 const mockStore = configureMockStore([thunk]);
 
-describe("dispatches workout actions", () => {
-  test("reset exercise form", () => {
+describe('dispatches workout actions', () => {
+  test('reset exercise form', () => {
     const expectedActions = [{ type: RESET_QUEUE }];
 
     const store = mockStore();
@@ -37,29 +37,29 @@ describe("dispatches workout actions", () => {
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  test("add exercise", () => {
-    const expectedActions = [{ type: ADD_EXERCISE, payload: "foo" }];
+  test('add exercise', () => {
+    const expectedActions = [{ type: ADD_EXERCISE, payload: 'foo' }];
 
     const store = mockStore();
 
-    store.dispatch(addExerciseAction("foo"));
+    store.dispatch(addExerciseAction('foo'));
 
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  test("edit exercise", () => {
+  test('edit exercise', () => {
     const expectedActions = [
-      { type: HANDLE_EDIT, payload: { exercise: "foo", i: "bar" } }
+      { type: HANDLE_EDIT, payload: { exercise: 'foo', i: 'bar' } }
     ];
 
     const store = mockStore();
 
-    store.dispatch(editExerciseAction("foo", "bar"));
+    store.dispatch(editExerciseAction('foo', 'bar'));
 
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  test("resets queue", () => {
+  test('resets queue', () => {
     const expectedActions = [{ type: RESET_QUEUE }];
 
     const store = mockStore();
@@ -69,19 +69,19 @@ describe("dispatches workout actions", () => {
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  test("handles queue", () => {
+  test('handles queue', () => {
     const expectedActions = [
-      { type: QUEUE_EDIT, payload: { exercise: "foo", i: "bar" } }
+      { type: QUEUE_EDIT, payload: { exercise: 'foo', i: 'bar' } }
     ];
 
     const store = mockStore();
 
-    store.dispatch(handleQueueAction("foo", "bar"));
+    store.dispatch(handleQueueAction('foo', 'bar'));
 
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  test("handles del exercise", () => {
+  test('handles del exercise', () => {
     const expectedActions = [{ type: DEL_EXERCISE, payload: 1 }];
 
     const store = mockStore();
@@ -91,52 +91,52 @@ describe("dispatches workout actions", () => {
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  test("handles add notes", () => {
-    const expectedActions = [{ type: ADD_WORKOUT_NOTES, payload: "e" }];
+  test('handles add notes', () => {
+    const expectedActions = [{ type: ADD_WORKOUT_NOTES, payload: 'e' }];
 
     const store = mockStore();
 
-    store.dispatch(addNotesAction("e"));
+    store.dispatch(addNotesAction('e'));
 
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  test("handles reset notes", () => {
-    const expectedActions = [{ type: RESET_NOTES, payload: "" }];
+  test('handles reset notes', () => {
+    const expectedActions = [{ type: RESET_NOTES, payload: '' }];
 
     const store = mockStore();
 
-    store.dispatch(resetNotesAction(""));
+    store.dispatch(resetNotesAction(''));
 
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  test("add workout title", () => {
-    const expectedActions = [{ type: ADD_WORKOUT_TITLE, payload: "t" }];
+  test('add workout title', () => {
+    const expectedActions = [{ type: ADD_WORKOUT_TITLE, payload: 't' }];
 
     const store = mockStore();
 
-    store.dispatch(addTitleAction("t"));
+    store.dispatch(addTitleAction('t'));
 
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  test("generate template", () => {
-    const expectedActions = [{ type: FROM_TEMPLATE, payload: "foo" }];
+  test('generate template', () => {
+    const expectedActions = [{ type: FROM_TEMPLATE, payload: 'foo' }];
 
     const store = mockStore();
 
-    store.dispatch(generateTemplateAction("foo"));
+    store.dispatch(generateTemplateAction('foo'));
 
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  test("toggle tag", () => {
-    const expectedActions = [{ type: TOGGLE_TAG, payload: "foo" }];
+  test('toggle tag', () => {
+    const expectedActions = [{ type: TOGGLE_TAG, payload: 'foo' }];
 
     const store = mockStore();
 
-    store.dispatch(toggleTagAction("foo"));
+    store.dispatch(toggleTagAction('foo'));
 
     expect(store.getActions()).toEqual(expectedActions);
   });

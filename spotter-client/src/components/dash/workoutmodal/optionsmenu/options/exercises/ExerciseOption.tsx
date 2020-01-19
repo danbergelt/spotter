@@ -1,8 +1,8 @@
-import React, { useCallback } from "react";
-import { FiTrendingUp } from "react-icons/fi";
-import { useDispatch } from "react-redux";
-import Exercises from "./Exercises";
-import { setExercisesModalAction } from "src/actions/optionsActions";
+import React, { useCallback } from 'react';
+import { FiTrendingUp } from 'react-icons/fi';
+import { useDispatch } from 'react-redux';
+import { setExercisesModalAction } from 'src/actions/optionsActions';
+import Exercises from './Exercises';
 
 interface Props {
   iconClass: string;

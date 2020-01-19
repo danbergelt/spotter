@@ -1,21 +1,21 @@
-import React from "react";
-import WorkoutColumns from "../../../../components/dash/workouts/week/WorkoutColumns";
-import { cleanup, fireEvent } from "@testing-library/react";
-import wrapper from "../../../../__testUtils__/wrapper";
-import Modal from "react-modal";
-import axios from "axios";
-import mockWorkoutRes from "../../../../__testUtils__/mockWorkoutRes";
-import { FETCH_WORKOUTS_SUCCESS } from "../../../../actions/fetchWorkoutsActions";
-import { reducer } from "../../../../reducers/index";
+import React from 'react';
+import { cleanup, fireEvent } from '@testing-library/react';
+import Modal from 'react-modal';
+import axios from 'axios';
+import wrapper from '../../../../__testUtils__/wrapper';
+import WorkoutColumns from '../../../../components/dash/workouts/week/WorkoutColumns';
+import mockWorkoutRes from '../../../../__testUtils__/mockWorkoutRes';
+import { FETCH_WORKOUTS_SUCCESS } from '../../../../actions/fetchWorkoutsActions';
+import { reducer } from '../../../../reducers/index';
 
-describe("view workout modal functionality", () => {
+describe('view workout modal functionality', () => {
   // initial setup
   afterEach(cleanup);
-  Modal.setAppElement(document.createElement("div"));
+  Modal.setAppElement(document.createElement('div'));
 
-  test("modal populates with saved workout when clicked", async () => {
-    axios.get.mockResolvedValue({})
-    axios.post.mockResolvedValue({})
+  test('modal populates with saved workout when clicked', async () => {
+    axios.get.mockResolvedValue({});
+    axios.post.mockResolvedValue({});
     const { queryAllByText, queryByText, getByText, store, history } = wrapper(
       reducer,
       <WorkoutColumns />
@@ -26,7 +26,7 @@ describe("view workout modal functionality", () => {
       payload: mockWorkoutRes.data.workouts
     });
 
-    history.push("/dashboard")
+    history.push('/dashboard');
 
     fireEvent.click(getByText(/workout for testing/i));
 

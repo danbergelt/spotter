@@ -1,5 +1,5 @@
-import React from "react";
-import { FiEdit3, FiTarget, FiCalendar } from "react-icons/fi";
+import React from 'react';
+import { FiEdit3, FiTarget, FiCalendar } from 'react-icons/fi';
 
 export const TextBlocks: React.FC = () => {
   const strokeWidth = { strokeWidth: 1.25 };
@@ -16,10 +16,10 @@ export const TextBlocks: React.FC = () => {
           </div>
           <p className="textblock-title">Track your lifts</p>
           <p className="textblock-content">
-            Our dashboard{" "}
+            Our dashboard{' '}
             <span className="textblock-highlight">
               automates your fitness journey
-            </span>{" "}
+            </span>{' '}
             and makes tracking your lifts fun and easy.
           </p>
         </div>
@@ -29,7 +29,7 @@ export const TextBlocks: React.FC = () => {
           </div>
           <p className="textblock-title">Log your personal bests</p>
           <p className="textblock-content">
-            Save the exercises you want tracked, and we'll{" "}
+            Save the exercises you want tracked, and we'll{' '}
             <span className="textblock-highlight">
               calculate your PRs automatically.
             </span>
@@ -41,8 +41,8 @@ export const TextBlocks: React.FC = () => {
           </div>
           <p className="textblock-title">Stay organized</p>
           <p className="textblock-content">
-            Spreadsheets are unwieldy.{" "}
-            <span className="textblock-highlight">Access, view, and edit</span>{" "}
+            Spreadsheets are unwieldy.{' '}
+            <span className="textblock-highlight">Access, view, and edit</span>{' '}
             any of your workouts, with ease.
           </p>
         </div>

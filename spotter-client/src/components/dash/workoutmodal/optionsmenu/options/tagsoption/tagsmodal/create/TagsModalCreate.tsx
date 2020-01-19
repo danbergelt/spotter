@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import { colors } from "../localutils/createTagStyles";
-import Loader from "react-loader-spinner";
-import Message from "./Message";
-import { saveTagAction } from "../../../../../../../../actions/tagsActions";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import Color from "./Color";
-import { fetchToken } from "src/types/State";
+import React, { useState } from 'react';
+import Loader from 'react-loader-spinner';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { fetchToken } from 'src/types/State';
+import { colors } from '../localutils/createTagStyles';
+import Message from './Message';
+import { saveTagAction } from '../../../../../../../../actions/tagsActions';
+import Color from './Color';
 
 // tab - create tag
 const TagsModalCreate = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const [name, setName] = useState<string>("");
+  const [name, setName] = useState<string>('');
   const [hover, setHover] = useState<null | string>(null);
   const [color, setColor] = useState<string>(colors[0]);
   const [message, setMessage] = useState<{ success?: string; error?: string }>(
@@ -64,11 +64,15 @@ const TagsModalCreate = () => {
       {message.success && (
         <Message message={message.success} setMessage={setMessage} />
       )}
-      <div role="button" onClick={submitTag} className="tags-modal-create-submit">
+      <div
+        role="button"
+        onClick={submitTag}
+        className="tags-modal-create-submit"
+      >
         {loading ? (
           <Loader color="white" height={10} width={50} type="ThreeDots" />
         ) : (
-          "Create Tag"
+          'Create Tag'
         )}
       </div>
     </section>

@@ -1,19 +1,19 @@
-import React from "react";
-import Routes from "../../../routes";
-import { fireEvent, cleanup } from "@testing-library/react";
-import wrapper from "../../../__testUtils__/wrapper";
-import axios from "axios";
-import mockWorkoutRes from "../../../__testUtils__/mockWorkoutRes";
-import { reducer } from "../../../reducers/index";
-import { ADD_TOKEN } from "../../../actions/addTokenActions";
+import React from 'react';
+import { fireEvent, cleanup } from '@testing-library/react';
+import axios from 'axios';
+import Routes from '../../../routes';
+import wrapper from '../../../__testUtils__/wrapper';
+import mockWorkoutRes from '../../../__testUtils__/mockWorkoutRes';
+import { reducer } from '../../../reducers/index';
+import { ADD_TOKEN } from '../../../actions/addTokenActions';
 
-describe("Nav routes", () => {
+describe('Nav routes', () => {
   afterEach(() => {
     cleanup;
     jest.clearAllMocks();
   });
 
-  test("Nav routes point to proper locations", () => {
+  test('Nav routes point to proper locations', () => {
     const { container, getByTestId } = wrapper(reducer, <Routes />);
 
     // home route
@@ -32,24 +32,24 @@ describe("Nav routes", () => {
     expect(container.innerHTML).toMatch(/pal/i);
   });
 
-  test("logout functionality works", () => {
+  test('logout functionality works', () => {
     axios.post.mockResolvedValue(mockWorkoutRes);
     const { getByTestId, history, store } = wrapper(reducer, <Routes />);
 
-    store.dispatch({ type: ADD_TOKEN, payload: "token" });
+    store.dispatch({ type: ADD_TOKEN, payload: 'token' });
 
     fireEvent.click(getByTestId(/logout/i));
-    expect(history.location.pathname).toEqual("/login");
+    expect(history.location.pathname).toEqual('/login');
     expect(axios.post).toHaveBeenCalledTimes(1);
   });
 
-  test("can navigate to settings page", () => {
+  test('can navigate to settings page', () => {
     axios.post.mockResolvedValue(mockWorkoutRes);
     const { getByTestId, history, store } = wrapper(reducer, <Routes />);
 
-    store.dispatch({ type: ADD_TOKEN, payload: "token" });
+    store.dispatch({ type: ADD_TOKEN, payload: 'token' });
 
     fireEvent.click(getByTestId(/settings/i));
-    expect(history.location.pathname).toEqual("/settings");
+    expect(history.location.pathname).toEqual('/settings');
   });
 });

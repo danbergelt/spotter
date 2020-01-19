@@ -1,9 +1,9 @@
-import React, { useCallback } from "react";
-import Template from "./Template";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteTemplateAction } from "../../../../../../actions/optionsActions";
-import { Template as T } from "src/types/Template";
-import { State, fetchToken } from "src/types/State";
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Template as T } from 'src/types/Template';
+import { State, fetchToken } from 'src/types/State';
+import { deleteTemplateAction } from '../../../../../../actions/optionsActions';
+import Template from './Template';
 
 interface Props {
   setActive: React.Dispatch<React.SetStateAction<{} | T>>;
@@ -27,7 +27,7 @@ const Templates: React.FC<Props> = ({ setActive, active, search }) => {
 
   const deleteTemplate: (id: string) => Promise<void> = useCallback(
     async id => {
-      await dispatch(deleteTemplateAction(t, id))
+      await dispatch(deleteTemplateAction(t, id));
     },
     [dispatch, t]
   );

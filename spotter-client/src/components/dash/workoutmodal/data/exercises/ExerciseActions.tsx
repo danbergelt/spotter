@@ -1,5 +1,5 @@
-import React, { memo } from "react";
-import { Props } from "../../../../../types/Exercises";
+import React, { memo } from 'react';
+import { Props } from '../../../../../types/Exercises';
 
 // either delete or edit an exercise
 

@@ -1,8 +1,8 @@
-import React, { useCallback, memo } from "react";
-import { useDispatch } from "react-redux";
-import SaveTemplate from "./SaveTemplate";
-import { FiSave } from "react-icons/fi";
-import { setSaveTemplateModalAction } from "../../../../../../actions/optionsActions";
+import React, { useCallback, memo } from 'react';
+import { useDispatch } from 'react-redux';
+import { FiSave } from 'react-icons/fi';
+import SaveTemplate from './SaveTemplate';
+import { setSaveTemplateModalAction } from '../../../../../../actions/optionsActions';
 
 interface Props {
   iconClass: string;

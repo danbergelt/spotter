@@ -1,52 +1,52 @@
-import React from "react";
-import Routes from "../../../routes";
-import Prs from "../../../pages/Prs";
-import { fireEvent, cleanup, wait } from "@testing-library/react";
-import wrapper from "../../../__testUtils__/wrapper";
-import { reducer } from "../../../reducers/index";
-import axios from "axios";
-import { ADD_TOKEN } from "../../../actions/addTokenActions";
-import Moment from "moment";
-import { extendMoment } from "moment-range";
-import { FETCH_PRS_SUCCESS } from "../../../actions/prActions";
+import React from 'react';
+import { fireEvent, cleanup, wait } from '@testing-library/react';
+import axios from 'axios';
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
+import Routes from '../../../routes';
+import Prs from '../../../pages/Prs';
+import wrapper from '../../../__testUtils__/wrapper';
+import { reducer } from '../../../reducers/index';
+import { ADD_TOKEN } from '../../../actions/addTokenActions';
+import { FETCH_PRS_SUCCESS } from '../../../actions/prActions';
 
 const moment = extendMoment(Moment);
 
-describe("Prs page functionality", () => {
+describe('Prs page functionality', () => {
   afterEach(cleanup);
 
-  test("can navigate to prs page", () => {
+  test('can navigate to prs page', () => {
     axios.post.mockResolvedValue({});
     axios.get.mockResolvedValue({});
     const { getByText, history, store } = wrapper(reducer, <Routes />);
 
-    store.dispatch({ type: ADD_TOKEN, payload: "token" });
+    store.dispatch({ type: ADD_TOKEN, payload: 'token' });
 
     fireEvent.click(getByText(/personal bests/i));
-    expect(history.location.pathname).toEqual("/prs");
+    expect(history.location.pathname).toEqual('/prs');
   });
 
-  test("displays pr", async () => {
+  test('displays pr', async () => {
     axios.get.mockResolvedValue({});
     const { getByText, queryByText, store } = wrapper(reducer, <Prs />);
 
-    store.dispatch({ type: ADD_TOKEN, payload: "token" });
+    store.dispatch({ type: ADD_TOKEN, payload: 'token' });
 
     store.dispatch({
       type: FETCH_PRS_SUCCESS,
       payload: [
-        { name: "squat", date: moment().format("MMM DD YYYY") },
+        { name: 'squat', date: moment().format('MMM DD YYYY') },
         {
-          name: "deadlift",
+          name: 'deadlift',
           date: moment()
-            .subtract(2, "months")
-            .format("MMM DD YYYY")
+            .subtract(2, 'months')
+            .format('MMM DD YYYY')
         },
         {
-          name: "bench",
+          name: 'bench',
           date: moment()
-            .subtract(2, "years")
-            .format("MMM DD YYYY")
+            .subtract(2, 'years')
+            .format('MMM DD YYYY')
         }
       ]
     });
@@ -60,26 +60,26 @@ describe("Prs page functionality", () => {
     expect(queryByText(/bench/i)).toBeTruthy();
   });
 
-  test("displays no range found", async () => {
+  test('displays no range found', async () => {
     axios.get.mockResolvedValue({});
     const { getByText, store } = wrapper(reducer, <Prs />);
 
-    store.dispatch({ type: ADD_TOKEN, payload: "token" });
+    store.dispatch({ type: ADD_TOKEN, payload: 'token' });
 
     store.dispatch({
       type: FETCH_PRS_SUCCESS,
       payload: [
         {
-          name: "deadlift",
+          name: 'deadlift',
           date: moment()
-            .subtract(2, "months")
-            .format("MMM DD YYYY")
+            .subtract(2, 'months')
+            .format('MMM DD YYYY')
         },
         {
-          name: "bench",
+          name: 'bench',
           date: moment()
-            .subtract(2, "years")
-            .format("MMM DD YYYY")
+            .subtract(2, 'years')
+            .format('MMM DD YYYY')
         }
       ]
     });

@@ -1,12 +1,13 @@
+import { AnyAction } from 'redux';
+import { FetchWorkoutsReducer } from '../types/State';
 import {
   FETCH_WORKOUTS_START,
   FETCH_WORKOUTS_SUCCESS,
   FETCH_WORKOUTS_ERROR,
   DELETE_WORKOUT
-} from "../actions/fetchWorkoutsActions";
+} from '../actions/fetchWorkoutsActions';
 
-import { UPDATE_TAG } from "../actions/workoutActions";
-import { FetchWorkoutsReducer } from "src/types/State";
+import { UPDATE_TAG } from '../actions/workoutActions';
 
 const fetchedWorkoutsState: FetchWorkoutsReducer = {
   err: null,
@@ -16,9 +17,9 @@ const fetchedWorkoutsState: FetchWorkoutsReducer = {
 
 // populates dashboard
 
-export const fetchWorkoutsReducer = (
+const fetchWorkoutsReducer = (
   state = fetchedWorkoutsState,
-  action: { type: string; payload: any }
+  action: AnyAction
 ): FetchWorkoutsReducer => {
   switch (action.type) {
     case FETCH_WORKOUTS_START:
@@ -61,3 +62,5 @@ export const fetchWorkoutsReducer = (
       return state;
   }
 };
+
+export default fetchWorkoutsReducer;

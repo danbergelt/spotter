@@ -1,5 +1,5 @@
-import React, { memo } from "react";
-import { FiX } from "react-icons/fi";
+import React, { memo } from 'react';
+import { FiX } from 'react-icons/fi';
 
 interface Props {
   closeHandler: () => void;
@@ -23,7 +23,7 @@ const FromTemplateHead: React.FC<Props> = ({
         >
           <FiX
             data-testid="quit-from"
-            style={{ display: "flex", alignItems: "center" }}
+            style={{ display: 'flex', alignItems: 'center' }}
           />
         </div>
       </section>

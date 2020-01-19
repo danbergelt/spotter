@@ -1,6 +1,6 @@
-import React from "react";
-import Popover from "react-tiny-popover";
-import ChangePasswordContent from "./ChangePasswordContent";
+import React from 'react';
+import Popover from 'react-tiny-popover';
+import ChangePasswordContent from './ChangePasswordContent';
 
 interface Props {
   changePassword: boolean;

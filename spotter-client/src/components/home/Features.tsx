@@ -1,24 +1,24 @@
-import React, { useState } from "react";
-import weeklyview from "../../assets/weeklyview.png";
-import monthlyview from "../../assets/monthlyview.png";
-import prpage from "../../assets/prpage.png";
-import FeatureOptionsLarge from "./FeatureOptionsLarge";
-import FeatureOptions from "./FeatureOptions";
-import { useWindowSize } from "react-use";
+import React, { useState } from 'react';
+import { useWindowSize } from 'react-use';
+import weeklyview from '../../assets/weeklyview.png';
+import monthlyview from '../../assets/monthlyview.png';
+import prpage from '../../assets/prpage.png';
+import FeatureOptionsLarge from './FeatureOptionsLarge';
+import FeatureOptions from './FeatureOptions';
 
 const Features: React.FC = () => {
-  const [selected, setSelected] = useState<string>("Week View");
+  const [selected, setSelected] = useState<string>('Week View');
 
   const { width }: { width: number } = useWindowSize();
 
   const setImage = () => {
-    if (selected === "Week View") {
+    if (selected === 'Week View') {
       return weeklyview;
-    } else if (selected === "Month View") {
-      return monthlyview;
-    } else {
-      return prpage;
     }
+    if (selected === 'Month View') {
+      return monthlyview;
+    }
+    return prpage;
   };
 
   return (

@@ -1,16 +1,16 @@
-import React, { useCallback } from "react";
-import { FiStar } from "react-icons/fi";
-import ExerciseForm from "../exerciseform/ExerciseForm";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useCallback } from 'react';
+import { FiStar } from 'react-icons/fi';
+import { useSelector, useDispatch } from 'react-redux';
+import { times, isEmpty } from 'lodash';
+import { State } from 'src/types/State';
+import ExerciseForm from '../exerciseform/ExerciseForm';
 import {
   handleQueueAction,
   delExerciseAction
-} from "../../../../../actions/workoutActions";
-import WorkoutExercise from "./WorkoutExercise";
-import { times, isEmpty } from "lodash";
-import ClearEditQueue from "./ClearEditQueue";
-import { State } from "src/types/State";
-import { Refs, Exercise, Queued } from "../../../../../types/Exercises";
+} from '../../../../../actions/workoutActions';
+import WorkoutExercise from './WorkoutExercise';
+import ClearEditQueue from './ClearEditQueue';
+import { Refs, Exercise, Queued } from '../../../../../types/Exercises';
 
 type HandleQueue = (exercise: Exercise, i: number) => void;
 
@@ -19,7 +19,6 @@ type DelExercise = (i: number) => void;
 // container to hold all exercises on a workout
 
 const WorkoutExercises = () => {
-
   const exercises: Array<Exercise> = useSelector(
     (state: State) => state.workoutReducer.exercises
   );

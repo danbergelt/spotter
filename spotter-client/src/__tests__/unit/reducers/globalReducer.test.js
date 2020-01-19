@@ -1,99 +1,99 @@
-import { globalReducer } from "../../../reducers/globalReducer";
-import { ADD_TOKEN } from "../../../actions/addTokenActions";
 import {
   CHANGE_SCOPE,
   SET_SCOPE,
   SET_DATE,
   SET_TIMESPAN,
   MODAL_CTX
-} from "src/actions/globalActions";
+} from 'src/actions/globalActions';
+import { globalReducer } from '../../../reducers/globalReducer';
+import { ADD_TOKEN } from '../../../actions/addTokenActions';
 
-describe("global reducer", () => {
-  test("should return initial state", () => {
+describe('global reducer', () => {
+  test('should return initial state', () => {
     expect(globalReducer(undefined, {})).toEqual({
       t: null,
       ctx: null,
       scope: {
-        label: "Week",
-        value: "Week"
+        label: 'Week',
+        value: 'Week'
       },
       date: null,
       timeSpan: 0
     });
   });
 
-  test("should handle ADD_TOKEN", () => {
+  test('should handle ADD_TOKEN', () => {
     expect(
       globalReducer(undefined, {
         type: ADD_TOKEN,
-        payload: "token"
+        payload: 'token'
       })
     ).toEqual({
-      t: "token",
+      t: 'token',
       ctx: null,
       scope: {
-        label: "Week",
-        value: "Week"
+        label: 'Week',
+        value: 'Week'
       },
       date: null,
       timeSpan: 0
     });
   });
 
-  test("should handle MODAL_CTX", () => {
+  test('should handle MODAL_CTX', () => {
     expect(
       globalReducer(undefined, {
         type: MODAL_CTX,
-        payload: "ctx"
+        payload: 'ctx'
       })
     ).toEqual({
-      ctx: "ctx",
+      ctx: 'ctx',
       t: null,
       scope: {
-        label: "Week",
-        value: "Week"
+        label: 'Week',
+        value: 'Week'
       },
       date: null,
       timeSpan: 0
     });
   });
 
-  test("should handle SET_SCOPE", () => {
+  test('should handle SET_SCOPE', () => {
     expect(
       globalReducer(undefined, {
         type: SET_SCOPE,
-        payload: { value: "test", label: "test" }
+        payload: { value: 'test', label: 'test' }
       })
     ).toEqual({
       ctx: null,
       t: null,
       scope: {
-        label: "test",
-        value: "test"
+        label: 'test',
+        value: 'test'
       },
       date: null,
       timeSpan: 0
     });
   });
 
-  test("should handle SET_DATE", () => {
+  test('should handle SET_DATE', () => {
     expect(
       globalReducer(undefined, {
         type: SET_DATE,
-        payload: { date: "date" }
+        payload: { date: 'date' }
       })
     ).toEqual({
       ctx: null,
       t: null,
       scope: {
-        label: "Week",
-        value: "Week"
+        label: 'Week',
+        value: 'Week'
       },
-      date: { date: "date" },
+      date: { date: 'date' },
       timeSpan: 0
     });
   });
-  test("should handle SET_TIMESPAN", () => {
+  test('should handle SET_TIMESPAN', () => {
     expect(
       globalReducer(undefined, {
         type: SET_TIMESPAN,
@@ -103,25 +103,25 @@ describe("global reducer", () => {
       ctx: null,
       t: null,
       scope: {
-        label: "Week",
-        value: "Week"
+        label: 'Week',
+        value: 'Week'
       },
       date: null,
       timeSpan: 5
     });
   });
-  test("should handle CHANGE_SCOPE", () => {
+  test('should handle CHANGE_SCOPE', () => {
     expect(
       globalReducer(undefined, {
         type: CHANGE_SCOPE,
-        payload: { value: "test", label: "test" }
+        payload: { value: 'test', label: 'test' }
       })
     ).toEqual({
       ctx: null,
       t: null,
       scope: {
-        label: "test",
-        value: "test"
+        label: 'test',
+        value: 'test'
       },
       date: null,
       timeSpan: 0

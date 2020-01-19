@@ -1,9 +1,9 @@
-import React, { ReactNode, memo } from "react";
-import { Form, Field, Formik, FormikActions } from "formik";
-import axios, { AxiosResponse } from "axios";
-import { History } from "history";
-import { Link } from "react-router-dom";
-import { ValidationSchema } from "./ValidationSchema";
+import React, { ReactNode, memo } from 'react';
+import { Form, Field, Formik, FormikActions } from 'formik';
+import axios, { AxiosResponse } from 'axios';
+import { History } from 'history';
+import { Link } from 'react-router-dom';
+import { ValidationSchema } from './ValidationSchema';
 
 // component for login + signup forms
 // Formik components, while stuffed with useful functionality, are exceedingly long and not very developer-friendly
@@ -34,7 +34,7 @@ const SpotterForm: React.FC<Props> = ({
         <div>{children}</div>
       </div>
       <Formik
-        initialValues={{ email: "", password: "" }}
+        initialValues={{ email: '', password: '' }}
         validationSchema={ValidationSchema}
         onSubmit={async (
           values: FormValues,
@@ -47,16 +47,16 @@ const SpotterForm: React.FC<Props> = ({
             resetForm();
             // adds token to memory for use in application (does not persist)
             addToken(res.data.token);
-            history.push("/dashboard");
+            history.push('/dashboard');
           } catch (error) {
             if (error.response) {
               // "status" is essentially a type of state messaging system that allows us to push messages to the user
               // in this case, that's an error
               // useful for providing server-side errors in addition to the native Yup errors on the FE
-              console.log(error.response)
+              console.log(error.response);
               setStatus(error.response.data.error);
             } else {
-              history.push("/500");
+              history.push('/500');
             }
           }
         }}
@@ -94,17 +94,17 @@ const SpotterForm: React.FC<Props> = ({
                 {action}
               </button>
             </Form>
-            {action === "Sign Up" && (
+            {action === 'Sign Up' && (
               <section className="form-alt-link">
-                Already have an account?{" "}
+                Already have an account?{' '}
                 <Link className="form-alt-link-clickable" to="/login">
                   Log in.
                 </Link>
               </section>
             )}
-            {action === "Log In" && (
+            {action === 'Log In' && (
               <section className="form-alt-link">
-                Forgot your password?{" "}
+                Forgot your password?{' '}
                 <Link className="form-alt-link-clickable" to="/forgotpassword">
                   Click here.
                 </Link>

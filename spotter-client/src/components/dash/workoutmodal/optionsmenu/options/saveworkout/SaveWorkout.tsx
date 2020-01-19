@@ -1,14 +1,13 @@
-import React, { memo } from "react";
-import { FiPlusCircle } from "react-icons/fi";
-import { useSelector, useDispatch } from "react-redux";
+import React, { memo } from 'react';
+import { FiPlusCircle } from 'react-icons/fi';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { State, WorkoutReducer } from 'src/types/State';
+import { Moment } from 'moment';
 import {
   saveWorkoutAction,
   editWorkoutAction
-} from "../../../../../../actions/optionsActions";
-import { useHistory } from "react-router-dom";
-import reFetch from "../../../../../../utils/reFetch";
-import { State, WorkoutReducer } from "src/types/State";
-import { Moment } from "moment";
+} from '../../../../../../actions/optionsActions';
 
 interface Props {
   workoutId: string | null;
@@ -32,7 +31,6 @@ const SaveWorkout: React.FC<Props> = ({
   ctx,
   iconClass
 }) => {
-  
   const saveMsg: Partial<{ error: string }> = useSelector(
     (state: State) => state.optionsReducer.saveMsg
   );
@@ -54,19 +52,18 @@ const SaveWorkout: React.FC<Props> = ({
     time,
     scope,
     history,
-    reFetch,
     date,
     workoutId
   };
 
   const saveHandler: () => Promise<void> = async () => {
     // if user is adding a new workout
-    if (ctx === "add") {
+    if (ctx === 'add') {
       await dispatch(saveWorkoutAction(paramsHelper));
     }
 
     // if user is editing a saved workout
-    if (ctx === "view") {
+    if (ctx === 'view') {
       await dispatch(editWorkoutAction(paramsHelper));
     }
   };
@@ -80,7 +77,7 @@ const SaveWorkout: React.FC<Props> = ({
         className="add-workout-options-button publish"
       >
         <FiPlusCircle className={iconClass} />
-        {ctx === "add" ? "Save" : "Update"}
+        {ctx === 'add' ? 'Save' : 'Update'}
       </div>
       {saveMsg.error && <div className="save error">{saveMsg.error}</div>}
     </>

@@ -1,8 +1,8 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import Tag from "./Tag";
-import { State } from "src/types/State";
-import { TagOnWorkout } from "../../../../../types/TagOnWorkout";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { State } from 'src/types/State';
+import Tag from './Tag';
+import { TagOnWorkout } from '../../../../../types/TagOnWorkout';
 
 // tags on a workout
 // display only, functionality sequestered to the tags modal
@@ -19,7 +19,7 @@ const WorkoutTags = () => {
         {!tags.length ? (
           <p
             className="workout-data-tags-head"
-            style={{ fontSize: "1.2rem", margin: 0 }}
+            style={{ fontSize: '1.2rem', margin: 0 }}
           >
             No tags
           </p>

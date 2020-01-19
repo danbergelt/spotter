@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import ChangePassword from "../components/settings/changepassword/ChangePassword";
-import ChangeEmail from "../components/settings/changeemail/ChangeEmail";
-import { useSelector } from "react-redux";
-import { fetchToken } from "src/types/State";
-import ExportWorkouts from "src/components/settings/exports/ExportWorkouts";
-import CloseAccount from "src/components/settings/closeaccount/CloseAccount";
-import { Helmet } from "react-helmet-async";
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { fetchToken } from 'src/types/State';
+import ExportWorkouts from 'src/components/settings/exports/ExportWorkouts';
+import CloseAccount from 'src/components/settings/closeaccount/CloseAccount';
+import { Helmet } from 'react-helmet-async';
+import ChangeEmail from '../components/settings/changeemail/ChangeEmail';
+import ChangePassword from '../components/settings/changepassword/ChangePassword';
 
 const Settings: React.FC = () => {
   const [changePassword, setChangePassword] = useState<boolean>(false);

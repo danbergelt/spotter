@@ -23,6 +23,8 @@
     "@types/yup": "^0.26.27",
     "axios": "^0.19.0",
     "formik": "^1.5.8",
+    "history": "^4.10.1",
+    "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "moment-range": "^4.0.2",
     "node-sass": "^4.12.0",
@@ -54,7 +56,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test -i",
     "test:cov": "react-scripts test --coverage",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint --ext .ts,.js,.tsx,.jsx ./",
+    "format": "yarn lint --fix"
   },
   "jest": {
     "moduleNameMapper": {
@@ -81,7 +85,31 @@
     "@testing-library/react": "^9.3.0",
     "@testing-library/react-hooks": "^3.2.1",
     "@testing-library/user-event": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^2.16.0",
+    "@typescript-eslint/parser": "^2.16.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-jest": "^23.6.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.18.0",
+    "eslint-plugin-react-hooks": "^2.3.0",
     "identity-obj-proxy": "^3.0.0",
+    "prettier": "^1.19.1",
     "react-test-renderer": "^16.12.0"
-  }
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    {
+      "language": "typescript",
+      "autoFix": true
+    },
+    {
+      "language": "typescriptreact",
+      "autoFix": true
+    }
+  ]
 }

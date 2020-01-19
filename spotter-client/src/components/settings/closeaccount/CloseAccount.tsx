@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchToken } from "src/types/State";
-import { closeAccountAction } from "src/actions/globalActions";
-import { useHistory } from "react-router-dom";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchToken } from 'src/types/State';
+import { closeAccountAction } from 'src/actions/globalActions';
+import { useHistory } from 'react-router-dom';
 
 const CloseAccount: React.FC = () => {
   const dispatch = useDispatch();
@@ -32,9 +32,9 @@ const CloseAccount: React.FC = () => {
       <div
         role="button"
         data-testid={
-          confirmClose ? "delete-account" : "delete-account-disabled"
+          confirmClose ? 'delete-account' : 'delete-account-disabled'
         }
-        className={confirmClose ? "delete-account" : "delete-account-disabled"}
+        className={confirmClose ? 'delete-account' : 'delete-account-disabled'}
         onClick={() => confirmClose && dispatch(closeAccountAction(t, history))}
       >
         Close Account

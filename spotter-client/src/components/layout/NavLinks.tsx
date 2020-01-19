@@ -1,9 +1,9 @@
-import React from "react";
-import { HashLink } from "react-router-hash-link";
-import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchToken } from "../../types/State";
-import { logOutAction } from "../../actions/globalActions";
+import React from 'react';
+import { HashLink } from 'react-router-hash-link';
+import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchToken } from '../../types/State';
+import { logOutAction } from '../../actions/globalActions';
 
 interface Props {
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -49,7 +49,7 @@ const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
           className="spotter-nav-link styled"
           to="/login"
         >
-          Log Out{" "}
+          Log Out{' '}
         </Link>
       )}
       {!token && (

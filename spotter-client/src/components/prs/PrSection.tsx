@@ -1,13 +1,14 @@
-import React, { useState } from "react";
-import { IoMdArrowDropdown, IoMdArrowDropright } from "react-icons/io";
-import Pr from "./Pr";
-import { FiInfo } from "react-icons/fi";
-import ReactTooltip from "react-tooltip";
+import React, { useState } from 'react';
+import { IoMdArrowDropdown, IoMdArrowDropright } from 'react-icons/io';
+import { FiInfo } from 'react-icons/fi';
+import ReactTooltip from 'react-tooltip';
+import Pr from './Pr';
 
 // Hacky fix to resolve error with default imports from moment and typescript
-let m = require("moment");
-if ("default" in m) {
-  m = m["default"];
+let m = require('moment');
+
+if ('default' in m) {
+  m = m['default'];
 }
 
 interface Props {
@@ -21,7 +22,7 @@ const PrSection: React.FC<Props> = ({ title, prs }) => {
 
   return (
     <section className="pr-section">
-      <div className={open ? "pr-title open" : "pr-title closed"}>
+      <div className={open ? 'pr-title open' : 'pr-title closed'}>
         <div
           role="button"
           className="pr-spacer"
@@ -30,23 +31,23 @@ const PrSection: React.FC<Props> = ({ title, prs }) => {
           onClick={() => setOpen(!open)}
         >
           {open ? (
-            <div className={hover ? "hover-pr-dropdown" : "pr-dropdown"}>
+            <div className={hover ? 'hover-pr-dropdown' : 'pr-dropdown'}>
               <IoMdArrowDropdown />
             </div>
           ) : (
-            <div className={hover ? "hover-pr-dropdown" : "pr-dropdown"}>
+            <div className={hover ? 'hover-pr-dropdown' : 'pr-dropdown'}>
               <IoMdArrowDropright />
             </div>
           )}
-          <div style={{ marginLeft: "1rem" }}>{title}</div>
+          <div style={{ marginLeft: '1rem' }}>{title}</div>
         </div>
-        {title === "Last Month" && (
+        {title === 'Last Month' && (
           <div data-tip data-for="pr-info" className="pr-info">
             <FiInfo />
           </div>
         )}
         <ReactTooltip place="top" id="pr-info" effect="solid">
-          <p style={{ width: "200px" }}>
+          <p style={{ width: '200px' }}>
             Save the exercises you want tracked, and we'll show your PRs on this
             page!
           </p>
@@ -58,7 +59,7 @@ const PrSection: React.FC<Props> = ({ title, prs }) => {
           {prs
             // sorting the prs by date (most recent comes first)
             .sort((a: any, b: any) =>
-              m(b.prDate, "MMM DD YYYY").diff(m(a.prDate, "MMM DD YYYY"))
+              m(b.prDate, 'MMM DD YYYY').diff(m(a.prDate, 'MMM DD YYYY'))
             )
             .map((pr: any) => (
               <Pr key={pr.name} pr={pr} />

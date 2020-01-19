@@ -1,7 +1,7 @@
-import React from "react";
-import { FiAlignLeft } from "react-icons/fi";
-import { Workout } from "src/types/Workout";
-import { useWindowSize } from "react-use";
+import React from 'react';
+import { FiAlignLeft } from 'react-icons/fi';
+import { Workout } from 'src/types/Workout';
+import { useWindowSize } from 'react-use';
 
 // card that renders under each column in weekly workout view
 // data represents data for each workout

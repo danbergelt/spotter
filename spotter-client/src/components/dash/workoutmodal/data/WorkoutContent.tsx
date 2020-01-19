@@ -1,10 +1,10 @@
-import React, { memo } from "react";
-import WorkoutData from "./WorkoutData";
-import WorkoutOptions from "../optionsmenu/WorkoutOptions";
+import React, { memo } from 'react';
+import WorkoutData from './WorkoutData';
+import WorkoutOptions from '../optionsmenu/WorkoutOptions';
 
 interface Props {
   closeModal: () => void;
-  time: number
+  time: number;
 }
 
 // container to hold data (e.g. notes, exercises, etc.) and options (e.g. tag modal, save template, delete workout, etc.)

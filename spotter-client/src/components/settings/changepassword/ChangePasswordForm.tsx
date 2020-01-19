@@ -1,10 +1,10 @@
-import React from "react";
-import { Formik, Form, Field } from "formik";
-import { ValidationSchema } from "./ValidationSchema";
-import axiosWithAuth from "../../../utils/axiosWithAuth";
-import { useSelector } from "react-redux";
-import { fetchToken } from "src/types/State";
-import { AxiosResponse } from "axios";
+import React from 'react';
+import { Formik, Form, Field } from 'formik';
+import { useSelector } from 'react-redux';
+import { fetchToken } from 'src/types/State';
+import { AxiosResponse } from 'axios';
+import axiosWithAuth from '../../../utils/axiosWithAuth';
+import { ValidationSchema } from './ValidationSchema';
 
 const ChangePasswordForm: React.FC = () => {
   const t: string | null = useSelector(fetchToken);
@@ -15,9 +15,9 @@ const ChangePasswordForm: React.FC = () => {
         validateOnChange={false}
         validateOnBlur={false}
         initialValues={{
-          oldPassword: "",
-          newPassword: "",
-          confirmPassword: ""
+          oldPassword: '',
+          newPassword: '',
+          confirmPassword: ''
         }}
         validationSchema={ValidationSchema}
         onSubmit={async (values, { resetForm, setStatus }) => {
@@ -66,9 +66,9 @@ const ChangePasswordForm: React.FC = () => {
             </div>
             <div
               style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between"
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between'
               }}
             >
               <button

@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo } from 'react';
 
 interface Props {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
