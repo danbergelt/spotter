@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
         Code
       </a>
       <a
-        href="https://github.com/danbergelt/spotter"
+        href="mailto:team@getspotter.io"
         className="spotter-footer-link"
       >
         Contact
