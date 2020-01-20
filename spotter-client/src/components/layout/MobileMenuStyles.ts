@@ -1,6 +1,6 @@
 const css = require('../../styles/variables.scss');
 
-export const styles = {
+const styles = {
   bmBurgerButton: {
     position: 'absolute',
     width: '14px',
@@ -45,3 +45,5 @@ export const styles = {
     marginLeft: '-25px'
   }
 };
+
+export default styles;

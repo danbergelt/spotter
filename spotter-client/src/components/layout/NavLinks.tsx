@@ -10,7 +10,7 @@ interface Props {
   isOpen?: boolean;
 }
 
-const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
+const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }: Props) => {
   const token: string | null = useSelector(fetchToken);
   const dispatch = useDispatch();
 
@@ -27,7 +27,7 @@ const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
           smooth
           to='/#about'
           className='spotter-nav-link'
-          onClick={() => setIsOpen && setIsOpen(!isOpen)}
+          onClick={(): void => setIsOpen && setIsOpen(!isOpen)}
         >
           About
         </HashLink>
@@ -37,7 +37,7 @@ const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
           data-testid='settings'
           className='spotter-nav-link'
           to='/settings'
-          onClick={() => setIsOpen && setIsOpen(!isOpen)}
+          onClick={(): void => setIsOpen && setIsOpen(!isOpen)}
         >
           Settings
         </Link>
@@ -49,7 +49,7 @@ const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
           className='spotter-nav-link styled'
           to='/login'
         >
-          Log Out{' '}
+          Log Out
         </Link>
       )}
       {!token && (
@@ -57,7 +57,7 @@ const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
           data-testid='login'
           className='spotter-nav-link dashboard'
           to='/login'
-          onClick={() => setIsOpen && setIsOpen(!isOpen)}
+          onClick={(): void => setIsOpen && setIsOpen(!isOpen)}
         >
           Log In
         </Link>
@@ -67,7 +67,7 @@ const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
           data-testid='signup'
           className='spotter-nav-link styled'
           to='/signup'
-          onClick={() => setIsOpen && setIsOpen(!isOpen)}
+          onClick={(): void => setIsOpen && setIsOpen(!isOpen)}
         >
           Sign Up
         </Link>

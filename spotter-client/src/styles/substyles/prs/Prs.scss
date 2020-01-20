@@ -1,5 +1,5 @@
-@import "../../variables.scss";
-@import "../../mixins.scss";
+@import '../../variables.scss';
+@import '../../mixins.scss';
 
 .prs-container {
   width: 80rem;
@@ -33,6 +33,8 @@
         width: max-content;
         cursor: pointer;
         display: flex;
+        border: 0;
+        outline: 0;
 
         .pr-dropdown {
           color: $gray2;
@@ -40,7 +42,6 @@
         .hover-pr-dropdown {
           color: $gray1;
           @include hover;
-          
         }
       }
 
@@ -75,7 +76,7 @@
         font-size: 1.5rem;
 
         @include medium {
-          font-sizE: 1.3rem;
+          font-size: 1.3rem;
         }
 
         .pr-circle {

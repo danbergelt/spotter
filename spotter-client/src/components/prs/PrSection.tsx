@@ -3,6 +3,8 @@ import { IoMdArrowDropdown, IoMdArrowDropright } from 'react-icons/io';
 import { FiInfo } from 'react-icons/fi';
 import ReactTooltip from 'react-tooltip';
 import Pr from './Pr';
+import { SortedPrsRange } from '../../types/Prs';
+import { Exercise } from '../../types/ExerciseOption';
 
 // Hacky fix to resolve error with default imports from moment and typescript
 let m = require('moment');
@@ -13,22 +15,22 @@ if ('default' in m) {
 
 interface Props {
   title: string;
-  prs: any;
+  prs: SortedPrsRange;
 }
 
-const PrSection: React.FC<Props> = ({ title, prs }) => {
+const PrSection: React.FC<Props> = ({ title, prs }: Props) => {
   const [open, setOpen] = useState(true);
   const [hover, setHover] = useState(false);
 
   return (
     <section className='pr-section'>
       <div className={open ? 'pr-title open' : 'pr-title closed'}>
-        <div
-          role='button'
+        <button
+          type='button'
           className='pr-spacer'
-          onMouseEnter={() => setHover(true)}
-          onMouseLeave={() => setHover(false)}
-          onClick={() => setOpen(!open)}
+          onMouseEnter={(): void => setHover(true)}
+          onMouseLeave={(): void => setHover(false)}
+          onClick={(): void => setOpen(!open)}
         >
           {open ? (
             <div className={hover ? 'hover-pr-dropdown' : 'pr-dropdown'}>
@@ -40,7 +42,7 @@ const PrSection: React.FC<Props> = ({ title, prs }) => {
             </div>
           )}
           <div style={{ marginLeft: '1rem' }}>{title}</div>
-        </div>
+        </button>
         {title === 'Last Month' && (
           <div data-tip data-for='pr-info' className='pr-info'>
             <FiInfo />
@@ -48,8 +50,8 @@ const PrSection: React.FC<Props> = ({ title, prs }) => {
         )}
         <ReactTooltip place='top' id='pr-info' effect='solid'>
           <p style={{ width: '200px' }}>
-            Save the exercises you want tracked, and we'll show your PRs on this
-            page!
+            Save the exercises you want tracked, and we&#39;ll show your PRs on
+            this page!
           </p>
         </ReactTooltip>
       </div>
@@ -58,10 +60,10 @@ const PrSection: React.FC<Props> = ({ title, prs }) => {
           {!prs.length && <p className='no-prs'>No PRs found in this range</p>}
           {prs
             // sorting the prs by date (most recent comes first)
-            .sort((a: any, b: any) =>
+            .sort((a: Exercise, b: Exercise) =>
               m(b.prDate, 'MMM DD YYYY').diff(m(a.prDate, 'MMM DD YYYY'))
             )
-            .map((pr: any) => (
+            .map((pr: Exercise) => (
               <Pr key={pr.name} pr={pr} />
             ))}
         </section>

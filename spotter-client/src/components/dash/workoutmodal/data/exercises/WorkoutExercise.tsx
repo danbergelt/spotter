@@ -21,10 +21,7 @@ const WorkoutExercise: React.FC<Props> = ({
               <div className='exercise-stats'>
                 {exercise.weight && (
                   <p className='exercise-stat'>
-{exercise.weight}
-                    {' '}
-lbs
-                  </p>
+{exercise.weight} lbs</p>
                 )}
                 {exercise.weight && exercise.reps && exercise.sets && (
                   <FiArrowRight />
@@ -39,10 +36,7 @@ lbs
                 )}
                 {exercise.reps && (
                   <p className='exercise-stat'>
-{exercise.reps}
-                    {' '}
-reps
-                  </p>
+{exercise.reps} reps</p>
                 )}
               </div>
               <ExerciseActions

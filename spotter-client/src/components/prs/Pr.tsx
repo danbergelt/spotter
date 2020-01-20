@@ -2,6 +2,7 @@ import React from 'react';
 import { FaCircle } from 'react-icons/fa';
 import * as Moment from 'moment';
 import { extendMoment } from 'moment-range';
+import { Exercise } from '../../types/ExerciseOption';
 
 const moment = extendMoment(Moment);
 
@@ -13,11 +14,11 @@ if ('default' in m) {
 }
 
 interface Props {
-  pr: any;
+  pr: Exercise;
 }
 
-const Pr: React.FC<Props> = ({ pr }) => {
-  const setClassName = (pr: any): string | undefined => {
+const Pr: React.FC<Props> = ({ pr }: Props) => {
+  const setClassName = (): string | undefined => {
     // difference between the date on the pr and the current date
     const diff: number = m().diff(m(pr.prDate, 'MMM DD YYYY'), 'days');
 
@@ -38,7 +39,7 @@ const Pr: React.FC<Props> = ({ pr }) => {
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <div
           // color-coding circle to indicate if a PR is recent or old
-          className={setClassName(pr)}
+          className={setClassName()}
         >
           <FaCircle />
         </div>

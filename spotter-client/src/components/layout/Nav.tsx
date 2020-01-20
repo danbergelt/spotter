@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { slide as Menu } from 'react-burger-menu';
 import { useWindowSize } from 'react-use';
 import { Link } from 'react-router-dom';
-import { styles } from './MobileMenuStyles';
+import styles from './MobileMenuStyles';
 import NavLinks from './NavLinks';
 
-const Nav = () => {
+const Nav: React.FC = () => {
   const { width }: { width: number } = useWindowSize();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -14,7 +14,7 @@ const Nav = () => {
     <div className='spacer' style={{ display: 'flex', alignItems: 'center' }}>
       <Menu
         isOpen={isOpen}
-        onStateChange={state => setIsOpen(state.isOpen)}
+        onStateChange={(state): void => setIsOpen(state.isOpen)}
         disableAutoFocus
         width={210}
         right
