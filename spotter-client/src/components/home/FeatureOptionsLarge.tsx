@@ -5,24 +5,27 @@ interface Props {
   selected: string;
 }
 
-const FeatureOptionsLarge: React.FC<Props> = ({ setSelected, selected }) => {
+const FeatureOptionsLarge: React.FC<Props> = ({
+  setSelected,
+  selected
+}: Props) => {
   return (
     <section className='features-tabs-container'>
       <p className='features-title'>Features</p>
       <p
-        onMouseEnter={() => setSelected('Week View')}
+        onMouseEnter={(): void => setSelected('Week View')}
         className={selected === 'Week View' ? 'feature selected' : 'feature'}
       >
         Week View
       </p>
       <p
-        onMouseEnter={() => setSelected('Month View')}
+        onMouseEnter={(): void => setSelected('Month View')}
         className={selected === 'Month View' ? 'feature selected' : 'feature'}
       >
         Month View
       </p>
       <p
-        onMouseEnter={() => setSelected('PR Tracking')}
+        onMouseEnter={(): void => setSelected('PR Tracking')}
         className={selected === 'PR Tracking' ? 'feature selected' : 'feature'}
       >
         PR Tracking

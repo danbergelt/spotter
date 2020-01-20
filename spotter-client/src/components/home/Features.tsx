@@ -11,6 +11,7 @@ const Features: React.FC = () => {
 
   const { width }: { width: number } = useWindowSize();
 
+  // eslint-disable-next-line
   const setImage = () => {
     if (selected === 'Week View') {
       return weeklyview;

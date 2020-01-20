@@ -1,13 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+/*
+eslint-disable
+*/
+
 const Hero: React.FC = () => {
   return (
     <article className='home-hero-container' style={{ margin: 0 }}>
       <section className='home-hero-main'>
         <p className='home-hero-main-text'>
-          A <span className='home-hero-sub-text-highlight'>lifting pal</span>
-{' '}
+          A<span className='home-hero-sub-text-highlight'>lifting pal </span>
           that includes what you need, and cuts the BS
         </p>
       </section>
