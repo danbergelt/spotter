@@ -1,9 +1,9 @@
-import { Queued, Exercise } from "./Exercises";
-import { Exercise as E } from "./ExerciseOption";
-import { TagOnWorkout as Tag } from "./TagOnWorkout";
-import { Workout } from "./Workout";
-import { Moment } from "moment";
-import { Template } from "./Template";
+import { Queued, Exercise } from './Exercises';
+import { Exercise as E } from './ExerciseOption';
+import { TagOnWorkout as Tag } from './TagOnWorkout';
+import { Workout } from './Workout';
+import { Moment } from 'moment';
+import { Template } from './Template';
 
 export interface GlobalReducer {
   t: null | string;
@@ -26,12 +26,6 @@ export interface TagsReducer {
   isLoading: boolean;
   err: any;
   tags: Array<Tag>;
-}
-
-export interface PrsReducer {
-  err: any;
-  isLoading: boolean;
-  prs: Array<any>;
 }
 
 export interface OptionsReducer {
@@ -63,7 +57,6 @@ export interface State {
   fetchExercisesReducer: FetchExercisesReducer;
   fetchWorkoutsReducer: FetchWorkoutsReducer;
   optionsReducer: OptionsReducer;
-  prsReducer: PrsReducer;
   tagsReducer: TagsReducer;
 }
 
