@@ -1,10 +1,10 @@
-import React, { memo } from "react";
-import Modal from "react-modal";
-import WorkoutTitle from "./data/WorkoutTitle";
-import WorkoutContent from "./data/WorkoutContent";
-import { useModalStyles } from "../workouts/modalStyles";
+import React, { memo } from 'react';
+import Modal from 'react-modal';
+import WorkoutTitle from './data/WorkoutTitle';
+import WorkoutContent from './data/WorkoutContent';
+import { useModalStyles } from '../workouts/modalStyles';
 
-if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
+if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#root');
 
 interface Props {
   modal: boolean;
@@ -17,12 +17,12 @@ interface Props {
 const WorkoutModal: React.FC<Props> = ({ modal, closeModal, time }) => {
   return (
     <Modal
-      contentLabel="Add Workout Modal"
+      contentLabel='Add Workout Modal'
       isOpen={modal}
       style={useModalStyles()}
-      data-testid="modal"
+      data-testid='modal'
     >
-      <section className="workout-modal-content">
+      <section className='workout-modal-content'>
         <WorkoutTitle closeModal={closeModal} />
         <WorkoutContent closeModal={closeModal} time={time} />
       </section>

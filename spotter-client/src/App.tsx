@@ -1,10 +1,10 @@
-import React, { useState, useEffect} from "react";
-import Loader from "react-loader-spinner";
-import axios from "axios";
-import Routes from "./routes";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { ADD_TOKEN } from "./actions/addTokenActions";
+import React, { useState, useEffect } from 'react';
+import Loader from 'react-loader-spinner';
+import axios from 'axios';
+import Routes from './routes';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { ADD_TOKEN } from './actions/addTokenActions';
 
 // this component renders in front of routes, checks for token, and returns proper authenticated data
 // also requests refresh token on each refresh
@@ -27,7 +27,7 @@ const App: React.FC = () => {
         setLoading(false);
       })
       .catch(_ => {
-        history.push("/500");
+        history.push('/500');
         setLoading(false);
       });
   }, [dispatch, history]);
@@ -36,13 +36,13 @@ const App: React.FC = () => {
     return (
       <Loader
         style={{
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center"
+          height: '100vh',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
         }}
-        type="ThreeDots"
-        color="#E9503F"
+        type='ThreeDots'
+        color='#E9503F'
         height={40}
         width={150}
       />
@@ -50,7 +50,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <main className="app-container">
+    <main className='app-container'>
       <Routes />
     </main>
   );

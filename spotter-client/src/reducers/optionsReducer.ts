@@ -10,9 +10,9 @@ import {
   SET_TEMPLATE_SAVE,
   DELETE_TEMPLATE,
   SET_EXERCISES
-} from "../actions/optionsActions";
-import { CLOSE_WORKOUT_MODAL } from '../actions/globalActions'
-import { OptionsReducer } from "src/types/State";
+} from '../actions/optionsActions';
+import { CLOSE_WORKOUT_MODAL } from '../actions/globalActions';
+import { OptionsReducer } from 'src/types/State';
 
 // controls all the various options/settings in the workout modal, including the various modal states, populated content, error messages, etc.
 
@@ -24,7 +24,7 @@ const optionsState: OptionsReducer = {
   confirmDelete: false,
   exercises: false,
   templates: [],
-  templatesErr: "",
+  templatesErr: '',
   saveMsg: {}
 };
 
@@ -62,7 +62,7 @@ export const optionsReducer = (
       return {
         ...state,
         saveMsg: {}
-      }
+      };
     default:
       return state;
   }

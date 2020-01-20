@@ -3,8 +3,8 @@ import {
   FETCH_EXERCISES_SUCCESS,
   CREATE_EXERCISE,
   DELETE_SAVED_EXERCISE
-} from "../actions/fetchExercisesActions";
-import { FetchExercisesReducer } from "src/types/State";
+} from '../actions/fetchExercisesActions';
+import { FetchExercisesReducer } from 'src/types/State';
 
 const fetchExercisesState: FetchExercisesReducer = {
   err: null,

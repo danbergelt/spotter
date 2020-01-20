@@ -1,8 +1,8 @@
-import { generateWeek, generateMonth } from "./momentUtils";
-import { store } from "../store";
-import { fetchWorkouts } from "../actions/fetchWorkoutsActions";
-import { History } from "history";
-import { Moment } from "moment";
+import { generateWeek, generateMonth } from './momentUtils';
+import { store } from '../store';
+import { fetchWorkouts } from '../actions/fetchWorkoutsActions';
+import { History } from 'history';
+import { Moment } from 'moment';
 
 // utility function for fetching updated list of workouts upon mutation i.e. delete, update, save, etc.
 
@@ -13,15 +13,15 @@ interface Params {
 const reFetch: Params = (time, history, scope, t) => {
   let range: Array<Moment> = [];
 
-  if (scope === "Week") {
+  if (scope === 'Week') {
     range = generateWeek(time);
   }
 
-  if (scope === "Month") {
+  if (scope === 'Month') {
     range = generateMonth(time);
   }
 
-  let formattedRange: Array<string> = range.map(d => d.format("MMM DD YYYY"));
+  let formattedRange: Array<string> = range.map(d => d.format('MMM DD YYYY'));
   store.dispatch<any>(fetchWorkouts(formattedRange, history, t));
 };
 

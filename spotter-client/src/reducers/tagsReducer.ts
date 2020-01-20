@@ -3,9 +3,9 @@ import {
   FETCH_TAGS_SUCCESS,
   FETCH_TAGS_ERROR,
   RESET_TAGS
-} from "../actions/tagsActions";
-import { CLOSE_WORKOUT_MODAL } from "../actions/globalActions";
-import { TagsReducer } from "src/types/State";
+} from '../actions/tagsActions';
+import { CLOSE_WORKOUT_MODAL } from '../actions/globalActions';
+import { TagsReducer } from 'src/types/State';
 
 const tagsState: TagsReducer = {
   isLoading: false,

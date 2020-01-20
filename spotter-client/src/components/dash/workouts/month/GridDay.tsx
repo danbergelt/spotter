@@ -1,13 +1,13 @@
-import React, { memo } from "react";
-import * as M from "moment";
-import { extendMoment } from "moment-range";
-import GridHeadFirstWeek from "./GridHeadFirstWeek";
-import GridHead from "./GridHead";
-import GridWorkout from "./GridWorkout";
-import Popover from "./PopoverContainer";
-import { Workout } from "src/types/Workout";
-import { P } from "src/types/Grid";
-import { useWindowSize } from "react-use";
+import React, { memo } from 'react';
+import * as M from 'moment';
+import { extendMoment } from 'moment-range';
+import GridHeadFirstWeek from './GridHeadFirstWeek';
+import GridHead from './GridHead';
+import GridWorkout from './GridWorkout';
+import Popover from './PopoverContainer';
+import { Workout } from 'src/types/Workout';
+import { P } from 'src/types/Grid';
+import { useWindowSize } from 'react-use';
 
 const moment = extendMoment(M);
 
@@ -36,8 +36,8 @@ const GridDay: React.FC<Props> = ({
 
   return (
     <section
-      className="month-grid-day"
-      data-testid={date.format("MMM DD YYYY")}
+      className='month-grid-day'
+      data-testid={date.format('MMM DD YYYY')}
     >
       {i <= 6 ? (
         // in the first week, also include the days of the week (e.g. Monday, Tuesday, etc.)
@@ -57,16 +57,16 @@ const GridDay: React.FC<Props> = ({
       )}
       {workouts
         // if the workout matches this day's date, map over it and render it out into the day
-        .filter(el => el.date === date.format("MMM DD YYYY"))
+        .filter(el => el.date === date.format('MMM DD YYYY'))
         .map(
           (data, i) =>
             i === 0 && (
               <div
                 style={{
-                  width: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center"
+                  width: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center'
                 }}
                 key={data._id}
               >
@@ -75,7 +75,7 @@ const GridDay: React.FC<Props> = ({
                   openViewModal={openViewModal}
                   date={date}
                 />
-                {workouts.filter(el => el.date === date.format("MMM DD YYYY"))
+                {workouts.filter(el => el.date === date.format('MMM DD YYYY'))
                   .length > 1 && (
                   // if there is more than one workout in a day, render a popover to control overflow
                   <Popover
@@ -89,13 +89,13 @@ const GridDay: React.FC<Props> = ({
                       onClick={() =>
                         setPopover({
                           open: true,
-                          id: date.format("MMM DD YYYY")
+                          id: date.format('MMM DD YYYY')
                         })
                       }
-                      role="button"
-                      className="grid-view-more"
+                      role='button'
+                      className='grid-view-more'
                     >
-                      {width <= 500 ? "More" : "View More"}
+                      {width <= 500 ? 'More' : 'View More'}
                     </div>
                   </Popover>
                 )}

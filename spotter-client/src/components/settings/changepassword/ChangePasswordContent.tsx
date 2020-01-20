@@ -1,6 +1,6 @@
-import React from "react";
-import { FiX } from "react-icons/fi";
-import ChangePasswordForm from "./ChangePasswordForm";
+import React from 'react';
+import { FiX } from 'react-icons/fi';
+import ChangePasswordForm from './ChangePasswordForm';
 
 interface Props {
   setChangePassword: React.Dispatch<React.SetStateAction<boolean>>;
@@ -8,13 +8,13 @@ interface Props {
 
 const ChangePasswordContent: React.FC<Props> = ({ setChangePassword }) => {
   return (
-    <article className="change-container">
-      <section className="popover-head">
+    <article className='change-container'>
+      <section className='popover-head'>
         <div
-          role="button"
-          data-testid="close-popover"
+          role='button'
+          data-testid='close-popover'
           onClick={() => setChangePassword(false)}
-          className="close-popover"
+          className='close-popover'
         >
           <FiX />
         </div>

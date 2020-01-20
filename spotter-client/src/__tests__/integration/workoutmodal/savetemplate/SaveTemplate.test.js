@@ -1,20 +1,20 @@
-import React from "react";
-import axios from "axios";
-import SaveTemplate from "../../../../components/dash/workoutmodal/optionsmenu/options/savetemplate/SaveTemplate";
-import WorkoutOptions from "../../../../components/dash/workoutmodal/optionsmenu/WorkoutOptions";
-import { cleanup, fireEvent, wait } from "@testing-library/react";
-import wrapper from "../../../../__testUtils__/wrapper";
-import Modal from "react-modal";
-import { reducer } from "../../../../reducers/index";
+import React from 'react';
+import axios from 'axios';
+import SaveTemplate from '../../../../components/dash/workoutmodal/optionsmenu/options/savetemplate/SaveTemplate';
+import WorkoutOptions from '../../../../components/dash/workoutmodal/optionsmenu/WorkoutOptions';
+import { cleanup, fireEvent, wait } from '@testing-library/react';
+import wrapper from '../../../../__testUtils__/wrapper';
+import Modal from 'react-modal';
+import { reducer } from '../../../../reducers/index';
 
-describe("template save modal functionality", () => {
+describe('template save modal functionality', () => {
   afterEach(() => {
     cleanup;
     jest.clearAllMocks();
   });
-  Modal.setAppElement(document.createElement("div"));
+  Modal.setAppElement(document.createElement('div'));
 
-  test("Can open and close save template modal", () => {
+  test('Can open and close save template modal', () => {
     const { getByTestId, queryByPlaceholderText, debug } = wrapper(
       reducer,
       <WorkoutOptions />
@@ -31,34 +31,34 @@ describe("template save modal functionality", () => {
     expect(queryByPlaceholderText(/template name/i)).toBeFalsy();
   });
 
-  test("can type in template save input", () => {
+  test('can type in template save input', () => {
     const { getByPlaceholderText, container, store } = wrapper(
       reducer,
       <SaveTemplate />
     );
 
-    store.dispatch({ type: "SET_TEMPLATE_SAVE", payload: true });
+    store.dispatch({ type: 'SET_TEMPLATE_SAVE', payload: true });
 
     const input = getByPlaceholderText(/template name/i);
 
-    fireEvent.change(input, { target: { value: "testing save input" } });
+    fireEvent.change(input, { target: { value: 'testing save input' } });
 
-    expect(container.innerHTML).toMatch("testing save input");
+    expect(container.innerHTML).toMatch('testing save input');
   });
 
-  test("can submit template", async () => {
-    axios.post.mockResolvedValue({ resolved: "resolved" });
+  test('can submit template', async () => {
+    axios.post.mockResolvedValue({ resolved: 'resolved' });
 
     const { getByPlaceholderText, getByTestId, getByText, store } = wrapper(
       reducer,
       <SaveTemplate />
     );
 
-    store.dispatch({ type: "SET_TEMPLATE_SAVE", payload: true });
+    store.dispatch({ type: 'SET_TEMPLATE_SAVE', payload: true });
 
     const input = getByPlaceholderText(/template name/i);
 
-    fireEvent.change(input, { target: { value: "testing save input" } });
+    fireEvent.change(input, { target: { value: 'testing save input' } });
 
     fireEvent.submit(getByTestId(/template-form/i));
 
@@ -66,18 +66,18 @@ describe("template save modal functionality", () => {
     expect(axios.post).toHaveBeenCalledTimes(1);
   });
 
-  test("can show error message on submit", async () => {
-    axios.post.mockRejectedValue({ response: { data: { error: "bad req" } } });
+  test('can show error message on submit', async () => {
+    axios.post.mockRejectedValue({ response: { data: { error: 'bad req' } } });
     const { getByPlaceholderText, getByTestId, getByText, store } = wrapper(
       reducer,
       <SaveTemplate />
     );
 
-    store.dispatch({ type: "SET_TEMPLATE_SAVE", payload: true });
+    store.dispatch({ type: 'SET_TEMPLATE_SAVE', payload: true });
 
     const input = getByPlaceholderText(/template name/i);
 
-    fireEvent.change(input, { target: { value: "testing save input" } });
+    fireEvent.change(input, { target: { value: 'testing save input' } });
 
     fireEvent.submit(getByTestId(/template-form/i));
 
@@ -85,8 +85,8 @@ describe("template save modal functionality", () => {
     expect(axios.post).toHaveBeenCalledTimes(1);
   });
 
-  test("resets state on close", async () => {
-    axios.post.mockRejectedValue({ response: { data: { error: "bad req" } } });
+  test('resets state on close', async () => {
+    axios.post.mockRejectedValue({ response: { data: { error: 'bad req' } } });
     const {
       queryByText,
       container,
@@ -101,11 +101,11 @@ describe("template save modal functionality", () => {
 
     fireEvent.submit(getByTestId(/template-form/i));
     await wait(() => expect(getByText(/bad req/i)).toBeTruthy());
-    fireEvent.change(input, { target: { value: "testing save input" } });
-    expect(container.innerHTML).toMatch("testing save input");
+    fireEvent.change(input, { target: { value: 'testing save input' } });
+    expect(container.innerHTML).toMatch('testing save input');
 
     fireEvent.click(getByTestId(/quit-template-save/i));
 
-    expect(container.innerHTML).not.toMatch("testing save input");
+    expect(container.innerHTML).not.toMatch('testing save input');
   });
 });

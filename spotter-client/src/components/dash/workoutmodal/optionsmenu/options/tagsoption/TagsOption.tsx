@@ -1,13 +1,13 @@
-import React from "react";
-import TagsModal from "./tagsmodal/TagsModal";
-import { FiTag } from "react-icons/fi";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import React from 'react';
+import TagsModal from './tagsmodal/TagsModal';
+import { FiTag } from 'react-icons/fi';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import {
   fetchTags,
   openTagModalAction
-} from "../../../../../../actions/tagsActions";
-import { fetchToken } from "src/types/State";
+} from '../../../../../../actions/tagsActions';
+import { fetchToken } from 'src/types/State';
 
 interface Props {
   iconClass: string;
@@ -28,10 +28,10 @@ const Tags: React.FC<Props> = ({ iconClass }) => {
   return (
     <>
       <div
-        role="button"
+        role='button'
         onClick={openTagsModal}
-        className="add-workout-options-button"
-        data-testid="tags-modal"
+        className='add-workout-options-button'
+        data-testid='tags-modal'
       >
         <FiTag className={iconClass} /> Tags
       </div>

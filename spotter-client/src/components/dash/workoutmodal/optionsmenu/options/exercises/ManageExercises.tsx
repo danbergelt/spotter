@@ -1,9 +1,9 @@
-import React, { useState, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Exercise from "./Exercise";
-import { deleteExerciseAction } from "../../../../../../actions/fetchExercisesActions";
-import { Exercise as E } from "../../../../../../types/ExerciseOption";
-import { fetchToken } from "src/types/State";
+import React, { useState, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Exercise from './Exercise';
+import { deleteExerciseAction } from '../../../../../../actions/fetchExercisesActions';
+import { Exercise as E } from '../../../../../../types/ExerciseOption';
+import { fetchToken } from 'src/types/State';
 
 interface Props {
   exercises: Array<E>;
@@ -13,7 +13,7 @@ interface Props {
 // look into including the ability to rename an exercise in place
 
 const ManageExercises: React.FC<Props> = ({ exercises }) => {
-  const [search, setSearch] = useState<string>("");
+  const [search, setSearch] = useState<string>('');
 
   const t: string | null = useSelector(fetchToken);
   const dispatch = useDispatch();
@@ -37,13 +37,13 @@ const ManageExercises: React.FC<Props> = ({ exercises }) => {
           autoFocus
           value={search}
           onChange={e => setSearch(e.target.value)}
-          placeholder="Search exercises..."
-          className="exercises-add"
+          placeholder='Search exercises...'
+          className='exercises-add'
         />
       </div>
       {exercises.length ? (
         filter.length ? (
-          <section className="exercises">
+          <section className='exercises'>
             {filter.map((exercise: E) => (
               <Exercise
                 key={exercise._id}
@@ -55,9 +55,9 @@ const ManageExercises: React.FC<Props> = ({ exercises }) => {
         ) : (
           <p
             style={{
-              fontSize: "1.3rem",
-              textAlign: "center",
-              marginTop: "1rem"
+              fontSize: '1.3rem',
+              textAlign: 'center',
+              marginTop: '1rem'
             }}
           >
             No exercises found
@@ -65,7 +65,7 @@ const ManageExercises: React.FC<Props> = ({ exercises }) => {
         )
       ) : (
         <p
-          style={{ fontSize: "1.3rem", textAlign: "center", marginTop: "1rem" }}
+          style={{ fontSize: '1.3rem', textAlign: 'center', marginTop: '1rem' }}
         >
           No exercises found
         </p>

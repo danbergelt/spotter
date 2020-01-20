@@ -1,9 +1,9 @@
-import React, { memo } from "react";
-import WorkoutColumnContent from "./WorkoutColumnContent";
+import React, { memo } from 'react';
+import WorkoutColumnContent from './WorkoutColumnContent';
 
-import WorkoutCard from "./WorkoutCard";
-import { Moment } from "moment";
-import { Workout } from "src/types/Workout";
+import WorkoutCard from './WorkoutCard';
+import { Moment } from 'moment';
+import { Workout } from 'src/types/Workout';
 
 interface Props {
   date: Moment;
@@ -21,7 +21,7 @@ const WorkoutColumn: React.FC<Props> = ({
   workouts
 }) => {
   return (
-    <div role="button" className="week-workouts-column">
+    <div role='button' className='week-workouts-column'>
       <WorkoutColumnContent
         date={date}
         i={i}
@@ -30,13 +30,13 @@ const WorkoutColumn: React.FC<Props> = ({
       <div>
         {/* filter workouts for workouts matching this date */}
         {workouts
-          .filter(el => el.date === date.format("MMM DD YYYY"))
+          .filter(el => el.date === date.format('MMM DD YYYY'))
           .map(data => (
             <div
-              className="workout-card-container"
+              className='workout-card-container'
               onClick={() => openViewModal(data, date)}
               key={data._id}
-              role="button"
+              role='button'
             >
               <WorkoutCard data={data} />
             </div>

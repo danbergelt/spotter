@@ -1,13 +1,13 @@
-import React, { memo } from "react";
-import { FiX } from "react-icons/fi";
-import { P } from "src/types/Grid";
-import { Workout } from "src/types/Workout";
-import * as M from "moment";
+import React, { memo } from 'react';
+import { FiX } from 'react-icons/fi';
+import { P } from 'src/types/Grid';
+import { Workout } from 'src/types/Workout';
+import * as M from 'moment';
 
 // Hacky fix to resolve error with default imports from moment and typescript
-let m = require("moment");
-if ("default" in m) {
-  m = m["default"];
+let m = require('moment');
+if ('default' in m) {
+  m = m['default'];
 }
 
 interface Props {
@@ -33,31 +33,31 @@ const ViewMoreContent: React.FC<Props> = ({
 
   return (
     <>
-      <div className="popover-head">
-        {date.format("MMM D")}
+      <div className='popover-head'>
+        {date.format('MMM D')}
         <div
-          role="button"
-          data-testid="close-popover"
+          role='button'
+          data-testid='close-popover'
           onClick={() => setPopover({ open: false, id: null })}
-          className="close-popover"
+          className='close-popover'
         >
           <FiX />
         </div>
       </div>
       {workouts
-        .filter(el => el.date === date.format("MMM DD YYYY"))
+        .filter(el => el.date === date.format('MMM DD YYYY'))
         .map(workout => (
           <div
             onClick={() =>
-              handlePopover(workout, m(workout.date, "MMM DD YYYY"))
+              handlePopover(workout, m(workout.date, 'MMM DD YYYY'))
             }
-            role="button"
-            className="view-more-workouts-container"
+            role='button'
+            className='view-more-workouts-container'
             key={workout._id}
           >
             <p
               style={{ background: workout.tags[0] && workout.tags[0].color }}
-              className="view-more-workout"
+              className='view-more-workout'
             >
               {workout.title}
             </p>

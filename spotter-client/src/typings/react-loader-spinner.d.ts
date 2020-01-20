@@ -1,25 +1,25 @@
-declare module "react-loader-spinner" {
-  import { FC } from "react";
+declare module 'react-loader-spinner' {
+  import { FC } from 'react';
 
   type Types =
-    | "Audio"
-    | "BallTriangle"
-    | "Bars"
-    | "Circles"
-    | "Grid"
-    | "Hearts"
-    | "Oval"
-    | "Puff"
-    | "Rings"
-    | "TailSpin"
-    | "ThreeDots"
-    | "Watch"
-    | "RevolvingDot"
-    | "Triangle"
-    | "Plane"
-    | "MutatingDots"
-    | "None"
-    | "NotSpecified";
+    | 'Audio'
+    | 'BallTriangle'
+    | 'Bars'
+    | 'Circles'
+    | 'Grid'
+    | 'Hearts'
+    | 'Oval'
+    | 'Puff'
+    | 'Rings'
+    | 'TailSpin'
+    | 'ThreeDots'
+    | 'Watch'
+    | 'RevolvingDot'
+    | 'Triangle'
+    | 'Plane'
+    | 'MutatingDots'
+    | 'None'
+    | 'NotSpecified';
 
   interface LoaderProps {
     style?: any;

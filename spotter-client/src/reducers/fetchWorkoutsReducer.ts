@@ -3,10 +3,10 @@ import {
   FETCH_WORKOUTS_SUCCESS,
   FETCH_WORKOUTS_ERROR,
   DELETE_WORKOUT
-} from "../actions/fetchWorkoutsActions";
+} from '../actions/fetchWorkoutsActions';
 
-import { UPDATE_TAG } from "../actions/workoutActions";
-import { FetchWorkoutsReducer } from "src/types/State";
+import { UPDATE_TAG } from '../actions/workoutActions';
+import { FetchWorkoutsReducer } from 'src/types/State';
 
 const fetchedWorkoutsState: FetchWorkoutsReducer = {
   err: null,

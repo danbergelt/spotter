@@ -1,11 +1,11 @@
-import React from "react";
-import { FiX } from "react-icons/fi";
+import React from 'react';
+import { FiX } from 'react-icons/fi';
 import { Msg } from '../../../../../../types/ExerciseOption';
 
 interface Props {
   errOrSucc: string;
-  setMsg: React.Dispatch<React.SetStateAction<Msg>>
-  msg: string 
+  setMsg: React.Dispatch<React.SetStateAction<Msg>>;
+  msg: string;
 }
 
 // displays err on bad API req, success on good API req
@@ -15,9 +15,9 @@ const SaveExerciseMsg: React.FC<Props> = ({ errOrSucc, setMsg, msg }) => {
     <div className={errOrSucc}>
       {msg}
       <div
-        role="button"
+        role='button'
         onClick={() => setMsg({})}
-        style={{ fontSize: "1.2rem", cursor: "pointer" }}
+        style={{ fontSize: '1.2rem', cursor: 'pointer' }}
       >
         <FiX />
       </div>

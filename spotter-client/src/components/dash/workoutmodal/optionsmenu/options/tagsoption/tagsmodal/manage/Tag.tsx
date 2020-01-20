@@ -1,8 +1,8 @@
-import React, { memo } from "react";
-import adjust from "../../../../../../../../utils/darkenColorInJS";
-import styles from "../tagStyles";
-import UpdateTagForm from "./UpdateTagForm";
-import { TagOnWorkout as T } from "../../../../../../../../types/TagOnWorkout";
+import React, { memo } from 'react';
+import adjust from '../../../../../../../../utils/darkenColorInJS';
+import styles from '../tagStyles';
+import UpdateTagForm from './UpdateTagForm';
+import { TagOnWorkout as T } from '../../../../../../../../types/TagOnWorkout';
 
 interface Props {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -29,9 +29,9 @@ const Tag: React.FC<Props> = ({
 }) => {
   return (
     <div key={tag._id}>
-      <section className="tag-manage-container">
+      <section className='tag-manage-container'>
         <div
-          role="button"
+          role='button'
           onClick={() => setUpdate(tag)}
           onMouseEnter={() => setHover(tag._id)}
           onMouseLeave={() => setHover(null)}
@@ -40,15 +40,15 @@ const Tag: React.FC<Props> = ({
               ? { background: adjust(tag.color, -40), ...styles }
               : { background: tag.color, ...styles }
           }
-          aria-label="tags-manage"
+          aria-label='tags-manage'
         >
           {tag.content}
         </div>
         <div
-          role="button"
+          role='button'
           onClick={() => handleDelete(tag)}
-          className="tag-manage-delete"
-          data-testid="trash-tag"
+          className='tag-manage-delete'
+          data-testid='trash-tag'
         >
           Delete
         </div>

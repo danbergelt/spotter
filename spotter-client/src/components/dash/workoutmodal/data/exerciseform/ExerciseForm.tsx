@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import { Form, Field, Formik } from "formik";
-import { FiPlus, FiTrash } from "react-icons/fi";
-import { useSelector, useDispatch } from "react-redux";
-import { isEmpty } from "lodash";
-import { ValidationSchema } from "./ValidationSchema";
+import React, { useState } from 'react';
+import { Form, Field, Formik } from 'formik';
+import { FiPlus, FiTrash } from 'react-icons/fi';
+import { useSelector, useDispatch } from 'react-redux';
+import { isEmpty } from 'lodash';
+import { ValidationSchema } from './ValidationSchema';
 import {
   resetExerciseFormAction,
   addExerciseAction,
   editExerciseAction
-} from "../../../../../actions/workoutActions";
-import Autosuggest from "react-autosuggest";
-import { State } from "src/types/State";
-import { Queued, Refs } from "../../../../../types/Exercises";
-import { Exercise as E } from "../../../../../types/ExerciseOption";
+} from '../../../../../actions/workoutActions';
+import Autosuggest from 'react-autosuggest';
+import { State } from 'src/types/State';
+import { Queued, Refs } from '../../../../../types/Exercises';
+import { Exercise as E } from '../../../../../types/ExerciseOption';
 
 // READ: Formik claims to make working with forms easer,
 // but it does not play nicely with other libraries. I need to figure out how to optimize this,
@@ -47,23 +47,23 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
     [K: string]: T;
   };
   const buttonStyles: TButtonStyles<string> = {
-    border: "none",
-    background: "none",
-    padding: "0",
-    outline: "none"
+    border: 'none',
+    background: 'none',
+    padding: '0',
+    outline: 'none'
   };
 
   return (
-    <section className="exercise-form-container">
+    <section className='exercise-form-container'>
       <Formik
         validateOnChange={false}
         validateOnBlur={false}
         // if an exercise is queued, populate with that exercise. otherwise, initialize to empty fields
         initialValues={{
-          name: (!isEmpty(queued) && queued.exercise.name) || "",
-          weight: (!isEmpty(queued) && queued.exercise.weight) || "",
-          sets: (!isEmpty(queued) && queued.exercise.sets) || "",
-          reps: (!isEmpty(queued) && queued.exercise.reps) || ""
+          name: (!isEmpty(queued) && queued.exercise.name) || '',
+          weight: (!isEmpty(queued) && queued.exercise.weight) || '',
+          sets: (!isEmpty(queued) && queued.exercise.sets) || '',
+          reps: (!isEmpty(queued) && queued.exercise.reps) || ''
         }}
         validationSchema={ValidationSchema}
         // allow the form to populate with initial values after first render
@@ -88,13 +88,13 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
         }}
       >
         {({ handleReset, errors, touched, setFieldValue, values }) => (
-          <Form className="exercise-form">
-            <div className="exercise-form-field-container">
-              <div className="exercise-form-field-label">
+          <Form className='exercise-form'>
+            <div className='exercise-form-field-container'>
+              <div className='exercise-form-field-label'>
                 <label>Exercise</label>
               </div>
               {errors.name && touched.name && (
-                <p className="error-exercise-form">{errors.name}</p>
+                <p className='error-exercise-form'>{errors.name}</p>
               )}
               <Autosuggest
                 // CODE SMELL
@@ -105,14 +105,14 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
 
                 // control the input hooked up to autosuggest
                 inputProps={{
-                  placeholder: "e.g. squat",
-                  autoComplete: "off",
-                  name: "name",
+                  placeholder: 'e.g. squat',
+                  autoComplete: 'off',
+                  name: 'name',
                   onChange: (_, { newValue }) => {
-                    setFieldValue("name", newValue);
+                    setFieldValue('name', newValue);
                   },
                   value: values.name,
-                  className: "exercise-form-field"
+                  className: 'exercise-form-field'
                 }}
                 suggestions={suggestions}
                 // handles fetching autosuggestions in respect to field input
@@ -138,72 +138,72 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
                 renderSuggestion={suggestion => <div>{suggestion.name}</div>}
                 // passes the clicked suggestion to the input
                 onSuggestionSelected={(event, { suggestion, method }) => {
-                  if (method === "enter") {
+                  if (method === 'enter') {
                     event.preventDefault();
                   }
-                  setFieldValue("name", suggestion.name);
+                  setFieldValue('name', suggestion.name);
                 }}
               />
             </div>
-            <div className="exercise-form-field-container">
-              <label className="exercise-form-field-label">Weight</label>
+            <div className='exercise-form-field-container'>
+              <label className='exercise-form-field-label'>Weight</label>
               {errors.weight && touched.weight && (
-                <p className="error-exercise-form">{errors.weight}</p>
+                <p className='error-exercise-form'>{errors.weight}</p>
               )}
               <Field
                 innerRef={refs[0]}
-                className="exercise-form-field"
-                name="weight"
-                placeholder="lbs"
-                type="number"
+                className='exercise-form-field'
+                name='weight'
+                placeholder='lbs'
+                type='number'
               />
             </div>
-            <div className="exercise-form-field-container">
-              <label className="exercise-form-field-label">Sets</label>
+            <div className='exercise-form-field-container'>
+              <label className='exercise-form-field-label'>Sets</label>
               {errors.sets && touched.sets && (
-                <p className="error-exercise-form">{errors.sets}</p>
+                <p className='error-exercise-form'>{errors.sets}</p>
               )}
               <Field
                 innerRef={refs[1]}
-                className="exercise-form-field"
-                name="sets"
-                placeholder="# of sets"
-                type="number"
+                className='exercise-form-field'
+                name='sets'
+                placeholder='# of sets'
+                type='number'
               />
             </div>
-            <div className="exercise-form-field-container">
-              <label className="exercise-form-field-label">Reps</label>
+            <div className='exercise-form-field-container'>
+              <label className='exercise-form-field-label'>Reps</label>
               {errors.reps && touched.reps && (
-                <p className="error-exercise-form">{errors.reps}</p>
+                <p className='error-exercise-form'>{errors.reps}</p>
               )}
               <Field
                 innerRef={refs[2]}
-                className="exercise-form-field"
-                name="reps"
-                placeholder="# of reps"
-                type="number"
+                className='exercise-form-field'
+                name='reps'
+                placeholder='# of reps'
+                type='number'
               />
             </div>
-            <div style={{ display: "flex", alignItems: "center" }}>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
               <button
-                data-testid="submit-exercise"
+                data-testid='submit-exercise'
                 style={buttonStyles}
-                type="submit"
+                type='submit'
               >
-                <FiPlus className="exercise-form-button submit" />
+                <FiPlus className='exercise-form-button submit' />
               </button>
               <button
                 style={{
                   ...buttonStyles,
-                  position: "relative",
-                  top: "3px"
+                  position: 'relative',
+                  top: '3px'
                 }}
-                type="button"
+                type='button'
               >
                 <FiTrash
-                  data-testid="trash-exercise"
-                  className="exercise-form-button clear"
-                  type="button"
+                  data-testid='trash-exercise'
+                  className='exercise-form-button clear'
+                  type='button'
                   onClick={() => resetHandler(handleReset)}
                 />
               </button>

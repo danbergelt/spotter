@@ -1,20 +1,20 @@
-import React, { useState, useCallback } from "react";
-import Modal from "react-modal";
-import { useDispatch, useSelector } from "react-redux";
-import { useFromTemplateStyles } from "./styles";
-import { setFromTemplateModalAction } from "../../../../../../actions/optionsActions";
-import Templates from "./Templates";
-import FromTemplateHead from "./FromTemplateHead";
-import GenerateTemplate from "./GenerateTemplate";
-import { Template } from "../../../../../../types/Template";
-import { State } from "src/types/State";
+import React, { useState, useCallback } from 'react';
+import Modal from 'react-modal';
+import { useDispatch, useSelector } from 'react-redux';
+import { useFromTemplateStyles } from './styles';
+import { setFromTemplateModalAction } from '../../../../../../actions/optionsActions';
+import Templates from './Templates';
+import FromTemplateHead from './FromTemplateHead';
+import GenerateTemplate from './GenerateTemplate';
+import { Template } from '../../../../../../types/Template';
+import { State } from 'src/types/State';
 
-if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
+if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#root');
 
 // populate a workout from a template
 
 const FromTemplate: React.FC = () => {
-  const [search, setSearch] = useState<string>("");
+  const [search, setSearch] = useState<string>('');
   const [active, setActive] = useState<Partial<Template>>({});
 
   // modal state (open or closed)
@@ -28,7 +28,7 @@ const FromTemplate: React.FC = () => {
   const closeHandler: () => void = useCallback(() => {
     dispatch(setFromTemplateModalAction(false));
     setActive({});
-    setSearch("");
+    setSearch('');
   }, [dispatch]);
 
   return (
@@ -36,9 +36,9 @@ const FromTemplate: React.FC = () => {
       style={useFromTemplateStyles()}
       isOpen={fromTemplate}
       onRequestClose={closeHandler}
-      contentLabel="Generate Template"
+      contentLabel='Generate Template'
     >
-      <section className="from-template-container">
+      <section className='from-template-container'>
         <FromTemplateHead
           closeHandler={closeHandler}
           search={search}

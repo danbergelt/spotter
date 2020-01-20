@@ -1,5 +1,5 @@
-@import "../../../variables.scss";
-@import "../../../mixins.scss";
+@import '../../../variables.scss';
+@import '../../../mixins.scss';
 
 .tags-modal-head-container {
   width: 100%;
@@ -20,7 +20,7 @@
       cursor: pointer;
       padding: 0.5rem 1rem;
       border-radius: 4px;
-      background: $gray3
+      background: $gray3;
     }
 
     .tags-modal-tab-not-active {

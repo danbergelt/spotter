@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo } from 'react';
 
 interface Props {
   active: number;
@@ -10,9 +10,9 @@ interface Props {
 const Tab: React.FC<Props> = ({ active, setActive, text, id }) => {
   return (
     <div
-      role="button"
+      role='button'
       className={
-        active === id ? "tags-modal-tab-active" : "tags-modal-tab-not-active"
+        active === id ? 'tags-modal-tab-active' : 'tags-modal-tab-not-active'
       }
       onClick={() => setActive(id)}
     >

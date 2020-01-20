@@ -1,6 +1,6 @@
-import React, { memo } from "react";
-import { FiX } from "react-icons/fi";
-import { Template as T } from "src/types/Template";
+import React, { memo } from 'react';
+import { FiX } from 'react-icons/fi';
+import { Template as T } from 'src/types/Template';
 
 interface Props {
   deleteTemplate: (id: string) => Promise<void>;
@@ -16,17 +16,17 @@ const Template: React.FC<Props> = ({
   setActive
 }) => {
   return (
-    <div key={template._id} className="template-container">
+    <div key={template._id} className='template-container'>
       <div
         onClick={() => setActive(template)}
-        className={template._id === active._id ? "template active" : "template"}
+        className={template._id === active._id ? 'template active' : 'template'}
       >
         {template.name}
       </div>
       <div
         onClick={() => deleteTemplate(template._id)}
-        className="template-delete"
-        data-testid="template-delete"
+        className='template-delete'
+        data-testid='template-delete'
       >
         <FiX />
       </div>

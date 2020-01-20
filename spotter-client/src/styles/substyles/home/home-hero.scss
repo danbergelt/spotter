@@ -1,8 +1,8 @@
-@import "../../variables.scss";
-@import "../../mixins.scss";
+@import '../../variables.scss';
+@import '../../mixins.scss';
 
-@import url("https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap");
-@import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,700&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,400i,700&display=swap');
 
 .home-hero-container {
   padding: 20rem;
@@ -23,7 +23,7 @@
     line-height: 1.25;
     font-size: 5rem;
     color: $gray1;
-    font-family: "Nanum Gothic";
+    font-family: 'Nanum Gothic';
     @include medium {
       font-size: 3.5rem;
     }
@@ -55,7 +55,7 @@
       line-height: 1.5;
       font-size: 2rem;
       color: darken($gray2, 10%);
-      font-family: "Nanum Gothic";
+      font-family: 'Nanum Gothic';
 
       @include medium {
         font-size: $p;
@@ -64,7 +64,7 @@
   }
 
   .home-hero-reg {
-    font-family: "Roboto";
+    font-family: 'Roboto';
     font-size: 2rem;
     margin-top: 2rem;
     padding: 1.5rem 3.5rem;

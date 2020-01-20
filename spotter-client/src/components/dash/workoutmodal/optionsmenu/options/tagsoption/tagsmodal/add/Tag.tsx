@@ -1,8 +1,8 @@
-import React, { memo } from "react";
-import styles from "../tagStyles";
-import adjust from "../../../../../../../../utils/darkenColorInJS";
-import { FiCheck } from "react-icons/fi";
-import { TagOnWorkout as T } from "src/types/TagOnWorkout";
+import React, { memo } from 'react';
+import styles from '../tagStyles';
+import adjust from '../../../../../../../../utils/darkenColorInJS';
+import { FiCheck } from 'react-icons/fi';
+import { TagOnWorkout as T } from 'src/types/TagOnWorkout';
 
 interface Props {
   toggleTag: (tag: T) => void;
@@ -20,10 +20,10 @@ const Tag: React.FC<Props> = ({
   setHover
 }) => {
   return (
-    <section className="tag-add-container">
+    <section className='tag-add-container'>
       <div
-        role="button"
-        data-testid="tag-to-add"
+        role='button'
+        data-testid='tag-to-add'
         onClick={() => toggleTag(tag)}
         // need to use state to manage hover due to CSS in JS
         onMouseEnter={() => setHover(tag._id)}
@@ -42,9 +42,9 @@ const Tag: React.FC<Props> = ({
               <div
                 key={activeT._id}
                 style={{
-                  color: "white",
-                  fontSize: "1.75rem",
-                  marginLeft: "auto"
+                  color: 'white',
+                  fontSize: '1.75rem',
+                  marginLeft: 'auto'
                 }}
               >
                 <FiCheck />

@@ -1,4 +1,4 @@
-import { ADD_TOKEN } from "../actions/addTokenActions";
+import { ADD_TOKEN } from '../actions/addTokenActions';
 import {
   MODAL_CTX,
   SET_SCOPE,
@@ -6,13 +6,13 @@ import {
   SET_TIMESPAN,
   CHANGE_SCOPE,
   CLOSE_WORKOUT_MODAL
-} from "../actions/globalActions";
-import { GlobalReducer } from "src/types/State";
+} from '../actions/globalActions';
+import { GlobalReducer } from 'src/types/State';
 
 const globalState: GlobalReducer = {
   t: null,
   ctx: null,
-  scope: { value: "Week", label: "Week" },
+  scope: { value: 'Week', label: 'Week' },
   date: null,
   timeSpan: 0
 };
@@ -59,7 +59,7 @@ export const globalReducer = (
       return {
         ...state,
         ctx: null
-      }
+      };
     default:
       return state;
   }

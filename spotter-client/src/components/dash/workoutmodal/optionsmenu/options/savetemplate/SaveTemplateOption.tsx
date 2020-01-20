@@ -1,8 +1,8 @@
-import React, { useCallback, memo } from "react";
-import { useDispatch } from "react-redux";
-import SaveTemplate from "./SaveTemplate";
-import { FiSave } from "react-icons/fi";
-import { setSaveTemplateModalAction } from "../../../../../../actions/optionsActions";
+import React, { useCallback, memo } from 'react';
+import { useDispatch } from 'react-redux';
+import SaveTemplate from './SaveTemplate';
+import { FiSave } from 'react-icons/fi';
+import { setSaveTemplateModalAction } from '../../../../../../actions/optionsActions';
 
 interface Props {
   iconClass: string;
@@ -22,10 +22,10 @@ const SaveTemplateOption: React.FC<Props> = ({ iconClass }) => {
   return (
     <>
       <div
-        role="button"
+        role='button'
         onClick={() => setTemplateSaveModal(true)}
-        data-testid="save-template"
-        className="add-workout-options-button"
+        data-testid='save-template'
+        className='add-workout-options-button'
       >
         <FiSave className={iconClass} /> Template
       </div>

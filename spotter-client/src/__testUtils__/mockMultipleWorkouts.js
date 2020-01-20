@@ -1,5 +1,5 @@
-import Moment from "moment";
-import { extendMoment } from "moment-range";
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
 
 const moment = extendMoment(Moment);
 
@@ -7,61 +7,61 @@ const mockWorkoutRes = {
   data: {
     workouts: [
       {
-        _id: "jfi289f289fj9jf289jf9",
+        _id: 'jfi289f289fj9jf289jf9',
         date: moment()
-          .startOf("week")
-          .format("MMM DD YYYY"),
-        title: "Workout FOR TESTING",
+          .startOf('week')
+          .format('MMM DD YYYY'),
+        title: 'Workout FOR TESTING',
         tags: [
           {
-            _id: "jfio2jf2890fj892jf928",
-            tag: "jfio2jf2890fj892jf928",
-            color: "red",
-            content: "tag"
+            _id: 'jfio2jf2890fj892jf928',
+            tag: 'jfio2jf2890fj892jf928',
+            color: 'red',
+            content: 'tag'
           },
           {
-            _id: "jfio2jf28guyguygjf928",
-            tag: "jfio2jf28guyguygjf928",
-            color: "blue",
-            content: "tag2"
+            _id: 'jfio2jf28guyguygjf928',
+            tag: 'jfio2jf28guyguygjf928',
+            color: 'blue',
+            content: 'tag2'
           }
         ],
-        notes: "Notes for workout",
+        notes: 'Notes for workout',
         exercises: [
-          { name: "Exercise", weight: 100, sets: 1, reps: 1 },
-          { name: "Exercise2", weight: 200, sets: 2, reps: 2 }
+          { name: 'Exercise', weight: 100, sets: 1, reps: 1 },
+          { name: 'Exercise2', weight: 200, sets: 2, reps: 2 }
         ],
-        user: "5dd4a49f2f67ae62f99cec6b",
-        createdAt: "2019-11-20T02:27:43.700Z",
+        user: '5dd4a49f2f67ae62f99cec6b',
+        createdAt: '2019-11-20T02:27:43.700Z',
         __v: 0
       },
       {
-        _id: "jfi289f28guygguyf289jf9",
+        _id: 'jfi289f28guygguyf289jf9',
         date: moment()
-          .startOf("week")
-          .format("MMM DD YYYY"),
-        title: "Workout FOR TESTING 2",
+          .startOf('week')
+          .format('MMM DD YYYY'),
+        title: 'Workout FOR TESTING 2',
         tags: [
           {
-            _id: "jfio2jiuhyi90fj892jf928",
-            tag: "jfio2jf2890fj892jf928",
-            color: "red",
-            content: "tag"
+            _id: 'jfio2jiuhyi90fj892jf928',
+            tag: 'jfio2jf2890fj892jf928',
+            color: 'red',
+            content: 'tag'
           },
           {
-            _id: "jfio2jf2878787guygjf928",
-            tag: "jfio2jf28guyguygjf928",
-            color: "blue",
-            content: "tag2"
+            _id: 'jfio2jf2878787guygjf928',
+            tag: 'jfio2jf28guyguygjf928',
+            color: 'blue',
+            content: 'tag2'
           }
         ],
-        notes: "Notes for workout 2",
+        notes: 'Notes for workout 2',
         exercises: [
-          { name: "Exercise", weight: 100, sets: 1, reps: 1 },
-          { name: "Exercise2", weight: 200, sets: 2, reps: 2 }
+          { name: 'Exercise', weight: 100, sets: 1, reps: 1 },
+          { name: 'Exercise2', weight: 200, sets: 2, reps: 2 }
         ],
-        user: "5dd4a49f2f67ae62f99cec6b",
-        createdAt: "2019-11-20T02:27:43.700Z",
+        user: '5dd4a49f2f67ae62f99cec6b',
+        createdAt: '2019-11-20T02:27:43.700Z',
         __v: 0
       }
     ]

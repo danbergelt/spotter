@@ -1,21 +1,21 @@
-import React from "react";
-import WorkoutColumns from "../../../components/dash/workouts/week/WorkoutColumns";
-import { cleanup, fireEvent } from "@testing-library/react";
-import wrapper from "../../../__testUtils__/wrapper";
-import Modal from "react-modal";
-import axios from "axios";
-import mockWorkoutRes from "../../../__testUtils__/mockWorkoutRes";
-import { FETCH_WORKOUTS_SUCCESS } from "../../../actions/fetchWorkoutsActions";
-import { wait } from "@testing-library/react";
-import { reducer } from "../../../reducers/index";
-import { act } from "react-dom/test-utils";
+import React from 'react';
+import WorkoutColumns from '../../../components/dash/workouts/week/WorkoutColumns';
+import { cleanup, fireEvent } from '@testing-library/react';
+import wrapper from '../../../__testUtils__/wrapper';
+import Modal from 'react-modal';
+import axios from 'axios';
+import mockWorkoutRes from '../../../__testUtils__/mockWorkoutRes';
+import { FETCH_WORKOUTS_SUCCESS } from '../../../actions/fetchWorkoutsActions';
+import { wait } from '@testing-library/react';
+import { reducer } from '../../../reducers/index';
+import { act } from 'react-dom/test-utils';
 
-describe("can close modal on delete click", () => {
+describe('can close modal on delete click', () => {
   // initial setup
   afterEach(cleanup);
-  Modal.setAppElement(document.createElement("div"));
+  Modal.setAppElement(document.createElement('div'));
 
-  test("can close modal on delete click", async () => {
+  test('can close modal on delete click', async () => {
     axios.post.mockResolvedValue({});
     axios.get.mockResolvedValue({});
     const { store, history, getByTestId, queryByText } = wrapper(
@@ -28,7 +28,7 @@ describe("can close modal on delete click", () => {
       payload: mockWorkoutRes.data.workouts
     });
 
-    history.push("/dashboard");
+    history.push('/dashboard');
 
     fireEvent.click(getByTestId(/modal-click/i));
 
@@ -39,7 +39,7 @@ describe("can close modal on delete click", () => {
     expect(queryByText(/notes for workout/i)).toBeFalsy();
   });
 
-  test("can delete workout", async () => {
+  test('can delete workout', async () => {
     axios.post.mockResolvedValue({});
     const { store, history, getByTestId, queryByText, getByText } = wrapper(
       reducer,
@@ -51,7 +51,7 @@ describe("can close modal on delete click", () => {
       payload: mockWorkoutRes.data.workouts
     });
 
-    history.push("/dashboard");
+    history.push('/dashboard');
 
     fireEvent.click(getByText(/workout for testing/i));
 

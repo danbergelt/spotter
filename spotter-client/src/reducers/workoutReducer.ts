@@ -13,15 +13,15 @@ import {
   HANDLE_EDIT,
   RESET_QUEUE,
   FROM_SAVED
-} from "../actions/workoutActions";
-import { CLOSE_WORKOUT_MODAL } from "../actions/globalActions";
-import { find, isMatch, isEqual, omit, pick, keys } from "lodash";
-import { WorkoutReducer } from "src/types/State";
-import { TagOnWorkout } from "src/types/TagOnWorkout";
+} from '../actions/workoutActions';
+import { CLOSE_WORKOUT_MODAL } from '../actions/globalActions';
+import { find, isMatch, isEqual, omit, pick, keys } from 'lodash';
+import { WorkoutReducer } from 'src/types/State';
+import { TagOnWorkout } from 'src/types/TagOnWorkout';
 
 const workoutState: WorkoutReducer = {
-  title: "",
-  notes: "",
+  title: '',
+  notes: '',
   exercises: [],
   tags: [],
   queue: {},
@@ -48,15 +48,15 @@ export const workoutReducer = (
     case RESET_WORKOUT:
       return {
         ...state,
-        title: "",
-        notes: "",
+        title: '',
+        notes: '',
         exercises: [],
         tags: []
       };
     case RESET_NOTES:
       return {
         ...state,
-        notes: ""
+        notes: ''
       };
     case ADD_EXERCISE:
       return {
@@ -66,7 +66,7 @@ export const workoutReducer = (
     case TOGGLE_TAG:
       // filters out unnecessary fields returned from MongoDB
       const testForMatches: TagOnWorkout | undefined = find(state.tags, t => {
-        return isMatch(t, omit(action.payload, ["__v", "user"]));
+        return isMatch(t, omit(action.payload, ['__v', 'user']));
       });
       return {
         // if the current list of tags contains the toggled tag, then remove it
@@ -85,8 +85,8 @@ export const workoutReducer = (
       const testForUpdates: TagOnWorkout | undefined = find(state.tags, t => {
         // again, omit bad data from MongoDB and update the tag on the current workout
         return isMatch(
-          omit(t, ["color", "content", "__v", "tag"]),
-          omit(action.payload, ["color", "content", "__v", "user"])
+          omit(t, ['color', 'content', '__v', 'tag']),
+          omit(action.payload, ['color', 'content', '__v', 'user'])
         );
       });
       return {
@@ -150,8 +150,8 @@ export const workoutReducer = (
       return {
         ...state,
         queue: {},
-        title: "",
-        notes: "",
+        title: '',
+        notes: '',
         exercises: [],
         tags: []
       };

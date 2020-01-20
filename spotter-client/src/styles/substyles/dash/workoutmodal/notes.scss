@@ -1,4 +1,4 @@
-@import "../../../variables.scss";
+@import '../../../variables.scss';
 @import '../../../mixins.scss';
 
 .workout-data-notes {
@@ -84,7 +84,6 @@
     color: $info;
     cursor: pointer;
     margin-right: 1rem;
-
   }
 
   .workout-data-notes-cancel {

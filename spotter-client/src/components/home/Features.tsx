@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import weeklyview from "../../assets/weeklyview.png";
-import monthlyview from "../../assets/monthlyview.png";
-import prpage from "../../assets/prpage.png";
-import FeatureOptionsLarge from "./FeatureOptionsLarge";
-import FeatureOptions from "./FeatureOptions";
-import { useWindowSize } from "react-use";
+import React, { useState } from 'react';
+import weeklyview from '../../assets/weeklyview.png';
+import monthlyview from '../../assets/monthlyview.png';
+import prpage from '../../assets/prpage.png';
+import FeatureOptionsLarge from './FeatureOptionsLarge';
+import FeatureOptions from './FeatureOptions';
+import { useWindowSize } from 'react-use';
 
 const Features: React.FC = () => {
-  const [selected, setSelected] = useState<string>("Week View");
+  const [selected, setSelected] = useState<string>('Week View');
 
   const { width }: { width: number } = useWindowSize();
 
   const setImage = () => {
-    if (selected === "Week View") {
+    if (selected === 'Week View') {
       return weeklyview;
-    } else if (selected === "Month View") {
+    } else if (selected === 'Month View') {
       return monthlyview;
     } else {
       return prpage;
@@ -22,13 +22,13 @@ const Features: React.FC = () => {
   };
 
   return (
-    <article className="features-container">
+    <article className='features-container'>
       {width <= 1000 ? (
         <FeatureOptions selected={selected} setSelected={setSelected} />
       ) : (
         <FeatureOptionsLarge selected={selected} setSelected={setSelected} />
       )}
-      <img className="features-img" src={setImage()} alt="Weekly View" />
+      <img className='features-img' src={setImage()} alt='Weekly View' />
     </article>
   );
 };
