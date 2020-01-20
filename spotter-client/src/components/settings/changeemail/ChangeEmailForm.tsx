@@ -1,10 +1,9 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
-import { AxiosResponse } from 'axios';
-import axiosWithAuth from 'src/utils/axiosWithAuth';
 import { useSelector } from 'react-redux';
-import { fetchToken } from 'src/types/State';
-import { ValidationSchema } from './ValidationSchema';
+import axiosWithAuth from '../../../utils/axiosWithAuth';
+import { fetchToken } from '../../../types/State';
+import ValidationSchema from './ValidationSchema';
 
 const ChangeEmailForm: React.FC = () => {
   const t: string | null = useSelector(fetchToken);
@@ -20,10 +19,10 @@ const ChangeEmailForm: React.FC = () => {
           confirmEmail: ''
         }}
         validationSchema={ValidationSchema}
-        onSubmit={async (values, { resetForm, setStatus }) => {
+        onSubmit={async (values, { resetForm, setStatus }): Promise<void> => {
           resetForm();
           try {
-            const res: AxiosResponse<any> = await axiosWithAuth(t).put(
+            const res = await axiosWithAuth(t).put(
               `${process.env.REACT_APP_T_API}/api/auth/user/email`,
               {
                 ...values
@@ -35,10 +34,12 @@ const ChangeEmailForm: React.FC = () => {
           }
         }}
       >
-        {({ errors, touched, status }) => (
+        {({ errors, touched, status }): JSX.Element => (
           <Form>
             <div className='change-inp'>
-              <label className='change-label'>Old Email</label>
+              <label htmlFor='oldEmail' className='change-label'>
+                Old Email
+              </label>
               <Field
                 data-testid='old'
                 className='inp-component'
@@ -46,7 +47,9 @@ const ChangeEmailForm: React.FC = () => {
               />
             </div>
             <div className='change-inp'>
-              <label className='change-label'>New Email</label>
+              <label htmlFor='newEmail' className='change-label'>
+                New Email
+              </label>
               <Field
                 data-testid='new'
                 className='inp-component'
@@ -54,7 +57,9 @@ const ChangeEmailForm: React.FC = () => {
               />
             </div>
             <div className='change-inp'>
-              <label className='change-label'>Confirm Email</label>
+              <label htmlFor='confirmEmail' className='change-label'>
+                Confirm Email
+              </label>
               <Field
                 data-testid='confirm'
                 className='inp-component'

@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-export const ValidationSchema = Yup.object().shape({
+const ValidationSchema = Yup.object().shape({
   oldPassword: Yup.string().required('Enter your old password'),
   newPassword: Yup.string().required(),
   confirmPassword: Yup.string()
@@ -8,3 +8,5 @@ export const ValidationSchema = Yup.object().shape({
     .required('Enter your new password')
     .min(6, 'Six character minimum')
 });
+
+export default ValidationSchema;

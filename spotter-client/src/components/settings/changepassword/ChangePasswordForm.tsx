@@ -1,10 +1,9 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import { useSelector } from 'react-redux';
-import { fetchToken } from 'src/types/State';
-import { AxiosResponse } from 'axios';
+import { fetchToken } from '../../../types/State';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
-import { ValidationSchema } from './ValidationSchema';
+import ValidationSchema from './ValidationSchema';
 
 const ChangePasswordForm: React.FC = () => {
   const t: string | null = useSelector(fetchToken);
@@ -20,10 +19,10 @@ const ChangePasswordForm: React.FC = () => {
           confirmPassword: ''
         }}
         validationSchema={ValidationSchema}
-        onSubmit={async (values, { resetForm, setStatus }) => {
+        onSubmit={async (values, { resetForm, setStatus }): Promise<void> => {
           resetForm();
           try {
-            const res: AxiosResponse<any> = await axiosWithAuth(t).put(
+            const res = await axiosWithAuth(t).put(
               `${process.env.REACT_APP_T_API}/api/auth/user/password`,
               {
                 ...values
@@ -35,19 +34,23 @@ const ChangePasswordForm: React.FC = () => {
           }
         }}
       >
-        {({ errors, touched, status }) => (
+        {({ errors, touched, status }): JSX.Element => (
           <Form>
             <div className='change-inp'>
-              <label className='change-label'>Old Password</label>
+              <label htmlFor='oldPassword' className='change-label'>
+                Old Password
+              </label>
               <Field
+                name='oldPassword'
                 data-testid='old'
                 className='inp-component'
-                name='oldPassword'
                 type='password'
               />
             </div>
             <div className='change-inp'>
-              <label className='change-label'>New Password</label>
+              <label htmlFor='newPassword' className='change-label'>
+                New Password
+              </label>
               <Field
                 data-testid='new'
                 className='inp-component'
@@ -56,7 +59,9 @@ const ChangePasswordForm: React.FC = () => {
               />
             </div>
             <div className='change-inp'>
-              <label className='change-label'>Confirm Password</label>
+              <label htmlFor='confirmPassword' className='change-label'>
+                Confirm Password
+              </label>
               <Field
                 data-testid='confirm'
                 className='inp-component'

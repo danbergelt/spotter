@@ -5,7 +5,7 @@ interface Props {
   t: string | null;
 }
 
-const ExportWorkouts: React.FC<Props> = ({ t }) => {
+const ExportWorkouts: React.FC<Props> = ({ t }: Props) => {
   const [dataDump, setDataDump] = useState<string>('');
 
   return (
@@ -14,13 +14,13 @@ const ExportWorkouts: React.FC<Props> = ({ t }) => {
         Export your workout data as a CSV file. Click below to start your
         download.
       </p>
-      <div
-        role='button'
-        onClick={() => downloadData(setDataDump, t, 'workouts')}
+      <button
+        type='button'
+        onClick={(): Promise<void> => downloadData(setDataDump, t, 'workouts')}
         className='settings-action'
       >
         Export workout data...
-      </div>
+      </button>
       <p>{dataDump && dataDump}</p>
     </article>
   );

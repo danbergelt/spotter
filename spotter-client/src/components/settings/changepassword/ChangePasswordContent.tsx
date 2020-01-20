@@ -6,18 +6,20 @@ interface Props {
   setChangePassword: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ChangePasswordContent: React.FC<Props> = ({ setChangePassword }) => {
+const ChangePasswordContent: React.FC<Props> = ({
+  setChangePassword
+}: Props) => {
   return (
     <article className='change-container'>
       <section className='popover-head'>
-        <div
-          role='button'
+        <button
+          type='button'
           data-testid='close-popover'
-          onClick={() => setChangePassword(false)}
+          onClick={(): void => setChangePassword(false)}
           className='close-popover'
         >
           <FiX />
-        </div>
+        </button>
       </section>
       <ChangePasswordForm />
     </article>

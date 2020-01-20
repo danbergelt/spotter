@@ -6,18 +6,18 @@ interface Props {
   setChangeEmail: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ChangeEmailContent: React.FC<Props> = ({ setChangeEmail }) => {
+const ChangeEmailContent: React.FC<Props> = ({ setChangeEmail }: Props) => {
   return (
     <article className='change-container'>
       <section className='popover-head'>
-        <div
-          role='button'
+        <button
+          type='button'
           data-testid='close-popover'
-          onClick={() => setChangeEmail(false)}
+          onClick={(): void => setChangeEmail(false)}
           className='close-popover'
         >
           <FiX />
-        </div>
+        </button>
       </section>
       <ChangeEmailForm />
     </article>

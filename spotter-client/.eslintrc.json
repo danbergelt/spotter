@@ -17,6 +17,12 @@
     "prettier/@typescript-eslint"
   ],
   "rules": {
+    "jsx-a11y/label-has-associated-control": [
+      2,
+      {
+        "controlComponents": ["Field"]
+      }
+    ],
     "no-underscore-dangle": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".jsx"] }],
     "@typescript-eslint/no-var-requires": 0,

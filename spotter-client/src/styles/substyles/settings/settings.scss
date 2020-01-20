@@ -50,6 +50,8 @@
       }
 
       .delete-account {
+        border: 0;
+        outline: 0;
         background: $danger;
         padding: 1rem;
         color: white;
@@ -65,6 +67,8 @@
       }
 
       .delete-account-disabled {
+        border: 0;
+        outline: 0;
         background: rgba($danger, 0.7);
         padding: 1rem;
         color: white;
@@ -110,6 +114,8 @@
       margin-bottom: 0;
 
       .close-popover {
+        border: 0;
+        outline: 0;
         @include closePopover;
         @include hover;
       }

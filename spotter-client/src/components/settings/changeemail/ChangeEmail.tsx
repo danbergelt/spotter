@@ -5,18 +5,18 @@ import ChangeEmailContent from './ChangeEmailContent';
 interface Props {
   changeEmail: boolean;
   setChangeEmail: React.Dispatch<React.SetStateAction<boolean>>;
-  children: any;
+  children: any; // eslint-disable-line
 }
 
 const ChangeEmail: React.FC<Props> = ({
   changeEmail,
   setChangeEmail,
   children
-}) => {
+}: Props) => {
   return (
     <Popover
       isOpen={changeEmail}
-      onClickOutside={() => setChangeEmail(false)}
+      onClickOutside={(): void => setChangeEmail(false)}
       content={<ChangeEmailContent setChangeEmail={setChangeEmail} />}
       align='start'
       position='bottom'
