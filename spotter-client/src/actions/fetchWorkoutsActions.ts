@@ -1,8 +1,10 @@
 import { History } from 'history';
-import { Dispatch, AnyAction, Action } from 'redux';
+import { AnyAction } from 'redux';
 import { Moment } from 'moment';
+import { ThunkDispatch } from 'redux-thunk';
 import axiosWithAuth from '../utils/axiosWithAuth';
 import { generateWeek, generateMonth } from '../utils/momentUtils';
+import { State } from '../types/State';
 
 export const FETCH_WORKOUTS_START = 'FETCH_WORKOUTS_START';
 export const FETCH_WORKOUTS_SUCCESS = 'FETCH_WORKOUTS_SUCCESS';
@@ -12,7 +14,7 @@ export const DELETE_WORKOUT = 'DELETE_WORKOUT';
 // fetches workouts based on range (e.g. week or month)
 interface Params {
   (time: number, history: History, scope: string, t: string | null): (
-    dispatch: Dispatch<AnyAction>
+    dispatch: ThunkDispatch<State, void, AnyAction>
   ) => Promise<void>;
 }
 export const fetchWorkouts: Params = (time, history, scope, t) => {
@@ -28,7 +30,7 @@ export const fetchWorkouts: Params = (time, history, scope, t) => {
 
   const formattedRange: Array<string> = range.map(d => d.format('MMM DD YYYY'));
 
-  return dispatch => {
+  return (dispatch): Promise<void> => {
     dispatch({ type: FETCH_WORKOUTS_START });
     return axiosWithAuth(t)
       .post(`${process.env.REACT_APP_T_API}/api/auth/workouts/range`, {
@@ -54,9 +56,11 @@ export const fetchWorkouts: Params = (time, history, scope, t) => {
 type TDeleteWorkout = (
   t: string | null,
   workoutId: string
-) => (dispatch: Dispatch<Action>) => Promise<{ type: string; payload: string }>;
+) => (
+  dispatch: ThunkDispatch<State, void, AnyAction>
+) => Promise<{ type: string; payload: string }>;
 export const deleteWorkoutAction: TDeleteWorkout = (t, workoutId) => {
-  return async dispatch => {
+  return async (dispatch): Promise<{ type: string; payload: string }> => {
     await axiosWithAuth(t)['delete'](
       `${process.env.REACT_APP_T_API}/api/auth/workouts/${workoutId}`
     );

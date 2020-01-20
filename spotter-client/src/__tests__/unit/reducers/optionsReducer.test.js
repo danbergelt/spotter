@@ -1,4 +1,4 @@
-import { optionsReducer } from '../../../reducers/optionsReducer';
+import optionsReducer from '../../../reducers/optionsReducer';
 import {
   OPEN_TAG_MODAL,
   CLOSE_TAG_MODAL,

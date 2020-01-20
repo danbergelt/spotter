@@ -6,7 +6,7 @@ import {
   SET_ACTIVE,
   CLOSE_TAG_MODAL,
   OPEN_TAG_MODAL
-} from 'src/actions/optionsActions';
+} from '../../../actions/optionsActions';
 import mockTagRes from '../../../__testUtils__/mockTagRes';
 import {
   fetchTags,

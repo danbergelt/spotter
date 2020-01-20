@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { cleanup, fireEvent, wait } from '@testing-library/react';
 import ForgotAndChangePass from '../../../components/auth/ForgotAndChangePass';
-import { reducer } from '../../../reducers/index';
+import reducer from '../../../reducers/index';
 import wrapper from '../../../__testUtils__/wrapper';
 
 describe('Change forgotten password', () => {
@@ -61,10 +61,7 @@ describe('Change forgotten password', () => {
       data: { token: 'foo' }
     });
 
-    const { getAllByText, findByText, container, debug, history } = wrapper(
-      reducer,
-      <ForgotAndChangePass />
-    );
+    const { getAllByText, history } = wrapper(reducer, <ForgotAndChangePass />);
 
     fireEvent.click(getAllByText(/change password/i)[1]);
 

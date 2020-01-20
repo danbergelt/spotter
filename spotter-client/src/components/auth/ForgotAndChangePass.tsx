@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { addTokenAction } from 'src/actions/globalActions';
 import Loader from 'react-loader-spinner';
+import { addTokenAction } from '../../actions/globalActions';
 
 // hidden page that allows a user to change their password when forgotten
 // accessed via link sent out through mailgun
@@ -22,16 +22,18 @@ const ForgotAndChangePass: React.FC = () => {
   const [res, setRes] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
 
-  const changePass = async (e?: React.FormEvent<HTMLFormElement>) => {
-    e?.preventDefault();
+  const changePass = async (
+    e?: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
+    if (e) e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.put(
+      const passwordRes = await axios.put(
         `${process.env.REACT_APP_T_API}/api/auth/user/forgotpassword/${id}`,
         { newPassword, confirmPassword },
         { withCredentials: true }
       );
-      dispatch(addTokenAction(res.data.token));
+      dispatch(addTokenAction(passwordRes.data.token));
       history.push('/dashboard');
     } catch (error) {
       setLoading(false);
@@ -47,24 +49,31 @@ const ForgotAndChangePass: React.FC = () => {
           {res}
         </p>
       )}
-      <form onSubmit={e => !loading && changePass(e)}>
-        <label className='forgot-password-label'>New Password</label>
+      <form onSubmit={(e): false | Promise<void> => !loading && changePass(e)}>
+        <label htmlFor='newPass' className='forgot-password-label'>
+          New Password
+        </label>
         <input
+          id='newPass'
           type='password'
           placeholder='Pick a secure password...'
-          onChange={e => setNewPassword(e.target.value)}
+          onChange={(e): void => setNewPassword(e.target.value)}
           value={newPassword}
           className='forgot-password-input'
         />
-        <label className='forgot-password-label'>Confirm New Password</label>
+        <label htmlFor='confirmPass' className='forgot-password-label'>
+          Confirm New Password
+        </label>
         <input
+          id='confirmPass'
           type='password'
           placeholder='Confirm secure password...'
-          onChange={e => setConfirmPassword(e.target.value)}
+          onChange={(e): void => setConfirmPassword(e.target.value)}
           value={confirmPassword}
           className='forgot-password-input'
         />
         <button
+          type='button'
           style={{ outline: 0, border: 0 }}
           className='forgot-password-submit'
         >

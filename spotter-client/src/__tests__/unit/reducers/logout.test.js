@@ -1,6 +1,6 @@
-import { LOGOUT } from 'src/actions/globalActions';
-import { ADD_TOKEN } from 'src/actions/addTokenActions';
-import { reducer } from '../../../reducers/index';
+import { LOGOUT } from '../../../actions/globalActions';
+import { ADD_TOKEN } from '../../../actions/addTokenActions';
+import reducer from '../../../reducers/index';
 
 describe('logout', () => {
   test('should handle LOGOUT', () => {

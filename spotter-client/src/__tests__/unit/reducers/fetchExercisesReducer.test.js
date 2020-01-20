@@ -1,4 +1,4 @@
-import { fetchExercisesReducer } from '../../../reducers/fetchExercisesReducer';
+import fetchExercisesReducer from '../../../reducers/fetchExercisesReducer';
 import {
   FETCH_EXERCISES_SUCCESS,
   FETCH_EXERCISES_ERROR

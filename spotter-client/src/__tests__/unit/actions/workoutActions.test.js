@@ -32,7 +32,7 @@ describe('dispatches workout actions', () => {
 
     const store = mockStore();
 
-    store.dispatch(resetExerciseFormAction(() => {}));
+    store.dispatch(resetExerciseFormAction(() => {})); // eslint-disable-line
 
     expect(store.getActions()).toEqual(expectedActions);
   });

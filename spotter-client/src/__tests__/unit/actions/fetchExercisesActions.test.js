@@ -2,8 +2,6 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import axios from 'axios';
 import { createMemoryHistory } from 'history';
-import { addExerciseAction } from 'src/actions/workoutActions';
-import mockWorkoutRes from '../../../__testUtils__/mockWorkoutRes';
 import {
   fetchExercises,
   FETCH_EXERCISES_ERROR,

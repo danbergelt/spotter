@@ -1,4 +1,4 @@
-import { workoutReducer } from '../../../reducers/workoutReducer';
+import workoutReducer from '../../../reducers/workoutReducer';
 import {
   ADD_WORKOUT_TITLE,
   RESET_WORKOUT,

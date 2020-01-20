@@ -4,8 +4,8 @@ import {
   SET_DATE,
   SET_TIMESPAN,
   MODAL_CTX
-} from 'src/actions/globalActions';
-import { globalReducer } from '../../../reducers/globalReducer';
+} from '../../../actions/globalActions';
+import globalReducer from '../../../reducers/globalReducer';
 import { ADD_TOKEN } from '../../../actions/addTokenActions';
 
 describe('global reducer', () => {

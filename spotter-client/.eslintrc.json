@@ -27,7 +27,10 @@
       }
     ],
     "no-underscore-dangle": "off",
-    "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".jsx"] }],
+    "react/jsx-filename-extension": [
+      1,
+      { "extensions": [".tsx", ".jsx", ".js"] }
+    ],
     "@typescript-eslint/no-var-requires": 0,
     "dot-notation": ["error", { "allowKeywords": false }],
     "import/extensions": [

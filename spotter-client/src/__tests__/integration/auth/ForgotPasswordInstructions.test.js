@@ -1,8 +1,8 @@
 import React from 'react';
-import ForgotPasswordInstructions from 'src/components/auth/ForgotPassInstructions';
 import axios from 'axios';
-import { cleanup, fireEvent, wait } from '@testing-library/react';
-import { reducer } from '../../../reducers/index';
+import { cleanup, fireEvent } from '@testing-library/react';
+import ForgotPasswordInstructions from '../../../components/auth/ForgotPassInstructions';
+import reducer from '../../../reducers/index';
 import wrapper from '../../../__testUtils__/wrapper';
 
 describe('Forgot password instructions', () => {

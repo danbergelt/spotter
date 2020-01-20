@@ -37,7 +37,7 @@ describe('Login validation', () => {
 
   test('login page renders yup vals on touched fields', async () => {
     const { container, getByPlaceholderText, findByText } = wrapper(() => {},
-      <Login />);
+    <Login />);
 
     const email = getByPlaceholderText(/name@email.com/i);
     const password = getByPlaceholderText(/password/i);
@@ -91,7 +91,7 @@ describe('Login validation', () => {
     });
 
     const { getByPlaceholderText, getByTestId, history } = wrapper(() => {},
-      <Login />);
+    <Login />);
 
     fireEvent.change(getByPlaceholderText(/name@email.com/i), {
       target: { value: 'goodemail@email.com' }

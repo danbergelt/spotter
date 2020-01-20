@@ -11,8 +11,8 @@ const ForgotPasswordInstructions: React.FC = () => {
     | React.FormEvent<HTMLFormElement>
     | React.MouseEvent<HTMLButtonElement, MouseEvent>;
 
-  const sendInstructions = async (e?: T) => {
-    e?.preventDefault();
+  const sendInstructions = async (e?: T): Promise<void> => {
+    if (e) e.preventDefault();
     setEmail('');
     setLoading(true);
     try {
@@ -33,17 +33,25 @@ const ForgotPasswordInstructions: React.FC = () => {
       <header className='forgot-password-title'>Forgot your password?</header>
       {res.err && <p className='forgot-password-res err'>{res.err}</p>}
       {res.succ && <p className='forgot-password-res succ'>{res.succ}</p>}
-      <label className='forgot-password-label'>Email</label>
-      <form onSubmit={e => !loading && sendInstructions(e)}>
+      <label htmlFor='passEmail' className='forgot-password-label'>
+        Email
+      </label>
+      <form
+        onSubmit={(e): false | Promise<void> => !loading && sendInstructions(e)}
+      >
         <input
+          id='passEmail'
           placeholder='name@email.com'
-          onChange={e => setEmail(e.target.value)}
+          onChange={(e): void => setEmail(e.target.value)}
           value={email}
           className='forgot-password-input'
         />
         <button
+          type='button'
           style={{ border: 0, outline: 0 }}
-          onClick={e => !loading && sendInstructions(e)}
+          onClick={(e): false | Promise<void> =>
+            !loading && sendInstructions(e)
+          } // eslint-disable-line
           className='forgot-password-submit'
         >
           {loading ? (

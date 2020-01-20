@@ -1,4 +1,4 @@
-import { tagsReducer } from '../../../reducers/tagsReducer';
+import tagsReducer from '../../../reducers/tagsReducer';
 import {
   RESET_TAGS,
   FETCH_TAGS_START,

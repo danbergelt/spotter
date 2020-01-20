@@ -1,9 +1,9 @@
 import React, { ReactNode, memo } from 'react';
 import { Form, Field, Formik, FormikActions } from 'formik';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { History } from 'history';
 import { Link } from 'react-router-dom';
-import { ValidationSchema } from './ValidationSchema';
+import ValidationSchema from './ValidationSchema';
 
 // component for login + signup forms
 // Formik components, while stuffed with useful functionality, are exceedingly long and not very developer-friendly
@@ -27,7 +27,7 @@ const SpotterForm: React.FC<Props> = ({
   history,
   children,
   addToken
-}) => {
+}: Props) => {
   return (
     <section className='form-container'>
       <div className='logo-container'>
@@ -39,9 +39,9 @@ const SpotterForm: React.FC<Props> = ({
         onSubmit={async (
           values: FormValues,
           { resetForm, setStatus }: FormActions
-        ) => {
+        ): Promise<void> => {
           try {
-            const res: AxiosResponse<any> = await axios.post(api, values, {
+            const res = await axios.post(api, values, {
               withCredentials: true
             });
             resetForm();
@@ -53,7 +53,6 @@ const SpotterForm: React.FC<Props> = ({
               // "status" is essentially a type of state messaging system that allows us to push messages to the user
               // in this case, that's an error
               // useful for providing server-side errors in addition to the native Yup errors on the FE
-              console.log(error.response);
               setStatus(error.response.data.error);
             } else {
               history.push('/500');
@@ -61,12 +60,14 @@ const SpotterForm: React.FC<Props> = ({
           }
         }}
       >
-        {({ status, errors, touched }) => (
+        {({ status, errors, touched }): JSX.Element => (
           <section className='form-sub-container'>
             <header className='form-head'>{action}</header>
             {status && <p className='api-err-box'>{status}</p>}
             <Form data-testid='test-form' className='form'>
-              <label className='form-label'>Email</label>
+              <label htmlFor='email' className='form-label'>
+                Email
+              </label>
               <Field
                 className='form-field'
                 name='email'
@@ -76,7 +77,9 @@ const SpotterForm: React.FC<Props> = ({
               {touched.email && errors.email && (
                 <p className='form-error email'>{errors.email}</p>
               )}
-              <label className='form-label'>Password</label>
+              <label htmlFor='password' className='form-label'>
+                Password
+              </label>
               <Field
                 className='form-field'
                 name='password'
@@ -96,7 +99,7 @@ const SpotterForm: React.FC<Props> = ({
             </Form>
             {action === 'Sign Up' && (
               <section className='form-alt-link'>
-                Already have an account?{' '}
+                Already have an account?
                 <Link className='form-alt-link-clickable' to='/login'>
                   Log in.
                 </Link>
@@ -104,7 +107,7 @@ const SpotterForm: React.FC<Props> = ({
             )}
             {action === 'Log In' && (
               <section className='form-alt-link'>
-                Forgot your password?{' '}
+                Forgot your password?
                 <Link className='form-alt-link-clickable' to='/forgotpassword'>
                   Click here.
                 </Link>

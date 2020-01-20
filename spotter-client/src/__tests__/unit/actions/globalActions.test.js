@@ -4,8 +4,7 @@ import {
   CHANGE_SCOPE,
   handleScopeChangeAction,
   SET_TIMESPAN,
-  incOrDecAction,
-  LOGOUT
+  incOrDecAction
 } from '../../../actions/globalActions';
 
 const mockStore = configureMockStore([thunk]);

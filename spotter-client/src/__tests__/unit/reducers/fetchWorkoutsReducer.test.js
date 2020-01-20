@@ -1,4 +1,4 @@
-import { fetchWorkoutsReducer } from '../../../reducers/fetchWorkoutsReducer';
+import fetchWorkoutsReducer from '../../../reducers/fetchWorkoutsReducer';
 import {
   FETCH_WORKOUTS_START,
   FETCH_WORKOUTS_SUCCESS,

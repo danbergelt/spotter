@@ -1,13 +1,13 @@
 import React, { CSSProperties } from 'react';
-import Select, { Styles, ValueType } from 'react-select';
+import Select, { Styles, ValueType, ThemeSpacing } from 'react-select';
 import { useDispatch, useSelector } from 'react-redux';
-import { State } from 'src/types/State';
-import { handleScopeChangeAction } from 'src/actions/globalActions';
+import { State } from '../../../types/State';
+import { handleScopeChangeAction } from '../../../actions/globalActions';
 import { Options, Option } from './types/types';
 
 // determines scope of dashboard (either month view or weekly view)
 
-const SubnavDropdown = () => {
+const SubnavDropdown: React.FC = () => {
   const options: Options = [
     { value: 'Week', label: 'Week' },
     { value: 'Month', label: 'Month' }
@@ -42,7 +42,7 @@ const SubnavDropdown = () => {
   };
 
   // changes the scope - must be a controlled component
-  const handleChange = (option: ValueType<Option>) => {
+  const handleChange = (option: ValueType<Option>): void => {
     dispatch(handleScopeChangeAction(option));
   };
 
@@ -53,12 +53,18 @@ const SubnavDropdown = () => {
         styles={customStyles}
         options={options}
         value={scope}
-        onChange={(selectedOption: ValueType<Option>) =>
+        onChange={(selectedOption: ValueType<Option>): void =>
           handleChange(selectedOption)
-        }
+        } // eslint-disable-line
         defaultValue={scope}
         isSearchable={false}
-        theme={theme => ({
+        theme={(
+          theme
+        ): {
+          colors: { primary50: string; primary25: string };
+          borderRadius: number;
+          spacing: ThemeSpacing;
+        } => ({
           ...theme,
           colors: {
             ...theme.colors,

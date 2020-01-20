@@ -1,14 +1,15 @@
 import { ValueType } from 'react-select';
-import { Option } from 'src/components/dash/subnav/types/types';
-import { Moment } from 'moment';
-import { History } from 'history';
-import { Workout } from 'src/types/Workout';
-import axios from 'axios';
-import axiosWithAuth from 'src/utils/axiosWithAuth';
-import { Dispatch } from 'react';
 import { AnyAction } from 'redux';
+import axios from 'axios';
+import { History } from 'history';
+import { Moment } from 'moment';
+import { ThunkDispatch } from 'redux-thunk';
+import { Option } from '../components/dash/subnav/types/types';
+import { Workout } from '../types/Workout';
+import axiosWithAuth from '../utils/axiosWithAuth';
 import { ADD_TOKEN } from './addTokenActions';
 import { FROM_SAVED } from './workoutActions';
+import { State } from '../types/State';
 
 export const MODAL_CTX = 'MODAL_CTX';
 export const LOGOUT = 'LOGOUT';
@@ -57,7 +58,7 @@ export const incOrDecAction: TIncOrDec = (incOrDec, timespan) => {
 // this includes save vs. update workout HTTP request, as well as loading saved data into the view workout modal
 
 // opens add workout modal
-interface IAddWorkoutModal {
+interface AddWorkoutModal {
   date: Moment;
   setModal: Function;
   fetchExercises: Function;
@@ -67,13 +68,13 @@ interface IAddWorkoutModal {
 }
 
 type TAddWorkoutModal = (
-  paramsHelper: IAddWorkoutModal
-) => (dispatch: any) => void;
+  paramsHelper: AddWorkoutModal
+) => (dispatch: ThunkDispatch<State, void, AnyAction>) => Promise<void>;
 
 export const addWorkoutModalAction: TAddWorkoutModal = paramsHelper => {
   const { date, setModal, fetchExercises, t, history } = paramsHelper;
 
-  return async dispatch => {
+  return async (dispatch): Promise<void> => {
     // saves the clicked date to state
     // when saved, the date is then associated with that workout
     dispatch({
@@ -100,7 +101,7 @@ export const viewWorkoutModalAction: TAddWorkoutModal = paramsHelper => {
   const { date, setModal, fetchExercises, t, history, workout } = paramsHelper;
 
   // functionality is largely the same as add workout, with some key differences
-  return async dispatch => {
+  return async (dispatch): Promise<void> => {
     dispatch({
       type: SET_DATE,
       payload: date
@@ -122,9 +123,9 @@ export const viewWorkoutModalAction: TAddWorkoutModal = paramsHelper => {
 
 // logs a user out
 // removes token from memory, and fetches a dead refresh cookie from the server
-type TLogOut = () => (dispatch: any) => void;
+type TLogOut = () => (dispatch: ThunkDispatch<State, void, AnyAction>) => void;
 export const logOutAction: TLogOut = () => {
-  return async dispatch => {
+  return async (dispatch): Promise<void> => {
     dispatch({
       type: LOGOUT
     });
@@ -138,9 +139,9 @@ export const logOutAction: TLogOut = () => {
 type TCloseAccount = (
   t: string | null,
   history: History
-) => (dispatch: Dispatch<AnyAction>) => void;
+) => (dispatch: ThunkDispatch<State, void, AnyAction>) => Promise<void>;
 export const closeAccountAction: TCloseAccount = (t, history) => {
-  return async dispatch => {
+  return async (dispatch): Promise<void> => {
     await axiosWithAuth(t)['delete'](
       `${process.env.REACT_APP_T_API}/api/auth/user/delete`
     );

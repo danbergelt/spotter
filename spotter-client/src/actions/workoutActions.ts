@@ -1,6 +1,6 @@
-import { Exercise } from 'src/types/Exercises';
-import { Template } from 'src/types/Template';
-import { TagOnWorkout } from 'src/types/TagOnWorkout';
+import { Exercise } from '../types/Exercises';
+import { Template } from '../types/Template';
+import { TagOnWorkout } from '../types/TagOnWorkout';
 
 // synchronous workout actions, i.e. adding workout information
 // kept in redux store to allow for global access and flexible functionality, despite being largely local input data

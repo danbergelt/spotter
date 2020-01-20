@@ -1,8 +1,10 @@
-import { Dispatch, Action } from 'redux';
+import { AnyAction } from 'redux';
 import { History } from 'history';
 import { AxiosResponse } from 'axios';
-import { Msg } from 'src/types/ExerciseOption';
+import { ThunkDispatch } from 'redux-thunk';
+import { Msg } from '../types/ExerciseOption';
 import axiosWithAuth from '../utils/axiosWithAuth';
+import { State } from '../types/State';
 
 export const FETCH_EXERCISES_SUCCESS = 'FETCH_EXERCISES_SUCCESS';
 export const FETCH_EXERCISES_ERROR = 'FETCH_EXERCISES_ERROR';
@@ -12,16 +14,16 @@ export const DELETE_SAVED_EXERCISE = 'DELETE_SAVED_EXERCISE';
 // fetches saved exercises
 // only saved exercises can be used to track PRs
 export const fetchExercises = (history: History, t: string | null) => {
-  return (dispatch: Dispatch<Action<any>>): Promise<void> => {
+  return (dispatch: ThunkDispatch<State, void, AnyAction>): Promise<void> => {
     return axiosWithAuth(t)
       .get(`${process.env.REACT_APP_T_API}/api/auth/exercises`)
-      .then((res: AxiosResponse<any>) => {
+      .then(res => {
         dispatch({
           type: FETCH_EXERCISES_SUCCESS,
           payload: res.data.exercises
         });
       })
-      ['catch']((err: any) => {
+      ['catch'](err => {
         if (err.response) {
           dispatch({
             type: FETCH_EXERCISES_ERROR,
@@ -38,10 +40,12 @@ export const fetchExercises = (history: History, t: string | null) => {
 type TDeleteExercise = (
   t: string | null,
   id: string
-) => (dispatch: Dispatch<Action>) => Promise<{ type: string; payload: string }>;
+) => (
+  dispatch: ThunkDispatch<State, void, AnyAction>
+) => Promise<{ type: string; payload: string }>;
 
 export const deleteExerciseAction: TDeleteExercise = (t, id) => {
-  return async dispatch => {
+  return async (dispatch): Promise<{ type: string; payload: string }> => {
     await axiosWithAuth(t)['delete'](
       `${process.env.REACT_APP_T_API}/api/auth/exercises/${id}`
     );
@@ -57,9 +61,10 @@ type TCreateExercise = (
   t: string | null,
   exercise: string,
   setMsg: React.Dispatch<React.SetStateAction<Msg>>
-) => (dispatch: Dispatch<Action>) => Promise<any>;
+) => (dispatch: ThunkDispatch<State, void, AnyAction>) => Promise<any>; // eslint-disable-line
 
 export const createExerciseAction: TCreateExercise = (t, exercise, setMsg) => {
+  // eslint-disable-next-line
   return async dispatch => {
     try {
       const res: AxiosResponse = await axiosWithAuth(t).post(

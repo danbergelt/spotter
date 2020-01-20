@@ -1,9 +1,8 @@
-import { AxiosResponse } from 'axios';
 import { AnyAction } from 'redux';
-import { Template } from 'src/types/Template';
 import { Moment } from 'moment';
 import { History } from 'history';
 import { ThunkDispatch } from 'redux-thunk';
+import { Template } from '../types/Template';
 import { WorkoutReducer, State } from '../types/State';
 import axiosWithAuth from '../utils/axiosWithAuth';
 import { fetchWorkouts } from './fetchWorkoutsActions';
@@ -59,9 +58,15 @@ type TFetchTemplates = (
 >;
 
 export const fetchTemplatesAction: TFetchTemplates = t => {
-  return async dispatch => {
+  return async (
+    dispatch
+  ): Promise<
+    | { type: string; payload: Array<Template> }
+    | { type: string; payload: string }
+    | undefined
+  > => {
     try {
-      const res: AxiosResponse<any> = await axiosWithAuth(t).get(
+      const res = await axiosWithAuth(t).get(
         `${process.env.REACT_APP_T_API}/api/auth/templates`
       );
       return dispatch({
@@ -69,12 +74,10 @@ export const fetchTemplatesAction: TFetchTemplates = t => {
         payload: res.data.templates
       });
     } catch (error) {
-      if (error.response) {
-        return dispatch({
-          type: SET_TEMPLATES_ERR,
-          payload: error.response.data.error
-        });
-      }
+      return dispatch({
+        type: SET_TEMPLATES_ERR,
+        payload: error.response.data.error
+      });
     }
   };
 };
@@ -90,7 +93,7 @@ type TDeleteTemplate = (
   dispatch: ThunkDispatch<State, void, AnyAction>
 ) => Promise<{ type: string; payload: string }>;
 export const deleteTemplateAction: TDeleteTemplate = (t, id) => {
-  return async dispatch => {
+  return async (dispatch): Promise<{ type: string; payload: string }> => {
     await axiosWithAuth(t)['delete'](
       `${process.env.REACT_APP_T_API}/api/auth/templates/${id}`
     );
@@ -183,7 +186,7 @@ export const saveWorkoutAction: TSaveWorkout = paramsHelper => {
     date
   } = paramsHelper;
 
-  return async dispatch => {
+  return async (dispatch): Promise<void> => {
     try {
       await axiosWithAuth(t).post(
         `${process.env.REACT_APP_T_API}/api/auth/workouts`,
@@ -228,7 +231,7 @@ export const editWorkoutAction: TSaveWorkout = paramsHelper => {
     workoutId
   } = paramsHelper;
 
-  return async dispatch => {
+  return async (dispatch): Promise<void> => {
     try {
       await axiosWithAuth(t).put(
         `${process.env.REACT_APP_T_API}/api/auth/workouts/${workoutId}`,
