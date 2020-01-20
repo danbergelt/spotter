@@ -39,22 +39,18 @@ const Templates: React.FC<Props> = ({ setActive, active, search }) => {
   return (
     <div className='templates-container'>
       {/* if there are templates + if there are results from the search filter, display those templates */}
-      {templates.length ? (
-        filter.length ? (
-          filter.map(template => (
-            <Template
-              setActive={setActive}
-              deleteTemplate={deleteTemplate}
-              key={template._id}
-              template={template}
-              active={active}
-            />
-          ))
-        ) : (
-          <div className='no-templates-found'> No templates found</div>
-        )
+      {templates.length && filter.length ? (
+        filter.map(template => (
+          <Template
+            setActive={setActive}
+            deleteTemplate={deleteTemplate}
+            key={template._id}
+            template={template}
+            active={active}
+          />
+        ))
       ) : (
-        <div className='no-templates-found'>No templates found</div>
+        <div className='no-templates-found'> No templates found</div>
       )}
       {err && <div className='no-templates-found'>{err}</div>}
     </div>

@@ -12,7 +12,8 @@
   "extends": ["prettier", "eslint:recommended", "plugin:react/recommended"],
   "rules": {
     "prettier/prettier": "error",
-    "react/prop-types": 0
+    "react/prop-types": 0,
+    "no-nested-ternary": 2
   },
   "settings": {
     "react": {

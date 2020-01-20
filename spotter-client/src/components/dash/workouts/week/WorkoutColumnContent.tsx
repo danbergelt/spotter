@@ -18,6 +18,16 @@ const WorkoutColumnContent: React.FC<Props> = ({
 }) => {
   const { width } = useWindowSize();
 
+  const dynamicContentHelper = () => {
+    if (width <= 500) {
+      return null;
+    } else if (width < 800) {
+      return 'Add';
+    } else {
+      return 'Add Workout';
+    }
+  };
+
   return (
     <>
       <section
@@ -34,7 +44,7 @@ const WorkoutColumnContent: React.FC<Props> = ({
         role='button'
       >
         {<FiPlusCircle className='week-workouts-add-icon' />}{' '}
-        {width <= 500 ? null : width < 800 ? 'Add' : 'Add Workout'}
+        {dynamicContentHelper()}
       </div>
     </>
   );
