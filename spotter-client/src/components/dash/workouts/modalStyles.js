@@ -1,7 +1,8 @@
 import { useWindowSize } from 'react-use';
 import styles from '../../../styles/variables.scss';
 
-export const useModalStyles = () => {
+// eslint-disable-next-line
+const useModalStyles = () => {
   const { width } = useWindowSize();
 
   const sizes = {
@@ -11,6 +12,7 @@ export const useModalStyles = () => {
     small: '300px'
   };
 
+  // eslint-disable-next-line
   const setModalSize = () => {
     if (width <= 500) {
       return sizes.small;
@@ -34,3 +36,5 @@ export const useModalStyles = () => {
     }
   };
 };
+
+export default useModalStyles;

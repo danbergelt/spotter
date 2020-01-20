@@ -7,14 +7,15 @@ interface Props {
   id: number;
 }
 
-const Tab: React.FC<Props> = ({ active, setActive, text, id }) => {
+const Tab: React.FC<Props> = ({ active, setActive, text, id }: Props) => {
   return (
+    // eslint-disable-next-line
     <div
       role='button'
       className={
         active === id ? 'tags-modal-tab-active' : 'tags-modal-tab-not-active'
       }
-      onClick={() => setActive(id)}
+      onClick={(): void => setActive(id)}
     >
       {text}
     </div>

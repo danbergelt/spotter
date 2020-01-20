@@ -6,12 +6,13 @@ interface Props {
   setErr: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Err: React.FC<Props> = ({ err, setErr }) => {
+const Err: React.FC<Props> = ({ err, setErr }: Props) => {
   return (
     <div className='tag-delete-err'>
       {err}
+      {/* eslint-disable-next-line */}
       <div
-        onClick={() => setErr('')}
+        onClick={(): void => setErr('')}
         style={{ fontSize: '1.2rem', cursor: 'pointer' }}
       >
         <FiX />

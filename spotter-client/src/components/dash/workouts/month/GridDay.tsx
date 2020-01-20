@@ -1,9 +1,9 @@
 import React, { memo } from 'react';
 import * as M from 'moment';
 import { extendMoment } from 'moment-range';
-import { Workout } from 'src/types/Workout';
-import { P } from 'src/types/Grid';
 import { useWindowSize } from 'react-use';
+import { Workout } from '../../../../types/Workout';
+import { P } from '../../../../types/Grid';
 import GridHeadFirstWeek from './GridHeadFirstWeek';
 import GridHead from './GridHead';
 import GridWorkout from './GridWorkout';
@@ -31,7 +31,7 @@ const GridDay: React.FC<Props> = ({
   workouts,
   popover,
   setPopover
-}) => {
+}: Props) => {
   const { width }: { width: number } = useWindowSize();
 
   return (
@@ -59,8 +59,8 @@ const GridDay: React.FC<Props> = ({
         // if the workout matches this day's date, map over it and render it out into the day
         .filter(el => el.date === date.format('MMM DD YYYY'))
         .map(
-          (data, i) =>
-            i === 0 && (
+          (data, idx) =>
+            idx === 0 && (
               <div
                 style={{
                   width: '100%',
@@ -85,18 +85,18 @@ const GridDay: React.FC<Props> = ({
                     openViewModal={openViewModal}
                     date={date}
                   >
-                    <div
-                      onClick={() =>
+                    <button
+                      onClick={(): void =>
                         setPopover({
                           open: true,
                           id: date.format('MMM DD YYYY')
                         })
-                      }
-                      role='button'
+                      } // eslint-disable-line
+                      type='button'
                       className='grid-view-more'
                     >
                       {width <= 500 ? 'More' : 'View More'}
-                    </div>
+                    </button>
                   </Popover>
                 )}
               </div>

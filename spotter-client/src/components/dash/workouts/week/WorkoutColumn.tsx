@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Moment } from 'moment';
-import { Workout } from 'src/types/Workout';
+import { Workout } from '../../../../types/Workout';
 import WorkoutColumnContent from './WorkoutColumnContent';
 
 import WorkoutCard from './WorkoutCard';
@@ -19,27 +19,27 @@ const WorkoutColumn: React.FC<Props> = ({
   openAddWorkoutModal,
   openViewModal,
   workouts
-}) => {
+}: Props) => {
   return (
     <div role='button' className='week-workouts-column'>
       <WorkoutColumnContent
         date={date}
         i={i}
-        openAddWorkoutModal={() => openAddWorkoutModal(date)}
+        openAddWorkoutModal={(): void => openAddWorkoutModal(date)}
       />
       <div>
         {/* filter workouts for workouts matching this date */}
         {workouts
           .filter(el => el.date === date.format('MMM DD YYYY'))
           .map(data => (
-            <div
+            <button
               className='workout-card-container'
-              onClick={() => openViewModal(data, date)}
+              onClick={(): void => openViewModal(data, date)}
               key={data._id}
-              role='button'
+              type='button'
             >
               <WorkoutCard data={data} />
-            </div>
+            </button>
           ))}
       </div>
     </div>

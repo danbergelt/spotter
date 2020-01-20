@@ -1,6 +1,7 @@
 import { useWindowSize } from 'react-use';
 
-export const useTagModalStyles = () => {
+// eslint-disable-next-line
+const useTagModalStyles = () => {
   const { width } = useWindowSize();
 
   return {
@@ -16,3 +17,5 @@ export const useTagModalStyles = () => {
     }
   };
 };
+
+export default useTagModalStyles;

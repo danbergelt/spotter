@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
 import { FiX } from 'react-icons/fi';
-import { P } from 'src/types/Grid';
-import { Workout } from 'src/types/Workout';
 import * as M from 'moment';
+import { P } from '../../../../types/Grid';
+import { Workout } from '../../../../types/Workout';
 
 // Hacky fix to resolve error with default imports from moment and typescript
 let m = require('moment');
@@ -25,7 +25,7 @@ const ViewMoreContent: React.FC<Props> = ({
   workouts,
   openViewModal,
   date
-}) => {
+}: Props) => {
   // closes the popover when a workout is selected
   const handlePopover: (workout: Workout, date: M.Moment) => void = workout => {
     setPopover({ open: false, id: null });
@@ -36,23 +36,23 @@ const ViewMoreContent: React.FC<Props> = ({
     <>
       <div className='popover-head'>
         {date.format('MMM D')}
-        <div
-          role='button'
+        <button
+          type='button'
           data-testid='close-popover'
-          onClick={() => setPopover({ open: false, id: null })}
+          onClick={(): void => setPopover({ open: false, id: null })}
           className='close-popover'
         >
           <FiX />
-        </div>
+        </button>
       </div>
       {workouts
         .filter(el => el.date === date.format('MMM DD YYYY'))
         .map(workout => (
-          <div
-            onClick={() =>
+          <button
+            onClick={(): void =>
               handlePopover(workout, m(workout.date, 'MMM DD YYYY'))
-            }
-            role='button'
+            } //eslint-disable-line
+            type='button'
             className='view-more-workouts-container'
             key={workout._id}
           >
@@ -62,7 +62,7 @@ const ViewMoreContent: React.FC<Props> = ({
             >
               {workout.title}
             </p>
-          </div>
+          </button>
         ))}
     </>
   );

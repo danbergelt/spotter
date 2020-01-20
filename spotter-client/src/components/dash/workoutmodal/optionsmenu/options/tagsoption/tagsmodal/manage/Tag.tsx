@@ -26,15 +26,16 @@ const Tag: React.FC<Props> = ({
   setUpdate,
   updateInput,
   setUpdateInput
-}) => {
+}: Props) => {
   return (
     <div key={tag._id}>
       <section className='tag-manage-container'>
+        {/* eslint-disable-next-line */}
         <div
           role='button'
-          onClick={() => setUpdate(tag)}
-          onMouseEnter={() => setHover(tag._id)}
-          onMouseLeave={() => setHover(null)}
+          onClick={(): void => setUpdate(tag)}
+          onMouseEnter={(): void => setHover(tag._id)}
+          onMouseLeave={(): void => setHover(null)}
           style={
             tag._id === hover
               ? { background: adjust(tag.color, -40), ...styles }
@@ -44,14 +45,14 @@ const Tag: React.FC<Props> = ({
         >
           {tag.content}
         </div>
-        <div
-          role='button'
-          onClick={() => handleDelete(tag)}
+        <button
+          type='button'
+          onClick={(): void => handleDelete(tag)}
           className='tag-manage-delete'
           data-testid='trash-tag'
         >
           Delete
-        </div>
+        </button>
       </section>
       <section>
         {update?._id === tag._id && (

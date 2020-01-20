@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { TagOnWorkout as Tag } from 'src/types/TagOnWorkout';
-import { fetchToken, State } from 'src/types/State';
+import { TagOnWorkout as Tag } from '../../../../../../../../types/TagOnWorkout';
+import { fetchToken, State } from '../../../../../../../../types/State';
 import { deleteTagAction } from '../../../../../../../../actions/tagsActions';
 import Err from './Err';
 
@@ -10,7 +10,7 @@ interface Props {
   toDelete: Partial<Tag>;
 }
 
-const TagsModalDelete: React.FC<Props> = ({ toDelete }) => {
+const TagsModalDelete: React.FC<Props> = ({ toDelete }: Props) => {
   const [err, setErr] = useState<string>('');
   const history = useHistory();
   const dispatch = useDispatch();
@@ -43,6 +43,7 @@ const TagsModalDelete: React.FC<Props> = ({ toDelete }) => {
         action.
       </p>
       {err.length ? <Err err={err} setErr={setErr} /> : null}
+      {/* eslint-disable-next-line */}
       <div role='button' onClick={deleteTag} className='tag-delete-submit'>
         Delete Tag
       </div>

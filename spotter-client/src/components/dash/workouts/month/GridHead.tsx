@@ -20,20 +20,20 @@ interface Props {
 
 // includes the button to add a new workout
 
-const GridHead: React.FC<Props> = ({ openAddWorkoutModal, date }) => {
+const GridHead: React.FC<Props> = ({ openAddWorkoutModal, date }: Props) => {
   const { width }: { width: number } = useWindowSize();
 
   return (
     <>
       <section className='month-grid-day-head'>
-        <div
-          role='button'
-          onClick={() => openAddWorkoutModal(date)}
+        <button
+          type='button'
+          onClick={(): void => openAddWorkoutModal(date)}
           style={{ marginLeft: 'auto' }}
           className='month-grid-add-workout'
         >
           <FiPlusCircle />
-        </div>
+        </button>
       </section>
       <p
         style={{ fontSize: width <= 800 ? '1.1rem' : '1.3rem' }}

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { FiX } from 'react-icons/fi';
-import { setActiveTabAction } from 'src/actions/tagsActions';
+import { setActiveTabAction } from '../../../../../../../../actions/tagsActions';
 import Tab from './Tab';
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
   closeTagModal: () => void;
 }
 
-const TagsModalHead: React.FC<Props> = ({ active, closeTagModal }) => {
+const TagsModalHead: React.FC<Props> = ({ active, closeTagModal }: Props) => {
   const dispatch = useDispatch();
 
   const setActive: (id: number) => void = useCallback(
@@ -29,6 +29,7 @@ const TagsModalHead: React.FC<Props> = ({ active, closeTagModal }) => {
         <Tab active={active} setActive={setActive} text='Manage' id={1} />
         <Tab active={active} setActive={setActive} text='Create' id={2} />
       </nav>
+      {/* eslint-disable-next-line */}
       <div
         role='button'
         data-testid='close-tag-modal'

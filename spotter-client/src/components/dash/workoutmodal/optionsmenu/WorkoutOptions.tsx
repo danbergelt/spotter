@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { useSelector } from 'react-redux';
 
 // components
-import { State } from 'src/types/State';
+import { State } from '../../../../types/State';
 import TagsOption from './options/tagsoption/TagsOption';
 import SaveTemplateOption from './options/savetemplate/SaveTemplateOption';
 import FromTemplateOption from './options/fromtemplate/FromTemplateOption';
@@ -16,7 +16,7 @@ interface Props {
 }
 
 // container for sidebar menu on workout modal
-const WorkoutOptions: React.FC<Props> = ({ closeParentModal, time }) => {
+const WorkoutOptions: React.FC<Props> = ({ closeParentModal, time }: Props) => {
   const iconClass = 'add-workout-options-icon';
 
   const ctx: string | null = useSelector(

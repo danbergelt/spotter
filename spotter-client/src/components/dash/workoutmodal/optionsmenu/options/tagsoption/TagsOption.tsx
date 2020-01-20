@@ -2,7 +2,7 @@ import React from 'react';
 import { FiTag } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { fetchToken } from 'src/types/State';
+import { fetchToken } from '../../../../../../types/State';
 import {
   fetchTags,
   openTagModalAction
@@ -13,7 +13,7 @@ interface Props {
   iconClass: string;
 }
 
-const Tags: React.FC<Props> = ({ iconClass }) => {
+const Tags: React.FC<Props> = ({ iconClass }: Props) => {
   const dispatch = useDispatch();
 
   const history = useHistory();
@@ -27,14 +27,15 @@ const Tags: React.FC<Props> = ({ iconClass }) => {
 
   return (
     <>
-      <div
-        role='button'
+      <button
+        type='button'
         onClick={openTagsModal}
         className='add-workout-options-button'
         data-testid='tags-modal'
       >
-        <FiTag className={iconClass} /> Tags
-      </div>
+        <FiTag className={iconClass} />
+        Tags
+      </button>
       <TagsModal />
     </>
   );

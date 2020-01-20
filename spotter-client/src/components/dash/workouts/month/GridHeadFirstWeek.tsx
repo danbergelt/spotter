@@ -24,23 +24,22 @@ interface Props {
 const GridHeadFirstWeek: React.FC<Props> = ({
   date,
   openAddWorkoutModal,
-  i,
-  moment
-}) => {
+  i
+}: Props) => {
   const { width }: { width: number } = useWindowSize();
 
   return (
     <>
       <section className='month-grid-day-head'>
         <p className='month-grid-day-of-week'>{date.format('ddd')}</p>
-        <div
-          role='button'
-          onClick={() => openAddWorkoutModal(date)}
+        <button
+          type='button'
+          onClick={(): void => openAddWorkoutModal(date)}
           className='month-grid-add-workout'
           data-testid={i === 0 && 'add-for-testing'}
         >
           <FiPlusCircle />
-        </div>
+        </button>
       </section>
       <p
         style={{ fontSize: width <= 800 ? '1.1rem' : '1.3rem' }}

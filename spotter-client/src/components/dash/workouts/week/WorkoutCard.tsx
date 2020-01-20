@@ -1,7 +1,8 @@
 import React from 'react';
 import { FiAlignLeft } from 'react-icons/fi';
-import { Workout } from 'src/types/Workout';
 import { useWindowSize } from 'react-use';
+import { Workout } from '../../../../types/Workout';
+import { TagOnWorkout } from '../../../../types/TagOnWorkout';
 
 // card that renders under each column in weekly workout view
 // data represents data for each workout
@@ -10,33 +11,41 @@ interface Props {
   data: Workout;
 }
 
-const WorkoutCard: React.FC<Props> = ({ data }) => {
+const WorkoutCard: React.FC<Props> = ({ data }: Props) => {
   const { width } = useWindowSize();
+
+  const dynamicTitleHelper = (): string => {
+    if (width <= 500 && data.title.length > 4) {
+      return `${data.title.slice(0, 4)}...`;
+    }
+
+    return data.title;
+  };
+
+  const dynamicTagHelper = (tag: TagOnWorkout): string => {
+    if (width <= 750 && tag.content.length > 4) {
+      return `${tag.content.slice(0, 4)}...`.toUpperCase();
+    }
+
+    return data.title.toUpperCase();
+  };
 
   return (
     <>
       <p data-testid='workout-title' className='workout-card-title'>
-        {width <= 500
-          ? data.title.length > 4
-            ? `${data.title.slice(0, 4)}...`
-            : data.title
-          : data.title}
+        {dynamicTitleHelper()}
       </p>
       {data.notes || data.exercises.length ? (
         <FiAlignLeft className='workout-card-notes-ind' />
       ) : null}
       <section className='workout-card-tag-container'>
-        {data.tags.map(el => (
+        {data.tags.map(tag => (
           <p
             className='workout-card-tag'
-            key={el._id}
-            style={{ background: el.color }}
+            key={tag._id}
+            style={{ background: tag.color }}
           >
-            {width <= 750
-              ? el.content.length > 2
-                ? `${el.content.slice(0, 2).toUpperCase()}...`
-                : el.content.toUpperCase()
-              : el.content.toUpperCase()}
+            {dynamicTagHelper(tag)}
           </p>
         ))}
       </section>

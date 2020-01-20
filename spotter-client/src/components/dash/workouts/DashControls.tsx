@@ -12,7 +12,7 @@ interface Props {
 
 // controls incrementing/decrementing the date in view
 
-const DashControls: React.FC<Props> = ({ inc, dec, time, month }) => {
+const DashControls: React.FC<Props> = ({ inc, dec, time, month }: Props) => {
   const { width } = useWindowSize();
 
   return (

@@ -1,7 +1,9 @@
-@import "../../variables.scss";
-@import "../../mixins.scss";
+@import '../../variables.scss';
+@import '../../mixins.scss';
 
 .workout-card-container {
+  outline: 0;
+  border: 0;
   margin: 0 1rem;
   margin-bottom: 1rem;
   border-radius: $border;

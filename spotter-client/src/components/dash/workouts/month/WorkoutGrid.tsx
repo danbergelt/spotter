@@ -1,18 +1,18 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { State } from 'src/types/State';
-import { Workout } from 'src/types/Workout';
 import { Moment } from 'moment';
-import { closeWorkoutModalAction } from 'src/actions/globalActions';
-import { fetchWorkouts } from 'src/actions/fetchWorkoutsActions';
+import { State } from '../../../../types/State';
+import { Workout } from '../../../../types/Workout';
+import { fetchWorkouts } from '../../../../actions/fetchWorkoutsActions';
 import { generateMonth, monthDashHead } from '../../../../utils/momentUtils';
 import DashControls from '../DashControls';
 import GridDay from './GridDay';
 import {
   incOrDecAction,
   addWorkoutModalAction,
-  viewWorkoutModalAction
+  viewWorkoutModalAction,
+  closeWorkoutModalAction
 } from '../../../../actions/globalActions';
 import WorkoutModal from '../../workoutmodal/WorkoutModal';
 import { fetchExercises } from '../../../../actions/fetchExercisesActions';
@@ -23,7 +23,7 @@ interface GlobalReducer {
   timeSpan: number;
 }
 
-const WorkoutGrid = () => {
+const WorkoutGrid: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -48,10 +48,10 @@ const WorkoutGrid = () => {
   }, [timeSpan, history, scope.value, t, dispatch]);
 
   // increment or decrement by one week/month at a time
-  const inc = () => {
+  const inc = (): void => {
     dispatch(incOrDecAction('inc', timeSpan));
   };
-  const dec = () => {
+  const dec = (): void => {
     dispatch(incOrDecAction('dec', timeSpan));
   };
 

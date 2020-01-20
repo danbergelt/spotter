@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { State } from 'src/types/State';
-import { Workout } from 'src/types/Workout';
 import { Moment } from 'moment';
-import { closeWorkoutModalAction } from 'src/actions/globalActions';
-import { fetchWorkouts } from 'src/actions/fetchWorkoutsActions';
+import { State } from '../../../../types/State';
+import { Workout } from '../../../../types/Workout';
+import { fetchWorkouts } from '../../../../actions/fetchWorkoutsActions';
 import WorkoutColumn from './WorkoutColumn';
 import WorkoutModal from '../../workoutmodal/WorkoutModal';
 import { generateWeek, dashHead } from '../../../../utils/momentUtils';
@@ -13,7 +12,8 @@ import DashControls from '../DashControls';
 import {
   incOrDecAction,
   addWorkoutModalAction,
-  viewWorkoutModalAction
+  viewWorkoutModalAction,
+  closeWorkoutModalAction
 } from '../../../../actions/globalActions';
 import { fetchExercises } from '../../../../actions/fetchExercisesActions';
 
@@ -23,7 +23,7 @@ interface GlobalReducer {
   timeSpan: number;
 }
 
-const WorkoutColumns = () => {
+const WorkoutColumns: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [modal, setModal] = useState<boolean>(false);
@@ -36,10 +36,10 @@ const WorkoutColumns = () => {
   );
 
   // increment or decrement by one week/day at a time
-  const inc = () => {
+  const inc = (): void => {
     dispatch(incOrDecAction('inc', timeSpan));
   };
-  const dec = () => {
+  const dec = (): void => {
     dispatch(incOrDecAction('dec', timeSpan));
   };
 
@@ -78,7 +78,7 @@ const WorkoutColumns = () => {
         {generateWeek(timeSpan).map((date, i) => (
           <WorkoutColumn
             date={date}
-            key={i}
+            key={date.format('MMM DD YYYY')}
             i={i}
             openAddWorkoutModal={openAddWorkoutModal}
             openViewModal={openViewModal}

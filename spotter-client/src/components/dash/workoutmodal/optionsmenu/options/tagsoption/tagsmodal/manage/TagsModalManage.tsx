@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { State, fetchToken } from 'src/types/State';
+import { State, fetchToken } from '../../../../../../../../types/State';
 import {
   setActiveTabAction,
   editTagAction
@@ -14,21 +14,22 @@ interface Props {
   setToDelete: React.Dispatch<React.SetStateAction<Partial<T>>>;
 }
 
-const TagsModalManage: React.FC<Props> = ({ setToDelete }) => {
-  const tagsFromState = (state: State) => state.tagsReducer.tags;
-  const tags: Array<T> = useSelector(tagsFromState);
-
+const TagsModalManage: React.FC<Props> = ({ setToDelete }: Props) => {
+  // state selectors
+  const tags: Array<T> = useSelector((state: State) => state.tagsReducer.tags);
   const t: string | null = useSelector(fetchToken);
 
+  // hooks
   const dispatch = useDispatch();
+  const history = useHistory();
 
+  // local state
   const [hover, setHover] = useState<null | string>(null);
   const [update, setUpdate] = useState<Partial<T>>({});
   const [updateInput, setUpdateInput] = useState<string>('');
   const [err, setErr] = useState<string>('');
 
-  const history = useHistory();
-
+  // handle tag delete callback
   const handleDelete: (tag: T) => void = useCallback(
     tag => {
       dispatch(setActiveTabAction(3));
@@ -37,8 +38,10 @@ const TagsModalManage: React.FC<Props> = ({ setToDelete }) => {
     [dispatch, setToDelete]
   );
 
+  // helper that condenses params object for a large function call
   const paramsHelper = { t, update, updateInput, setUpdate, history, setErr };
 
+  // handle submit callback to edit a tag
   const handleSubmit: (
     e: React.FormEvent<HTMLFormElement>
   ) => void = useCallback(
@@ -50,6 +53,7 @@ const TagsModalManage: React.FC<Props> = ({ setToDelete }) => {
     [dispatch, paramsHelper]
   );
 
+  // if no tags exist, render this JSX
   if (!tags.length) {
     return <p className='no-tags-found'>No tags found</p>;
   }

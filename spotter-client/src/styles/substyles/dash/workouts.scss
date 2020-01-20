@@ -1,5 +1,5 @@
-@import "../../variables.scss";
-@import "../../mixins.scss";
+@import '../../variables.scss';
+@import '../../mixins.scss';
 
 .controls-spacer {
   display: flex;
@@ -117,6 +117,8 @@
     }
 
     .week-workouts-add-workout {
+      outline: 0;
+      border: 0;
       color: $gray1;
       margin: 1rem;
       padding: 1rem 0;
@@ -202,6 +204,8 @@
       }
 
       .month-grid-add-workout {
+        border: 0;
+        outline: 0;
         cursor: pointer;
         padding: 0.33rem;
         color: $primary;
@@ -227,6 +231,8 @@
       font-size: 1.2rem;
       padding: 0.3rem;
       cursor: pointer;
+      border: 0;
+      outline: 0;
 
       @include medium {
         width: 75%;
@@ -272,6 +278,8 @@
     @include popoverHead;
 
     .close-popover {
+      outline: 0;
+      border: 0;
       @include closePopover;
       @include hover;
     }
@@ -292,6 +300,8 @@
       font-size: 1.2rem;
       padding: 0.5rem;
       cursor: pointer;
+      outline: 0;
+      border: 0;
 
       &:hover {
         text-decoration: underline;

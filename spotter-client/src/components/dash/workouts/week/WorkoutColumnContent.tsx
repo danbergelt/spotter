@@ -15,8 +15,20 @@ const WorkoutColumnContent: React.FC<Props> = ({
   date,
   openAddWorkoutModal,
   i
-}) => {
+}: Props) => {
   const { width } = useWindowSize();
+
+  const dynamicContentHelper = (): string | null => {
+    if (width <= 500) {
+      return null;
+    }
+
+    if (width < 800) {
+      return 'Add';
+    }
+
+    return 'Add Workout';
+  };
 
   return (
     <>
@@ -27,16 +39,15 @@ const WorkoutColumnContent: React.FC<Props> = ({
         <p className='week-workout-day-slug'>{date.format('ddd')}</p>
         <p className='week-workout-day-date'>{date.format('D')}</p>
       </section>
-      <div
+      <button
         data-testid={i === 0 && 'modal-click'}
-        onClick={() => openAddWorkoutModal(date)}
+        onClick={(): void => openAddWorkoutModal(date)}
         className='week-workouts-add-workout'
-        role='button'
+        type='button'
       >
         <FiPlusCircle className='week-workouts-add-icon' />
-{' '}
-        {width <= 500 ? null : width < 800 ? 'Add' : 'Add Workout'}
-      </div>
+        {dynamicContentHelper()}
+      </button>
     </>
   );
 };

@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Loader from 'react-loader-spinner';
-import { State } from 'src/types/State';
-import { TagOnWorkout as T } from 'src/types/TagOnWorkout';
+import { State } from '../../../../../../../../types/State';
+import { TagOnWorkout as T } from '../../../../../../../../types/TagOnWorkout';
 import { toggleTagAction } from '../../../../../../../../actions/workoutActions';
-import { styles as lStyles } from '../localutils/loaderStyles';
+import styles from '../localutils/loaderStyles';
 import Tag from './Tag';
 
 interface TagsState {
@@ -13,7 +13,7 @@ interface TagsState {
 }
 
 // tab - add tag to current workout
-const TagsModalAdd = () => {
+const TagsModalAdd: React.FC = () => {
   const { tags, isLoading }: TagsState = useSelector(
     (state: State) => state.tagsReducer
   );
@@ -35,7 +35,7 @@ const TagsModalAdd = () => {
   if (isLoading) {
     return (
       <Loader
-        style={lStyles}
+        style={styles}
         type='ThreeDots'
         color='#E9503F'
         height={15}

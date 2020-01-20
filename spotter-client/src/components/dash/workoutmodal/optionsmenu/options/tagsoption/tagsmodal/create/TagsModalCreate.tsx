@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import Loader from 'react-loader-spinner';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { fetchToken } from 'src/types/State';
+import { fetchToken } from '../../../../../../../../types/State';
 import { colors } from '../localutils/createTagStyles';
 import Message from './Message';
 import { saveTagAction } from '../../../../../../../../actions/tagsActions';
 import Color from './Color';
 
 // tab - create tag
-const TagsModalCreate = () => {
+const TagsModalCreate: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -40,9 +40,8 @@ const TagsModalCreate = () => {
   return (
     <section className='tags-modal-create'>
       <input
-        autoFocus
         value={name}
-        onChange={e => setName(e.target.value)}
+        onChange={(e): void => setName(e.target.value)}
         placeholder='Set tag name...'
         className='tags-modal-create-name'
       />

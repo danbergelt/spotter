@@ -1,14 +1,14 @@
 import React, { useState, useCallback } from 'react';
 import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { State } from 'src/types/State';
-import { closeTagModalAction } from 'src/actions/tagsActions';
+import { State } from '../../../../../../../types/State';
+import { closeTagModalAction } from '../../../../../../../actions/tagsActions';
 import TagsModalHead from './head/TagsModalHead';
 import TagsModalCreate from './create/TagsModalCreate';
 import TagsModalManage from './manage/TagsModalManage';
 import TagsModalDelete from './delete/TagsModalDelete';
 import TagsModalAdd from './add/TagsModalAdd';
-import { useTagModalStyles } from './localutils/tagsModalStyles';
+import useTagModalStyles from './localutils/tagsModalStyles';
 import { TagOnWorkout as Tag } from '../../../../../../../types/TagOnWorkout';
 
 if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#root');
@@ -19,7 +19,7 @@ interface OptionsReducer {
 }
 
 // modal for tags manager
-const TagsModal = () => {
+const TagsModal: React.FC = () => {
   // sets the selected tag to be queued for deletion
   const [toDelete, setToDelete] = useState<Partial<Tag>>({});
 
