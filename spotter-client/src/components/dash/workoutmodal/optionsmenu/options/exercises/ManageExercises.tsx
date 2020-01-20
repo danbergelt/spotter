@@ -41,28 +41,16 @@ const ManageExercises: React.FC<Props> = ({ exercises }) => {
           className='exercises-add'
         />
       </div>
-      {exercises.length ? (
-        filter.length ? (
-          <section className='exercises'>
-            {filter.map((exercise: E) => (
-              <Exercise
-                key={exercise._id}
-                deleteExercise={deleteExercise}
-                exercise={exercise}
-              />
-            ))}
-          </section>
-        ) : (
-          <p
-            style={{
-              fontSize: '1.3rem',
-              textAlign: 'center',
-              marginTop: '1rem'
-            }}
-          >
-            No exercises found
-          </p>
-        )
+      {exercises.length && filter.length ? (
+        <section className='exercises'>
+          {filter.map((exercise: E) => (
+            <Exercise
+              key={exercise._id}
+              deleteExercise={deleteExercise}
+              exercise={exercise}
+            />
+          ))}
+        </section>
       ) : (
         <p
           style={{ fontSize: '1.3rem', textAlign: 'center', marginTop: '1rem' }}

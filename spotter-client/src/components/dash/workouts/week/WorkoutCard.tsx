@@ -16,10 +16,8 @@ const WorkoutCard: React.FC<Props> = ({ data }) => {
   return (
     <>
       <p data-testid='workout-title' className='workout-card-title'>
-        {width <= 500
-          ? data.title.length > 4
-            ? `${data.title.slice(0, 4)}...`
-            : data.title
+        {width <= 500 && data.title.length > 4
+          ? `${data.title.slice(0, 4)}...`
           : data.title}
       </p>
       {data.notes || data.exercises.length ? (
@@ -32,10 +30,8 @@ const WorkoutCard: React.FC<Props> = ({ data }) => {
             key={el._id}
             style={{ background: el.color }}
           >
-            {width <= 750
-              ? el.content.length > 2
-                ? `${el.content.slice(0, 2).toUpperCase()}...`
-                : el.content.toUpperCase()
+            {width <= 750 && el.content.length > 2
+              ? `${el.content.slice(0, 2).toUpperCase()}...`
               : el.content.toUpperCase()}
           </p>
         ))}

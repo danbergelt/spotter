@@ -22,10 +22,8 @@ const GridWorkout: React.FC<Props> = ({ data, openViewModal, date }) => {
       onClick={() => openViewModal(data, date)}
       key={data._id}
     >
-      {width <= 800
-        ? data.title.length > 5
-          ? `${data.title.slice(0, 4)}...`
-          : data.title
+      {width <= 800 && data.title.length > 5
+        ? `${data.title.slice(0, 4)}...`
         : data.title}
     </div>
   );
