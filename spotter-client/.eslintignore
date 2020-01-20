@@ -1,1 +1,4 @@
 **/*.test.js
+**/prettify.js
+**/sorter.js
+**/block-navigation.js

@@ -5,12 +5,14 @@ import { Props } from '../../../../../types/Exercises';
 
 // the rendered exercise, including all the exercise stats and ability to delete/edit
 
+/* eslint-disable */
+
 const WorkoutExercise: React.FC<Props> = ({
   exercise,
   i,
   handleQueue,
   delExercise
-}) => {
+}: Props) => {
   return (
     exercise && (
       <div className={i % 2 === 0 ? 'exercise-row even' : 'exercise-row odd'}>
@@ -20,8 +22,7 @@ const WorkoutExercise: React.FC<Props> = ({
             <div className='exercise-results-spacer'>
               <div className='exercise-stats'>
                 {exercise.weight && (
-                  <p className='exercise-stat'>
-{exercise.weight} lbs</p>
+                  <p className='exercise-stat'>{exercise.weight} lbs</p>
                 )}
                 {exercise.weight && exercise.reps && exercise.sets && (
                   <FiArrowRight />
@@ -35,8 +36,7 @@ const WorkoutExercise: React.FC<Props> = ({
                   <div className='exercise-stat'>x</div>
                 )}
                 {exercise.reps && (
-                  <p className='exercise-stat'>
-{exercise.reps} reps</p>
+                  <p className='exercise-stat'>{exercise.reps} reps</p>
                 )}
               </div>
               <ExerciseActions
