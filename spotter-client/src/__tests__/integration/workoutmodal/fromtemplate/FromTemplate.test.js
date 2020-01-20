@@ -54,7 +54,7 @@ describe('from template functionality', () => {
 
   test('filter works', async () => {
     axios.get.mockResolvedValue(mockTemplateRes);
-    const { getByPlaceholderText, container, getByText } = wrapper(
+    const { getByPlaceholderText, getByText } = wrapper(
       reducer,
       <WorkoutOptions />
     );
@@ -74,14 +74,10 @@ describe('from template functionality', () => {
   test('can generate from template', async () => {
     axios.get.mockResolvedValue(mockTemplateRes);
 
-    const {
-      getByTestId,
-      container,
-      getByText,
-      queryByText,
-      store,
-      debug
-    } = wrapper(reducer, <WorkoutModal modal={true} />);
+    const { getByTestId, container, getByText, queryByText, store } = wrapper(
+      reducer,
+      <WorkoutModal modal={true} />
+    );
 
     store.dispatch({
       type: FETCH_WORKOUTS_SUCCESS,

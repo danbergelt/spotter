@@ -61,10 +61,7 @@ describe('Change forgotten password', () => {
       data: { token: 'foo' }
     });
 
-    const { getAllByText, findByText, container, debug, history } = wrapper(
-      reducer,
-      <ForgotAndChangePass />
-    );
+    const { getAllByText, history } = wrapper(reducer, <ForgotAndChangePass />);
 
     fireEvent.click(getAllByText(/change password/i)[1]);
 

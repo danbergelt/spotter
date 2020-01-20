@@ -3,7 +3,7 @@ import ForgotPasswordInstructions from 'src/components/auth/ForgotPassInstructio
 import { reducer } from '../../../reducers/index';
 import axios from 'axios';
 import wrapper from '../../../__testUtils__/wrapper';
-import { cleanup, fireEvent, wait } from '@testing-library/react';
+import { cleanup, fireEvent } from '@testing-library/react';
 
 describe('Forgot password instructions', () => {
   afterEach(cleanup);

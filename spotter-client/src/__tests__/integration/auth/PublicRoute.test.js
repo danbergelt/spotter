@@ -1,8 +1,7 @@
 import React from 'react';
-import Login from '../../../pages/LogIn';
 import axios from 'axios';
 import wrapper from '../../../__testUtils__/wrapper';
-import { cleanup, fireEvent, wait } from '@testing-library/react';
+import { cleanup } from '@testing-library/react';
 import { reducer } from '../../../reducers/index';
 import ForgotPasswordInstructions from 'src/components/auth/ForgotPassInstructions';
 import { ADD_TOKEN } from 'src/actions/addTokenActions';
@@ -12,7 +11,7 @@ describe('Forgot password instructions', () => {
   afterEach(cleanup);
 
   test('unauthenticated user passes through to protected component', async () => {
-    const { history, container, queryByText } = wrapper(
+    const { queryByText } = wrapper(
       reducer,
       <PublicRoute component={ForgotPasswordInstructions} />
     );
@@ -21,7 +20,7 @@ describe('Forgot password instructions', () => {
 
   test('authenticated redirects to dashboard', () => {
     axios.post.mockResolvedValue({});
-    const { history, store, queryByText } = wrapper(
+    const { store, queryByText } = wrapper(
       reducer,
       <PublicRoute component={ForgotPasswordInstructions} />
     );

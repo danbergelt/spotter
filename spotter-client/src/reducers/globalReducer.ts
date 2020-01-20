@@ -8,6 +8,7 @@ import {
   CLOSE_WORKOUT_MODAL
 } from '../actions/globalActions';
 import { GlobalReducer } from 'src/types/State';
+import { AnyAction } from 'redux';
 
 const globalState: GlobalReducer = {
   t: null,
@@ -21,7 +22,7 @@ const globalState: GlobalReducer = {
 
 export const globalReducer = (
   state = globalState,
-  action: { type: string; payload: any }
+  action: AnyAction
 ): GlobalReducer => {
   switch (action.type) {
     case ADD_TOKEN:

@@ -16,13 +16,10 @@ describe('exercise actions', () => {
   Modal.setAppElement(document.createElement('div'));
 
   it('can delete exercise', () => {
-    const {
-      container,
-      getAllByTestId,
-      queryByText,
-      getByText,
-      store
-    } = wrapper(reducer, <WorkoutModal modal={true} />);
+    const { getAllByTestId, queryByText, getByText, store } = wrapper(
+      reducer,
+      <WorkoutModal modal={true} />
+    );
 
     store.dispatch({
       type: FROM_TEMPLATE,

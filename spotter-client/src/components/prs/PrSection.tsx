@@ -47,8 +47,8 @@ const PrSection: React.FC<Props> = ({ title, prs }) => {
         )}
         <ReactTooltip place='top' id='pr-info' effect='solid'>
           <p style={{ width: '200px' }}>
-            Save the exercises you want tracked, and we'll show your PRs on this
-            page!
+            Save the exercises you want tracked, and we&#39;ll show your PRs on
+            this page!
           </p>
         </ReactTooltip>
       </div>

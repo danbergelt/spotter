@@ -13,6 +13,7 @@ import {
 } from '../actions/optionsActions';
 import { CLOSE_WORKOUT_MODAL } from '../actions/globalActions';
 import { OptionsReducer } from 'src/types/State';
+import { AnyAction } from 'redux';
 
 // controls all the various options/settings in the workout modal, including the various modal states, populated content, error messages, etc.
 
@@ -30,7 +31,7 @@ const optionsState: OptionsReducer = {
 
 export const optionsReducer = (
   state = optionsState,
-  action: { type: string; payload: any }
+  action: AnyAction
 ): OptionsReducer => {
   switch (action.type) {
     case OPEN_TAG_MODAL:

@@ -1,6 +1,5 @@
 import React, { memo } from 'react';
 import * as M from 'moment';
-import { extendMoment } from 'moment-range';
 import GridHeadFirstWeek from './GridHeadFirstWeek';
 import GridHead from './GridHead';
 import GridWorkout from './GridWorkout';
@@ -8,8 +7,6 @@ import Popover from './PopoverContainer';
 import { Workout } from 'src/types/Workout';
 import { P } from 'src/types/Grid';
 import { useWindowSize } from 'react-use';
-
-const moment = extendMoment(M);
 
 interface Props {
   date: M.Moment;
@@ -43,17 +40,12 @@ const GridDay: React.FC<Props> = ({
         // in the first week, also include the days of the week (e.g. Monday, Tuesday, etc.)
         // not very DRY to have separate components, possibly pass a notifier prop to change the context, and use a single component?
         <GridHeadFirstWeek
-          moment={moment}
           openAddWorkoutModal={openAddWorkoutModal}
           i={i}
           date={date}
         />
       ) : (
-        <GridHead
-          moment={moment}
-          openAddWorkoutModal={openAddWorkoutModal}
-          date={date}
-        />
+        <GridHead openAddWorkoutModal={openAddWorkoutModal} date={date} />
       )}
       {workouts
         // if the workout matches this day's date, map over it and render it out into the day

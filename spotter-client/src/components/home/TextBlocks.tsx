@@ -29,7 +29,7 @@ export const TextBlocks: React.FC = () => {
           </div>
           <p className='textblock-title'>Log your personal bests</p>
           <p className='textblock-content'>
-            Save the exercises you want tracked, and we'll{' '}
+            Save the exercises you want tracked, and we&#39;ll{' '}
             <span className='textblock-highlight'>
               calculate your PRs automatically.
             </span>

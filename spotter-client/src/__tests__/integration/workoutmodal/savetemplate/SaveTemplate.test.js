@@ -15,7 +15,7 @@ describe('template save modal functionality', () => {
   Modal.setAppElement(document.createElement('div'));
 
   test('Can open and close save template modal', () => {
-    const { getByTestId, queryByPlaceholderText, debug } = wrapper(
+    const { getByTestId, queryByPlaceholderText } = wrapper(
       reducer,
       <WorkoutOptions />
     );
@@ -87,13 +87,10 @@ describe('template save modal functionality', () => {
 
   test('resets state on close', async () => {
     axios.post.mockRejectedValue({ response: { data: { error: 'bad req' } } });
-    const {
-      queryByText,
-      container,
-      getByPlaceholderText,
-      getByTestId,
-      getByText
-    } = wrapper(reducer, <WorkoutOptions />);
+    const { container, getByPlaceholderText, getByTestId, getByText } = wrapper(
+      reducer,
+      <WorkoutOptions />
+    );
 
     fireEvent.click(getByTestId(/save-template/i));
 

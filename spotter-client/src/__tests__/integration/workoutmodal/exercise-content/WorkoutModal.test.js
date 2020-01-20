@@ -21,12 +21,10 @@ describe('add workout modal functionality', () => {
     console.error = jest.fn();
     axios.post.mockResolvedValue(mockWorkoutRes);
     axios.get.mockResolvedValue({});
-    const {
-      queryByPlaceholderText,
-      getByTestId,
-      queryByTestId,
-      store
-    } = wrapper(reducer, <WorkoutColumns />);
+    const { queryByPlaceholderText, getByTestId, queryByTestId } = wrapper(
+      reducer,
+      <WorkoutColumns />
+    );
 
     fireEvent.click(getByTestId(/modal-click/i));
 
@@ -41,7 +39,7 @@ describe('add workout modal functionality', () => {
   });
 
   test('can hold user-entered text in title and notes', () => {
-    const { container, queryByTestId, getByPlaceholderText, store } = wrapper(
+    const { container, queryByTestId, getByPlaceholderText } = wrapper(
       reducer,
       <WorkoutModal modal={true} />
     );
@@ -62,7 +60,7 @@ describe('add workout modal functionality', () => {
   });
 
   test('edit notes focuses notes', () => {
-    const { container, queryByText, getByPlaceholderText, store } = wrapper(
+    const { container, queryByText, getByPlaceholderText } = wrapper(
       reducer,
       <WorkoutModal modal={true} />
     );
@@ -83,7 +81,7 @@ describe('add workout modal functionality', () => {
   });
 
   test('trashcan empties notes', () => {
-    const { container, getByTestId, getByPlaceholderText, store } = wrapper(
+    const { container, getByTestId, getByPlaceholderText } = wrapper(
       reducer,
       <WorkoutModal modal={true} />
     );
@@ -102,7 +100,7 @@ describe('add workout modal functionality', () => {
   });
 
   test('exercise form inputs work', () => {
-    const { getByPlaceholderText, store } = wrapper(
+    const { getByPlaceholderText } = wrapper(
       reducer,
       <WorkoutModal modal={true} />
     );
@@ -126,7 +124,7 @@ describe('add workout modal functionality', () => {
   });
 
   test("can't enter letters in number inputs", () => {
-    const { getByPlaceholderText, store } = wrapper(
+    const { getByPlaceholderText } = wrapper(
       reducer,
       <WorkoutModal modal={true} />
     );
@@ -146,7 +144,7 @@ describe('add workout modal functionality', () => {
   });
 
   test('trashcan empties exercise inputs', () => {
-    const { getByPlaceholderText, getByTestId, store } = wrapper(
+    const { getByPlaceholderText, getByTestId } = wrapper(
       reducer,
       <WorkoutModal modal={true} />
     );
@@ -174,13 +172,10 @@ describe('add workout modal functionality', () => {
   });
 
   test('submitted exercise renders on page', async () => {
-    const {
-      store,
-      container,
-      getByPlaceholderText,
-      getByTestId,
-      getByText
-    } = wrapper(reducer, <WorkoutModal modal={true} />);
+    const { container, getByPlaceholderText, getByTestId, getByText } = wrapper(
+      reducer,
+      <WorkoutModal modal={true} />
+    );
 
     const name = getByPlaceholderText(/e.g. squat/i);
     const weight = getByPlaceholderText(/lbs/i);

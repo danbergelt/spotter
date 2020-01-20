@@ -1,7 +1,6 @@
 import React, { memo } from 'react';
 import { FiPlusCircle } from 'react-icons/fi';
 import { Moment } from 'moment';
-import { MomentRange } from 'moment-range';
 import { useWindowSize } from 'react-use';
 
 // Hacky fix to resolve error with default imports from moment and typescript
@@ -14,8 +13,6 @@ interface Props {
   date: Moment;
   openAddWorkoutModal: (date: Moment) => void;
   i: number;
-  moment: MomentRange &
-    typeof import('/Users/dan/Documents/prod/spotter/spotter-client/node_modules/moment/moment');
 }
 
 // the first week also includes the week day + the date and the add workout button
@@ -23,8 +20,7 @@ interface Props {
 const GridHeadFirstWeek: React.FC<Props> = ({
   date,
   openAddWorkoutModal,
-  i,
-  moment
+  i
 }) => {
   const { width }: { width: number } = useWindowSize();
 

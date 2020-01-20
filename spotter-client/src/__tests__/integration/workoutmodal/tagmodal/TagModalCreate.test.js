@@ -78,7 +78,7 @@ describe('tag modal functionalty', () => {
   });
 
   test('can pick color', () => {
-    const { getAllByLabelText, getByText, getByTestId } = wrapper(
+    const { getAllByLabelText, getByTestId } = wrapper(
       reducer,
       <TagsModalCreate />
     );

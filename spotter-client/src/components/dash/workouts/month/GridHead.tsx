@@ -1,7 +1,6 @@
 import React, { memo } from 'react';
 import { FiPlusCircle } from 'react-icons/fi';
 import { Moment } from 'moment';
-import { MomentRange } from 'moment-range';
 import { useWindowSize } from 'react-use';
 
 // Hacky fix to resolve error with default imports from moment and typescript
@@ -13,8 +12,6 @@ if ('default' in m) {
 interface Props {
   openAddWorkoutModal: (date: Moment) => void;
   date: Moment;
-  moment: MomentRange &
-    typeof import('/Users/dan/Documents/prod/spotter/spotter-client/node_modules/moment/moment');
 }
 
 // includes the button to add a new workout

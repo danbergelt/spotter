@@ -17,7 +17,7 @@ describe('can update workout', () => {
   test('can update workout', async () => {
     axios.post.mockResolvedValue({});
     axios.get.mockResolvedValue({});
-    const { queryAllByText, getByTestId, getByText, store, history } = wrapper(
+    const { getByTestId, getByText, store, history } = wrapper(
       reducer,
       <WorkoutColumns />
     );

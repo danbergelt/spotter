@@ -14,9 +14,9 @@ const CloseAccount: React.FC = () => {
 
   return (
     <article className='del-account-container'>
-      <span id='del-account-danger'>Danger!</span> This action can't be undone.
-      All of your data will be deleted, and you will be redirected to the Signup
-      screen.
+      <span id='del-account-danger'>Danger!</span> This action can&#39;t be
+      undone. All of your data will be deleted, and you will be redirected to
+      the Signup screen.
       <br />
       <br />
       Are you sure you want to close your account?
@@ -27,7 +27,7 @@ const CloseAccount: React.FC = () => {
           type='checkbox'
           data-testid='close-check'
         />
-        <p>Yes, I'm sure</p>
+        <p>Yes, I&#39;m sure</p>
       </section>
       <div
         role='button'
