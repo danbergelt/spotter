@@ -1,6 +1,7 @@
 import { useWindowSize } from 'react-use';
 
-export const useExerciseModalStyles = () => {
+// eslint-disable-next-line
+const useExerciseModalStyles = () => {
   const { width }: { width: number } = useWindowSize();
 
   return {
@@ -16,3 +17,5 @@ export const useExerciseModalStyles = () => {
     }
   };
 };
+
+export default useExerciseModalStyles;

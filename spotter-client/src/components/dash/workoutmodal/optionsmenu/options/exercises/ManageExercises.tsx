@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchToken } from 'src/types/State';
+import { fetchToken } from '../../../../../../types/State';
 import Exercise from './Exercise';
 import { deleteExerciseAction } from '../../../../../../actions/fetchExercisesActions';
 import { Exercise as E } from '../../../../../../types/ExerciseOption';
@@ -12,7 +12,7 @@ interface Props {
 // search and delete exercises
 // look into including the ability to rename an exercise in place
 
-const ManageExercises: React.FC<Props> = ({ exercises }) => {
+const ManageExercises: React.FC<Props> = ({ exercises }: Props) => {
   const [search, setSearch] = useState<string>('');
 
   const t: string | null = useSelector(fetchToken);
@@ -34,35 +34,22 @@ const ManageExercises: React.FC<Props> = ({ exercises }) => {
     <>
       <div>
         <input
-          autoFocus
           value={search}
-          onChange={e => setSearch(e.target.value)}
+          onChange={(e): void => setSearch(e.target.value)}
           placeholder='Search exercises...'
           className='exercises-add'
         />
       </div>
-      {exercises.length ? (
-        filter.length ? (
-          <section className='exercises'>
-            {filter.map((exercise: E) => (
-              <Exercise
-                key={exercise._id}
-                deleteExercise={deleteExercise}
-                exercise={exercise}
-              />
-            ))}
-          </section>
-        ) : (
-          <p
-            style={{
-              fontSize: '1.3rem',
-              textAlign: 'center',
-              marginTop: '1rem'
-            }}
-          >
-            No exercises found
-          </p>
-        )
+      {exercises.length && filter.length ? (
+        <section className='exercises'>
+          {filter.map((exercise: E) => (
+            <Exercise
+              key={exercise._id}
+              deleteExercise={deleteExercise}
+              exercise={exercise}
+            />
+          ))}
+        </section>
       ) : (
         <p
           style={{ fontSize: '1.3rem', textAlign: 'center', marginTop: '1rem' }}

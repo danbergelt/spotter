@@ -2,7 +2,7 @@ import React from 'react';
 import { FiBookOpen } from 'react-icons/fi';
 import { NotesProps as Props } from '../../../../../types/Notes';
 
-const NotesHead: React.FC<Props> = ({ notes, notesRef }) => {
+const NotesHead: React.FC<Props> = ({ notes, notesRef }: Props) => {
   // focuses the notes when the edit button is clicked
   const handleFocus: () => void = () => {
     if (notesRef?.current) {
@@ -18,7 +18,7 @@ const NotesHead: React.FC<Props> = ({ notes, notesRef }) => {
         <div
           role='button'
           className='workout-data-notes-edit'
-          onClick={() => handleFocus()}
+          onClick={(): void => handleFocus()}
         >
           Edit
         </div>

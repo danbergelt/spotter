@@ -10,13 +10,17 @@ interface Props {
 
 // displays err on bad API req, success on good API req
 
-const SaveExerciseMsg: React.FC<Props> = ({ errOrSucc, setMsg, msg }) => {
+const SaveExerciseMsg: React.FC<Props> = ({
+  errOrSucc,
+  setMsg,
+  msg
+}: Props) => {
   return (
     <div className={errOrSucc}>
       {msg}
       <div
         role='button'
-        onClick={() => setMsg({})}
+        onClick={(): void => setMsg({})}
         style={{ fontSize: '1.2rem', cursor: 'pointer' }}
       >
         <FiX />

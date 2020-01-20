@@ -1,6 +1,6 @@
 import { useWindowSize } from 'react-use';
 
-export const useFromTemplateStyles = () => {
+const useFromTemplateStyles = (): {} => {
   const { width }: { width: number } = useWindowSize();
 
   return {
@@ -16,3 +16,5 @@ export const useFromTemplateStyles = () => {
     }
   };
 };
+
+export default useFromTemplateStyles;

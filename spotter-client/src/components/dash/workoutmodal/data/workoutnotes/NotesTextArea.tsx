@@ -8,17 +8,26 @@ interface Props extends NotesProps {
   setActions: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const NotesTextArea: React.FC<Props> = ({ notes, notesRef, setActions }) => {
+const NotesTextArea: React.FC<Props> = ({
+  notes,
+  notesRef,
+  setActions
+}: Props) => {
   const dispatch = useDispatch();
 
   return (
     // Grows the text area proportionally with the size of the content
     <TextareaAutosize
       inputRef={notesRef}
-      onFocus={() => setActions(true)}
-      onBlur={() => setActions(false)}
+      onFocus={(): void => setActions(true)}
+      onBlur={(): void => setActions(false)}
       value={notes}
-      onChange={e => dispatch(addNotesAction(e.target.value))}
+      onChange={(
+        e
+      ): {
+        type: string;
+        payload: string;
+      } => dispatch(addNotesAction(e.target.value))}
       className='workout-data-notes-content'
       placeholder='Click to enter some notes...'
     />

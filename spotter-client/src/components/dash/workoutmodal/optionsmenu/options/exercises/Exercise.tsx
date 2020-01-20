@@ -7,13 +7,15 @@ interface Props {
   exercise: E;
 }
 
-const Exercise: React.FC<Props> = ({ deleteExercise, exercise }) => {
+const Exercise: React.FC<Props> = ({ deleteExercise, exercise }: Props) => {
   return (
     <section className='exercise-container'>
       <p className='exercise'>{exercise.name}</p>
       <div
         role='button'
-        onClick={() => deleteExercise && deleteExercise(exercise._id)}
+        onClick={(): Promise<void> =>
+          deleteExercise && deleteExercise(exercise._id)
+        } // eslint-disable-line
         className='exercise-delete'
         data-testid='exercise-delete'
       >

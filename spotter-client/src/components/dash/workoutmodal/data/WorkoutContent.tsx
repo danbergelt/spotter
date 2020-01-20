@@ -9,7 +9,7 @@ interface Props {
 
 // container to hold data (e.g. notes, exercises, etc.) and options (e.g. tag modal, save template, delete workout, etc.)
 
-const WorkoutContent: React.FC<Props> = ({ closeModal, time }) => {
+const WorkoutContent: React.FC<Props> = ({ closeModal, time }: Props) => {
   return (
     <div className='workout-body-container'>
       <WorkoutData />

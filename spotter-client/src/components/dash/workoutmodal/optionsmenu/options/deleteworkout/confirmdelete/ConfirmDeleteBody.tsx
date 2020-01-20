@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchToken } from 'src/types/State';
-import { deleteWorkoutAction } from 'src/actions/fetchWorkoutsActions';
+import { fetchToken } from '../../../../../../../types/State';
+import { deleteWorkoutAction } from '../../../../../../../actions/fetchWorkoutsActions';
 
 interface Props {
   closeConfirmDelete: () => void;
@@ -13,7 +13,7 @@ const ConfirmDeleteBody: React.FC<Props> = ({
   closeConfirmDelete,
   closeParentModal,
   workoutId
-}) => {
+}: Props) => {
   const t: string | null = useSelector(fetchToken);
   const dispatch = useDispatch();
 

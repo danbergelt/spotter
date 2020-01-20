@@ -2,14 +2,14 @@ import React from 'react';
 import { FiX } from 'react-icons/fi';
 import { FaCircle } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { State } from 'src/types/State';
+import { State } from '../../../../types/State';
 import { addTitleAction } from '../../../../actions/workoutActions';
 
 interface Props {
   closeModal: () => void;
 }
 
-const WorkoutTitle: React.FC<Props> = ({ closeModal }) => {
+const WorkoutTitle: React.FC<Props> = ({ closeModal }: Props) => {
   const title: string = useSelector(
     (state: State) => state.workoutReducer.title
   );
@@ -24,7 +24,9 @@ const WorkoutTitle: React.FC<Props> = ({ closeModal }) => {
           data-testid='inp'
           placeholder='Click to enter a title...'
           value={title}
-          onChange={e => dispatch(addTitleAction(e.target.value))}
+          onChange={(e): { type: string; payload: string } =>
+            dispatch(addTitleAction(e.target.value))
+          } // eslint-disable-line
           className='workout-title'
         />
       </div>

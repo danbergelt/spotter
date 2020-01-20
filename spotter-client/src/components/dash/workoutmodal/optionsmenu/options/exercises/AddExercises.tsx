@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchToken } from 'src/types/State';
+import { fetchToken } from '../../../../../../types/State';
 import { createExerciseAction } from '../../../../../../actions/fetchExercisesActions';
 import SaveExerciseMsg from './SaveExerciseMsg';
 import { Msg } from '../../../../../../types/ExerciseOption';
@@ -15,13 +15,15 @@ interface Props {
 // save a new exercise
 // saved exercises can be used to track PRs
 
-const AddExercises: React.FC<Props> = ({ msg, setMsg }) => {
+const AddExercises: React.FC<Props> = ({ msg, setMsg }: Props) => {
   const [exercise, setExercise] = useState<string>('');
 
   const t: string | null = useSelector(fetchToken);
   const dispatch = useDispatch();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     e.preventDefault();
     setExercise('');
     await dispatch(createExerciseAction(t, exercise, setMsg));
@@ -30,7 +32,7 @@ const AddExercises: React.FC<Props> = ({ msg, setMsg }) => {
   return (
     <>
       <form
-        onSubmit={e => handleSubmit(e)}
+        onSubmit={(e): Promise<void> => handleSubmit(e)}
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -39,13 +41,16 @@ const AddExercises: React.FC<Props> = ({ msg, setMsg }) => {
         }}
       >
         <input
-          autoFocus
           value={exercise}
-          onChange={e => setExercise(e.target.value)}
+          onChange={(e): void => setExercise(e.target.value)}
           placeholder='Create exercise...'
           className='exercises-add'
         />
-        <button data-testid='create-exercise' className='btn-exercise'>
+        <button
+          type='button'
+          data-testid='create-exercise'
+          className='btn-exercise'
+        >
           Create
         </button>
       </form>

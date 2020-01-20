@@ -1,14 +1,14 @@
 import React, { useCallback } from 'react';
 import { FiTrendingUp } from 'react-icons/fi';
 import { useDispatch } from 'react-redux';
-import { setExercisesModalAction } from 'src/actions/optionsActions';
+import { setExercisesModalAction } from '../../../../../../actions/optionsActions';
 import Exercises from './Exercises';
 
 interface Props {
   iconClass: string;
 }
 
-const ExerciseOption: React.FC<Props> = ({ iconClass }) => {
+const ExerciseOption: React.FC<Props> = ({ iconClass }: Props) => {
   const dispatch = useDispatch();
 
   const setExercisesModal: (state: boolean) => void = useCallback(
@@ -22,11 +22,12 @@ const ExerciseOption: React.FC<Props> = ({ iconClass }) => {
     <>
       <div
         role='button'
-        onClick={() => setExercisesModal(true)}
+        onClick={(): void => setExercisesModal(true)}
         data-testid='exercises-modal'
         className='add-workout-options-button'
       >
-        <FiTrendingUp className={iconClass} /> Exercises
+        <FiTrendingUp className={iconClass} />
+        Exercises
       </div>
       <Exercises setExercisesModal={setExercisesModal} />
     </>

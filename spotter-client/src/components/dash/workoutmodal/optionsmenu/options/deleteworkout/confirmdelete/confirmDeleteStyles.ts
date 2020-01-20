@@ -1,6 +1,7 @@
 import { useWindowSize } from 'react-use';
 
-export const useDeleteWorkoutStyles = () => {
+// eslint-disable-next-line
+const useDeleteWorkoutStyles = () => {
   const { width }: { width: number } = useWindowSize();
 
   return {
@@ -16,3 +17,5 @@ export const useDeleteWorkoutStyles = () => {
     }
   };
 };
+
+export default useDeleteWorkoutStyles;

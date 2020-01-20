@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { FiStar } from 'react-icons/fi';
 import { useSelector, useDispatch } from 'react-redux';
 import { times, isEmpty } from 'lodash';
-import { State } from 'src/types/State';
+import { State } from '../../../../../types/State';
 import ExerciseForm from '../exerciseform/ExerciseForm';
 import {
   handleQueueAction,
@@ -18,7 +18,7 @@ type DelExercise = (i: number) => void;
 
 // container to hold all exercises on a workout
 
-const WorkoutExercises = () => {
+const WorkoutExercises: React.FC = () => {
   const exercises: Array<Exercise> = useSelector(
     (state: State) => state.workoutReducer.exercises
   );
@@ -32,7 +32,7 @@ const WorkoutExercises = () => {
 
   // refs to handle blurring fields on submit the form
   const refs: Refs = [];
-  times(3, i => (refs[i] = React.createRef()));
+  times(3, () => refs.push(React.createRef()));
 
   // adds an exercise to the queue
   const handleQueue: HandleQueue = useCallback(
@@ -62,7 +62,7 @@ const WorkoutExercises = () => {
         <div className='workout-data-exercises-list'>
           {exercises.map((exercise, i) => (
             <WorkoutExercise
-              key={i}
+              key={Date.now()}
               i={i}
               exercise={exercise}
               handleQueue={handleQueue}

@@ -11,7 +11,7 @@ const FromTemplateHead: React.FC<Props> = ({
   closeHandler,
   search,
   setSearch
-}) => {
+}: Props) => {
   return (
     <>
       <section className='from-template-header'>
@@ -28,9 +28,8 @@ const FromTemplateHead: React.FC<Props> = ({
         </div>
       </section>
       <input
-        autoFocus
         value={search}
-        onChange={e => setSearch(e.target.value)}
+        onChange={(e): void => setSearch(e.target.value)}
         placeholder='Search...'
         className='from-template-search'
       />

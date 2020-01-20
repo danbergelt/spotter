@@ -1,8 +1,8 @@
 import React from 'react';
 import { isEmpty } from 'lodash';
 import { useDispatch } from 'react-redux';
-import { Template } from 'src/types/Template';
-import { setFromTemplateModalAction } from 'src/actions/optionsActions';
+import { Template } from '../../../../../../types/Template';
+import { setFromTemplateModalAction } from '../../../../../../actions/optionsActions';
 import { generateTemplateAction } from '../../../../../../actions/workoutActions';
 
 interface Props {
@@ -11,11 +11,11 @@ interface Props {
 }
 
 // button that does the generating
-const GenerateTemplate: React.FC<Props> = ({ active, setActive }) => {
+const GenerateTemplate: React.FC<Props> = ({ active, setActive }: Props) => {
   const dispatch = useDispatch();
 
   // handles state when new template is generated
-  const genHandler = (template: Template | {}) => {
+  const genHandler = (template: Template | {}): void => {
     // TS does not pick up on Lodash isEmpty, so need to pass in empty object as a union
     dispatch(generateTemplateAction(template));
     dispatch(setFromTemplateModalAction(false));
@@ -25,7 +25,9 @@ const GenerateTemplate: React.FC<Props> = ({ active, setActive }) => {
   return (
     <div
       role='button'
-      onClick={() => (!isEmpty(active) ? genHandler(active) : null)}
+      onClick={(): void | null =>
+        !isEmpty(active) ? genHandler(active) : null
+      } // eslint-disable-line
       className='generate-template'
       data-testid='generate-template'
     >

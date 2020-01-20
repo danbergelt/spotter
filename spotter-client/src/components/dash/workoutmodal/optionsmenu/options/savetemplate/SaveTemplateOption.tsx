@@ -9,7 +9,7 @@ interface Props {
 }
 
 // option button container, click to trigger opening of save-template modal
-const SaveTemplateOption: React.FC<Props> = ({ iconClass }) => {
+const SaveTemplateOption: React.FC<Props> = ({ iconClass }: Props) => {
   const dispatch = useDispatch();
 
   const setTemplateSaveModal: (state: boolean) => void = useCallback(
@@ -23,11 +23,12 @@ const SaveTemplateOption: React.FC<Props> = ({ iconClass }) => {
     <>
       <div
         role='button'
-        onClick={() => setTemplateSaveModal(true)}
+        onClick={(): void => setTemplateSaveModal(true)}
         data-testid='save-template'
         className='add-workout-options-button'
       >
-        <FiSave className={iconClass} /> Template
+        <FiSave className={iconClass} />
+        Template
       </div>
       <SaveTemplate close={setTemplateSaveModal} />
     </>

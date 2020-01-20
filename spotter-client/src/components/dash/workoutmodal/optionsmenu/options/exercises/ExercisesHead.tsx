@@ -13,7 +13,7 @@ const ExercisesHead: React.FC<Props> = ({
   handleCloseExerciseModal,
   tab,
   setTab
-}) => {
+}: Props) => {
   return (
     <>
       <nav className='exercises-header'>
@@ -26,7 +26,7 @@ const ExercisesHead: React.FC<Props> = ({
         >
           <div
             role='button'
-            onClick={() => setTab(0)}
+            onClick={(): void => setTab(0)}
             className={
               tab === 0 ? 'exercises-title' : 'exercises-title-not-active'
             }
@@ -35,7 +35,7 @@ const ExercisesHead: React.FC<Props> = ({
           </div>
           <div
             role='button'
-            onClick={() => setTab(1)}
+            onClick={(): void => setTab(1)}
             className={
               tab === 1 ? 'exercises-title' : 'exercises-title-not-active'
             }
@@ -45,7 +45,7 @@ const ExercisesHead: React.FC<Props> = ({
         </div>
         <div
           role='button'
-          onClick={() => handleCloseExerciseModal()}
+          onClick={(): void => handleCloseExerciseModal()}
           className='exercises-exit'
         >
           <FiX

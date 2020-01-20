@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { State } from 'src/types/State';
-import { useFromTemplateStyles } from './styles';
+import { State } from '../../../../../../types/State';
+import useFromTemplateStyles from './styles';
 import { setFromTemplateModalAction } from '../../../../../../actions/optionsActions';
 import Templates from './Templates';
 import FromTemplateHead from './FromTemplateHead';

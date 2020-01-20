@@ -1,9 +1,13 @@
 import React, { useState, memo } from 'react';
 import Modal from 'react-modal';
 import { useSelector } from 'react-redux';
-import { State, WorkoutReducer, fetchToken } from 'src/types/State';
-import { saveTemplateAction } from 'src/actions/optionsActions';
-import { useSaveTemplateStyles } from './utils/styles';
+import {
+  State,
+  WorkoutReducer,
+  fetchToken
+} from '../../../../../../types/State';
+import { saveTemplateAction } from '../../../../../../actions/optionsActions';
+import useSaveTemplateStyles from './utils/styles';
 import SaveTemplateMsg from './SaveTemplateMsg';
 import SaveTemplateBtn from './SaveTemplateBtn';
 import SaveTemplateForm from './SaveTemplateForm';
@@ -17,7 +21,7 @@ if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#root');
 
 // save template modal body, including call to save template
 
-const SaveTemplate: React.FC<Props> = ({ close }) => {
+const SaveTemplate: React.FC<Props> = ({ close }: Props) => {
   const workout: WorkoutReducer = useSelector(
     (state: State) => state.workoutReducer
   );

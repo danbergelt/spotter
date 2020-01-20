@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FiPackage } from 'react-icons/fi';
-import { fetchToken } from 'src/types/State';
+import { fetchToken } from '../../../../../../types/State';
 import {
   setFromTemplateModalAction,
   fetchTemplatesAction
@@ -14,7 +14,7 @@ interface Props {
 
 // menu option to open from-template modal, triggers an API call to fetch all templates
 
-const FromTemplateOption: React.FC<Props> = ({ iconClass }) => {
+const FromTemplateOption: React.FC<Props> = ({ iconClass }: Props) => {
   const dispatch = useDispatch();
 
   const t: string | null = useSelector(fetchToken);
@@ -32,7 +32,8 @@ const FromTemplateOption: React.FC<Props> = ({ iconClass }) => {
         onClick={openFromTemplateModal}
         className='add-workout-options-button'
       >
-        <FiPackage className={iconClass} /> Load Template
+        <FiPackage className={iconClass} />
+        Load Template
       </div>
       <FromTemplate />
     </>

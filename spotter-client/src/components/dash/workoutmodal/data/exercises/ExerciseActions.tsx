@@ -8,20 +8,20 @@ const ExerciseActions: React.FC<Props> = ({
   i,
   handleQueue,
   delExercise
-}) => {
+}: Props) => {
   return (
     <section className='exercise-actions'>
       <div
         role='button'
         data-testid='del-ex'
-        onClick={() => delExercise(i)}
+        onClick={(): void => delExercise(i)}
         className='exercise-edit'
       >
         Delete
       </div>
       <div
         role='button'
-        onClick={() => handleQueue(exercise, i)}
+        onClick={(): void => handleQueue(exercise, i)}
         className='exercise-edit'
       >
         Edit

@@ -2,8 +2,8 @@ import React, { memo } from 'react';
 import { FiPlusCircle } from 'react-icons/fi';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { State, WorkoutReducer } from 'src/types/State';
 import { Moment } from 'moment';
+import { State, WorkoutReducer } from '../../../../../../types/State';
 import {
   saveWorkoutAction,
   editWorkoutAction
@@ -30,7 +30,7 @@ const SaveWorkout: React.FC<Props> = ({
   closeParentModal,
   ctx,
   iconClass
-}) => {
+}: Props) => {
   const saveMsg: Partial<{ error: string }> = useSelector(
     (state: State) => state.optionsReducer.saveMsg
   );

@@ -5,7 +5,7 @@ interface Props {
   closeHandler: () => void;
 }
 
-const SaveTemplateHead: React.FC<Props> = ({ closeHandler }) => {
+const SaveTemplateHead: React.FC<Props> = ({ closeHandler }: Props) => {
   return (
     <section className='save-template-header'>
       <p className='save-template-title'>Save Template</p>

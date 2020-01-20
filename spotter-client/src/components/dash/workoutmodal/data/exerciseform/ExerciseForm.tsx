@@ -4,8 +4,8 @@ import { FiPlus, FiTrash } from 'react-icons/fi';
 import { useSelector, useDispatch } from 'react-redux';
 import { isEmpty } from 'lodash';
 import Autosuggest from 'react-autosuggest';
-import { State } from 'src/types/State';
-import { ValidationSchema } from './ValidationSchema';
+import { State } from '../../../../../types/State';
+import ValidationSchema from './ValidationSchema';
 import {
   resetExerciseFormAction,
   addExerciseAction,
@@ -22,7 +22,7 @@ interface Props {
   refs: Refs;
 }
 
-const ExerciseForm: React.FC<Props> = ({ refs }) => {
+const ExerciseForm: React.FC<Props> = ({ refs }: Props) => {
   const dispatch = useDispatch();
 
   // queued represents the exercise currently being edited
@@ -37,7 +37,7 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
   );
 
   // resets form inputs and queue state
-  const resetHandler = (handleReset: () => void) => {
+  const resetHandler = (handleReset: () => void): void => {
     dispatch(resetExerciseFormAction(handleReset));
   };
 
@@ -69,7 +69,7 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
         // allow the form to populate with initial values after first render
         // useful for repopulating the form with a queued exercise
         enableReinitialize
-        onSubmit={(values, { resetForm }) => {
+        onSubmit={(values, { resetForm }): void => {
           resetForm();
 
           // aside from name, blur all fields on submit
@@ -87,11 +87,17 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
           }
         }}
       >
-        {({ handleReset, errors, touched, setFieldValue, values }) => (
+        {({
+          handleReset,
+          errors,
+          touched,
+          setFieldValue,
+          values
+        }): JSX.Element => (
           <Form className='exercise-form'>
             <div className='exercise-form-field-container'>
               <div className='exercise-form-field-label'>
-                <label>Exercise</label>
+                <label htmlFor='name'>Exercise</label>
               </div>
               {errors.name && touched.name && (
                 <p className='error-exercise-form'>{errors.name}</p>
@@ -108,7 +114,7 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
                   placeholder: 'e.g. squat',
                   autoComplete: 'off',
                   name: 'name',
-                  onChange: (_, { newValue }) => {
+                  onChange: (_, { newValue }): void => {
                     setFieldValue('name', newValue);
                   },
                   value: values.name,
@@ -116,7 +122,7 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
                 }}
                 suggestions={suggestions}
                 // handles fetching autosuggestions in respect to field input
-                onSuggestionsFetchRequested={({ value }) => {
+                onSuggestionsFetchRequested={({ value }): void => {
                   if (!value) {
                     setSuggestions([]);
                     return;
@@ -129,15 +135,17 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
                   );
                 }}
                 // handles clearing suggestions (why is this prop necessary?)
-                onSuggestionsClearRequested={() => {
+                onSuggestionsClearRequested={(): void => {
                   setSuggestions([]);
                 }}
                 // fetches suggestion from local state
-                getSuggestionValue={suggestion => suggestion.name}
+                getSuggestionValue={(suggestion): string => suggestion.name}
                 // renders the autosuggest component with suggestions
-                renderSuggestion={suggestion => <div>{suggestion.name}</div>}
+                renderSuggestion={(suggestion): JSX.Element => (
+                  <div>{suggestion.name}</div>
+                )}
                 // passes the clicked suggestion to the input
-                onSuggestionSelected={(event, { suggestion, method }) => {
+                onSuggestionSelected={(event, { suggestion, method }): void => {
                   if (method === 'enter') {
                     event.preventDefault();
                   }
@@ -146,7 +154,9 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
               />
             </div>
             <div className='exercise-form-field-container'>
-              <label className='exercise-form-field-label'>Weight</label>
+              <label htmlFor='weight' className='exercise-form-field-label'>
+                Weight
+              </label>
               {errors.weight && touched.weight && (
                 <p className='error-exercise-form'>{errors.weight}</p>
               )}
@@ -159,7 +169,9 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
               />
             </div>
             <div className='exercise-form-field-container'>
-              <label className='exercise-form-field-label'>Sets</label>
+              <label htmlFor='sets' className='exercise-form-field-label'>
+                Sets
+              </label>
               {errors.sets && touched.sets && (
                 <p className='error-exercise-form'>{errors.sets}</p>
               )}
@@ -172,7 +184,9 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
               />
             </div>
             <div className='exercise-form-field-container'>
-              <label className='exercise-form-field-label'>Reps</label>
+              <label htmlFor='reps' className='exercise-form-field-label'>
+                Reps
+              </label>
               {errors.reps && touched.reps && (
                 <p className='error-exercise-form'>{errors.reps}</p>
               )}
@@ -204,7 +218,7 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
                   data-testid='trash-exercise'
                   className='exercise-form-button clear'
                   type='button'
-                  onClick={() => resetHandler(handleReset)}
+                  onClick={(): void => resetHandler(handleReset)}
                 />
               </button>
             </div>

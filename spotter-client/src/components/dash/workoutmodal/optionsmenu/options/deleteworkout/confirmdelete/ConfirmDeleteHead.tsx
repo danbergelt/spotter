@@ -5,7 +5,7 @@ interface Props {
   closeConfirmDelete: () => void;
 }
 
-const ConfirmDeleteHead: React.FC<Props> = ({ closeConfirmDelete }) => {
+const ConfirmDeleteHead: React.FC<Props> = ({ closeConfirmDelete }: Props) => {
   return (
     <div className='delete-head-container'>
       <header className='delete-head'>Delete Workout</header>

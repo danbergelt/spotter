@@ -1,6 +1,6 @@
 import { useWindowSize } from 'react-use';
 
-export const useSaveTemplateStyles = () => {
+const useSaveTemplateStyles = (): {} => {
   const { width }: { width: number } = useWindowSize();
   return {
     overlay: {
@@ -15,3 +15,5 @@ export const useSaveTemplateStyles = () => {
     }
   };
 };
+
+export default useSaveTemplateStyles;

@@ -17,7 +17,7 @@ const DeleteWorkout: React.FC<Props> = ({
   workoutId,
   ctx,
   iconClass
-}) => {
+}: Props) => {
   const dispatch = useDispatch();
 
   // references global modal context to determine behavior of delete workout button
@@ -36,7 +36,8 @@ const DeleteWorkout: React.FC<Props> = ({
         onClick={delHandler}
         className='add-workout-options-button delete'
       >
-        <FiDelete className={iconClass} /> Delete
+        <FiDelete className={iconClass} />
+        Delete
       </div>
       <ConfirmDelete
         closeParentModal={closeParentModal}

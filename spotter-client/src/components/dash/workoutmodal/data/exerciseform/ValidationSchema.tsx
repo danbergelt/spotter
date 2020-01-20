@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 
 // validation schema for exercise form
 
-export const ValidationSchema = Yup.object().shape({
+const ValidationSchema = Yup.object().shape({
   name: Yup.string()
     .required('Enter exercise name')
     .max(25, '25 character max'),
@@ -10,3 +10,5 @@ export const ValidationSchema = Yup.object().shape({
   reps: Yup.number().max(2000, '2000 reps limit'),
   sets: Yup.number().max(2000, '2000 sets limit')
 });
+
+export default ValidationSchema;

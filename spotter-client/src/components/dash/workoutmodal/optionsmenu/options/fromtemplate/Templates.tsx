@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Template as T } from 'src/types/Template';
-import { State, fetchToken } from 'src/types/State';
+import { Template as T } from '../../../../../../types/Template';
+import { State, fetchToken } from '../../../../../../types/State';
 import { deleteTemplateAction } from '../../../../../../actions/optionsActions';
 import Template from './Template';
 
@@ -13,7 +13,7 @@ interface Props {
 
 // templates container
 
-const Templates: React.FC<Props> = ({ setActive, active, search }) => {
+const Templates: React.FC<Props> = ({ setActive, active, search }: Props) => {
   const dispatch = useDispatch();
 
   const t: string | null = useSelector(fetchToken);
@@ -32,29 +32,25 @@ const Templates: React.FC<Props> = ({ setActive, active, search }) => {
     [dispatch, t]
   );
   // search filter
-  const filter: Array<T> = templates.filter(t =>
-    t.name.toLowerCase().includes(search.toLowerCase())
+  const filter: Array<T> = templates.filter(template =>
+    template.name.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
     <div className='templates-container'>
       {/* if there are templates + if there are results from the search filter, display those templates */}
-      {templates.length ? (
-        filter.length ? (
-          filter.map(template => (
-            <Template
-              setActive={setActive}
-              deleteTemplate={deleteTemplate}
-              key={template._id}
-              template={template}
-              active={active}
-            />
-          ))
-        ) : (
-          <div className='no-templates-found'> No templates found</div>
-        )
+      {templates.length && filter.length ? (
+        filter.map(template => (
+          <Template
+            setActive={setActive}
+            deleteTemplate={deleteTemplate}
+            key={template._id}
+            template={template}
+            active={active}
+          />
+        ))
       ) : (
-        <div className='no-templates-found'>No templates found</div>
+        <div className='no-templates-found'> No templates found</div>
       )}
       {err && <div className='no-templates-found'>{err}</div>}
     </div>

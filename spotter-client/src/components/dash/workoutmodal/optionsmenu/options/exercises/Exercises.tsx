@@ -1,8 +1,8 @@
 import React, { useState, memo } from 'react';
 import Modal from 'react-modal';
 import { useSelector } from 'react-redux';
-import { State } from 'src/types/State';
-import { useExerciseModalStyles } from './styles';
+import { State } from '../../../../../../types/State';
+import useExerciseModalStyles from './styles';
 import ExercisesHead from './ExercisesHead';
 import ManageExercises from './ManageExercises';
 import AddExercises from './AddExercises';
@@ -14,7 +14,7 @@ interface Props {
   setExercisesModal: (state: boolean) => void;
 }
 
-const Exercises: React.FC<Props> = ({ setExercisesModal }) => {
+const Exercises: React.FC<Props> = ({ setExercisesModal }: Props) => {
   const modalState: boolean = useSelector(
     (state: State) => state.optionsReducer.exercises
   );
@@ -27,7 +27,7 @@ const Exercises: React.FC<Props> = ({ setExercisesModal }) => {
   const [msg, setMsg] = useState<Msg>({});
 
   // clear modal state on close
-  const handleCloseExerciseModal = () => {
+  const handleCloseExerciseModal = (): void => {
     setExercisesModal(false);
     setTab(0);
     setMsg({});
@@ -45,7 +45,7 @@ const Exercises: React.FC<Props> = ({ setExercisesModal }) => {
       }
       isOpen={modalState}
       contentLabel='Saved Exercises'
-      onRequestClose={() => handleCloseExerciseModal()}
+      onRequestClose={(): void => handleCloseExerciseModal()}
     >
       <section className='exercises-container'>
         <ExercisesHead

@@ -1,4 +1,5 @@
-export const tagStyles = (color: string) => {
+// eslint-disable-next-line
+const tagStyles = (color: string) => {
   return {
     background: color,
     minWidth: '40px',
@@ -13,3 +14,5 @@ export const tagStyles = (color: string) => {
     alignItems: 'center'
   };
 };
+
+export default tagStyles;
