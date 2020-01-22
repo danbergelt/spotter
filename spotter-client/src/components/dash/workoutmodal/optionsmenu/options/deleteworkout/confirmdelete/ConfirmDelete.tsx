@@ -1,13 +1,13 @@
-import React, { useCallback, memo } from "react";
-import Modal from "react-modal";
-import ConfirmDeleteHead from "./ConfirmDeleteHead";
-import { useDeleteWorkoutStyles } from "./confirmDeleteStyles";
-import { useSelector, useDispatch } from "react-redux";
-import { setConfirmDeleteAction } from "../../../../../../../actions/optionsActions";
-import ConfirmDeleteBody from "./ConfirmDeleteBody";
-import { State } from "src/types/State";
+import React, { useCallback, memo } from 'react';
+import Modal from 'react-modal';
+import ConfirmDeleteHead from './ConfirmDeleteHead';
+import { useDeleteWorkoutStyles } from './confirmDeleteStyles';
+import { useSelector, useDispatch } from 'react-redux';
+import { setConfirmDeleteAction } from '../../../../../../../actions/optionsActions';
+import ConfirmDeleteBody from './ConfirmDeleteBody';
+import { State } from 'src/types/State';
 
-if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
+if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#root');
 
 interface Props {
   workoutId: string | null;
@@ -16,7 +16,6 @@ interface Props {
 
 // a modal that provides a layer of protection before deleting a workout
 const ConfirmDelete: React.FC<Props> = ({ workoutId, closeParentModal }) => {
-
   // confirmDelete modal state
   const confirmDelete: boolean = useSelector(
     (state: State) => state.optionsReducer.confirmDelete
@@ -34,9 +33,9 @@ const ConfirmDelete: React.FC<Props> = ({ workoutId, closeParentModal }) => {
       style={useDeleteWorkoutStyles()}
       isOpen={confirmDelete}
       onRequestClose={closeConfirmDelete}
-      contentLabel="Confirm Delete Workout"
+      contentLabel='Confirm Delete Workout'
     >
-      <section className="delete-container">
+      <section className='delete-container'>
         <ConfirmDeleteHead closeConfirmDelete={closeConfirmDelete} />
         <ConfirmDeleteBody
           workoutId={workoutId}

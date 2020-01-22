@@ -3,10 +3,10 @@ import {
   FETCH_WORKOUTS_SUCCESS,
   FETCH_WORKOUTS_ERROR,
   DELETE_WORKOUT
-} from "../actions/fetchWorkoutsActions";
-
-import { UPDATE_TAG } from "../actions/workoutActions";
-import { FetchWorkoutsReducer } from "src/types/State";
+} from '../actions/fetchWorkoutsActions';
+import { AnyAction } from 'redux';
+import { UPDATE_TAG } from '../actions/workoutActions';
+import { FetchWorkoutsReducer } from 'src/types/State';
 
 const fetchedWorkoutsState: FetchWorkoutsReducer = {
   err: null,
@@ -18,7 +18,7 @@ const fetchedWorkoutsState: FetchWorkoutsReducer = {
 
 export const fetchWorkoutsReducer = (
   state = fetchedWorkoutsState,
-  action: { type: string; payload: any }
+  action: AnyAction
 ): FetchWorkoutsReducer => {
   switch (action.type) {
     case FETCH_WORKOUTS_START:

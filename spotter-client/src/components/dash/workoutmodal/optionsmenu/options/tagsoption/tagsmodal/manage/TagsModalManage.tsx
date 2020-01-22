@@ -1,14 +1,14 @@
-import React, { useState, useCallback } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   setActiveTabAction,
   editTagAction
-} from "../../../../../../../../actions/tagsActions";
-import { useHistory } from "react-router-dom";
-import Err from "./Err";
-import Tag from "./Tag";
-import { TagOnWorkout as T } from "../../../../../../../../types/TagOnWorkout";
-import { State, fetchToken } from "src/types/State";
+} from '../../../../../../../../actions/tagsActions';
+import { useHistory } from 'react-router-dom';
+import Err from './Err';
+import Tag from './Tag';
+import { TagOnWorkout as T } from '../../../../../../../../types/TagOnWorkout';
+import { State, fetchToken } from 'src/types/State';
 
 interface Props {
   setToDelete: React.Dispatch<React.SetStateAction<Partial<T>>>;
@@ -24,8 +24,8 @@ const TagsModalManage: React.FC<Props> = ({ setToDelete }) => {
 
   const [hover, setHover] = useState<null | string>(null);
   const [update, setUpdate] = useState<Partial<T>>({});
-  const [updateInput, setUpdateInput] = useState<string>("");
-  const [err, setErr] = useState<string>("");
+  const [updateInput, setUpdateInput] = useState<string>('');
+  const [err, setErr] = useState<string>('');
 
   const history = useHistory();
 
@@ -44,19 +44,19 @@ const TagsModalManage: React.FC<Props> = ({ setToDelete }) => {
   ) => void = useCallback(
     async e => {
       e.preventDefault();
-      setUpdateInput("");
+      setUpdateInput('');
       dispatch(editTagAction(paramsHelper));
     },
     [dispatch, paramsHelper]
   );
 
   if (!tags.length) {
-    return <p className="no-tags-found">No tags found</p>;
+    return <p className='no-tags-found'>No tags found</p>;
   }
 
   return (
     <>
-      <p className="tag-manage-head">Manage</p>
+      <p className='tag-manage-head'>Manage</p>
       {err.length ? <Err err={err} setErr={setErr} /> : null}
       {tags.map(tag => (
         <Tag

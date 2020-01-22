@@ -1,5 +1,5 @@
-@import "../../variables.scss";
-@import "../../mixins.scss";
+@import '../../variables.scss';
+@import '../../mixins.scss';
 
 .spotter-nav {
   display: flex;
@@ -63,12 +63,8 @@
     }
 
     .spotter-nav-link.dashboard {
-      color: $primary;
-      border: 1px solid $primary;
-      &:hover {
-        color: $primary-hover;
-        border: 1px solid $primary-hover;
-      }
+      color: $gray2;
+
       @include small {
         border: none;
         color: $gray2;

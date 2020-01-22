@@ -1,5 +1,5 @@
-import React, { memo } from "react";
-import { FiX } from "react-icons/fi";
+import React, { memo } from 'react';
+import { FiX } from 'react-icons/fi';
 
 // tabs to control exercises modal
 
@@ -16,42 +16,42 @@ const ExercisesHead: React.FC<Props> = ({
 }) => {
   return (
     <>
-      <nav className="exercises-header">
+      <nav className='exercises-header'>
         <div
           style={{
-            display: "flex",
-            width: "55%",
-            justifyContent: "space-between"
+            display: 'flex',
+            width: '55%',
+            justifyContent: 'space-between'
           }}
         >
           <div
-            role="button"
+            role='button'
             onClick={() => setTab(0)}
             className={
-              tab === 0 ? "exercises-title" : "exercises-title-not-active"
+              tab === 0 ? 'exercises-title' : 'exercises-title-not-active'
             }
           >
             Manage
           </div>
           <div
-            role="button"
+            role='button'
             onClick={() => setTab(1)}
             className={
-              tab === 1 ? "exercises-title" : "exercises-title-not-active"
+              tab === 1 ? 'exercises-title' : 'exercises-title-not-active'
             }
           >
             Create
           </div>
         </div>
         <div
-          role="button"
+          role='button'
           onClick={() => handleCloseExerciseModal()}
-          className="exercises-exit"
+          className='exercises-exit'
         >
           <FiX
             // inline styles as a convenience
-            data-testid="quit-exercises"
-            style={{ display: "flex", alignItems: "center" }}
+            data-testid='quit-exercises'
+            style={{ display: 'flex', alignItems: 'center' }}
           />
         </div>
       </nav>

@@ -1,9 +1,8 @@
-import React from "react";
-import { HashLink } from "react-router-hash-link";
-import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchToken } from "../../types/State";
-import { logOutAction } from "../../actions/globalActions";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchToken } from '../../types/State';
+import { logOutAction } from '../../actions/globalActions';
 
 interface Props {
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -21,22 +20,12 @@ const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
   };
 
   return (
-    <nav className="spotter-nav-links">
-      {!token && (
-        <HashLink
-          smooth
-          to="/#about"
-          className="spotter-nav-link"
-          onClick={() => setIsOpen && setIsOpen(!isOpen)}
-        >
-          About
-        </HashLink>
-      )}
+    <nav className='spotter-nav-links'>
       {token && (
         <Link
-          data-testid="settings"
-          className="spotter-nav-link"
-          to="/settings"
+          data-testid='settings'
+          className='spotter-nav-link'
+          to='/settings'
           onClick={() => setIsOpen && setIsOpen(!isOpen)}
         >
           Settings
@@ -44,19 +33,19 @@ const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
       )}
       {token && (
         <Link
-          data-testid="logout"
+          data-testid='logout'
           onClick={logOut}
-          className="spotter-nav-link styled"
-          to="/login"
+          className='spotter-nav-link styled'
+          to='/login'
         >
-          Log Out{" "}
+          Log Out{' '}
         </Link>
       )}
       {!token && (
         <Link
-          data-testid="login"
-          className="spotter-nav-link dashboard"
-          to="/login"
+          data-testid='login'
+          className='spotter-nav-link dashboard'
+          to='/login'
           onClick={() => setIsOpen && setIsOpen(!isOpen)}
         >
           Log In
@@ -64,9 +53,9 @@ const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
       )}
       {!token && (
         <Link
-          data-testid="signup"
-          className="spotter-nav-link styled"
-          to="/signup"
+          data-testid='signup'
+          className='spotter-nav-link styled'
+          to='/signup'
           onClick={() => setIsOpen && setIsOpen(!isOpen)}
         >
           Sign Up

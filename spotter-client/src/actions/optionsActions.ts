@@ -1,22 +1,22 @@
-import axiosWithAuth from "../utils/axiosWithAuth";
-import { AxiosResponse } from "axios";
-import { Dispatch, Action } from "redux";
-import { Template } from "src/types/Template";
-import { WorkoutReducer } from "src/types/State";
-import { Moment } from "moment";
-import { History } from "history";
+import axiosWithAuth from '../utils/axiosWithAuth';
+import { AxiosResponse } from 'axios';
+import { Dispatch, Action } from 'redux';
+import { Template } from 'src/types/Template';
+import { WorkoutReducer } from 'src/types/State';
+import { Moment } from 'moment';
+import { History } from 'history';
 
-export const OPEN_TAG_MODAL: string = "OPEN_TAG_MODAL";
-export const CLOSE_TAG_MODAL: string = "CLOSE_TAG_MODAL";
-export const SET_ACTIVE: string = "SET_ACTIVE";
-export const SET_TEMPLATE_SAVE: string = "SET_TEMPLATE_SAVE";
-export const SET_FROM_TEMPLATE: string = "SET_FROM_TEMPLATE";
-export const SET_CONFIRM_DELETE: string = "SET_CONFIRM_DELETE";
-export const SET_TEMPLATES: string = "SET_TEMPLATES";
-export const SET_TEMPLATES_ERR: string = "SET_TEMPLATES_ERR";
-export const SET_SAVE_MSG: string = "SET_SAVE_MSG";
-export const DELETE_TEMPLATE: string = "DELETE_TEMPLATE";
-export const SET_EXERCISES: string = "SET_EXERCISES";
+export const OPEN_TAG_MODAL: string = 'OPEN_TAG_MODAL';
+export const CLOSE_TAG_MODAL: string = 'CLOSE_TAG_MODAL';
+export const SET_ACTIVE: string = 'SET_ACTIVE';
+export const SET_TEMPLATE_SAVE: string = 'SET_TEMPLATE_SAVE';
+export const SET_FROM_TEMPLATE: string = 'SET_FROM_TEMPLATE';
+export const SET_CONFIRM_DELETE: string = 'SET_CONFIRM_DELETE';
+export const SET_TEMPLATES: string = 'SET_TEMPLATES';
+export const SET_TEMPLATES_ERR: string = 'SET_TEMPLATES_ERR';
+export const SET_SAVE_MSG: string = 'SET_SAVE_MSG';
+export const DELETE_TEMPLATE: string = 'DELETE_TEMPLATE';
+export const SET_EXERCISES: string = 'SET_EXERCISES';
 
 // all actions related to the various options/settings in the workout modal, e.g. template settings, tag settings, etc.
 
@@ -142,8 +142,8 @@ export const saveTemplateAction: TSaveTemplate = async (
         exercises: workout.exercises
       }
     );
-    setTempName("");
-    setMessage({ success: "Template created" });
+    setTempName('');
+    setMessage({ success: 'Template created' });
   } catch (error) {
     if (error.response) {
       setMessage({ error: error.response.data.error });
@@ -188,7 +188,7 @@ export const saveWorkoutAction: TSaveWorkout = paramsHelper => {
       await axiosWithAuth(t).post(
         `${process.env.REACT_APP_T_API}/api/auth/workouts`,
         {
-          date: date?.format("MMM DD YYYY"),
+          date: date?.format('MMM DD YYYY'),
           title: workout.title,
           notes: workout.notes,
           exercises: workout.exercises,

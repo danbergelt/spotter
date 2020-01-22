@@ -1,23 +1,23 @@
-import React from "react";
-import { Formik, Form, Field } from "formik";
-import { ValidationSchema } from "./ValidationSchema";
-import { AxiosResponse } from "axios";
-import axiosWithAuth from "src/utils/axiosWithAuth";
-import { useSelector } from "react-redux";
-import { fetchToken } from "src/types/State";
+import React from 'react';
+import { Formik, Form, Field } from 'formik';
+import { ValidationSchema } from './ValidationSchema';
+import { AxiosResponse } from 'axios';
+import axiosWithAuth from 'src/utils/axiosWithAuth';
+import { useSelector } from 'react-redux';
+import { fetchToken } from 'src/types/State';
 
 const ChangeEmailForm: React.FC = () => {
   const t: string | null = useSelector(fetchToken);
 
   return (
-    <section className="change-form">
+    <section className='change-form'>
       <Formik
         validateOnChange={false}
         validateOnBlur={false}
         initialValues={{
-          oldEmail: "",
-          newEmail: "",
-          confirmEmail: ""
+          oldEmail: '',
+          newEmail: '',
+          confirmEmail: ''
         }}
         validationSchema={ValidationSchema}
         onSubmit={async (values, { resetForm, setStatus }) => {
@@ -37,49 +37,49 @@ const ChangeEmailForm: React.FC = () => {
       >
         {({ errors, touched, status }) => (
           <Form>
-            <div className="change-inp">
-              <label className="change-label">Old Email</label>
+            <div className='change-inp'>
+              <label className='change-label'>Old Email</label>
               <Field
-                data-testid="old"
-                className="inp-component"
-                name="oldEmail"
+                data-testid='old'
+                className='inp-component'
+                name='oldEmail'
               />
             </div>
-            <div className="change-inp">
-              <label className="change-label">New Email</label>
+            <div className='change-inp'>
+              <label className='change-label'>New Email</label>
               <Field
-                data-testid="new"
-                className="inp-component"
-                name="newEmail"
+                data-testid='new'
+                className='inp-component'
+                name='newEmail'
               />
             </div>
-            <div className="change-inp">
-              <label className="change-label">Confirm Email</label>
+            <div className='change-inp'>
+              <label className='change-label'>Confirm Email</label>
               <Field
-                data-testid="confirm"
-                className="inp-component"
-                name="confirmEmail"
+                data-testid='confirm'
+                className='inp-component'
+                name='confirmEmail'
               />
             </div>
             <div
               style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between"
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between'
               }}
             >
               <button
-                data-testid="save"
-                className="change-button"
-                type="submit"
+                data-testid='save'
+                className='change-button'
+                type='submit'
               >
                 Save
               </button>
               {errors.confirmEmail && touched.confirmEmail && (
-                <p className="change-err">{errors.confirmEmail}</p>
+                <p className='change-err'>{errors.confirmEmail}</p>
               )}
-              {status?.error && <p className="change-err">{status.error}</p>}
-              {status?.data && <p className="change-succ">{status.data}</p>}
+              {status?.error && <p className='change-err'>{status.error}</p>}
+              {status?.data && <p className='change-succ'>{status.data}</p>}
             </div>
           </Form>
         )}

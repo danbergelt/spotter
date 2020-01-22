@@ -1,9 +1,9 @@
-import React, { memo } from "react";
-import Popover from "react-tiny-popover";
-import ViewMoreContent from "./ViewMoreContent";
-import { Moment } from "moment";
-import { P } from "src/types/Grid";
-import { Workout } from "src/types/Workout";
+import React, { memo } from 'react';
+import Popover from 'react-tiny-popover';
+import ViewMoreContent from './ViewMoreContent';
+import { Moment } from 'moment';
+import { P } from 'src/types/Grid';
+import { Workout } from 'src/types/Workout';
 
 interface Props {
   children?: any;
@@ -24,11 +24,11 @@ const PopoverContainer: React.FC<Props> = ({
 }) => {
   return (
     <Popover
-      containerClassName={"view-more-popup"}
+      containerClassName={'view-more-popup'}
       isOpen={
-        popover.open === true && popover.id === date.format("MMM DD YYYY")
+        popover.open === true && popover.id === date.format('MMM DD YYYY')
       }
-      position={"top"}
+      position={'top'}
       onClickOutside={() => setPopover({ open: false, id: null })}
       content={
         <ViewMoreContent

@@ -1,9 +1,9 @@
-import React from "react";
-import { isEmpty } from "lodash";
-import { useDispatch } from "react-redux";
-import { generateTemplateAction } from "../../../../../../actions/workoutActions";
-import { Template } from "src/types/Template";
-import { setFromTemplateModalAction } from "src/actions/optionsActions";
+import React from 'react';
+import { isEmpty } from 'lodash';
+import { useDispatch } from 'react-redux';
+import { generateTemplateAction } from '../../../../../../actions/workoutActions';
+import { Template } from 'src/types/Template';
+import { setFromTemplateModalAction } from 'src/actions/optionsActions';
 
 interface Props {
   active: Partial<Template>;
@@ -24,10 +24,10 @@ const GenerateTemplate: React.FC<Props> = ({ active, setActive }) => {
 
   return (
     <div
-      role="button"
+      role='button'
       onClick={() => (!isEmpty(active) ? genHandler(active) : null)}
-      className="generate-template"
-      data-testid="generate-template"
+      className='generate-template'
+      data-testid='generate-template'
     >
       Generate
     </div>

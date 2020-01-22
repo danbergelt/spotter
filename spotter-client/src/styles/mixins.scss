@@ -1,4 +1,4 @@
-@import "./variables.scss";
+@import './variables.scss';
 
 @mixin flex-center {
   display: flex;
@@ -98,7 +98,7 @@
     border-left: $calendar-border;
   }
   &:last-child {
-    border-right: $calendar-border;;
+    border-right: $calendar-border;
   }
 }
 
@@ -123,17 +123,17 @@
 }
 
 @mixin hover {
-  -webkit-transition: background-color .15s,color .15s ease-in-out;
-  -moz-transition: background-color .15s,color .15s ease-in-out;
-  -o-transition: background-color .15s,color .15s ease-in-out;
-  transition: background-color .15s,color .15s ease-in-out;
+  -webkit-transition: background-color 0.15s, color 0.15s ease-in-out;
+  -moz-transition: background-color 0.15s, color 0.15s ease-in-out;
+  -o-transition: background-color 0.15s, color 0.15s ease-in-out;
+  transition: background-color 0.15s, color 0.15s ease-in-out;
 }
 
 @mixin textHover {
-  -webkit-transition: color .15s,color .15s ease-in-out;
-  -moz-transition: color .15s,color .15s ease-in-out;
-  -o-transition: color .15s,color .15s ease-in-out;
-  transition: color .15s,color .15s ease-in-out;
+  -webkit-transition: color 0.15s, color 0.15s ease-in-out;
+  -moz-transition: color 0.15s, color 0.15s ease-in-out;
+  -o-transition: color 0.15s, color 0.15s ease-in-out;
+  transition: color 0.15s, color 0.15s ease-in-out;
 }
 
 @mixin xLarge {
@@ -154,11 +154,8 @@
   }
 }
 
-
 @mixin small {
   @media (max-width: 500px) {
     @content;
   }
 }
-
-

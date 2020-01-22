@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import axios from "axios";
-import Loader from "react-loader-spinner";
+import React, { useState } from 'react';
+import axios from 'axios';
+import Loader from 'react-loader-spinner';
 
 const ForgotPasswordInstructions: React.FC = () => {
-  const [email, setEmail] = useState<string>("");
+  const [email, setEmail] = useState<string>('');
   const [res, setRes] = useState<{ err?: string; succ?: string }>({});
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -13,7 +13,7 @@ const ForgotPasswordInstructions: React.FC = () => {
 
   const sendInstructions = async (e?: T) => {
     e?.preventDefault();
-    setEmail("");
+    setEmail('');
     setLoading(true);
     try {
       await axios.post(
@@ -21,7 +21,7 @@ const ForgotPasswordInstructions: React.FC = () => {
         { email }
       );
       setLoading(false);
-      setRes({ succ: "Email sent" });
+      setRes({ succ: 'Email sent' });
     } catch (error) {
       setLoading(false);
       setRes({ err: error.response.data.error });
@@ -29,27 +29,27 @@ const ForgotPasswordInstructions: React.FC = () => {
   };
 
   return (
-    <section className="forgot-password-container">
-      <header className="forgot-password-title">Forgot your password?</header>
-      {res.err && <p className="forgot-password-res err">{res.err}</p>}
-      {res.succ && <p className="forgot-password-res succ">{res.succ}</p>}
-      <label className="forgot-password-label">Email</label>
+    <section className='forgot-password-container'>
+      <header className='forgot-password-title'>Forgot your password?</header>
+      {res.err && <p className='forgot-password-res err'>{res.err}</p>}
+      {res.succ && <p className='forgot-password-res succ'>{res.succ}</p>}
+      <label className='forgot-password-label'>Email</label>
       <form onSubmit={e => !loading && sendInstructions(e)}>
         <input
-          placeholder="name@email.com"
+          placeholder='name@email.com'
           onChange={e => setEmail(e.target.value)}
           value={email}
-          className="forgot-password-input"
+          className='forgot-password-input'
         />
         <button
           style={{ border: 0, outline: 0 }}
           onClick={e => !loading && sendInstructions(e)}
-          className="forgot-password-submit"
+          className='forgot-password-submit'
         >
           {loading ? (
-            <Loader type="ThreeDots" color="white" height={10} width={30} />
+            <Loader type='ThreeDots' color='white' height={10} width={30} />
           ) : (
-            "Send Instructions"
+            'Send Instructions'
           )}
         </button>
       </form>

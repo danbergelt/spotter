@@ -1,5 +1,5 @@
-@import "../../../variables.scss";
-@import "../../../mixins.scss";
+@import '../../../variables.scss';
+@import '../../../mixins.scss';
 
 .no-tags-found {
   text-align: center;
@@ -31,7 +31,7 @@
     cursor: pointer;
     outline: 0;
     @include hover;
-  
+
     &:hover {
       background: darken($gray3, 5%);
     }

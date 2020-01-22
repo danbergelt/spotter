@@ -1,12 +1,12 @@
-import React from "react";
-import FromTemplate from "./FromTemplate";
-import { useDispatch, useSelector } from "react-redux";
-import { FiPackage } from "react-icons/fi";
+import React from 'react';
+import FromTemplate from './FromTemplate';
+import { useDispatch, useSelector } from 'react-redux';
+import { FiPackage } from 'react-icons/fi';
 import {
   setFromTemplateModalAction,
   fetchTemplatesAction
-} from "../../../../../../actions/optionsActions";
-import { fetchToken } from "src/types/State";
+} from '../../../../../../actions/optionsActions';
+import { fetchToken } from 'src/types/State';
 
 interface Props {
   iconClass: string;
@@ -28,9 +28,9 @@ const FromTemplateOption: React.FC<Props> = ({ iconClass }) => {
   return (
     <>
       <div
-        role="button"
+        role='button'
         onClick={openFromTemplateModal}
-        className="add-workout-options-button"
+        className='add-workout-options-button'
       >
         <FiPackage className={iconClass} /> Load Template
       </div>

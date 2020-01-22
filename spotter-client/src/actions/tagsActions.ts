@@ -1,16 +1,16 @@
-import axiosWithAuth from "../utils/axiosWithAuth";
-import { History } from "history";
-import { Dispatch, Action } from "redux";
-import { AxiosResponse } from "axios";
-import { DELETE_TAG, UPDATE_TAG } from "./workoutActions";
-import { SET_ACTIVE, CLOSE_TAG_MODAL, OPEN_TAG_MODAL } from "./optionsActions";
-import { TagOnWorkout } from "src/types/TagOnWorkout";
+import axiosWithAuth from '../utils/axiosWithAuth';
+import { History } from 'history';
+import { Dispatch, Action } from 'redux';
+import { AxiosResponse } from 'axios';
+import { DELETE_TAG, UPDATE_TAG } from './workoutActions';
+import { SET_ACTIVE, CLOSE_TAG_MODAL, OPEN_TAG_MODAL } from './optionsActions';
+import { TagOnWorkout } from 'src/types/TagOnWorkout';
 
-export const FETCH_TAGS_START: string = "FETCH_TAGS_START";
-export const FETCH_TAGS_SUCCESS: string = "FETCH_TAGS_SUCCESS";
-export const FETCH_TAGS_ERROR: string = "FETCH_TAGS_ERROR";
+export const FETCH_TAGS_START: string = 'FETCH_TAGS_START';
+export const FETCH_TAGS_SUCCESS: string = 'FETCH_TAGS_SUCCESS';
+export const FETCH_TAGS_ERROR: string = 'FETCH_TAGS_ERROR';
 
-export const RESET_TAGS: string = "RESET_TAGS";
+export const RESET_TAGS: string = 'RESET_TAGS';
 
 // fetches tags and resets tags list on modal close
 export const fetchTags = (history: History, t: string | null) => {
@@ -28,7 +28,7 @@ export const fetchTags = (history: History, t: string | null) => {
           payload: error.response.data.error
         });
       } else {
-        history.push("/500");
+        history.push('/500');
       }
     }
   };
@@ -76,15 +76,15 @@ export const saveTagAction: TSaveTag = paramsHelper => {
         }
       );
       // confirmation message
-      setMessage({ success: "New tag created" });
+      setMessage({ success: 'New tag created' });
       // resets submitting state
       setLoading(false);
-      setName("");
+      setName('');
       await dispatch(fetchTags(history, t));
     } catch (error) {
       setMessage(error.response.data);
       setLoading(false);
-      setName("");
+      setName('');
     }
   };
 };
@@ -163,7 +163,9 @@ export const editTagAction: TEditTag = paramsHelper => {
     try {
       const res: AxiosResponse<any> = await axiosWithAuth(t).put(
         `${process.env.REACT_APP_T_API}/api/auth/tags/${update._id}`,
-        { content: updateInput }
+        {
+          content: updateInput
+        }
       );
       setUpdate({});
       dispatch({
@@ -176,8 +178,6 @@ export const editTagAction: TEditTag = paramsHelper => {
       // this is very hacky how I'm manually triggering a server call to 're-fetch' the data
       // will clean up this code, create a cleaner transition into a new state (since I'm not relying on asynchronous side effects to usher in fresh state), and reduce BE hits
       // CODE SMELL
-
-
     } catch (error) {
       setErr(error.response.data.error);
     }

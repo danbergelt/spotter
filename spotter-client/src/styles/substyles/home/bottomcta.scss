@@ -1,24 +1,23 @@
-@import url("https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap");
-@import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,700&display=swap");
-@import "../../variables.scss";
-@import "../../mixins.scss";
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,400i,700&display=swap');
+@import '../../variables.scss';
+@import '../../mixins.scss';
 
 .bottomcta-container {
-  padding: 20rem 0;
+  padding: 20rem 0rem;
   background: #f6f8f9;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: "Nanum Gothic";
+  font-family: 'Nanum Gothic';
+
+  @include large {
+    padding: 15rem 2.5rem;
+  }
 
   @include medium {
-    padding: 15rem 5rem;
+    padding: 10rem 2.5rem;
   }
-
-  @include small {
-    padding: 10rem 5rem;
-  }
-
 
   .bottomcta-title {
     color: $gray1;
@@ -32,21 +31,20 @@
   }
 
   .bottomcta-cta {
-    font-family: "Roboto";
+    font-family: 'Roboto';
     color: white;
     font-size: 1.75rem;
     background: $primary;
     border-radius: 4px;
     cursor: pointer;
     width: max-content;
-    padding: 1.5rem 2rem;
+    padding: 1.5rem 3.5rem;
     text-align: center;
     text-decoration: none;
     @include hover;
 
     @include medium {
       font-size: $p;
-      padding: 1.25rem 1.5rem;;
     }
 
     &:hover {

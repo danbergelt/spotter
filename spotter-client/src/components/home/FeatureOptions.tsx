@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface Props {
   setSelected: React.Dispatch<React.SetStateAction<string>>;
@@ -7,13 +7,13 @@ interface Props {
 
 const FeatureOptions: React.FC<Props> = ({ selected, setSelected }) => {
   return (
-    <section className="features-tabs-container">
-      <p className="features-title">Features</p>
+    <section className='features-tabs-container'>
+      <p className='features-title'>Features</p>
       <select
-        name="Feature Tabs"
+        name='Feature Tabs'
         value={selected}
         onChange={e => setSelected(e.target.value)}
-        className="feature-tabs-select"
+        className='feature-tabs-select'
       >
         <option>Week View</option>
         <option>Month View</option>

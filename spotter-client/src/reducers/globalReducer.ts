@@ -1,4 +1,4 @@
-import { ADD_TOKEN } from "../actions/addTokenActions";
+import { ADD_TOKEN } from '../actions/addTokenActions';
 import {
   MODAL_CTX,
   SET_SCOPE,
@@ -6,13 +6,14 @@ import {
   SET_TIMESPAN,
   CHANGE_SCOPE,
   CLOSE_WORKOUT_MODAL
-} from "../actions/globalActions";
-import { GlobalReducer } from "src/types/State";
+} from '../actions/globalActions';
+import { GlobalReducer } from 'src/types/State';
+import { AnyAction } from 'redux';
 
 const globalState: GlobalReducer = {
   t: null,
   ctx: null,
-  scope: { value: "Week", label: "Week" },
+  scope: { value: 'Week', label: 'Week' },
   date: null,
   timeSpan: 0
 };
@@ -21,7 +22,7 @@ const globalState: GlobalReducer = {
 
 export const globalReducer = (
   state = globalState,
-  action: { type: string; payload: any }
+  action: AnyAction
 ): GlobalReducer => {
   switch (action.type) {
     case ADD_TOKEN:
@@ -59,7 +60,7 @@ export const globalReducer = (
       return {
         ...state,
         ctx: null
-      }
+      };
     default:
       return state;
   }

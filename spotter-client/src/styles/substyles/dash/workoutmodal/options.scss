@@ -1,5 +1,5 @@
-@import "../../../variables.scss";
-@import "../../../mixins.scss";
+@import '../../../variables.scss';
+@import '../../../mixins.scss';
 
 .add-workout-options-container {
   width: 35%;
@@ -38,7 +38,7 @@
       color: $gray1;
       padding: 1.25rem;
       border-radius: $border;
-      font-family: "Roboto";
+      font-family: 'Roboto';
       @include flex-center;
       cursor: pointer;
       @include hover;

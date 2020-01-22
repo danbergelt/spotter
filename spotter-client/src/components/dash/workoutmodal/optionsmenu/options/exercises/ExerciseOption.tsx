@@ -1,8 +1,8 @@
-import React, { useCallback } from "react";
-import { FiTrendingUp } from "react-icons/fi";
-import { useDispatch } from "react-redux";
-import Exercises from "./Exercises";
-import { setExercisesModalAction } from "src/actions/optionsActions";
+import React, { useCallback } from 'react';
+import { FiTrendingUp } from 'react-icons/fi';
+import { useDispatch } from 'react-redux';
+import Exercises from './Exercises';
+import { setExercisesModalAction } from 'src/actions/optionsActions';
 
 interface Props {
   iconClass: string;
@@ -21,10 +21,10 @@ const ExerciseOption: React.FC<Props> = ({ iconClass }) => {
   return (
     <>
       <div
-        role="button"
+        role='button'
         onClick={() => setExercisesModal(true)}
-        data-testid="exercises-modal"
-        className="add-workout-options-button"
+        data-testid='exercises-modal'
+        className='add-workout-options-button'
       >
         <FiTrendingUp className={iconClass} /> Exercises
       </div>

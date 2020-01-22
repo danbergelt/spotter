@@ -1,22 +1,22 @@
-import { ValueType } from "react-select";
-import { Option } from "src/components/dash/subnav/types/types";
-import { Moment } from "moment";
-import { History } from "history";
-import { FROM_SAVED } from "./workoutActions";
-import { Workout } from "src/types/Workout";
-import { ADD_TOKEN } from "./addTokenActions";
-import axios from "axios";
-import axiosWithAuth from "src/utils/axiosWithAuth";
-import { Dispatch } from "react";
-import { AnyAction } from "redux";
+import { ValueType } from 'react-select';
+import { Option } from 'src/components/dash/subnav/types/types';
+import { Moment } from 'moment';
+import { History } from 'history';
+import { FROM_SAVED } from './workoutActions';
+import { Workout } from 'src/types/Workout';
+import { ADD_TOKEN } from './addTokenActions';
+import axios from 'axios';
+import axiosWithAuth from 'src/utils/axiosWithAuth';
+import { Dispatch } from 'react';
+import { AnyAction } from 'redux';
 
-export const MODAL_CTX: string = "MODAL_CTX";
-export const LOGOUT: string = "LOGOUT";
-export const SET_SCOPE: string = "SET_SCOPE";
-export const SET_DATE: string = "SET_DATE";
-export const SET_TIMESPAN: string = "SET_TIMESPAN";
-export const CHANGE_SCOPE: string = "CHANGE_SCOPE";
-export const CLOSE_WORKOUT_MODAL: string = "CLOSE_WORKOUT_MODAL";
+export const MODAL_CTX: string = 'MODAL_CTX';
+export const LOGOUT: string = 'LOGOUT';
+export const SET_SCOPE: string = 'SET_SCOPE';
+export const SET_DATE: string = 'SET_DATE';
+export const SET_TIMESPAN: string = 'SET_TIMESPAN';
+export const CHANGE_SCOPE: string = 'CHANGE_SCOPE';
+export const CLOSE_WORKOUT_MODAL: string = 'CLOSE_WORKOUT_MODAL';
 
 // sets dashboard scope to either weekly/monthly
 type THandleScopeChange = (
@@ -43,10 +43,10 @@ type TIncOrDec = (
 ) => { type: string; payload: number } | undefined;
 
 export const incOrDecAction: TIncOrDec = (incOrDec, timespan) => {
-  if (incOrDec === "inc") {
+  if (incOrDec === 'inc') {
     return { type: SET_TIMESPAN, payload: timespan + 1 };
   }
-  if (incOrDec === "dec") {
+  if (incOrDec === 'dec') {
     return { type: SET_TIMESPAN, payload: timespan - 1 };
   }
   return;
@@ -86,7 +86,7 @@ export const addWorkoutModalAction: TAddWorkoutModal = paramsHelper => {
     // this context is what determines the differences in functionality in the two modal types
     dispatch({
       type: MODAL_CTX,
-      payload: "add"
+      payload: 'add'
     });
 
     //opens modal
@@ -109,7 +109,7 @@ export const viewWorkoutModalAction: TAddWorkoutModal = paramsHelper => {
     });
     dispatch({
       type: MODAL_CTX,
-      payload: "view"
+      payload: 'view'
     });
 
     // matches the clicked workout, saves the clicked workout to state, and populates the modal with that clicked workout's data
@@ -147,7 +147,7 @@ export const closeAccountAction: TCloseAccount = (t, history) => {
       `${process.env.REACT_APP_T_API}/api/auth/user/delete`
     );
     dispatch({ type: LOGOUT });
-    history.push("/signup");
+    history.push('/signup');
   };
 };
 

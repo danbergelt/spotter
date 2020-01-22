@@ -1,14 +1,14 @@
-import styles from "../../../styles/variables.scss";
-import { useWindowSize } from "react-use";
+import styles from '../../../styles/variables.scss';
+import { useWindowSize } from 'react-use';
 
 export const useModalStyles = () => {
   const { width } = useWindowSize();
 
   const sizes = {
-    large: "750px",
-    largeMedium: "585px",
-    medium: "450px",
-    small: "300px"
+    large: '750px',
+    largeMedium: '585px',
+    medium: '450px',
+    small: '300px'
   };
 
   const setModalSize = () => {
@@ -26,10 +26,10 @@ export const useModalStyles = () => {
   return {
     content: {
       width: setModalSize(),
-      margin: "0 auto",
+      margin: '0 auto',
       background: styles.gray3,
       border: 0,
-      padding: width <= 500 ? "10px" : "20px"
+      padding: width <= 500 ? '10px' : '20px'
     }
   };
 };

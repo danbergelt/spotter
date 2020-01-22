@@ -1,11 +1,11 @@
-import axiosWithAuth from "../utils/axiosWithAuth";
-import { History } from "history";
-import { Dispatch, AnyAction, Action } from "redux";
+import axiosWithAuth from '../utils/axiosWithAuth';
+import { History } from 'history';
+import { Dispatch, AnyAction, Action } from 'redux';
 
-export const FETCH_WORKOUTS_START: string = "FETCH_WORKOUTS_START";
-export const FETCH_WORKOUTS_SUCCESS: string = "FETCH_WORKOUTS_SUCCESS";
-export const FETCH_WORKOUTS_ERROR: string = "FETCH_WORKOUT_ERROR";
-export const DELETE_WORKOUT: string = "DELETE_WORKOUT";
+export const FETCH_WORKOUTS_START: string = 'FETCH_WORKOUTS_START';
+export const FETCH_WORKOUTS_SUCCESS: string = 'FETCH_WORKOUTS_SUCCESS';
+export const FETCH_WORKOUTS_ERROR: string = 'FETCH_WORKOUT_ERROR';
+export const DELETE_WORKOUT: string = 'DELETE_WORKOUT';
 
 // fetches workouts based on range (e.g. week or month)
 interface Params {
@@ -30,7 +30,7 @@ export const fetchWorkouts: Params = (range, history, t) => {
             payload: err.response.data.error
           });
         } else {
-          history.push("/500");
+          history.push('/500');
         }
       });
   };

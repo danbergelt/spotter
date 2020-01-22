@@ -1,8 +1,8 @@
-import React, { memo } from "react";
-import { FiDelete } from "react-icons/fi";
-import { useDispatch } from "react-redux";
-import ConfirmDelete from "./confirmdelete/ConfirmDelete";
-import { setConfirmDeleteAction } from "../../../../../../actions/optionsActions";
+import React, { memo } from 'react';
+import { FiDelete } from 'react-icons/fi';
+import { useDispatch } from 'react-redux';
+import ConfirmDelete from './confirmdelete/ConfirmDelete';
+import { setConfirmDeleteAction } from '../../../../../../actions/optionsActions';
 
 interface Props {
   closeParentModal: () => void;
@@ -23,7 +23,7 @@ const DeleteWorkout: React.FC<Props> = ({
   // references global modal context to determine behavior of delete workout button
   // either simply closes the modal or deletes the workout from the DB
   const delHandler: () => void = () => {
-    return ctx === "view"
+    return ctx === 'view'
       ? dispatch(setConfirmDeleteAction(true))
       : closeParentModal();
   };
@@ -31,10 +31,10 @@ const DeleteWorkout: React.FC<Props> = ({
   return (
     <>
       <div
-        role="button"
-        data-testid="del-workout"
+        role='button'
+        data-testid='del-workout'
         onClick={delHandler}
-        className="add-workout-options-button delete"
+        className='add-workout-options-button delete'
       >
         <FiDelete className={iconClass} /> Delete
       </div>

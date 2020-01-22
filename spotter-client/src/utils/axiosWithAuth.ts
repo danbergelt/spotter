@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosInstance } from 'axios';
 
 // gets token from memory, creates an axios instance sending the token, enables cookies
 

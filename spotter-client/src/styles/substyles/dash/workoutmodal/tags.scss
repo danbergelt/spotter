@@ -1,5 +1,5 @@
-@import "../../../variables.scss";
-@import "../../../mixins.scss";
+@import '../../../variables.scss';
+@import '../../../mixins.scss';
 
 .workout-data-tags {
   display: flex;
@@ -23,7 +23,7 @@
       color: white;
       padding: 1rem;
       border-radius: 2px;
-      font-family: "Roboto";
+      font-family: 'Roboto';
       @include flex-center;
       cursor: pointer;
       border-radius: $border;

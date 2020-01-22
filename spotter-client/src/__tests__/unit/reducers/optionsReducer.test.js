@@ -1,4 +1,4 @@
-import { optionsReducer } from "../../../reducers/optionsReducer";
+import { optionsReducer } from '../../../reducers/optionsReducer';
 import {
   OPEN_TAG_MODAL,
   CLOSE_TAG_MODAL,
@@ -11,7 +11,7 @@ import {
   SET_TEMPLATE_SAVE,
   SET_ACTIVE,
   SET_EXERCISES
-} from "../../../actions/optionsActions";
+} from '../../../actions/optionsActions';
 
 const state = {
   active: 0,
@@ -22,15 +22,15 @@ const state = {
   tagModal: false,
   templateSave: false,
   templates: [],
-  templatesErr: ""
+  templatesErr: ''
 };
 
-describe("options reducer", () => {
-  test("should return initial state", () => {
+describe('options reducer', () => {
+  test('should return initial state', () => {
     expect(optionsReducer(undefined, {})).toEqual(state);
   });
 
-  test("should handle OPEN_TAG_MODAL", () => {
+  test('should handle OPEN_TAG_MODAL', () => {
     expect(
       optionsReducer(undefined, {
         type: OPEN_TAG_MODAL
@@ -38,7 +38,7 @@ describe("options reducer", () => {
     ).toEqual({ ...state, tagModal: true });
   });
 
-  test("should handle CLOSE_TAG_MODAL", () => {
+  test('should handle CLOSE_TAG_MODAL', () => {
     expect(
       optionsReducer(
         { ...state, active: 3 },
@@ -49,7 +49,7 @@ describe("options reducer", () => {
     ).toEqual({ ...state, tagModal: false, active: 0 });
   });
 
-  test("should handle DELETE_TEMPLATE", () => {
+  test('should handle DELETE_TEMPLATE', () => {
     expect(
       optionsReducer(
         { ...state, templates: [{ _id: 1 }] },
@@ -58,34 +58,34 @@ describe("options reducer", () => {
     ).toEqual(state);
   });
 
-  test("should handle SET_SAVE_MSG", () => {
+  test('should handle SET_SAVE_MSG', () => {
     expect(
       optionsReducer(state, {
         type: SET_SAVE_MSG,
-        payload: { msg: "msg" }
+        payload: { msg: 'msg' }
       })
-    ).toEqual({ ...state, saveMsg: { msg: "msg" } });
+    ).toEqual({ ...state, saveMsg: { msg: 'msg' } });
   });
 
-  test("should handle SET_TEMPLATES_ERR", () => {
+  test('should handle SET_TEMPLATES_ERR', () => {
     expect(
       optionsReducer(state, {
         type: SET_TEMPLATES_ERR,
-        payload: "err"
+        payload: 'err'
       })
-    ).toEqual({ ...state, templatesErr: "err" });
+    ).toEqual({ ...state, templatesErr: 'err' });
   });
 
-  test("should handle SET_TEMPLATES", () => {
+  test('should handle SET_TEMPLATES', () => {
     expect(
       optionsReducer(state, {
         type: SET_TEMPLATES,
-        payload: [{ template: "template" }]
+        payload: [{ template: 'template' }]
       })
-    ).toEqual({ ...state, templates: [{ template: "template" }] });
+    ).toEqual({ ...state, templates: [{ template: 'template' }] });
   });
 
-  test("should handle SET_CONFIRM_DELETE", () => {
+  test('should handle SET_CONFIRM_DELETE', () => {
     expect(
       optionsReducer(state, {
         type: SET_CONFIRM_DELETE,
@@ -94,7 +94,7 @@ describe("options reducer", () => {
     ).toEqual({ ...state, confirmDelete: true });
   });
 
-  test("should handle SET_FROM_TEMPLATE", () => {
+  test('should handle SET_FROM_TEMPLATE', () => {
     expect(
       optionsReducer(state, {
         type: SET_FROM_TEMPLATE,
@@ -103,7 +103,7 @@ describe("options reducer", () => {
     ).toEqual({ ...state, fromTemplate: true });
   });
 
-  test("should handle SET_TEMPLATE_SAVE", () => {
+  test('should handle SET_TEMPLATE_SAVE', () => {
     expect(
       optionsReducer(state, {
         type: SET_TEMPLATE_SAVE,
@@ -112,7 +112,7 @@ describe("options reducer", () => {
     ).toEqual({ ...state, templateSave: true });
   });
 
-  test("should handle SET_ACTIVE", () => {
+  test('should handle SET_ACTIVE', () => {
     expect(
       optionsReducer(state, {
         type: SET_ACTIVE,
@@ -121,7 +121,7 @@ describe("options reducer", () => {
     ).toEqual({ ...state, active: 2 });
   });
 
-  test("should handle SET_EXERCISES", () => {
+  test('should handle SET_EXERCISES', () => {
     expect(
       optionsReducer(state, {
         type: SET_EXERCISES,

@@ -1,21 +1,21 @@
-import React, { useState, useCallback, useEffect } from "react";
-import { generateMonth, monthDashHead } from "../../../../utils/momentUtils";
-import DashControls from "../DashControls";
-import GridDay from "./GridDay";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState, useCallback, useEffect } from 'react';
+import { generateMonth, monthDashHead } from '../../../../utils/momentUtils';
+import DashControls from '../DashControls';
+import GridDay from './GridDay';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   incOrDecAction,
   addWorkoutModalAction,
   viewWorkoutModalAction
-} from "../../../../actions/globalActions";
-import WorkoutModal from "../../workoutmodal/WorkoutModal";
-import { useHistory } from "react-router-dom";
-import reFetch from "../../../../utils/reFetch";
-import { fetchExercises } from "../../../../actions/fetchExercisesActions";
-import { State } from "src/types/State";
-import { Workout } from "src/types/Workout";
-import { Moment } from "moment";
-import { closeWorkoutModalAction } from "src/actions/globalActions";
+} from '../../../../actions/globalActions';
+import WorkoutModal from '../../workoutmodal/WorkoutModal';
+import { useHistory } from 'react-router-dom';
+import reFetch from '../../../../utils/reFetch';
+import { fetchExercises } from '../../../../actions/fetchExercisesActions';
+import { State } from 'src/types/State';
+import { Workout } from 'src/types/Workout';
+import { Moment } from 'moment';
+import { closeWorkoutModalAction } from 'src/actions/globalActions';
 
 interface GlobalReducer {
   scope: { value: string; label: string };
@@ -49,10 +49,10 @@ const WorkoutGrid = () => {
 
   // increment or decrement by one week/month at a time
   const inc = () => {
-    dispatch(incOrDecAction("inc", timeSpan));
+    dispatch(incOrDecAction('inc', timeSpan));
   };
   const dec = () => {
-    dispatch(incOrDecAction("dec", timeSpan));
+    dispatch(incOrDecAction('dec', timeSpan));
   };
 
   // opens modal to add a new workout
@@ -77,14 +77,14 @@ const WorkoutGrid = () => {
   }, [dispatch]);
 
   return (
-    <div className="spacer">
+    <div className='spacer'>
       <DashControls inc={inc} dec={dec} time={timeSpan} month={monthDashHead} />
-      <section className="month-workout-days">
+      <section className='month-workout-days'>
         {generateMonth(timeSpan).map((date, i) => (
           <GridDay
             openAddWorkoutModal={openAddWorkoutModal}
             openViewModal={openViewModal}
-            key={date.format("MMM DD YYYY")}
+            key={date.format('MMM DD YYYY')}
             date={date}
             i={i}
             workouts={workouts}

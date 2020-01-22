@@ -1,16 +1,14 @@
-import { combineReducers } from "redux";
-import { workoutReducer } from "./workoutReducer";
-import { fetchWorkoutsReducer } from "./fetchWorkoutsReducer";
-import { globalReducer } from "./globalReducer";
-import { tagsReducer } from "./tagsReducer";
-import { optionsReducer } from "./optionsReducer";
-import { fetchExercisesReducer } from "./fetchExercisesReducer";
-import { prsReducer } from "./prsReducer";
-import { LOGOUT } from "src/actions/globalActions";
-import { State } from "src/types/State";
+import { combineReducers } from 'redux';
+import { workoutReducer } from './workoutReducer';
+import { fetchWorkoutsReducer } from './fetchWorkoutsReducer';
+import { globalReducer } from './globalReducer';
+import { tagsReducer } from './tagsReducer';
+import { optionsReducer } from './optionsReducer';
+import { fetchExercisesReducer } from './fetchExercisesReducer';
+import { LOGOUT } from 'src/actions/globalActions';
+import { State } from 'src/types/State';
 
 const appReducer = combineReducers({
-  prsReducer,
   workoutReducer,
   fetchWorkoutsReducer,
   globalReducer,

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchToken } from "src/types/State";
-import { closeAccountAction } from "src/actions/globalActions";
-import { useHistory } from "react-router-dom";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchToken } from 'src/types/State';
+import { closeAccountAction } from 'src/actions/globalActions';
+import { useHistory } from 'react-router-dom';
 
 const CloseAccount: React.FC = () => {
   const dispatch = useDispatch();
@@ -13,28 +13,28 @@ const CloseAccount: React.FC = () => {
   const t: string | null = useSelector(fetchToken);
 
   return (
-    <article className="del-account-container">
-      <span id="del-account-danger">Danger!</span> This action can't be undone.
-      All of your data will be deleted, and you will be redirected to the Signup
-      screen.
+    <article className='del-account-container'>
+      <span id='del-account-danger'>Danger!</span> This action can&#39;t be
+      undone. All of your data will be deleted, and you will be redirected to
+      the Signup screen.
       <br />
       <br />
       Are you sure you want to close your account?
-      <section className="confirm-close">
+      <section className='confirm-close'>
         <input
           onChange={() => setConfirmClose(!confirmClose)}
-          className="confirm-check"
-          type="checkbox"
-          data-testid="close-check"
+          className='confirm-check'
+          type='checkbox'
+          data-testid='close-check'
         />
-        <p>Yes, I'm sure</p>
+        <p>Yes, I&#39;m sure</p>
       </section>
       <div
-        role="button"
+        role='button'
         data-testid={
-          confirmClose ? "delete-account" : "delete-account-disabled"
+          confirmClose ? 'delete-account' : 'delete-account-disabled'
         }
-        className={confirmClose ? "delete-account" : "delete-account-disabled"}
+        className={confirmClose ? 'delete-account' : 'delete-account-disabled'}
         onClick={() => confirmClose && dispatch(closeAccountAction(t, history))}
       >
         Close Account

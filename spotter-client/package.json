@@ -23,6 +23,8 @@
     "@types/yup": "^0.26.27",
     "axios": "^0.19.0",
     "formik": "^1.5.8",
+    "husky": "^4.0.10",
+    "lint-staged": "^10.0.0",
     "moment": "^2.24.0",
     "moment-range": "^4.0.2",
     "node-sass": "^4.12.0",
@@ -54,7 +56,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test -i",
     "test:cov": "react-scripts test --coverage",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx src",
+    "fix": "eslint --fix src"
   },
   "jest": {
     "moduleNameMapper": {
@@ -63,6 +67,17 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "browserslist": {
     "production": [
@@ -81,7 +96,13 @@
     "@testing-library/react": "^9.3.0",
     "@testing-library/react-hooks": "^3.2.1",
     "@testing-library/user-event": "^8.0.0",
+    "@typescript-eslint/parser": "^2.16.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-jest": "^23.6.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "identity-obj-proxy": "^3.0.0",
+    "prettier": "^1.19.1",
     "react-test-renderer": "^16.12.0"
   }
 }

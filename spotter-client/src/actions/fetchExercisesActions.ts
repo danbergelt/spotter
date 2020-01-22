@@ -1,13 +1,13 @@
-import axiosWithAuth from "../utils/axiosWithAuth";
-import { Dispatch, Action } from "redux";
-import { History } from "history";
-import { AxiosResponse } from "axios";
-import { Msg } from "src/types/ExerciseOption";
+import axiosWithAuth from '../utils/axiosWithAuth';
+import { Dispatch, Action } from 'redux';
+import { History } from 'history';
+import { AxiosResponse } from 'axios';
+import { Msg } from 'src/types/ExerciseOption';
 
-export const FETCH_EXERCISES_SUCCESS: string = "FETCH_EXERCISES_SUCCESS";
-export const FETCH_EXERCISES_ERROR: string = "FETCH_EXERCISES_ERROR";
-export const CREATE_EXERCISE: string = "CREATE_EXERCISE";
-export const DELETE_SAVED_EXERCISE: string = "DELETE_SAVED_EXERCISE";
+export const FETCH_EXERCISES_SUCCESS: string = 'FETCH_EXERCISES_SUCCESS';
+export const FETCH_EXERCISES_ERROR: string = 'FETCH_EXERCISES_ERROR';
+export const CREATE_EXERCISE: string = 'CREATE_EXERCISE';
+export const DELETE_SAVED_EXERCISE: string = 'DELETE_SAVED_EXERCISE';
 
 // fetches saved exercises
 // only saved exercises can be used to track PRs
@@ -28,7 +28,7 @@ export const fetchExercises = (history: History, t: string | null) => {
             payload: err.response.data.error
           });
         } else {
-          history.push("/500");
+          history.push('/500');
         }
       });
   };
@@ -68,7 +68,7 @@ export const createExerciseAction: TCreateExercise = (t, exercise, setMsg) => {
           name: exercise
         }
       );
-      if (setMsg) setMsg({ success: "Exercise created" });
+      if (setMsg) setMsg({ success: 'Exercise created' });
       return dispatch({ type: CREATE_EXERCISE, payload: res.data.exercise });
     } catch (error) {
       if (setMsg) return setMsg({ error: error.response.data.error });
