@@ -65,9 +65,6 @@
       "^.+\\.(css|less|scss)$": "identity-obj-proxy"
     }
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
       "prettier --write",

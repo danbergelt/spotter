@@ -9,7 +9,12 @@
       }
     }
   ],
-  "extends": ["prettier", "eslint:recommended", "plugin:react/recommended"],
+  "extends": [
+    "prettier",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "react-app"
+  ],
   "rules": {
     "prettier/prettier": "error",
     "react/prop-types": 0,

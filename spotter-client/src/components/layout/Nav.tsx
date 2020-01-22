@@ -37,16 +37,18 @@ const Nav = () => {
   ) : (
     <div
       style={{
-        position: width > 1000 && pathname == '/' ? 'fixed' : undefined,
-        paddingBottom: pathname == '/' ? '1.5rem' : undefined,
+        position: width > 1000 && pathname === '/' ? 'fixed' : undefined,
+        paddingBottom: pathname === '/' ? '1.5rem' : undefined,
         boxShadow:
-          pathname == '/' && y > 100
+          pathname === '/' && y > 100
             ? '0 2px 12px 0 rgba(36,50,66,.075)'
             : undefined,
         width: '100%',
         transition:
-          pathname == '/' && y > 100 ? 'box-shadow .3s ease-in-out' : undefined,
-        background: pathname == '/' && y > 100 ? 'white' : undefined
+          pathname === '/' && y > 100
+            ? 'box-shadow .3s ease-in-out'
+            : undefined,
+        background: pathname === '/' && y > 100 ? 'white' : undefined
       }}
     >
       <div className='spotter-nav spacer'>
