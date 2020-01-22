@@ -4,19 +4,19 @@
 @import '../../mixins.scss';
 
 .bottomcta-container {
-  padding: 20rem 0;
+  padding: 20rem 0rem;
   background: #f6f8f9;
   display: flex;
   flex-direction: column;
   align-items: center;
   font-family: 'Nanum Gothic';
 
-  @include medium {
-    padding: 15rem 5rem;
+  @include large {
+    padding: 15rem 2.5rem;
   }
 
-  @include small {
-    padding: 10rem 5rem;
+  @include medium {
+    padding: 10rem 2.5rem;
   }
 
   .bottomcta-title {
@@ -38,14 +38,13 @@
     border-radius: 4px;
     cursor: pointer;
     width: max-content;
-    padding: 1.5rem 2rem;
+    padding: 1.5rem 3.5rem;
     text-align: center;
     text-decoration: none;
     @include hover;
 
     @include medium {
       font-size: $p;
-      padding: 1.25rem 1.5rem;
     }
 
     &:hover {

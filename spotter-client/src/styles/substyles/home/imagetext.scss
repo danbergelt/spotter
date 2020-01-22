@@ -4,20 +4,20 @@
 @import '../../mixins.scss';
 
 .imagetext-container {
-  padding: 20rem 0;
+  padding: 20rem 0rem;
   background: #f6f8f9;
   display: flex;
   align-items: center;
   justify-content: center;
 
-  @include medium {
-    padding: 15rem 5rem;
-    flex-direction: column-reverse;
-    align-items: center;
+  @include large {
+    padding: 15rem 2.5rem;
   }
 
-  @include small {
-    padding: 10rem 5rem;
+  @include medium {
+    padding: 10rem 2.5rem;
+    flex-direction: column-reverse;
+    align-items: center;
   }
 
   .imagetext-image {
@@ -63,7 +63,7 @@
       margin-top: 2.5rem;
       line-height: 1.5;
 
-      @include medium {
+      @include small {
         font-size: $p;
       }
     }
@@ -71,7 +71,7 @@
     .imagetext-cta {
       text-align: center;
       width: max-content;
-      padding: 1.5rem;
+      padding: 1.5rem 3.5rem;
       font-family: 'Roboto';
       color: white;
       margin-top: 2.5rem;
@@ -83,8 +83,7 @@
       @include hover;
 
       @include large {
-        padding: 1rem;
-        font-size: 1.3rem;
+        font-size: $p;
       }
 
       @include medium {

@@ -4,7 +4,7 @@
 @import '../../mixins.scss';
 
 .features-container {
-  padding: 20rem 0;
+  padding: 20rem 0rem;
   display: flex;
   width: 100%;
   justify-content: center;
@@ -13,16 +13,13 @@
   @include large {
     flex-direction: column;
     align-items: center;
+    padding: 15rem 2.5rem;
   }
 
   @include medium {
-    padding: 15rem 5rem;
+    padding: 10rem 2.5rem;
     flex-direction: column;
     align-items: center;
-  }
-
-  @include small {
-    padding: 10rem 5rem;
   }
 
   .features-tabs-container {

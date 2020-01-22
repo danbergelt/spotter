@@ -1,5 +1,4 @@
 import React from 'react';
-import { HashLink } from 'react-router-hash-link';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchToken } from '../../types/State';
@@ -22,16 +21,6 @@ const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
 
   return (
     <nav className='spotter-nav-links'>
-      {!token && (
-        <HashLink
-          smooth
-          to='/#about'
-          className='spotter-nav-link'
-          onClick={() => setIsOpen && setIsOpen(!isOpen)}
-        >
-          About
-        </HashLink>
-      )}
       {token && (
         <Link
           data-testid='settings'

@@ -3,18 +3,18 @@
 @import '../../mixins.scss';
 
 .textblocks-container {
-  padding: 20rem 0;
+  padding: 20rem 0rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   font-family: 'Nanum Gothic';
 
-  @include medium {
-    padding: 15rem 5rem;
+  @include large {
+    padding: 15rem 2.5rem;
   }
 
-  @include small {
-    padding: 10rem 5rem;
+  @include medium {
+    padding: 10rem 2.5rem;
   }
 
   .textblocks-title {
@@ -101,9 +101,9 @@
       .textblock-content {
         color: $gray2;
         font-size: 1.75rem;
-        line-height: 1.25;
+        line-height: 1.5;
 
-        @include medium {
+        @include small {
           font-size: $p;
         }
 
