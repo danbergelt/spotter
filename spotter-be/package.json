@@ -4,6 +4,7 @@
   "description": "API serving data to the spotter client",
   "main": "index.js",
   "author": "Dan Bergelt",
+  "type": "module",
   "license": "MIT",
   "dependencies": {
     "@types/bcryptjs": "^2.4.2",
@@ -22,8 +23,10 @@
     "csv-stringify": "^5.3.6",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
+    "husky": "^4.2.0",
     "is-hexcolor": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
+    "lint-staged": "^10.0.2",
     "mailgun-js": "^0.22.0",
     "mongoose": "^5.7.4",
     "ts-node": "^8.5.4",
@@ -34,7 +37,9 @@
     "coverage": "nyc --reporter=lcov --reporter=text npm test",
     "start": "NODE_ENV=production ts-node src/index",
     "dev": "tsnd --respawn src/index",
-    "wipe": "stop mongodb && run-mongodb"
+    "wipe": "stop mongodb && run-mongodb",
+    "lint": "eslint --ext .js,.ts src",
+    "fix": "eslint --fix . --ext .js,.ts src"
   },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
@@ -44,16 +49,27 @@
     "@types/expect": "^24.3.0",
     "@types/jwt-decode": "^2.2.1",
     "@types/mocha": "^5.2.7",
+    "@types/morgan": "^1.7.37",
+    "@typescript-eslint/eslint-plugin": "^2.17.0",
+    "@typescript-eslint/parser": "^2.17.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "chai-http": "^4.3.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-chai-expect": "^2.1.0",
+    "eslint-plugin-chai-friendly": "^0.5.0",
+    "eslint-plugin-mocha": "^6.2.2",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-promise": "^4.2.1",
     "jwt-decode": "^2.2.0",
-    "nyc": "^15.0.0",
     "mocha": "^6.2.2",
     "morgan": "^1.9.1",
+    "nyc": "^15.0.0",
+    "prettier": "^1.19.1",
     "source-map-support": "^0.5.16",
     "ts-mocha": "^6.0.0",
-    "@types/morgan": "^1.7.37",
     "ts-node-dev": "^1.0.0-pre.44"
   },
   "nyc": {
@@ -69,5 +85,19 @@
     "check-coverage": true,
     "all": true,
     "sourceMap": true
+  },
+  "lint-staged": {
+    "src/**/*.{js,ts,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "engines": {
+    "node": ">=12.0.0"
   }
 }

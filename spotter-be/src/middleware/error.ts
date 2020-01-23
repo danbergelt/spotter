@@ -1,5 +1,5 @@
-import { Response, Request, NextFunction } from "express";
-import Err from "../utils/Err";
+import { Response, Request, NextFunction } from 'express';
+import Err from '../utils/Err';
 
 interface NodeError extends Error {
   code: number;
@@ -12,28 +12,29 @@ const errorHandler = (
   err: NodeError,
   _: Request,
   res: Response,
+  // eslint-disable-next-line
   __: NextFunction
-) => {
+): void => {
   let error: NodeError = { ...err };
   error.message = err.message;
 
   // Mongoose bad Object ID
-  if (err.name === "CastError") {
-    const message: string = "Resource not found";
+  if (err.name === 'CastError') {
+    const message = 'Resource not found';
     error = new Err(message, 404);
   }
 
   // Dup field
   if (err.code === 11000) {
-    const message: string = "Duplicate detected, try again";
+    const message = 'Duplicate detected, try again';
     error = new Err(message, 400);
   }
 
   // Validation err
-  if (err.name === "ValidationError") {
+  if (err.name === 'ValidationError') {
     const message: string = Object.values(err.errors).map(
       val => val.message
-    ) as any;
+    ) as any; // eslint-disable-line
     error = new Err(message, 400);
   }
 
@@ -41,7 +42,7 @@ const errorHandler = (
 
   res.status(error.statusCode || 500).json({
     success: false,
-    error: error.message || "Server error"
+    error: error.message || 'Server error'
   });
 };
 

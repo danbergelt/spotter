@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 // connects to DB + test DB
 
@@ -8,22 +8,28 @@ interface MongooseConnection extends mongoose.Connection {
 }
 
 export const connectDB: () => Promise<void> = async () => {
-  let conn: typeof mongoose = await mongoose.connect(process.env.DB!, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true
-  });
+  const conn: typeof mongoose = await mongoose.connect(
+    process.env.DB || 'no-db',
+    {
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+      useUnifiedTopology: true
+    }
+  );
   console.log(`DB Connected: ${(conn.connection as MongooseConnection).host}`);
 };
 
 export const connectTestDB: () => Promise<void> = async () => {
-  const conn: typeof mongoose = await mongoose.connect(process.env.T_DB!, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true
-  });
+  const conn: typeof mongoose = await mongoose.connect(
+    process.env.T_DB || 'no-db',
+    {
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+      useUnifiedTopology: true
+    }
+  );
   console.log(
     `TEST DB Connected: ${(conn.connection as MongooseConnection).host}`
   );

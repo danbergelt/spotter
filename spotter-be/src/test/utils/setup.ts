@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
-require("dotenv").config();
-before(async() => {
+import mongoose from 'mongoose';
+require('dotenv').config();
+before(async () => {
   mongoose.Promise = global.Promise;
 
   await mongoose.connect(process.env.T_DB!, {
@@ -10,5 +10,5 @@ before(async() => {
     useUnifiedTopology: true
   });
 
-  mongoose.connection.on("error", error => console.warn(error))
-})
+  mongoose.connection.on('error', error => console.warn(error));
+});

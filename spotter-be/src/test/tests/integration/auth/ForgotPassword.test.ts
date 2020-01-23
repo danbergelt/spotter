@@ -1,13 +1,12 @@
-const app = require("../../../utils/index");
-import { describe, it } from "mocha";
-import chaiHttp from "chai-http";
-import chai from "chai";
-import chaiAsPromised from "chai-as-promised";
-import { createUser } from "../../../utils/createUser";
-import { dbHelper } from "../../..//utils/db";
-import User from "../../../../models/user";
+const app = require('../../../utils/index');
+import { describe, it } from 'mocha';
+import chaiHttp from 'chai-http';
+import chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+import { createUser } from '../../../utils/createUser';
+import User from '../../../../models/user';
 chai.use(chaiAsPromised);
-require("dotenv").config();
+require('dotenv').config();
 const should = chai.should();
 
 // configure Chai HTTP
@@ -17,95 +16,95 @@ after(() => {
   delete process.env.TESTING;
 });
 
-describe("Login existing user", async () => {
+describe('Login existing user', () => {
   // Successful login
-  it("should error out when no user found", async () => {
+  it('should error out when no user found', async () => {
     const res = await chai
       .request(app)
-      .post("/api/auth/user/forgotpassword")
-      .send({ email: "new@email.com" });
+      .post('/api/auth/user/forgotpassword')
+      .send({ email: 'new@email.com' });
     should.exist(res);
     res.body.success.should.equal(false);
     res.should.have.status(404);
-    res.body.error.should.equal("No user found with that email");
+    res.body.error.should.equal('No user found with that email');
   });
 
-  it("should send email", async () => {
+  it('should send email', async () => {
     await createUser();
     const res = await chai
       .request(app)
-      .post("/api/auth/user/forgotpassword")
-      .send({ email: "test@email.com" });
+      .post('/api/auth/user/forgotpassword')
+      .send({ email: 'test@email.com' });
     should.exist(res);
     res.body.success.should.equal(true);
     res.should.have.status(200);
-    await dbHelper(User);
+    await User.deleteMany({});
   });
 
   // CHANGE FORGOTTEN PASSWORD
 
-  it("should error out when not all fields are present", async () => {
+  it('should error out when not all fields are present', async () => {
     const res = await chai
       .request(app)
-      .put("/api/auth/user/forgotpassword/foo")
-      .send({ newPassword: "foo" });
+      .put('/api/auth/user/forgotpassword/foo')
+      .send({ newPassword: 'foo' });
     should.exist(res);
     res.body.success.should.equal(false);
     res.should.have.status(400);
-    res.body.error.should.equal("All fields are required");
+    res.body.error.should.equal('All fields are required');
   });
 
   it("should error out when fields don't match", async () => {
     const res = await chai
       .request(app)
-      .put("/api/auth/user/forgotpassword/foo")
-      .send({ newPassword: "foo", confirmPassword: "bar" });
+      .put('/api/auth/user/forgotpassword/foo')
+      .send({ newPassword: 'foo', confirmPassword: 'bar' });
     should.exist(res);
     res.body.success.should.equal(false);
     res.should.have.status(400);
-    res.body.error.should.equal("Fields must match");
+    res.body.error.should.equal('Fields must match');
   });
 
-  it("should error out with bad token", async () => {
+  it('should error out with bad token', async () => {
     const res = await chai
       .request(app)
-      .put("/api/auth/user/forgotpassword/foo")
-      .send({ newPassword: "foo", confirmPassword: "foo" });
+      .put('/api/auth/user/forgotpassword/foo')
+      .send({ newPassword: 'foo', confirmPassword: 'foo' });
     should.exist(res);
     res.body.success.should.equal(false);
     res.should.have.status(404);
-    res.body.error.should.equal("Invalid token");
+    res.body.error.should.equal('Invalid token');
   });
 
-  it("password validation fails with short passwords", async () => {
+  it('password validation fails with short passwords', async () => {
     await createUser();
-    const user = await User.findOne({ email: "test@email.com" });
+    const user = await User.findOne({ email: 'test@email.com' });
     const resetPasswordToken = user?.getResetPasswordToken();
     await user?.save({ validateBeforeSave: false });
     const res = await chai
       .request(app)
       .put(`/api/auth/user/forgotpassword/${resetPasswordToken}`)
-      .send({ newPassword: "foo", confirmPassword: "foo" });
+      .send({ newPassword: 'foo', confirmPassword: 'foo' });
     should.exist(res);
     res.body.success.should.equal(false);
     res.should.have.status(400);
-    res.body.error.should.equal("Password needs to be at least 6 characters");
-    await dbHelper(User);
+    res.body.error.should.equal('Password needs to be at least 6 characters');
+    await User.deleteMany({});
   });
 
-  it("can change forgotten password", async () => {
+  it('can change forgotten password', async () => {
     await createUser();
-    const user = await User.findOne({ email: "test@email.com" });
+    const user = await User.findOne({ email: 'test@email.com' });
     const resetPasswordToken = user?.getResetPasswordToken();
     await user?.save({ validateBeforeSave: false });
     const res = await chai
       .request(app)
       .put(`/api/auth/user/forgotpassword/${resetPasswordToken}`)
-      .send({ newPassword: "newpassword", confirmPassword: "newpassword" });
+      .send({ newPassword: 'newpassword', confirmPassword: 'newpassword' });
     should.exist(res);
     res.body.success.should.equal(true);
     res.should.have.status(200);
-    res.body.should.have.property("token")
-    await dbHelper(User);
+    res.body.should.have.property('token');
+    await User.deleteMany({});
   });
 });

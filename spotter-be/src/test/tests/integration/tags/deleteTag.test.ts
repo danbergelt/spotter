@@ -1,29 +1,27 @@
-const app = require("../../../utils/index");
-import { genToken } from "../../../utils/genToken";
-import { describe, beforeEach, it } from "mocha";
-import chaiHttp from "chai-http";
-import chai from "chai";
-import chaiAsPromised from "chai-as-promised";
+const app = require('../../../utils/index');
+import { genToken } from '../../../utils/genToken';
+import { describe, beforeEach, it } from 'mocha';
+import chaiHttp from 'chai-http';
+import chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
 chai.use(chaiAsPromised);
 const should = chai.should();
-import Tag from "../../../../models/Tag";
-import Workout from "../../../../models/Workout";
-import Template from "../../../../models/Template";
-import { dbHelper } from "../../../utils/db";
-import { createUser } from "../../../utils/createUser";
-import { createTag } from "../../../utils/createTag";
-import { template } from "../../../utils/templateWorkout";
+import Tag from '../../../../models/Tag';
+import Workout from '../../../../models/Workout';
+import Template from '../../../../models/Template';
+import { createUser } from '../../../utils/createUser';
+import { createTag } from '../../../utils/createTag';
+import { template } from '../../../utils/templateWorkout';
 
 // configure Chai HTTP
 chai.use(chaiHttp);
 
-describe("DELETE Tag by tag id", () => {
-  dbHelper(Tag);
-
+describe('DELETE Tag by tag id', () => {
   let uId: any;
   let tId: any;
 
   beforeEach(async () => {
+    await Tag.deleteMany({});
     const { _id } = await createUser();
     uId = _id;
     const { _id: temp } = await createTag(_id);
@@ -32,51 +30,51 @@ describe("DELETE Tag by tag id", () => {
     return uId, tId;
   });
 
-  it("successfully deletes tag", done => {
+  it('successfully deletes tag', done => {
     const token = genToken(uId);
     chai
       .request(app)
       .delete(`/api/auth/tags/${tId}`)
-      .set("Authorization", `Bearer ${token}`)
+      .set('Authorization', `Bearer ${token}`)
       .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(true);
         res.should.have.status(200);
-        res.body.data.should.equal("Tag deleted");
+        res.body.data.should.equal('Tag deleted');
         done();
       });
   });
 
-  it("should not delete tag with bad id", done => {
+  it('should not delete tag with bad id', done => {
     const token = genToken(uId);
     chai
       .request(app)
       .delete(`/api/auth/tags/123456`)
-      .set("Authorization", `Bearer ${token}`)
+      .set('Authorization', `Bearer ${token}`)
       .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(404);
-        res.body.error.should.equal("Resource not found");
+        res.body.error.should.equal('Resource not found');
         done();
       });
   });
 
-  it("should not delete tag with bad token", done => {
+  it('should not delete tag with bad token', done => {
     chai
       .request(app)
       .delete(`/api/auth/tags/${uId}`)
-      .set("Authorization", `Bearer token`)
+      .set('Authorization', `Bearer token`)
       .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(401);
-        res.body.error.should.equal("Connection lost, try refreshing");
+        res.body.error.should.equal('Connection lost, try refreshing');
         done();
       });
   });
 
-  it("should not delete tag with no token", done => {
+  it('should not delete tag with no token', done => {
     chai
       .request(app)
       .delete(`/api/auth/tags/${uId}`)
@@ -84,19 +82,19 @@ describe("DELETE Tag by tag id", () => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(401);
-        res.body.error.should.equal("Access denied");
+        res.body.error.should.equal('Access denied');
         done();
       });
   });
 
-  describe("cascade delete wrapper", () => {
+  describe('cascade delete wrapper', () => {
     beforeEach(async () => {
-      dbHelper(Tag);
+      await Tag.deleteMany({});
     });
 
-    it("should cascade delete tag from workout", async () => {
+    it('should cascade delete tag from workout', async () => {
       const token = genToken(uId);
-      const tag = new Tag({ color: "#F2B202", content: "content", user: uId });
+      const tag = new Tag({ color: '#F2B202', content: 'content', user: uId });
       const { _id } = await tag.save();
       tId = _id;
       const workout = new Workout({
@@ -108,36 +106,36 @@ describe("DELETE Tag by tag id", () => {
       await chai
         .request(app)
         .delete(`/api/auth/tags/${tId}`)
-        .set("Authorization", `Bearer ${token}`);
+        .set('Authorization', `Bearer ${token}`);
       const res = await chai
         .request(app)
-        .get("/api/auth/workouts")
-        .set("Authorization", `Bearer ${token}`);
+        .get('/api/auth/workouts')
+        .set('Authorization', `Bearer ${token}`);
       should.exist(res);
       res.body.success.should.equal(true);
       res.should.have.status(200);
       res.body.workouts[0].tags.length.should.equal(0);
     });
-    it("should cascade delete tag from template", async () => {
+    it('should cascade delete tag from template', async () => {
       const token = genToken(uId);
-      const tag = new Tag({ color: "#F2B202", content: "content", user: uId });
+      const tag = new Tag({ color: '#F2B202', content: 'content', user: uId });
       const { _id } = await tag.save();
       tId = _id;
       const temp = new Template({
         ...template,
         tags: { ...tag },
         user: uId,
-        name: "tnamguyguyguye"
+        name: 'tnamguyguyguye'
       });
       await temp.save();
       await chai
         .request(app)
         .delete(`/api/auth/tags/${tId}`)
-        .set("Authorization", `Bearer ${token}`);
+        .set('Authorization', `Bearer ${token}`);
       const res = await chai
         .request(app)
-        .get("/api/auth/templates")
-        .set("Authorization", `Bearer ${token}`);
+        .get('/api/auth/templates')
+        .set('Authorization', `Bearer ${token}`);
       should.exist(res);
       res.body.success.should.equal(true);
       res.should.have.status(200);

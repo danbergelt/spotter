@@ -1,14 +1,18 @@
-import Workout from "../models/Workout";
-import asyncHandler from "../middleware/async";
-import { promisify } from "util";
-import Err from "../utils/Err";
-const hex = require("is-hexcolor");
-const stringify = require("csv-stringify");
-import fs from "fs";
-import path from "path";
-import { IWorkout, ITag, IExercise } from "../types/models";
-import { prCalculation } from "../utils/PrCalculation";
-import Exercise from "../models/Exercise";
+const hex = require('is-hexcolor'); // eslint-disable-line
+const stringify = require('csv-stringify'); // eslint-disable-line
+import Workout from '../models/Workout';
+import asyncHandler from '../middleware/async';
+import { promisify } from 'util';
+import Err from '../utils/Err';
+import fs from 'fs';
+import path from 'path';
+import {
+  Workout as WorkoutInterface,
+  Tag,
+  Exercise as ExerciseInterface
+} from '../types/models';
+import { prCalculation } from '../utils/PrCalculation';
+import Exercise from '../models/Exercise';
 
 // @desc --> get all workouts by user id
 // @route --> GET /api/auth/workouts
@@ -20,7 +24,9 @@ export const getWorkoutsByUserId = asyncHandler(async (req, res) => {
     limit: parseInt(req.query.limit, 10) || 10
   };
 
-  const workouts: Array<IWorkout> = await Workout.find({ user: req.user._id })
+  const workouts: Array<WorkoutInterface> = await Workout.find({
+    user: req.user._id
+  })
     .skip(pagination.page * pagination.limit)
     .limit(pagination.limit);
 
@@ -35,10 +41,10 @@ export const getWorkoutsByUserId = asyncHandler(async (req, res) => {
 
 export const workoutRangeByUserId = asyncHandler(async (req, res, next) => {
   if (!req.body.range) {
-    return next(new Err("Please supply a date range", 400));
+    return next(new Err('Please supply a date range', 400));
   }
 
-  const workouts: Array<IWorkout> = await Workout.find({
+  const workouts: Array<WorkoutInterface> = await Workout.find({
     user: req.user._id,
     date: { $in: req.body.range }
   }).sort({ date: 1 });
@@ -56,15 +62,15 @@ export const addWorkout = asyncHandler(async (req, res, next) => {
   req.body.user = req.user._id;
 
   // validate the tag colors
-  let colorValidate: Array<ITag | false> = [];
+  let colorValidate: Array<Tag | false> = [];
   if (req.body.tags && req.body.tags.length) {
-    colorValidate = req.body.tags.map((el: ITag) => hex(el.color));
+    colorValidate = req.body.tags.map((el: Tag) => hex(el.color));
   }
   if (colorValidate.includes(false)) {
-    return next(new Err("Invalid color detected", 400));
+    return next(new Err('Invalid color detected', 400));
   }
 
-  const workout: IWorkout = await Workout.create(req.body);
+  const workout: WorkoutInterface = await Workout.create(req.body);
 
   await prCalculation(workout);
 
@@ -79,7 +85,7 @@ export const addWorkout = asyncHandler(async (req, res, next) => {
 // @access --> Private
 
 export const editWorkout = asyncHandler(async (req, res, next) => {
-  const workout: IWorkout | null = await Workout.findByIdAndUpdate(
+  const workout: WorkoutInterface | null = await Workout.findByIdAndUpdate(
     req.params.id,
     req.body,
     {
@@ -89,11 +95,14 @@ export const editWorkout = asyncHandler(async (req, res, next) => {
   );
 
   // fetch all exercises, and pass to formula to update all PRs
-  const exercises: Array<IExercise> = await Exercise.find({
+  const exercises: Array<ExerciseInterface> = await Exercise.find({
     user: req.user._id
   });
 
-  const obj: { user: string; exercises: Array<IExercise> } = {
+  const obj: {
+    user: string;
+    exercises: Array<ExerciseInterface>;
+  } = {
     user: req.user._id,
     exercises
   };
@@ -105,7 +114,7 @@ export const editWorkout = asyncHandler(async (req, res, next) => {
       data: workout
     });
   } else {
-    return next(new Err("Workout not found", 404));
+    return next(new Err('Workout not found', 404));
   }
 });
 
@@ -114,7 +123,7 @@ export const editWorkout = asyncHandler(async (req, res, next) => {
 // @access --> Private
 
 export const deleteWorkout = asyncHandler(async (req, res) => {
-  const workout: IWorkout | null = await Workout.findByIdAndDelete(
+  const workout: WorkoutInterface | null = await Workout.findByIdAndDelete(
     req.params.id
   );
 
@@ -124,7 +133,7 @@ export const deleteWorkout = asyncHandler(async (req, res) => {
 
   return res.status(200).json({
     success: true,
-    data: "Workout deleted"
+    data: 'Workout deleted'
   });
 });
 
@@ -134,45 +143,46 @@ export const deleteWorkout = asyncHandler(async (req, res) => {
 
 export const downloadWorkoutData = asyncHandler(async (req, res, next) => {
   // fetch all workouts by the user id
-  const workouts: Array<IWorkout> = await Workout.find({ user: req.user._id });
+  const workouts: Array<WorkoutInterface> = await Workout.find({
+    user: req.user._id
+  });
 
   // convert the workouts to JSON
-  let workouts_JSON;
+  let jsonWorkouts;
   try {
-    workouts_JSON = JSON.parse(JSON.stringify(workouts));
+    jsonWorkouts = JSON.parse(JSON.stringify(workouts));
   } catch (_) {
-    return next(new Err("Could not download, an error occurred", 500));
+    return next(new Err('Could not download, an error occurred', 500));
   }
 
   // constants for saving the file locally
-  const filename: string = `download-${req.user._id}-workouts.csv`;
-  const absPath: string = path.join(__dirname, "/static/", filename);
+  const filename = `download-${req.user._id}-workouts.csv`;
+  const absPath: string = path.join(__dirname, '/static/', filename);
 
   // promisify csv converter and FS functions
   const csv = promisify(stringify);
   const write = promisify(fs.writeFile);
-  const remove = promisify(fs.unlink);
 
   // create CSV string output
-  const workouts_CSV = await csv(workouts_JSON, { header: true });
+  const csvWorkouts = await csv(jsonWorkouts, { header: true });
 
   // write to a CSV file in a local static path (temporary)
-  await write(absPath, workouts_CSV);
+  await write(absPath, csvWorkouts);
 
   // download the file to the user
-  return res.download(absPath, async err => {
+  return res.download(absPath, err => {
     if (err) {
       if (res.headersSent) {
         // log the err to the console (this should not happen, should default to the below response)
         console.log(err);
       } else {
-        return next(new Err("Could not download, an error occurred", 400));
+        return next(new Err('Could not download, an error occurred', 400));
       }
     }
 
     // remove the temporary file from the local static path
-    await remove(absPath).catch(_ =>
-      next(new Err("Could not download, an error occurred", 500))
+    fs.unlink(absPath, () =>
+      next(new Err('Could not download, an error occurred', 500))
     );
   });
 });

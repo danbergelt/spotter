@@ -1,6 +1,6 @@
-const app = require("../../../utils/index");
+const app = require('../../../utils/index');
 import { genToken } from '../../../utils/genToken';
-import { describe, beforeEach, it } from "mocha";
+import { describe, beforeEach, it } from 'mocha';
 import { createTemplate } from '../../../utils/createTemplate';
 import chaiHttp from 'chai-http';
 import chai from 'chai';
@@ -8,30 +8,27 @@ import chaiAsPromised from 'chai-as-promised';
 chai.use(chaiAsPromised);
 const should = chai.should();
 import Template from '../../../../models/Template';
-import { dbHelper } from "../../../utils/db";
-import {createUser} from "../../../utils/createUser";
-import { template} from "../../../utils/templateWorkoutTemplate";
+import { createUser } from '../../../utils/createUser';
+import { template } from '../../../utils/templateWorkoutTemplate';
 
 // configure Chai HTTP
 chai.use(chaiHttp);
 
-describe("GET templates by user Id", () => {
-  // connect to test db
-  dbHelper(Template);
-
+describe('GET templates by user Id', () => {
   // create test user
   beforeEach(async () => {
+    await Template.deleteMany({});
     const { _id } = await createUser();
     template.user = _id;
     await createTemplate(template);
   });
 
-  it("should get all templates for this user", done => {
+  it('should get all templates for this user', done => {
     const token = genToken(template.user!);
     chai
       .request(app)
-      .get("/api/auth/templates")
-      .set("Authorization", `Bearer ${token}`)
+      .get('/api/auth/templates')
+      .set('Authorization', `Bearer ${token}`)
       .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(true);
@@ -44,29 +41,29 @@ describe("GET templates by user Id", () => {
       });
   });
 
-  it("should error out when no token is provided", done => {
+  it('should error out when no token is provided', done => {
     chai
       .request(app)
-      .get("/api/auth/templates")
+      .get('/api/auth/templates')
       .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(401);
-        res.body.error.should.equal("Access denied");
+        res.body.error.should.equal('Access denied');
         done();
       });
   });
 
-  it("should error out with incorrect token", done => {
+  it('should error out with incorrect token', done => {
     chai
       .request(app)
-      .get("/api/auth/templates")
-      .set("Authorization", `Bearer token`)
+      .get('/api/auth/templates')
+      .set('Authorization', `Bearer token`)
       .end((_, res) => {
         should.exist(res);
         res.body.success.should.equal(false);
         res.should.have.status(401);
-        res.body.error.should.equal("Connection lost, try refreshing");
+        res.body.error.should.equal('Connection lost, try refreshing');
         done();
       });
   });

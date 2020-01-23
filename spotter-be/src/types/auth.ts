@@ -1,4 +1,4 @@
-export interface IVerifiedToken {
+export interface VerifiedToken {
   id: string;
   iat: number;
   exp: number;

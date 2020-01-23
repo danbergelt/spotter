@@ -1,19 +1,25 @@
-import mailgun from "mailgun-js";
+import mailgun from 'mailgun-js';
 const DOMAIN: string | undefined = process.env.MG_DOMAIN;
-const TESTING: string | undefined = process.env.TESTING
+const TESTING: string | undefined = process.env.TESTING;
 // new mailgun instance
 const mg: mailgun.Mailgun = mailgun({
-  apiKey: process.env.MG_KEY!,
+  apiKey: process.env.MG_KEY || 'unauthorized',
   // need to change domain once production domain is purchased and verified in mailgun
-  domain: DOMAIN!,
+  domain: DOMAIN || 'unauthorized',
   testMode: Boolean(TESTING)
 });
 
 // data object that specifies a sender, recipient, email subject, and html template for email
-const data = (to: string, subject: string, html: string) => {
+interface MGData {
+  from: string;
+  to: string;
+  subject: string;
+  html: string;
+}
+const data = (to: string, subject: string, html: string): MGData => {
   return {
     // need to change from email once domain is purchased and verified in mailgun
-    from: "danbergelt@protonmail.com",
+    from: 'danbergelt@protonmail.com',
     to,
     subject,
     html
