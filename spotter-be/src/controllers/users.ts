@@ -1,10 +1,16 @@
-import Err from "../utils/Err";
-import User from "../models/user";
-import asyncHandler from "../middleware/async";
-import { refreshToken, genToken, clearRefreshToken, sendToken } from "../utils/tokens";
-import jwt from "jsonwebtoken";
-import { IUser } from "src/types/models";
-import { IVerifiedToken } from "../types/auth";
+import Err from '../utils/Err';
+import User from '../models/user';
+import asyncHandler from '../middleware/async';
+import {
+  refreshToken,
+  genToken,
+  clearRefreshToken,
+  sendToken
+} from '../utils/tokens';
+import jwt from 'jsonwebtoken';
+import { User as UserInterface } from 'src/types/models';
+import { VerifiedToken } from '../types/auth';
+import { Request, Response } from 'express';
 
 interface UserDetails {
   email: string;
@@ -20,7 +26,7 @@ export const register = asyncHandler(async (req, res) => {
   const { email, password, role }: UserDetails = req.body;
 
   // create user
-  const user: IUser = await User.create({
+  const user: UserInterface = await User.create({
     email,
     password,
     role
@@ -28,7 +34,11 @@ export const register = asyncHandler(async (req, res) => {
 
   refreshToken(
     res,
-    genToken(user._id, process.env.REF_SECRET!, process.env.REF_EXPIRE!)
+    genToken(
+      user._id,
+      process.env.REF_SECRET || 'unauthorized',
+      process.env.REF_EXPIRE || '0d'
+    )
   );
 
   sendToken(user, 201, res);
@@ -39,31 +49,36 @@ export const register = asyncHandler(async (req, res) => {
 // @access --> Public
 
 export const login = asyncHandler(async (req, res, next) => {
-  
   const { email, password }: Partial<UserDetails> = req.body;
 
   // Validate email and password
   if (!email || !password) {
-    return next(new Err("Please provide an email and password", 400));
+    return next(new Err('Please provide an email and password', 400));
   }
 
   // Check for user
-  const user: IUser | null = await User.findOne({ email }).select("+password");
+  const user: UserInterface | null = await User.findOne({ email }).select(
+    '+password'
+  );
 
   if (!user) {
-    return next(new Err("Invalid credentials", 401));
+    return next(new Err('Invalid credentials', 401));
   }
 
   // Check if password matches
   const isMatch: boolean = await user.matchPassword(password);
 
   if (!isMatch) {
-    return next(new Err("Invalid credentials", 401));
+    return next(new Err('Invalid credentials', 401));
   }
 
   refreshToken(
     res,
-    genToken(user._id, process.env.REF_SECRET!, process.env.REF_EXPIRE!)
+    genToken(
+      user._id,
+      process.env.REF_SECRET || 'unauthorized',
+      process.env.REF_EXPIRE || '0d'
+    )
   );
 
   sendToken(user, 200, res);
@@ -73,11 +88,11 @@ export const login = asyncHandler(async (req, res, next) => {
 // @route --> POST /api/auth/logout
 // @access --> Public
 
-export const logout = asyncHandler(async (_, res) => {
+export const logout = (_: Request, res: Response): Response => {
   clearRefreshToken(res);
 
-  return res.status(200).json({ success: true, data: "Logged out" });
-});
+  return res.status(200).json({ success: true, data: 'Logged out' });
+};
 
 // @desc --> refresh token
 // @route --> POST /api/auth/refresh
@@ -93,14 +108,14 @@ export const refresh = asyncHandler(async (req, res) => {
   let payload: string | object;
 
   try {
-    payload = jwt.verify(token, process.env.REF_SECRET!);
+    payload = jwt.verify(token, process.env.REF_SECRET || 'unauthorized');
   } catch (_) {
     return res.send({ success: false, token: null });
   }
 
   // refresh token is valid and we can send back new access token
-  const user: IUser | null = await User.findOne({
-    _id: (payload as IVerifiedToken).id
+  const user: UserInterface | null = await User.findOne({
+    _id: (payload as VerifiedToken).id
   });
 
   if (!user) {
@@ -109,7 +124,11 @@ export const refresh = asyncHandler(async (req, res) => {
 
   refreshToken(
     res,
-    genToken(user._id, process.env.REF_SECRET!, process.env.REF_EXPIRE!)
+    genToken(
+      user._id,
+      process.env.REF_SECRET || 'unauthorized',
+      process.env.REF_EXPIRE || '0d'
+    )
   );
 
   return sendToken(user, 200, res);

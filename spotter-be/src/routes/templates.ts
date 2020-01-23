@@ -1,21 +1,21 @@
-import express, { Router } from "express";
+import express, { Router } from 'express';
 import {
   getTemplatesByUserId,
   addTemplate,
   editTemplate,
   deleteTemplate
-} from "../controllers/templates";
-import { protect } from "../middleware/auth";
+} from '../controllers/templates';
+import { protect } from '../middleware/auth';
 
 const router: Router = express.Router();
 
 router
-  .route("/")
+  .route('/')
   .get(protect, getTemplatesByUserId)
   .post(protect, addTemplate);
 
 router
-  .route("/:id")
+  .route('/:id')
   .put(protect, editTemplate)
   .delete(protect, deleteTemplate);
 

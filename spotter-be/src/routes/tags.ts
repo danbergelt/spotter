@@ -1,17 +1,17 @@
-import express, { Router } from "express";
-import { createTag, deleteTag, editTag, getTags } from "../controllers/tags";
-import { protect } from "../middleware/auth";
+import express, { Router } from 'express';
+import { createTag, deleteTag, editTag, getTags } from '../controllers/tags';
+import { protect } from '../middleware/auth';
 
 const router: Router = express.Router();
 
 // Routes
 router
-  .route("/")
+  .route('/')
   .post(protect, createTag)
   .get(protect, getTags);
 
 router
-  .route("/:id")
+  .route('/:id')
   .delete(protect, deleteTag)
   .put(protect, editTag);
 

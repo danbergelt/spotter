@@ -1,4 +1,4 @@
-import { Model, Document, Schema } from "mongoose";
+import { Model, Document, Schema } from 'mongoose';
 
 // cascade update passed in model when a tag is deleted
 type TTagCascadeDel = (
@@ -12,7 +12,6 @@ export const tagCascadeDel: TTagCascadeDel = async (id, Model) => {
     { new: true }
   );
 };
-
 
 // cascade update passed in model when a tag is updated
 type TTagCascadeUpdate = (
@@ -30,7 +29,7 @@ export const tagCascadeUpdate: TTagCascadeUpdate = async (
     {
       // set the new content
       $set: {
-        "tags.$.content": content
+        'tags.$.content': content
       }
     },
     { new: true }

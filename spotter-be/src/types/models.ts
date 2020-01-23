@@ -1,12 +1,11 @@
-import { Document, Schema } from "mongoose";
+import { Document, Schema } from 'mongoose';
 
-export interface IExercise extends Document {
+export interface Exercise extends Document {
   name: string;
   user: Schema.Types.ObjectId;
   createdAt: Date;
   pr: number;
   prDate: string;
-  allLifts: Array<number>;
 }
 
 // helper schema for the workout interface
@@ -18,7 +17,7 @@ export interface ExerciseOnWorkoutSchema {
   _id: Schema.Types.ObjectId;
 }
 
-export interface IWorkout extends Document {
+export interface Workout extends Document {
   date: string;
   createdAt?: Date;
   title: string;
@@ -28,7 +27,7 @@ export interface IWorkout extends Document {
   user: Schema.Types.ObjectId;
 }
 
-export interface IUser extends Document {
+export interface User extends Document {
   email: string;
   password: string;
   role: string;
@@ -37,10 +36,10 @@ export interface IUser extends Document {
   resetPasswordExpire: number | undefined;
   getToken(): string;
   matchPassword(id: string): Promise<boolean>;
-  getResetPasswordToken(): any;
+  getResetPasswordToken(): string;
 }
 
-export interface ITag extends Document {
+export interface Tag extends Document {
   color: string;
   content: string;
   user: Schema.Types.ObjectId;
@@ -53,12 +52,12 @@ export interface ExerciseOnTemplateSchema {
   reps: number;
 }
 
-export interface ITemplate extends Document {
+export interface Template extends Document {
   name: string;
   createdAt: Date;
   title: string;
   tags: Array<{ content: string; color: string }>;
-  notes: String;
+  notes: string;
   exercises: Array<ExerciseOnTemplateSchema>;
   user: typeof Schema.Types.ObjectId;
 }

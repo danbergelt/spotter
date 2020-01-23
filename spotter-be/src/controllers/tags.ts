@@ -1,48 +1,48 @@
-import Err from "../utils/Err";
-import Tag from "../models/Tag";
-import asyncHandler from "../middleware/async";
-import { ITag } from "src/types/models";
-const hex = require("is-hexcolor");
+import Err from '../utils/Err';
+import Tag from '../models/Tag';
+import asyncHandler from '../middleware/async';
+import { Tag as TagInterface } from 'src/types/models';
+const hex = require('is-hexcolor'); // eslint-disable-line
 
 // @desc --> create tag
 // @route --> POST /api/auth/tags
 // @access --> Private
 
 export const createTag = asyncHandler(async (req, res, next) => {
-  const tags: Array<ITag> = await Tag.find({ user: req.user._id });
+  const tags: Array<TagInterface> = await Tag.find({ user: req.user._id });
   // checks for matches on tags with no content
   if (req.body.color && !req.body.content) {
-    const duplicates: Array<ITag> = tags.filter(
+    const duplicates: Array<TagInterface> = tags.filter(
       tag => tag.color === req.body.color && !tag.content
     );
     if (duplicates.length) {
-      return next(new Err("Tag already exists", 400));
+      return next(new Err('Tag already exists', 400));
     }
   }
 
   // checks for matches on tags with content
   if (req.body.color && req.body.content) {
-    const duplicates: Array<ITag> = tags.filter(
+    const duplicates: Array<TagInterface> = tags.filter(
       tag => tag.color === req.body.color && tag.content === req.body.content
     );
     if (duplicates.length) {
-      return next(new Err("Tag already exists", 400));
+      return next(new Err('Tag already exists', 400));
     }
   }
 
   // Enforces a 25 tag maximum
   if (tags.length >= 25) {
-    return next(new Err("25 tag maximum", 400));
+    return next(new Err('25 tag maximum', 400));
   }
 
   // validates hex code for color, so corrupt code is not rendered on FE
   if (!hex(req.body.color)) {
-    return next(new Err("Invalid color detected", 400));
+    return next(new Err('Invalid color detected', 400));
   }
 
   req.body.user = req.user._id;
 
-  const tag: ITag = await Tag.create(req.body);
+  const tag: TagInterface = await Tag.create(req.body);
 
   res.status(201).json({
     success: true,
@@ -55,7 +55,7 @@ export const createTag = asyncHandler(async (req, res, next) => {
 // @access --> Private
 
 export const deleteTag = asyncHandler(async (req, res) => {
-  const tag: ITag | null = await Tag.findById(req.params.id);
+  const tag: TagInterface | null = await Tag.findById(req.params.id);
 
   // was not able to implement pre-hooks with deleteOne, so opting for remove() instead
   if (tag) {
@@ -64,7 +64,7 @@ export const deleteTag = asyncHandler(async (req, res) => {
 
   res.status(200).json({
     success: true,
-    data: "Tag deleted"
+    data: 'Tag deleted'
   });
 });
 
@@ -73,7 +73,7 @@ export const deleteTag = asyncHandler(async (req, res) => {
 // @access --> Private
 
 export const editTag = asyncHandler(async (req, res) => {
-  const tag: ITag | null = await Tag.findByIdAndUpdate(
+  const tag: TagInterface | null = await Tag.findByIdAndUpdate(
     req.params.id,
     req.body,
     {
@@ -93,7 +93,7 @@ export const editTag = asyncHandler(async (req, res) => {
 // @access --> Private
 
 export const getTags = asyncHandler(async (req, res) => {
-  let tags: Array<ITag> = await Tag.find({ user: req.user._id });
+  const tags: Array<TagInterface> = await Tag.find({ user: req.user._id });
 
   return res.status(200).json({
     success: true,

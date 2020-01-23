@@ -1,36 +1,37 @@
-import { NextFunction } from "connect";
-import mongoose, { Schema } from "mongoose";
-import bcrypt from "bcryptjs";
-import crypto from "crypto";
-import { genToken } from "../utils/tokens";
-import { IUser } from "src/types/models";
-import Exercise from "./Exercise";
-import Tag from "./Tag";
-import Template from "./Template";
-import Workout from "./Workout";
+import { NextFunction } from 'connect';
+import mongoose, { Schema } from 'mongoose';
+import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
+import { genToken } from '../utils/tokens';
+import { User } from 'src/types/models';
+import Exercise from './Exercise';
+import Tag from './Tag';
+import Template from './Template';
+import Workout from './Workout';
 // User model
 
-const UserSchema = new Schema<IUser>({
+const UserSchema = new Schema<User>({
   email: {
     type: String,
     trim: true,
     unique: true,
-    required: [true, "Please add an email"],
+    required: [true, 'Please add an email'],
     match: [
+      // eslint-disable-next-line
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      "Please add a valid email"
+      'Please add a valid email'
     ]
   },
   password: {
     type: String,
-    required: [true, "Please add a password"],
-    minlength: [6, "Password needs to be at least 6 characters"],
+    required: [true, 'Please add a password'],
+    minlength: [6, 'Password needs to be at least 6 characters'],
     select: false
   },
   role: {
     type: String,
-    enum: ["user"],
-    default: "user"
+    enum: ['user'],
+    default: 'user'
   },
   created: {
     type: Date,
@@ -41,8 +42,7 @@ const UserSchema = new Schema<IUser>({
 });
 
 // Cascade remove all models for this user on remove
-UserSchema.pre("remove", async function(next) {
-
+UserSchema.pre('remove', async function(next) {
   // cascade delete every model with this user id attached
   await Exercise.deleteMany({ user: this._id });
   await Tag.deleteMany({ user: this._id });
@@ -52,8 +52,8 @@ UserSchema.pre("remove", async function(next) {
 });
 
 // Encrypt password on save
-UserSchema.pre<IUser>("save", async function(next: NextFunction) {
-  if (!this.isModified("password")) {
+UserSchema.pre<User>('save', async function(next: NextFunction) {
+  if (!this.isModified('password')) {
     next();
   }
   const salt: string = await bcrypt.genSalt(10);
@@ -62,15 +62,15 @@ UserSchema.pre<IUser>("save", async function(next: NextFunction) {
 });
 
 // Generate and hash reset password token
-UserSchema.methods.getResetPasswordToken = function() {
+UserSchema.methods.getResetPasswordToken = function(): string {
   // generate tokens
-  const resetToken: string = crypto.randomBytes(20).toString("hex");
+  const resetToken: string = crypto.randomBytes(20).toString('hex');
 
   // hash token and set to field on this user's model
   (this.resetPasswordToken as string) = crypto
-    .createHash("sha256")
+    .createHash('sha256')
     .update(resetToken)
-    .digest("hex");
+    .digest('hex');
 
   // set expire
   this.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
@@ -82,8 +82,8 @@ UserSchema.methods.getResetPasswordToken = function() {
 UserSchema.methods.getToken = function(): string {
   return genToken(
     this._id,
-    process.env.JWT_SECRET!,
-    process.env.JWT_EXPIRE!
+    process.env.JWT_SECRET || 'unauthorized',
+    process.env.JWT_EXPIRE || '0d'
   );
 };
 
@@ -94,4 +94,4 @@ UserSchema.methods.matchPassword = async function(
   return await bcrypt.compare(pw, this.password);
 };
 
-export default mongoose.model<IUser>("User", UserSchema);
+export default mongoose.model<User>('User', UserSchema);

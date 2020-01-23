@@ -1,19 +1,19 @@
-import Err from "../utils/Err";
-import User from "../models/user";
-import crypto from "crypto";
-import asyncHandler from "../middleware/async";
-import { IUser } from "../types/models";
-import { sendMail, forgotPasswordTemplate } from "../utils/sendMail";
-import { sendToken, refreshToken } from "../utils/tokens";
-import { genToken } from "../utils/tokens";
+import Err from '../utils/Err';
+import User from '../models/user';
+import crypto from 'crypto';
+import asyncHandler from '../middleware/async';
+import { User as UserInterface } from '../types/models';
+import { sendMail, forgotPasswordTemplate } from '../utils/sendMail';
+import { sendToken, refreshToken } from '../utils/tokens';
+import { genToken } from '../utils/tokens';
 
 type TUserDetailKeys =
-  | "oldEmail"
-  | "newEmail"
-  | "confirmEmail"
-  | "oldPassword"
-  | "newPassword"
-  | "confirmPassword";
+  | 'oldEmail'
+  | 'newEmail'
+  | 'confirmEmail'
+  | 'oldPassword'
+  | 'newPassword'
+  | 'confirmPassword';
 
 type TUserDetails = Record<TUserDetailKeys, string>;
 
@@ -26,19 +26,19 @@ export const changeEmail = asyncHandler(async (req, res, next) => {
 
   // confirm that all fields are present
   if (!oldEmail || !newEmail || !confirmEmail) {
-    return next(new Err("All fields are required", 400));
+    return next(new Err('All fields are required', 400));
   }
 
   // confirm that the user confirmed their new email and that the two fields match
   if (newEmail !== confirmEmail) {
-    return next(new Err("New email fields must match", 400));
+    return next(new Err('New email fields must match', 400));
   }
 
-  const user: IUser | null = await User.findById(req.user._id);
+  const user: UserInterface | null = await User.findById(req.user._id);
 
   // confirm that the old email field matches the email on record
-  if (oldEmail !== user!.email) {
-    return next(new Err("Invalid credentials", 400));
+  if (oldEmail !== user?.email) {
+    return next(new Err('Invalid credentials', 400));
   }
 
   // update the user's email
@@ -50,7 +50,7 @@ export const changeEmail = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    data: "Email updated"
+    data: 'Email updated'
   });
 });
 
@@ -62,24 +62,24 @@ export const changePassword = asyncHandler(async (req, res, next) => {
   // extract the user's input data
   const { oldPassword, newPassword, confirmPassword }: TUserDetails = req.body;
   if (!oldPassword || !newPassword || !confirmPassword) {
-    return next(new Err("All fields are required", 400));
+    return next(new Err('All fields are required', 400));
   }
   if (newPassword !== confirmPassword) {
-    return next(new Err("New password fields must match", 400));
+    return next(new Err('New password fields must match', 400));
   }
 
   // Check for user
-  const user: IUser | null = await User.findById(req.user._id).select(
-    "+password"
+  const user: UserInterface | null = await User.findById(req.user._id).select(
+    '+password'
   );
   if (!user) {
-    return next(new Err("User not found", 404));
+    return next(new Err('User not found', 404));
   }
 
   // Check if password matches
-  const isMatch: boolean = await user!.matchPassword(oldPassword);
+  const isMatch: boolean = await user.matchPassword(oldPassword);
   if (!isMatch) {
-    return next(new Err("Invalid credentials", 400));
+    return next(new Err('Invalid credentials', 400));
   }
 
   // save the password to the user
@@ -89,7 +89,7 @@ export const changePassword = asyncHandler(async (req, res, next) => {
   // return a success message after the user is updated
   res.status(200).json({
     success: true,
-    data: "Password updated"
+    data: 'Password updated'
   });
 });
 
@@ -98,7 +98,7 @@ export const changePassword = asyncHandler(async (req, res, next) => {
 // @access --> Private
 
 export const deleteAccount = asyncHandler(async (req, res) => {
-  const user: IUser | null = await User.findById(req.user._id);
+  const user: UserInterface | null = await User.findById(req.user._id);
 
   // was not able to implement pre-hooks with deleteOne, so opting for remove() instead
   if (user) {
@@ -118,7 +118,7 @@ export const forgotPassword = asyncHandler(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
 
   if (!user) {
-    return next(new Err("No user found with that email", 404));
+    return next(new Err('No user found with that email', 404));
   }
 
   // get reset token
@@ -127,7 +127,7 @@ export const forgotPassword = asyncHandler(async (req, res, next) => {
 
   // create reset url
   const resetUrl: string =
-    process.env.NODE_ENV === "production"
+    process.env.NODE_ENV === 'production'
       ? `https://www.getspotter.io/-/${resetToken}`
       : `http://localhost:3000/-/${resetToken}`;
 
@@ -135,7 +135,7 @@ export const forgotPassword = asyncHandler(async (req, res, next) => {
     // send the message via Mailgun
     await sendMail(
       req.body.email,
-      "Spotter | Forgot Password",
+      'Spotter | Forgot Password',
       forgotPasswordTemplate(resetUrl)
     );
     // if successful, return an object with the user
@@ -149,7 +149,7 @@ export const forgotPassword = asyncHandler(async (req, res, next) => {
     user.resetPasswordToken = undefined;
     // save the user, return an error message
     await user.save({ validateBeforeSave: false });
-    return next(new Err("Email could not be sent", 500));
+    return next(new Err('Email could not be sent', 500));
   }
 });
 
@@ -166,27 +166,26 @@ export const changeForgottenPassword = asyncHandler(async (req, res, next) => {
 
   // check that passwords match and that both fields exist
   if (!newPassword || !confirmPassword) {
-    return next(new Err("All fields are required", 400));
+    return next(new Err('All fields are required', 400));
   }
   if (newPassword !== confirmPassword) {
-    return next(new Err("Fields must match", 400));
+    return next(new Err('Fields must match', 400));
   }
 
   // get hashed token
   const resetPasswordToken: string = crypto
-    .createHash("sha256")
+    .createHash('sha256')
     .update(req.params.id)
-    .digest("hex");
-
+    .digest('hex');
 
   // check for user with this token and a valid exp. date
-  const user: IUser | null = await User.findOne({
+  const user: UserInterface | null = await User.findOne({
     resetPasswordToken,
     resetPasswordExpire: { $gt: Date.now() }
   });
 
   if (!user) {
-    return next(new Err("Invalid token", 404));
+    return next(new Err('Invalid token', 404));
   }
 
   // reset the password, set auth fields to undefined
@@ -198,7 +197,11 @@ export const changeForgottenPassword = asyncHandler(async (req, res, next) => {
 
   refreshToken(
     res,
-    genToken(user._id, process.env.REF_SECRET!, process.env.REF_EXPIRE!)
+    genToken(
+      user._id,
+      process.env.REF_SECRET || 'unauthorized',
+      process.env.REF_EXPIRE || '0d'
+    )
   );
 
   return sendToken(user, 200, res);

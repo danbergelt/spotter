@@ -163,7 +163,7 @@ type TestForUpdates = (
 
 const testForUpdates: TestForUpdates = (tags, payload) =>
   find(tags, t => {
-    // again, omit bad data from MongoDB and update the tag on the current workout
+    // again, omit irrelevant data from MongoDB and update the tag on the current workout
     return isMatch(
       omit(t, ['color', 'content', '__v', 'tag']),
       omit(payload, ['color', 'content', '__v', 'user'])

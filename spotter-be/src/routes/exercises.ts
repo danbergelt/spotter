@@ -1,22 +1,22 @@
-import express, { Router } from "express";
+import express, { Router } from 'express';
 import {
   createExercise,
   updateExercise,
   deleteExercise,
   getExercises
-} from "../controllers/exercises";
-import { protect } from "../middleware/auth";
+} from '../controllers/exercises';
+import { protect } from '../middleware/auth';
 
 const router: Router = express.Router();
 
 // Routes
 router
-  .route("/")
+  .route('/')
   .post(protect, createExercise)
   .get(protect, getExercises);
 
 router
-  .route("/:id")
+  .route('/:id')
   .put(protect, updateExercise)
   .delete(protect, deleteExercise);
 

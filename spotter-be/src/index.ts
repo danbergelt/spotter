@@ -15,6 +15,7 @@ import templates from './routes/templates';
 import auth from './routes/auth';
 import exercises from './routes/exercises';
 import { Server } from 'http';
+import Err from './utils/Err';
 
 // Connect to DB and run server
 if (process.env.NODE_ENV === 'development') {
@@ -33,10 +34,10 @@ const whitelist: Array<string> = ['http://localhost:3000'];
 app.use(
   cors({
     origin: (origin, res) => {
-      if (whitelist.indexOf(origin!) !== -1) {
+      if (origin && whitelist.includes(origin)) {
         res(null, true);
       } else {
-        res(new Error('Not allowed by CORS'));
+        res(new Err('Not allowed by CORS', 400));
       }
     },
     credentials: true
@@ -83,8 +84,8 @@ const server: Server = app.listen(port, () =>
 // Unhandled rejection handling
 
 const handleRejectedPromise = function(
-  reason: any,
-  promise: Promise<any>
+  reason: Error | any, // eslint-disable-line
+  promise: Promise<any> // eslint-disable-line
 ): void {
   console.log('Unexpected exception occured.', { reason, ex: promise });
 
