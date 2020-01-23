@@ -1,6 +1,6 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "jest", "react", "prettier"],
+  "plugins": ["@typescript-eslint", "jest", "prettier"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx"],
