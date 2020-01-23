@@ -5,6 +5,11 @@ import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import { connectDB, connectTestDB } from './config/db';
 import errorHandler from './middleware/error';
+import helmet from 'helmet';
+import xss from 'xss-clean';
+import rateLimit from 'express-rate-limit';
+import hpp from 'hpp';
+import mongoSanitize from 'express-mongo-sanitize';
 dotenv.config();
 
 // Route imports
@@ -17,20 +22,22 @@ import exercises from './routes/exercises';
 import { Server } from 'http';
 import Err from './utils/Err';
 
+const whitelist: Array<string> = [];
+
 // Connect to DB and run server
 if (process.env.NODE_ENV === 'development') {
   connectTestDB();
+  whitelist.push('http://localhost:3000');
 }
 
 if (process.env.NODE_ENV === 'production') {
   connectDB();
+  whitelist.push('https://getspotter.io');
 }
 
 const app: Express = express();
 
 // CORS
-
-const whitelist: Array<string> = ['http://localhost:3000'];
 app.use(
   cors({
     origin: (origin, res) => {
@@ -63,6 +70,26 @@ if (process.env.NODE_ENV === 'development') {
 
 // Body parser
 app.use(express.json());
+
+// NoSQL sanitization
+app.use(mongoSanitize());
+
+// Security headers
+app.use(helmet());
+
+// XSS protection
+app.use(xss());
+
+// Rate limiting
+const limit = rateLimit({
+  windowMs: 5 * 60 * 1000, // 5 minutes
+  max: 500
+});
+
+app.use(limit);
+
+// Prevent HTTP param pollution
+app.use(hpp());
 
 // Routes
 app.use('/api/auth', users);
