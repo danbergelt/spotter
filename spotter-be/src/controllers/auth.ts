@@ -135,7 +135,7 @@ export const forgotPassword = asyncHandler(async (req, res, next) => {
     // send the message via Mailgun
     await sendMail(
       req.body.email,
-      'Spotter | Forgot Password',
+      'Spotter - Forgot Password',
       forgotPasswordTemplate(resetUrl)
     );
     // if successful, return an object with the user

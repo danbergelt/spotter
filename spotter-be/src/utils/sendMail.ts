@@ -19,7 +19,7 @@ interface MGData {
 const data = (to: string, subject: string, html: string): MGData => {
   return {
     // need to change from email once domain is purchased and verified in mailgun
-    from: 'danbergelt@protonmail.com',
+    from: 'no-reply@getspotter.io',
     to,
     subject,
     html
