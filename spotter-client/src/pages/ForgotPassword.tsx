@@ -10,7 +10,7 @@ const ForgotPassword: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Forgt Password | Spotter</title>
+        <title>Forgot Password | Spotter</title>
       </Helmet>
       {pathname === '/forgotpassword' ? (
         <ForgotPasswordInstructions />
