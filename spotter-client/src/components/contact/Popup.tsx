@@ -29,6 +29,7 @@ const Popup: React.FC = () => {
     <>
       {customMount && <ContactForm form={form} />}
       <div
+        data-testid='contact-button'
         role='button'
         onClick={() => setForm(!form)}
         className='contact-popup-button'

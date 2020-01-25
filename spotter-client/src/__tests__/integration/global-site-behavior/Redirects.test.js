@@ -19,7 +19,7 @@ describe('redirects and conditional rendering', () => {
   test('nav conditionally renders when logged out', () => {
     const { container, getByText, queryByText } = wrapper(reducer, <Routes />);
 
-    expect(container.contains(getByText(/about/i))).toBeTruthy();
+    expect(container.contains(getByText(/lifting pal/i))).toBeTruthy();
     expect(container.contains(queryByText(/log out/i))).toBeFalsy();
     expect(container.contains(queryByText(/settings/i))).toBeFalsy();
   });
