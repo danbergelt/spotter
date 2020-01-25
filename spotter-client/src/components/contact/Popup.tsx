@@ -35,7 +35,7 @@ const Popup: React.FC = () => {
       >
         {form && (
           <FiX
-            size='32px'
+            size='27.5px'
             className={form ? `${close} contact-close` : 'contact-close'}
           />
         )}
