@@ -169,7 +169,6 @@ html {
 
 .ReactModal__Overlay {
   opacity: 0;
-  transition: opacity 200ms ease-in-out;
 }
 
 .ReactModal__Overlay--after-open {
@@ -178,6 +177,7 @@ html {
 
 .ReactModal__Overlay--before-close {
   opacity: 0;
+  transition: opacity 200ms ease-in-out;
 }
 
 // react auto-suggest stock styles

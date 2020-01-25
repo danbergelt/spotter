@@ -1,10 +1,20 @@
 import React from 'react';
 
-const ContactForm: React.FC = () => {
+interface Props {
+  form: boolean;
+}
+
+const ContactForm: React.FC<Props> = ({ form }) => {
+  const open: string = 'animated fadeIn faster contact-popup';
+  const close: string = 'animated fadeOut faster contact-popup';
+
   return (
-    <div>
-      <div>Bar</div>
-    </div>
+    <section className={form ? open : close}>
+      <div>
+        <p>Hi there! 👋</p>
+        <p>Ask us anything, or share your feedback.</p>
+      </div>
+    </section>
   );
 };
 

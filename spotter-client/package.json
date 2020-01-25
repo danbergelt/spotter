@@ -71,13 +71,14 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "yarn fix",
       "prettier --write",
       "git add"
     ]
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "yarn lint && lint-staged"
     }
   },
   "browserslist": {

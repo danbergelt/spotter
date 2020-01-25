@@ -9,9 +9,9 @@ const Footer: React.FC = () => {
       style={{ background: location.pathname === '/' ? '#f6f8f9' : 'white' }}
       className='spotter-footer'
     >
-      <div className='spotter-footer-link'>
+      <p className='spotter-footer-link'>
         Spotter © 2020. All Rights Reserved.
-      </div>
+      </p>
     </nav>
   );
 };
