@@ -134,6 +134,7 @@ export const forgotPassword = asyncHandler(async (req, res, next) => {
   try {
     // send the message via Mailgun
     await sendMail(
+      'no-reply@getspotter.io',
       req.body.email,
       'Spotter - Forgot Password',
       forgotPasswordTemplate(resetUrl)
