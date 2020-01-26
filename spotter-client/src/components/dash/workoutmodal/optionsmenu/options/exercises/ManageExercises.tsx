@@ -24,8 +24,8 @@ const ManageExercises: React.FC<Props> = ({ exercises }) => {
   );
 
   const deleteExercise = useCallback(
-    async (id: string) => {
-      await dispatch(deleteExerciseAction(t, id));
+    (id: string) => {
+      dispatch(deleteExerciseAction(t, id));
     },
     [dispatch, t]
   );

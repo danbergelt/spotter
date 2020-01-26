@@ -1,7 +1,7 @@
 import * as Moment from 'moment';
 import { extendMoment, MomentRange, DateRange } from 'moment-range';
 
-let moment: MomentRange = extendMoment(Moment);
+const moment: MomentRange = extendMoment(Moment);
 
 // Used for generating days of week in dashboard
 // due to the way in which the moment object is exported, I need to override the moment object with moment["default"] to satisfy type errors and import a function
@@ -26,7 +26,7 @@ export const generateWeek: Params = num => {
 
   const days: Array<Moment.Moment> = [];
 
-  for (let day of range.by('day')) {
+  for (const day of range.by('day')) {
     days.push(day);
   }
 
@@ -53,7 +53,7 @@ export const generateMonth = (num: number): Moment.Moment[] => {
     .add(num, 'months')
     .endOf('month');
 
-  let leftover: number = 34 - Number(end.diff(start, 'days'));
+  const leftover: number = 34 - Number(end.diff(start, 'days'));
 
   end.add(leftover, 'days');
 
@@ -61,7 +61,7 @@ export const generateMonth = (num: number): Moment.Moment[] => {
 
   const days: Array<Moment.Moment> = [];
 
-  for (let day of range.by('day')) {
+  for (const day of range.by('day')) {
     days.push(day);
   }
 

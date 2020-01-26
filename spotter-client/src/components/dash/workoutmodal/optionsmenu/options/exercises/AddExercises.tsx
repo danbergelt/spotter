@@ -21,10 +21,10 @@ const AddExercises: React.FC<Props> = ({ msg, setMsg }) => {
   const t: string | null = useSelector(fetchToken);
   const dispatch = useDispatch();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setExercise('');
-    await dispatch(createExerciseAction(t, exercise, setMsg));
+    dispatch(createExerciseAction(t, exercise, setMsg));
   };
 
   return (

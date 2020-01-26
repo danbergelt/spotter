@@ -39,9 +39,7 @@ const SaveTemplate: React.FC<Props> = ({ close }) => {
   };
 
   // API call to save template
-  const handleSubmit: (
-    e: React.FormEvent<HTMLFormElement>
-  ) => void = async e => {
+  const handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void = e => {
     e.preventDefault();
     saveTemplateAction(t, tempName, workout, setTempName, setMessage);
   };

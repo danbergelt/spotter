@@ -1,4 +1,5 @@
 import React from 'react';
+import Form from './Form';
 
 interface Props {
   form: boolean;
@@ -11,14 +12,17 @@ const ContactForm: React.FC<Props> = ({ form }) => {
   return (
     <section data-testid='contact-form' className={form ? open : close}>
       <div>
-        <p>
+        <p className='contact-form-title'>
           Hi there!{' '}
           <span role='img' aria-label='hand-wave'>
             👋
           </span>
         </p>
-        <p>Ask us anything, or share your feedback.</p>
+        <p className='contact-form-subtitle'>
+          Ask us anything, or share your feedback.
+        </p>
       </div>
+      <Form />
     </section>
   );
 };

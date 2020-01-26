@@ -42,7 +42,7 @@ const TagsModalManage: React.FC<Props> = ({ setToDelete }) => {
   const handleSubmit: (
     e: React.FormEvent<HTMLFormElement>
   ) => void = useCallback(
-    async e => {
+    e => {
       e.preventDefault();
       setUpdateInput('');
       dispatch(editTagAction(paramsHelper));
