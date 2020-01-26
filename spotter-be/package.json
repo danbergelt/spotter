@@ -42,7 +42,7 @@
     "xss-clean": "^0.1.1"
   },
   "scripts": {
-    "test": "TESTING=true ts-mocha -p tsconfig.json --file src/test/utils/setup.ts src/test/tests/**/**/*.test.ts --file src/test/utils/teardown.ts",
+    "test": "TESTING=true ts-mocha -p tsconfig.json --file src/test/utils/setup.ts src/test/tests/integration/auth/contact.test.ts --file src/test/utils/teardown.ts",
     "coverage": "nyc --reporter=lcov --reporter=text npm test",
     "start": "NODE_ENV=production ts-node src/index",
     "dev": "tsnd --respawn src/index",
