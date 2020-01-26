@@ -6,8 +6,8 @@ interface Props {
 }
 
 const ContactForm: React.FC<Props> = ({ form }) => {
-  const open: string = 'animated fadeIn faster contact-popup';
-  const close: string = 'animated fadeOut faster contact-popup';
+  const open = 'animated fadeIn faster contact-popup';
+  const close = 'animated fadeOut faster contact-popup';
 
   return (
     <section data-testid='contact-form' className={form ? open : close}>

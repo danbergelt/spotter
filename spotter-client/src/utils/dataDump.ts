@@ -46,7 +46,7 @@ export const downloadData: TDownloadWorkoutData = async (
       // read the blob as text
       // once the text is read, extract the error from the result (parsed as JSON) and set state
       const fr: FileReader = new FileReader();
-      fr.onload = function() {
+      fr.onload = function(): void {
         try {
           const { error } = JSON.parse(this.result as string);
           setDataDump(error);

@@ -4,7 +4,6 @@ import { ValidationSchema } from './ValidationSchema';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import { useSelector } from 'react-redux';
 import { fetchToken } from 'src/types/State';
-import { AxiosResponse } from 'axios';
 
 const ChangePasswordForm: React.FC = () => {
   const t: string | null = useSelector(fetchToken);
@@ -20,10 +19,10 @@ const ChangePasswordForm: React.FC = () => {
           confirmPassword: ''
         }}
         validationSchema={ValidationSchema}
-        onSubmit={async (values, { resetForm, setStatus }) => {
+        onSubmit={async (values, { resetForm, setStatus }): Promise<void> => {
           resetForm();
           try {
-            const res: AxiosResponse<any> = await axiosWithAuth(t).put(
+            const res = await axiosWithAuth(t).put(
               `${process.env.REACT_APP_T_API}/api/auth/user/password`,
               {
                 ...values
@@ -35,7 +34,7 @@ const ChangePasswordForm: React.FC = () => {
           }
         }}
       >
-        {({ errors, touched, status }) => (
+        {({ errors, touched, status }): JSX.Element => (
           <Form>
             <div className='change-inp'>
               <label className='change-label'>Old Password</label>

@@ -24,7 +24,7 @@ export interface WorkoutReducer {
 
 export interface TagsReducer {
   isLoading: boolean;
-  err: any;
+  err: string | null;
   tags: Array<Tag>;
 }
 
@@ -41,13 +41,13 @@ export interface OptionsReducer {
 }
 
 export interface FetchWorkoutsReducer {
-  err: any;
+  err: string | null;
   isLoading: boolean;
   workouts: Array<Workout>;
 }
 
 export interface FetchExercisesReducer {
-  err: any;
+  err: string | null;
   savedExercises: Array<E>;
 }
 
@@ -60,4 +60,5 @@ export interface State {
   tagsReducer: TagsReducer;
 }
 
-export const fetchToken = (state: State) => state.globalReducer.t;
+export const fetchToken = (state: State): string | null =>
+  state.globalReducer.t;

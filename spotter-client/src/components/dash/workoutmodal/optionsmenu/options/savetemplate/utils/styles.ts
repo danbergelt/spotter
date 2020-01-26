@@ -1,5 +1,7 @@
 import { useWindowSize } from 'react-use';
 
+/* eslint-disable */
+
 export const useSaveTemplateStyles = () => {
   const { width }: { width: number } = useWindowSize();
   return {

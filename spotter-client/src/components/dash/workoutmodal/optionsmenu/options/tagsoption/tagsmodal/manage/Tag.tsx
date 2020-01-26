@@ -32,9 +32,9 @@ const Tag: React.FC<Props> = ({
       <section className='tag-manage-container'>
         <div
           role='button'
-          onClick={() => setUpdate(tag)}
-          onMouseEnter={() => setHover(tag._id)}
-          onMouseLeave={() => setHover(null)}
+          onClick={(): void => setUpdate(tag)}
+          onMouseEnter={(): void => setHover(tag._id)}
+          onMouseLeave={(): void => setHover(null)}
           style={
             tag._id === hover
               ? { background: adjust(tag.color, -40), ...styles }
@@ -46,7 +46,7 @@ const Tag: React.FC<Props> = ({
         </div>
         <div
           role='button'
-          onClick={() => handleDelete(tag)}
+          onClick={(): void => handleDelete(tag)}
           className='tag-manage-delete'
           data-testid='trash-tag'
         >

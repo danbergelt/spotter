@@ -37,7 +37,7 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
   );
 
   // resets form inputs and queue state
-  const resetHandler = (handleReset: () => void) => {
+  const resetHandler = (handleReset: () => void): void => {
     dispatch(resetExerciseFormAction(handleReset));
   };
 
@@ -69,7 +69,7 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
         // allow the form to populate with initial values after first render
         // useful for repopulating the form with a queued exercise
         enableReinitialize={true}
-        onSubmit={(values, { resetForm }) => {
+        onSubmit={(values, { resetForm }): void => {
           resetForm();
 
           // aside from name, blur all fields on submit
@@ -87,7 +87,13 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
           }
         }}
       >
-        {({ handleReset, errors, touched, setFieldValue, values }) => (
+        {({
+          handleReset,
+          errors,
+          touched,
+          setFieldValue,
+          values
+        }): JSX.Element => (
           <Form className='exercise-form'>
             <div className='exercise-form-field-container'>
               <div className='exercise-form-field-label'>
@@ -108,7 +114,7 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
                   placeholder: 'e.g. squat',
                   autoComplete: 'off',
                   name: 'name',
-                  onChange: (_, { newValue }) => {
+                  onChange: (_, { newValue }): void => {
                     setFieldValue('name', newValue);
                   },
                   value: values.name,
@@ -116,7 +122,7 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
                 }}
                 suggestions={suggestions}
                 // handles fetching autosuggestions in respect to field input
-                onSuggestionsFetchRequested={({ value }) => {
+                onSuggestionsFetchRequested={({ value }): void => {
                   if (!value) {
                     setSuggestions([]);
                     return;
@@ -129,15 +135,17 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
                   );
                 }}
                 // handles clearing suggestions (why is this prop necessary?)
-                onSuggestionsClearRequested={() => {
+                onSuggestionsClearRequested={(): void => {
                   setSuggestions([]);
                 }}
                 // fetches suggestion from local state
-                getSuggestionValue={suggestion => suggestion.name}
+                getSuggestionValue={(suggestion): string => suggestion.name}
                 // renders the autosuggest component with suggestions
-                renderSuggestion={suggestion => <div>{suggestion.name}</div>}
+                renderSuggestion={(suggestion): JSX.Element => (
+                  <div>{suggestion.name}</div>
+                )}
                 // passes the clicked suggestion to the input
-                onSuggestionSelected={(event, { suggestion, method }) => {
+                onSuggestionSelected={(event, { suggestion, method }): void => {
                   if (method === 'enter') {
                     event.preventDefault();
                   }
@@ -204,7 +212,7 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
                   data-testid='trash-exercise'
                   className='exercise-form-button clear'
                   type='button'
-                  onClick={() => resetHandler(handleReset)}
+                  onClick={(): void => resetHandler(handleReset)}
                 />
               </button>
             </div>

@@ -22,7 +22,9 @@ const ForgotAndChangePass: React.FC = () => {
   const [res, setRes] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
 
-  const changePass = async (e?: React.FormEvent<HTMLFormElement>) => {
+  const changePass = async (
+    e?: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     e?.preventDefault();
     setLoading(true);
     try {
@@ -47,12 +49,12 @@ const ForgotAndChangePass: React.FC = () => {
           {res}
         </p>
       )}
-      <form onSubmit={e => !loading && changePass(e)}>
+      <form onSubmit={(e): false | Promise<void> => !loading && changePass(e)}>
         <label className='forgot-password-label'>New Password</label>
         <input
           type='password'
           placeholder='Pick a secure password...'
-          onChange={e => setNewPassword(e.target.value)}
+          onChange={(e): void => setNewPassword(e.target.value)}
           value={newPassword}
           className='forgot-password-input'
         />
@@ -60,7 +62,7 @@ const ForgotAndChangePass: React.FC = () => {
         <input
           type='password'
           placeholder='Confirm secure password...'
-          onChange={e => setConfirmPassword(e.target.value)}
+          onChange={(e): void => setConfirmPassword(e.target.value)}
           value={confirmPassword}
           className='forgot-password-input'
         />

@@ -1,5 +1,7 @@
 import { useWindowSize } from 'react-use';
 
+/* eslint-disable */
+
 export const useTagModalStyles = () => {
   const { width } = useWindowSize();
 

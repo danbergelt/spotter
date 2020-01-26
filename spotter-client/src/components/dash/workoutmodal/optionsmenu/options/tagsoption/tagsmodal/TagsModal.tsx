@@ -19,7 +19,7 @@ interface OptionsReducer {
 }
 
 // modal for tags manager
-const TagsModal = () => {
+const TagsModal: React.FC = () => {
   // sets the selected tag to be queued for deletion
   const [toDelete, setToDelete] = useState<Partial<Tag>>({});
 

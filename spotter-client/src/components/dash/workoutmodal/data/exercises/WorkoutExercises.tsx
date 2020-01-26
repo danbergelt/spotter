@@ -18,7 +18,7 @@ type DelExercise = (i: number) => void;
 
 // container to hold all exercises on a workout
 
-const WorkoutExercises = () => {
+const WorkoutExercises: React.FC = () => {
   const exercises: Array<Exercise> = useSelector(
     (state: State) => state.workoutReducer.exercises
   );

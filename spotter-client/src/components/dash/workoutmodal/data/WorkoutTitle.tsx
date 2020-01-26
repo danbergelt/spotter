@@ -4,6 +4,7 @@ import { FaCircle } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTitleAction } from '../../../../actions/workoutActions';
 import { State } from 'src/types/State';
+import { Action } from 'redux';
 
 interface Props {
   closeModal: () => void;
@@ -24,7 +25,7 @@ const WorkoutTitle: React.FC<Props> = ({ closeModal }) => {
           data-testid='inp'
           placeholder={'Click to enter a title...'}
           value={title}
-          onChange={e => dispatch(addTitleAction(e.target.value))}
+          onChange={(e): Action => dispatch(addTitleAction(e.target.value))}
           className='workout-title'
         />
       </div>

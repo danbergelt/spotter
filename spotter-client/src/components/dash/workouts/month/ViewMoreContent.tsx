@@ -5,6 +5,7 @@ import { Workout } from 'src/types/Workout';
 import * as M from 'moment';
 
 // Hacky fix to resolve error with default imports from moment and typescript
+// eslint-disable-next-line
 let m = require('moment');
 if ('default' in m) {
   m = m['default'];
@@ -38,7 +39,7 @@ const ViewMoreContent: React.FC<Props> = ({
         <div
           role='button'
           data-testid='close-popover'
-          onClick={() => setPopover({ open: false, id: null })}
+          onClick={(): void => setPopover({ open: false, id: null })}
           className='close-popover'
         >
           <FiX />
@@ -48,7 +49,7 @@ const ViewMoreContent: React.FC<Props> = ({
         .filter(el => el.date === date.format('MMM DD YYYY'))
         .map(workout => (
           <div
-            onClick={() =>
+            onClick={(): void =>
               handlePopover(workout, m(workout.date, 'MMM DD YYYY'))
             }
             role='button'

@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
   Allows us to easily plug in closing animations for unmounting components
 */
 
-const useDelayUnmount = (isMounted: boolean, delay: number) => {
+const useDelayUnmount = (isMounted: boolean, delay: number): boolean => {
   const [shouldRender, setShouldRender] = useState<boolean>(false);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const useDelayUnmount = (isMounted: boolean, delay: number) => {
     } else if (!isMounted && shouldRender) {
       timer = setTimeout(() => setShouldRender(false), delay);
     }
-    return () => clearTimeout(timer);
+    return (): void => clearTimeout(timer);
   }, [isMounted, delay, shouldRender]);
   return shouldRender;
 };

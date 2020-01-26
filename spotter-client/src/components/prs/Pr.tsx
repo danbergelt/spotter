@@ -2,20 +2,22 @@ import React from 'react';
 import { FaCircle } from 'react-icons/fa';
 import * as Moment from 'moment';
 import { extendMoment } from 'moment-range';
+import { Exercise } from 'src/types/ExerciseOption';
 const moment = extendMoment(Moment);
 
 // Hacky fix to resolve error with default imports from moment and typescript
+// eslint-disable-next-line
 let m = require('moment');
 if ('default' in m) {
   m = moment['default'];
 }
 
 interface Props {
-  pr: any;
+  pr: Exercise;
 }
 
 const Pr: React.FC<Props> = ({ pr }) => {
-  const setClassName = (pr: any): string | undefined => {
+  const setClassName = (pr: Exercise): string | undefined => {
     // difference between the date on the pr and the current date
     const diff: number = m().diff(m(pr.prDate, 'MMM DD YYYY'), 'days');
 

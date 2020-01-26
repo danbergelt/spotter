@@ -21,7 +21,7 @@ const AddExercises: React.FC<Props> = ({ msg, setMsg }) => {
   const t: string | null = useSelector(fetchToken);
   const dispatch = useDispatch();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     setExercise('');
     dispatch(createExerciseAction(t, exercise, setMsg));
@@ -30,7 +30,7 @@ const AddExercises: React.FC<Props> = ({ msg, setMsg }) => {
   return (
     <>
       <form
-        onSubmit={e => handleSubmit(e)}
+        onSubmit={(e): void => handleSubmit(e)}
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -41,7 +41,7 @@ const AddExercises: React.FC<Props> = ({ msg, setMsg }) => {
         <input
           autoFocus
           value={exercise}
-          onChange={e => setExercise(e.target.value)}
+          onChange={(e): void => setExercise(e.target.value)}
           placeholder='Create exercise...'
           className='exercises-add'
         />

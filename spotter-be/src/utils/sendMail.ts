@@ -16,10 +16,15 @@ interface MGData {
   subject: string;
   html: string;
 }
-const data = (to: string, subject: string, html: string): MGData => {
+const data = (
+  from: string,
+  to: string,
+  subject: string,
+  html: string
+): MGData => {
   return {
     // need to change from email once domain is purchased and verified in mailgun
-    from: 'no-reply@getspotter.io',
+    from,
     to,
     subject,
     html
@@ -27,9 +32,14 @@ const data = (to: string, subject: string, html: string): MGData => {
 };
 
 // send mail async function - sends an automated email when called
-type TSendMail = (to: string, subject: string, html: string) => Promise<void>;
-export const sendMail: TSendMail = async (to, subject, html) => {
-  await mg.messages().send(data(to, subject, html));
+type TSendMail = (
+  from: string,
+  to: string,
+  subject: string,
+  html: string
+) => Promise<void>;
+export const sendMail: TSendMail = async (from, to, subject, html) => {
+  await mg.messages().send(data(from, to, subject, html));
 };
 
 // email template for forgot password
@@ -41,5 +51,29 @@ export const forgotPasswordTemplate = (url: string): string => {
   <div>This link will expire in 10 minutes.</div>
   <br />
   <a href="${url}">${url}</a>
+  </html>`;
+};
+
+// email template for contact message
+export const contactMessageTemplate = (
+  message: string,
+  name: string,
+  email: string
+): string => {
+  return `
+  <html>
+  <div>Message: ${message}</div>
+  <br />
+  <div>From: ${name}, ${email}</div>
+  </html>`;
+};
+
+export const contactConfirmTemplate = (): string => {
+  return `<html>
+  <div>Hi there! This is a confirmation that we've received your inquiry. We'll get back to you as soon as possible.</div>
+  <br />
+  <div>Thanks for your patience!</div>
+  <br />
+  <div>- Team Spotter</div>
   </html>`;
 };

@@ -3,6 +3,8 @@ export interface Exercise {
   _id: string;
   user: string;
   createdAt: string;
+  prDate?: string;
+  pr?: number;
 }
 
 export interface Msg {

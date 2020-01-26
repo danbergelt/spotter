@@ -13,7 +13,7 @@ const ChangePasswordContent: React.FC<Props> = ({ setChangePassword }) => {
         <div
           role='button'
           data-testid='close-popover'
-          onClick={() => setChangePassword(false)}
+          onClick={(): void => setChangePassword(false)}
           className='close-popover'
         >
           <FiX />

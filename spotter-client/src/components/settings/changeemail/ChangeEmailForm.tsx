@@ -1,7 +1,6 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import { ValidationSchema } from './ValidationSchema';
-import { AxiosResponse } from 'axios';
 import axiosWithAuth from 'src/utils/axiosWithAuth';
 import { useSelector } from 'react-redux';
 import { fetchToken } from 'src/types/State';
@@ -20,10 +19,10 @@ const ChangeEmailForm: React.FC = () => {
           confirmEmail: ''
         }}
         validationSchema={ValidationSchema}
-        onSubmit={async (values, { resetForm, setStatus }) => {
+        onSubmit={async (values, { resetForm, setStatus }): Promise<void> => {
           resetForm();
           try {
-            const res: AxiosResponse<any> = await axiosWithAuth(t).put(
+            const res = await axiosWithAuth(t).put(
               `${process.env.REACT_APP_T_API}/api/auth/user/email`,
               {
                 ...values
@@ -35,7 +34,7 @@ const ChangeEmailForm: React.FC = () => {
           }
         }}
       >
-        {({ errors, touched, status }) => (
+        {({ errors, touched, status }): JSX.Element => (
           <Form>
             <div className='change-inp'>
               <label className='change-label'>Old Email</label>

@@ -3,8 +3,11 @@ import { IoMdArrowDropdown, IoMdArrowDropright } from 'react-icons/io';
 import Pr from './Pr';
 import { FiInfo } from 'react-icons/fi';
 import ReactTooltip from 'react-tooltip';
+import { SortedPrsRange } from '../../types/Prs';
+import { Exercise } from '../../types/ExerciseOption';
 
 // Hacky fix to resolve error with default imports from moment and typescript
+// eslint-disable-next-line
 let m = require('moment');
 if ('default' in m) {
   m = m['default'];
@@ -12,7 +15,7 @@ if ('default' in m) {
 
 interface Props {
   title: string;
-  prs: any;
+  prs: SortedPrsRange;
 }
 
 const PrSection: React.FC<Props> = ({ title, prs }) => {
@@ -25,9 +28,9 @@ const PrSection: React.FC<Props> = ({ title, prs }) => {
         <div
           role='button'
           className='pr-spacer'
-          onMouseEnter={() => setHover(true)}
-          onMouseLeave={() => setHover(false)}
-          onClick={() => setOpen(!open)}
+          onMouseEnter={(): void => setHover(true)}
+          onMouseLeave={(): void => setHover(false)}
+          onClick={(): void => setOpen(!open)}
         >
           {open ? (
             <div className={hover ? 'hover-pr-dropdown' : 'pr-dropdown'}>
@@ -57,10 +60,10 @@ const PrSection: React.FC<Props> = ({ title, prs }) => {
           {!prs.length && <p className='no-prs'>No PRs found in this range</p>}
           {prs
             // sorting the prs by date (most recent comes first)
-            .sort((a: any, b: any) =>
+            .sort((a: Exercise, b: Exercise) =>
               m(b.prDate, 'MMM DD YYYY').diff(m(a.prDate, 'MMM DD YYYY'))
             )
-            .map((pr: any) => (
+            .map((pr: Exercise) => (
               <Pr key={pr.name} pr={pr} />
             ))}
         </section>

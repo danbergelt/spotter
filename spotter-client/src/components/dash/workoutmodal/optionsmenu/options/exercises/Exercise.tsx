@@ -13,7 +13,7 @@ const Exercise: React.FC<Props> = ({ deleteExercise, exercise }) => {
       <p className='exercise'>{exercise.name}</p>
       <div
         role='button'
-        onClick={() => deleteExercise && deleteExercise(exercise._id)}
+        onClick={(): void => deleteExercise && deleteExercise(exercise._id)}
         className='exercise-delete'
         data-testid='exercise-delete'
       >

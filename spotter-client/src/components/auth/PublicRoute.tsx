@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, ReactNode } from 'react';
 import { useSelector } from 'react-redux';
 import { fetchToken } from 'src/types/State';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
@@ -8,6 +8,7 @@ import { Route, Redirect, RouteProps } from 'react-router-dom';
 // or sends them to the unauthenticated page
 
 interface Props extends RouteProps {
+  // eslint-disable-next-line
   component: React.ComponentType<any>;
   exact?: boolean;
   path: string;
@@ -23,7 +24,7 @@ const PublicRoute: React.FC<Props> = ({
     <>
       <Route
         {...rest}
-        render={props => {
+        render={(props): ReactNode => {
           if (token) {
             return <Redirect to='/dashboard' />;
           }

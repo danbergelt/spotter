@@ -18,13 +18,13 @@ const Template: React.FC<Props> = ({
   return (
     <div key={template._id} className='template-container'>
       <div
-        onClick={() => setActive(template)}
+        onClick={(): void => setActive(template)}
         className={template._id === active._id ? 'template active' : 'template'}
       >
         {template.name}
       </div>
       <div
-        onClick={() => deleteTemplate(template._id)}
+        onClick={(): void => deleteTemplate(template._id)}
         className='template-delete'
         data-testid='template-delete'
       >

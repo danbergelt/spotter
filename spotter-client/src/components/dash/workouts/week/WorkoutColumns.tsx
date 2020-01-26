@@ -23,7 +23,7 @@ interface GlobalReducer {
   timeSpan: number;
 }
 
-const WorkoutColumns = () => {
+const WorkoutColumns: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [modal, setModal] = useState<boolean>(false);
@@ -36,10 +36,10 @@ const WorkoutColumns = () => {
   );
 
   // increment or decrement by one week/day at a time
-  const inc = () => {
+  const inc = (): void => {
     dispatch(incOrDecAction('inc', timeSpan));
   };
-  const dec = () => {
+  const dec = (): void => {
     dispatch(incOrDecAction('dec', timeSpan));
   };
 

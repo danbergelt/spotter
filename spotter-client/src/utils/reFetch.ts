@@ -22,6 +22,7 @@ const reFetch: Params = (time, history, scope, t) => {
   }
 
   const formattedRange: Array<string> = range.map(d => d.format('MMM DD YYYY'));
+  // eslint-disable-next-line
   store.dispatch<any>(fetchWorkouts(formattedRange, history, t));
 };
 

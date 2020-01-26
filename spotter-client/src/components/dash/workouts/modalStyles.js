@@ -1,6 +1,8 @@
 import styles from '../../../styles/variables.scss';
 import { useWindowSize } from 'react-use';
 
+/* eslint-disable */
+
 export const useModalStyles = () => {
   const { width } = useWindowSize();
 

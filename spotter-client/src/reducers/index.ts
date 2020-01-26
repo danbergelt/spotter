@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+import { combineReducers, AnyAction } from 'redux';
 import { workoutReducer } from './workoutReducer';
 import { fetchWorkoutsReducer } from './fetchWorkoutsReducer';
 import { globalReducer } from './globalReducer';
@@ -20,8 +20,7 @@ const appReducer = combineReducers({
 // logout functionality -->
 // no mutation, assigns the state to a temporary undefined variable that serves to 'reset' the state
 // then, once a user logs in, the state is rehydrated with relevant data
-type TReducerAction = { type: string; payload: any };
-type TReducer = (state: State | undefined, action: TReducerAction) => State;
+type TReducer = (state: State | undefined, action: AnyAction) => State;
 export const reducer: TReducer = (state, action) => {
   if (action.type === LOGOUT) {
     state = undefined;

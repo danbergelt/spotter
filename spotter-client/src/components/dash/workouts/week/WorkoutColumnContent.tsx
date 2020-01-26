@@ -18,7 +18,7 @@ const WorkoutColumnContent: React.FC<Props> = ({
 }) => {
   const { width } = useWindowSize();
 
-  const dynamicContentHelper = () => {
+  const dynamicContentHelper = (): string | null => {
     if (width <= 500) {
       return null;
     } else if (width < 800) {
@@ -39,7 +39,7 @@ const WorkoutColumnContent: React.FC<Props> = ({
       </section>
       <div
         data-testid={i === 0 && 'modal-click'}
-        onClick={() => openAddWorkoutModal(date)}
+        onClick={(): void => openAddWorkoutModal(date)}
         className='week-workouts-add-workout'
         role='button'
       >

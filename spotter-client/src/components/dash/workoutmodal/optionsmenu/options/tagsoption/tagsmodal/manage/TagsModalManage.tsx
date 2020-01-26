@@ -15,8 +15,7 @@ interface Props {
 }
 
 const TagsModalManage: React.FC<Props> = ({ setToDelete }) => {
-  const tagsFromState = (state: State) => state.tagsReducer.tags;
-  const tags: Array<T> = useSelector(tagsFromState);
+  const tags: Array<T> = useSelector((state: State) => state.tagsReducer.tags);
 
   const t: string | null = useSelector(fetchToken);
 

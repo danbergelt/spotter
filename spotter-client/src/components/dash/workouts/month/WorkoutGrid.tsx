@@ -23,7 +23,7 @@ interface GlobalReducer {
   timeSpan: number;
 }
 
-const WorkoutGrid = () => {
+const WorkoutGrid: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -48,10 +48,10 @@ const WorkoutGrid = () => {
   }, [timeSpan, history, scope.value, t]);
 
   // increment or decrement by one week/month at a time
-  const inc = () => {
+  const inc = (): void => {
     dispatch(incOrDecAction('inc', timeSpan));
   };
-  const dec = () => {
+  const dec = (): void => {
     dispatch(incOrDecAction('dec', timeSpan));
   };
 

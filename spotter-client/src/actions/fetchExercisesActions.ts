@@ -1,27 +1,29 @@
 import axiosWithAuth from '../utils/axiosWithAuth';
-import { Dispatch, Action } from 'redux';
+import { Action } from 'redux';
 import { History } from 'history';
 import { AxiosResponse } from 'axios';
 import { Msg } from 'src/types/ExerciseOption';
+import { State } from 'src/types/State';
+import { ThunkDispatch } from 'redux-thunk';
 
-export const FETCH_EXERCISES_SUCCESS: string = 'FETCH_EXERCISES_SUCCESS';
-export const FETCH_EXERCISES_ERROR: string = 'FETCH_EXERCISES_ERROR';
-export const CREATE_EXERCISE: string = 'CREATE_EXERCISE';
-export const DELETE_SAVED_EXERCISE: string = 'DELETE_SAVED_EXERCISE';
+export const FETCH_EXERCISES_SUCCESS = 'FETCH_EXERCISES_SUCCESS';
+export const FETCH_EXERCISES_ERROR = 'FETCH_EXERCISES_ERROR';
+export const CREATE_EXERCISE = 'CREATE_EXERCISE';
+export const DELETE_SAVED_EXERCISE = 'DELETE_SAVED_EXERCISE';
 
 // fetches saved exercises
 // only saved exercises can be used to track PRs
 export const fetchExercises = (history: History, t: string | null) => {
-  return (dispatch: Dispatch<Action<any>>): Promise<void> => {
+  return (dispatch: ThunkDispatch<State, void, Action>): Promise<void> => {
     return axiosWithAuth(t)
       .get(`${process.env.REACT_APP_T_API}/api/auth/exercises`)
-      .then((res: AxiosResponse<any>) => {
+      .then(res => {
         dispatch({
           type: FETCH_EXERCISES_SUCCESS,
           payload: res.data.exercises
         });
       })
-      .catch((err: any) => {
+      .catch(err => {
         if (err.response) {
           dispatch({
             type: FETCH_EXERCISES_ERROR,
@@ -38,10 +40,10 @@ export const fetchExercises = (history: History, t: string | null) => {
 type TDeleteExercise = (
   t: string | null,
   id: string
-) => (dispatch: Dispatch<Action>) => Promise<{ type: string; payload: string }>;
+) => (dispatch: ThunkDispatch<State, void, Action>) => Promise<Action>;
 
 export const deleteExerciseAction: TDeleteExercise = (t, id) => {
-  return async dispatch => {
+  return async (dispatch): Promise<Action> => {
     await axiosWithAuth(t).delete(
       `${process.env.REACT_APP_T_API}/api/auth/exercises/${id}`
     );
@@ -57,10 +59,10 @@ type TCreateExercise = (
   t: string | null,
   exercise: string,
   setMsg: React.Dispatch<React.SetStateAction<Msg>>
-) => (dispatch: Dispatch<Action>) => Promise<any>;
+) => (dispatch: ThunkDispatch<State, void, Action>) => Promise<Action | void>;
 
 export const createExerciseAction: TCreateExercise = (t, exercise, setMsg) => {
-  return async dispatch => {
+  return async (dispatch): Promise<Action | void> => {
     try {
       const res: AxiosResponse = await axiosWithAuth(t).post(
         `${process.env.REACT_APP_T_API}/api/auth/exercises`,

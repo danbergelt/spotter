@@ -1,20 +1,43 @@
 import React from 'react';
 import { Form as Wrapper, Field, Formik } from 'formik';
 import { ValidationSchema } from './ValidationSchema';
+import axios from 'axios';
+import Loader from 'react-loader-spinner';
 
 const Form: React.FC = () => {
   return (
     <Formik
       initialValues={{ name: '', email: '', subject: '', message: '' }}
       validationSchema={ValidationSchema}
-      onSubmit={(values, { resetForm }) => {
-        resetForm();
-        console.log(values);
+      onSubmit={async (values, { resetForm, setStatus }): Promise<void> => {
+        try {
+          const res = await axios.post(
+            `${process.env.REACT_APP_T_API}/api/auth/contact`,
+            values
+          );
+          resetForm();
+          res.data.success === true && setStatus(true);
+        } catch (error) {
+          error && setStatus(false);
+        }
       }}
     >
-      {({ status, errors, touched, setFieldValue, values }) => (
+      {({
+        status,
+        errors,
+        touched,
+        setFieldValue,
+        values,
+        handleBlur,
+        isSubmitting
+      }): JSX.Element => (
         <Wrapper>
-          {status && <p className='api-err-box'>{status}</p>}
+          {status && status === true && (
+            <div className='contact-form-res'>Message sent</div>
+          )}
+          {status && status === false && (
+            <div className='contact-form-err'>Error sending message</div>
+          )}
           <div className='contact-form-fields-container'>
             <div className='form-label-container'>
               <label className='contact-form-label' htmlFor='name'>
@@ -68,13 +91,18 @@ const Form: React.FC = () => {
             </div>
             <textarea
               name='message'
+              onBlur={handleBlur}
               value={values.message}
-              onChange={e => setFieldValue('message', e.target.value)}
+              onChange={(e): void => setFieldValue('message', e.target.value)}
               placeholder='Your message goes here...'
               className='contact-form-message'
             />
             <button className='contact-form-button' type='submit'>
-              Submit
+              {isSubmitting ? (
+                <Loader type='ThreeDots' color='white' height={10} width={30} />
+              ) : (
+                'Submit'
+              )}
             </button>
           </div>
         </Wrapper>

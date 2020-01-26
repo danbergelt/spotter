@@ -23,7 +23,7 @@ const SaveTemplateOption: React.FC<Props> = ({ iconClass }) => {
     <>
       <div
         role='button'
-        onClick={() => setTemplateSaveModal(true)}
+        onClick={(): void => setTemplateSaveModal(true)}
         data-testid='save-template'
         className='add-workout-options-button'
       >

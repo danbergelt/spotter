@@ -4,6 +4,7 @@ import { Moment } from 'moment';
 import { useWindowSize } from 'react-use';
 
 // Hacky fix to resolve error with default imports from moment and typescript
+// eslint-disable-next-line
 let m = require('moment');
 if ('default' in m) {
   m = m['default'];
@@ -24,7 +25,7 @@ const GridHead: React.FC<Props> = ({ openAddWorkoutModal, date }) => {
       <section className='month-grid-day-head'>
         <div
           role='button'
-          onClick={() => openAddWorkoutModal(date)}
+          onClick={(): void => openAddWorkoutModal(date)}
           style={{ marginLeft: 'auto' }}
           className='month-grid-add-workout'
         >

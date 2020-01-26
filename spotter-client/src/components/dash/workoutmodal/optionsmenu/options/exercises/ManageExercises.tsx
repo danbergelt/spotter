@@ -36,7 +36,7 @@ const ManageExercises: React.FC<Props> = ({ exercises }) => {
         <input
           autoFocus
           value={search}
-          onChange={e => setSearch(e.target.value)}
+          onChange={(e): void => setSearch(e.target.value)}
           placeholder='Search exercises...'
           className='exercises-add'
         />

@@ -12,13 +12,13 @@ const UpdateTagForm: React.FC<Props> = ({
   setUpdateInput
 }) => {
   return (
-    <form onSubmit={e => handleSubmit(e)}>
+    <form onSubmit={(e): void => handleSubmit(e)}>
       <input
         autoFocus
         className='tag-manage-update-input'
         placeholder='Update tag name...'
         value={updateInput}
-        onChange={e => setUpdateInput(e.target.value)}
+        onChange={(e): void => setUpdateInput(e.target.value)}
       />
       <button
         data-testid='save-tag'

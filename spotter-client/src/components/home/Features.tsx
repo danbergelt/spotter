@@ -11,7 +11,7 @@ const Features: React.FC = () => {
 
   const { width }: { width: number } = useWindowSize();
 
-  const setImage = () => {
+  const setImage = (): string => {
     if (selected === 'Week View') {
       return weeklyview;
     } else if (selected === 'Month View') {

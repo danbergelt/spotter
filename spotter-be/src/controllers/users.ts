@@ -11,6 +11,11 @@ import jwt from 'jsonwebtoken';
 import { User as UserInterface } from 'src/types/models';
 import { VerifiedToken } from '../types/auth';
 import { Request, Response } from 'express';
+import {
+  sendMail,
+  contactMessageTemplate,
+  contactConfirmTemplate
+} from '../utils/sendMail';
 
 interface UserDetails {
   email: string;
@@ -132,4 +137,40 @@ export const refresh = asyncHandler(async (req, res) => {
   );
 
   return sendToken(user, 200, res);
+});
+
+// @desc --> contact
+// @route --> POST /api/auth/contact
+// @access --> Public
+
+export const contact = asyncHandler(async (req, res, next) => {
+  const { name, email, subject, message } = req.body;
+
+  if (!name || !email || !subject || !message) {
+    return next(new Err('All fields are required', 400));
+  }
+
+  try {
+    // confirmation message that message was sent
+    await sendMail(
+      'no-reply@getspotter.io',
+      email,
+      'Greetings from Spotter',
+      contactConfirmTemplate()
+    );
+
+    // contact message with user's message
+    await sendMail(
+      'contact@getspotter.io',
+      'team@getspotter.io',
+      subject,
+      contactMessageTemplate(message, name, email)
+    );
+
+    return res.status(200).json({
+      success: true
+    });
+  } catch (error) {
+    return next(new Err('Error sending message', 500));
+  }
 });
