@@ -12,7 +12,7 @@ const Form: React.FC = () => {
         console.log(values);
       }}
     >
-      {({ status, errors, touched, setFieldValue, values }) => (
+      {({ status, errors, touched, setFieldValue, values, handleBlur }) => (
         <Wrapper>
           {status && <p className='api-err-box'>{status}</p>}
           <div className='contact-form-fields-container'>
@@ -68,6 +68,7 @@ const Form: React.FC = () => {
             </div>
             <textarea
               name='message'
+              onBlur={handleBlur}
               value={values.message}
               onChange={e => setFieldValue('message', e.target.value)}
               placeholder='Your message goes here...'
