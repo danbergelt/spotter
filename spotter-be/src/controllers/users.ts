@@ -151,6 +151,14 @@ export const contact = asyncHandler(async (req, res, next) => {
   }
 
   try {
+    // confirmation message that message was sent
+    await sendMail(
+      'no-reply@getspotter.io',
+      email,
+      'Greetings from Spotter',
+      contactConfirmTemplate()
+    );
+
     // contact message with user's message
     await sendMail(
       'contact@getspotter.io',
@@ -159,16 +167,8 @@ export const contact = asyncHandler(async (req, res, next) => {
       contactMessageTemplate(message, name, email)
     );
 
-    // confirmation message that message was sent
-    await sendMail(
-      'no-reply@getspotter.io',
-      email,
-      'Greetings from Spotter',
-      contactConfirmTemplate()
-    );
     return res.status(200).json({
-      success: true,
-      data: 'Message sent'
+      success: true
     });
   } catch (error) {
     return next(new Err('Error sending message', 500));

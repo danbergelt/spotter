@@ -70,7 +70,7 @@ export const contactMessageTemplate = (
 
 export const contactConfirmTemplate = (): string => {
   return `<html>
-  <div>Hi there! This is a confirmation that we've received your inquiry, and well get back to you as soon as possible.</div>
+  <div>Hi there! This is a confirmation that we've received your inquiry. We'll get back to you as soon as possible.</div>
   <br />
   <div>Thanks for your patience!</div>
   <br />
