@@ -22,7 +22,7 @@ const ExerciseOption: React.FC<Props> = ({ iconClass }) => {
     <>
       <div
         role='button'
-        onClick={() => setExercisesModal(true)}
+        onClick={(): void => setExercisesModal(true)}
         data-testid='exercises-modal'
         className='add-workout-options-button'
       >

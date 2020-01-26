@@ -7,12 +7,18 @@ const Form: React.FC = () => {
     <Formik
       initialValues={{ name: '', email: '', subject: '', message: '' }}
       validationSchema={ValidationSchema}
-      onSubmit={(values, { resetForm }) => {
+      onSubmit={(_, { resetForm }): void => {
         resetForm();
-        console.log(values);
       }}
     >
-      {({ status, errors, touched, setFieldValue, values, handleBlur }) => (
+      {({
+        status,
+        errors,
+        touched,
+        setFieldValue,
+        values,
+        handleBlur
+      }): JSX.Element => (
         <Wrapper>
           {status && <p className='api-err-box'>{status}</p>}
           <div className='contact-form-fields-container'>
@@ -70,7 +76,7 @@ const Form: React.FC = () => {
               name='message'
               onBlur={handleBlur}
               value={values.message}
-              onChange={e => setFieldValue('message', e.target.value)}
+              onChange={(e): void => setFieldValue('message', e.target.value)}
               placeholder='Your message goes here...'
               className='contact-form-message'
             />

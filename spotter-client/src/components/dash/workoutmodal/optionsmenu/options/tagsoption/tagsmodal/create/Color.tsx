@@ -20,9 +20,9 @@ const Color: React.FC<Props> = ({ c, hover, color, setHover, setColor }) => {
           ? { ...colorStyles, background: adjust(c, -40) }
           : { ...colorStyles, background: c }
       }
-      onClick={() => setColor(c)}
-      onMouseEnter={() => setHover(c)}
-      onMouseLeave={() => setHover(null)}
+      onClick={(): void => setColor(c)}
+      onMouseEnter={(): void => setHover(c)}
+      onMouseLeave={(): void => setHover(null)}
       data-testid={c === color && 'selected-tag'}
       aria-label='tag-colors'
     >

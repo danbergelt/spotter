@@ -11,7 +11,7 @@ const ForgotPasswordInstructions: React.FC = () => {
     | React.FormEvent<HTMLFormElement>
     | React.MouseEvent<HTMLButtonElement, MouseEvent>;
 
-  const sendInstructions = async (e?: T) => {
+  const sendInstructions = async (e?: T): Promise<void> => {
     e?.preventDefault();
     setEmail('');
     setLoading(true);
@@ -34,16 +34,20 @@ const ForgotPasswordInstructions: React.FC = () => {
       {res.err && <p className='forgot-password-res err'>{res.err}</p>}
       {res.succ && <p className='forgot-password-res succ'>{res.succ}</p>}
       <label className='forgot-password-label'>Email</label>
-      <form onSubmit={e => !loading && sendInstructions(e)}>
+      <form
+        onSubmit={(e): false | Promise<void> => !loading && sendInstructions(e)}
+      >
         <input
           placeholder='name@email.com'
-          onChange={e => setEmail(e.target.value)}
+          onChange={(e): void => setEmail(e.target.value)}
           value={email}
           className='forgot-password-input'
         />
         <button
           style={{ border: 0, outline: 0 }}
-          onClick={e => !loading && sendInstructions(e)}
+          onClick={(e): false | Promise<void> =>
+            !loading && sendInstructions(e)
+          }
           className='forgot-password-submit'
         >
           {loading ? (

@@ -1,23 +1,26 @@
 import axiosWithAuth from '../utils/axiosWithAuth';
 import { History } from 'history';
-import { Dispatch, Action } from 'redux';
-import { AxiosResponse } from 'axios';
+import { Action } from 'redux';
 import { DELETE_TAG, UPDATE_TAG } from './workoutActions';
 import { SET_ACTIVE, CLOSE_TAG_MODAL, OPEN_TAG_MODAL } from './optionsActions';
 import { TagOnWorkout } from 'src/types/TagOnWorkout';
+import { ThunkDispatch } from 'redux-thunk';
+import { State } from 'src/types/State';
 
-export const FETCH_TAGS_START: string = 'FETCH_TAGS_START';
-export const FETCH_TAGS_SUCCESS: string = 'FETCH_TAGS_SUCCESS';
-export const FETCH_TAGS_ERROR: string = 'FETCH_TAGS_ERROR';
+export const FETCH_TAGS_START = 'FETCH_TAGS_START';
+export const FETCH_TAGS_SUCCESS = 'FETCH_TAGS_SUCCESS';
+export const FETCH_TAGS_ERROR = 'FETCH_TAGS_ERROR';
 
-export const RESET_TAGS: string = 'RESET_TAGS';
+export const RESET_TAGS = 'RESET_TAGS';
 
 // fetches tags and resets tags list on modal close
 export const fetchTags = (history: History, t: string | null) => {
-  return async (dispatch: Dispatch<Action<any>>): Promise<void> => {
+  return async (
+    dispatch: ThunkDispatch<State, void, Action>
+  ): Promise<void> => {
     dispatch({ type: FETCH_TAGS_START });
     try {
-      const res: AxiosResponse<any> = await axiosWithAuth(t).get(
+      const res = await axiosWithAuth(t).get(
         `${process.env.REACT_APP_T_API}/api/auth/tags`
       );
       dispatch({ type: FETCH_TAGS_SUCCESS, payload: res.data.tags });
@@ -35,7 +38,7 @@ export const fetchTags = (history: History, t: string | null) => {
 };
 
 //save tag
-interface IParamsHelper {
+interface ParamsHelper {
   t: string | null;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setMessage: React.Dispatch<
@@ -51,8 +54,8 @@ interface IParamsHelper {
 }
 
 type TSaveTag = (
-  paramsHelper: IParamsHelper
-) => (dispatch: any) => Promise<void>;
+  paramsHelper: ParamsHelper
+) => (dispatch: ThunkDispatch<State, void, Action>) => Promise<void>;
 
 export const saveTagAction: TSaveTag = paramsHelper => {
   const {
@@ -65,7 +68,7 @@ export const saveTagAction: TSaveTag = paramsHelper => {
     name
   } = paramsHelper;
 
-  return async dispatch => {
+  return async (dispatch): Promise<void> => {
     setLoading(true);
     try {
       await axiosWithAuth(t).post(
@@ -97,7 +100,7 @@ export const setActiveTabAction: TSetActiveTab = id => {
 };
 
 //delete tag
-interface IDelTagHelper {
+interface DelTagHelper {
   t: string | null;
   toDelete: Partial<TagOnWorkout>;
   history: History;
@@ -107,7 +110,9 @@ interface IDelTagHelper {
   setErr: Function;
 }
 
-type TDeleteTag = (paramsHelper: IDelTagHelper) => (dispatch: any) => void;
+type TDeleteTag = (
+  paramsHelper: DelTagHelper
+) => (dispatch: ThunkDispatch<State, void, Action>) => Promise<void>;
 
 export const deleteTagAction: TDeleteTag = paramsHelper => {
   const {
@@ -120,7 +125,7 @@ export const deleteTagAction: TDeleteTag = paramsHelper => {
     setErr
   } = paramsHelper;
 
-  return async dispatch => {
+  return async (dispatch): Promise<void> => {
     try {
       await axiosWithAuth(t).delete(
         `${process.env.REACT_APP_T_API}/api/auth/tags/${toDelete._id}`
@@ -146,7 +151,7 @@ export const deleteTagAction: TDeleteTag = paramsHelper => {
 };
 
 // submit an edited tag
-interface IEditTagHelper {
+interface EditTagHelper {
   t: string | null;
   update: Partial<TagOnWorkout>;
   updateInput: string;
@@ -155,13 +160,15 @@ interface IEditTagHelper {
   setErr: Function;
 }
 
-type TEditTag = (paramsHelper: IEditTagHelper) => (dispatch: any) => void;
+type TEditTag = (
+  paramsHelper: EditTagHelper
+) => (dispatch: ThunkDispatch<State, void, Action>) => Promise<void>;
 
 export const editTagAction: TEditTag = paramsHelper => {
   const { t, update, updateInput, setUpdate, history, setErr } = paramsHelper;
-  return async dispatch => {
+  return async (dispatch): Promise<void> => {
     try {
-      const res: AxiosResponse<any> = await axiosWithAuth(t).put(
+      const res = await axiosWithAuth(t).put(
         `${process.env.REACT_APP_T_API}/api/auth/tags/${update._id}`,
         {
           content: updateInput

@@ -29,7 +29,7 @@ const Settings: React.FC = () => {
           >
             <div
               role='button'
-              onClick={() => setChangePassword(true)}
+              onClick={(): void => setChangePassword(true)}
               className='settings-action'
             >
               Change password...
@@ -41,7 +41,7 @@ const Settings: React.FC = () => {
           >
             <div
               role='button'
-              onClick={() => setChangeEmail(true)}
+              onClick={(): void => setChangeEmail(true)}
               className='settings-action'
             >
               Change email...

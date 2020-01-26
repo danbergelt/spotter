@@ -18,8 +18,8 @@ const Popup: React.FC = () => {
   const customMount: boolean = useDelayUnmount(form, 500);
   const { pathname } = useLocation();
 
-  const close: string = 'animated rotateIn faster';
-  const open: string = 'animated zoomIn faster';
+  const close = 'animated rotateIn faster';
+  const open = 'animated zoomIn faster';
 
   useEffect(() => {
     setForm(false);
@@ -31,7 +31,7 @@ const Popup: React.FC = () => {
       <div
         data-testid='contact-button'
         role='button'
-        onClick={() => setForm(!form)}
+        onClick={(): void => setForm(!form)}
         className='contact-popup-button'
       >
         {form && (

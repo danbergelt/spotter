@@ -8,9 +8,11 @@ import { State, fetchToken } from 'src/types/State';
 import { SortedPrs, SortedPrsRange } from '../types/Prs';
 import { fetchExercises } from 'src/actions/fetchExercisesActions';
 import { Helmet } from 'react-helmet-async';
+import { Exercise } from 'src/types/ExerciseOption';
 const moment: MomentRange = extendMoment(Moment);
 
 // Hacky fix to resolve error with default imports from moment and typescript
+// eslint-disable-next-line
 let m = require('moment');
 if ('default' in m) {
   m = moment['default'];
@@ -27,7 +29,7 @@ const Prs: React.FC = () => {
   });
   const [loading, setLoading] = useState<boolean>(true);
 
-  const exercises: Array<any> = useSelector(
+  const exercises: Array<Exercise> = useSelector(
     (state: State) => state.fetchExercisesReducer.savedExercises
   );
 
@@ -40,7 +42,7 @@ const Prs: React.FC = () => {
   }, [dispatch, t, history]);
 
   // finds the difference between two moment dates
-  const findDiff = (exercise: any): number =>
+  const findDiff = (exercise: Exercise): number =>
     m().diff(m(exercise.prDate, 'MMM DD YYYY'), 'days');
 
   // set PRs to state organized by time period in which the PR was set
@@ -53,7 +55,7 @@ const Prs: React.FC = () => {
     if (exercises.length) {
       exercises.forEach(exercise => {
         const diff = findDiff(exercise);
-        if (exercise.pr > 0 && exercise.prDate) {
+        if (exercise.pr && exercise.pr > 0 && exercise.prDate) {
           if (diff <= 31) {
             lastMonth = [...lastMonth, exercise];
           } else if (diff <= 365) {
@@ -71,7 +73,7 @@ const Prs: React.FC = () => {
     });
 
     // cleanup function to set loading to false, allowing the sections to be rendered
-    return () => setLoading(false);
+    return (): void => setLoading(false);
   }, [exercises]);
 
   return (

@@ -22,6 +22,7 @@ declare module 'react-loader-spinner' {
     | 'NotSpecified';
 
   interface LoaderProps {
+    // eslint-disable-next-line
     style?: any;
     type?: Types;
     color?: string;

@@ -13,7 +13,7 @@ const ChangeEmailContent: React.FC<Props> = ({ setChangeEmail }) => {
         <div
           role='button'
           data-testid='close-popover'
-          onClick={() => setChangeEmail(false)}
+          onClick={(): void => setChangeEmail(false)}
           className='close-popover'
         >
           <FiX />

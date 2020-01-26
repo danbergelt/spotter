@@ -7,7 +7,7 @@ import { TagOnWorkout } from '../../../../../types/TagOnWorkout';
 // tags on a workout
 // display only, functionality sequestered to the tags modal
 
-const WorkoutTags = () => {
+const WorkoutTags: React.FC = () => {
   const tags: Array<TagOnWorkout> = useSelector(
     (state: State) => state.workoutReducer.tags
   );

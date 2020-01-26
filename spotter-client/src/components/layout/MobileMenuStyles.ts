@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 const css = require('../../styles/variables.scss');
 
 export const styles = {

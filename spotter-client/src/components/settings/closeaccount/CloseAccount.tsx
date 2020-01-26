@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchToken } from 'src/types/State';
 import { closeAccountAction } from 'src/actions/globalActions';
 import { useHistory } from 'react-router-dom';
+import { Dispatch, AnyAction } from 'redux';
 
 const CloseAccount: React.FC = () => {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const CloseAccount: React.FC = () => {
       Are you sure you want to close your account?
       <section className='confirm-close'>
         <input
-          onChange={() => setConfirmClose(!confirmClose)}
+          onChange={(): void => setConfirmClose(!confirmClose)}
           className='confirm-check'
           type='checkbox'
           data-testid='close-check'
@@ -35,7 +36,9 @@ const CloseAccount: React.FC = () => {
           confirmClose ? 'delete-account' : 'delete-account-disabled'
         }
         className={confirmClose ? 'delete-account' : 'delete-account-disabled'}
-        onClick={() => confirmClose && dispatch(closeAccountAction(t, history))}
+        onClick={(): false | ((dispatch: Dispatch<AnyAction>) => void) =>
+          confirmClose && dispatch(closeAccountAction(t, history))
+        }
       >
         Close Account
       </div>

@@ -17,7 +17,7 @@ interface Props {
 
 // container for sidebar menu on workout modal
 const WorkoutOptions: React.FC<Props> = ({ closeParentModal, time }) => {
-  const iconClass: string = 'add-workout-options-icon';
+  const iconClass = 'add-workout-options-icon';
 
   const ctx: string | null = useSelector(
     (state: State) => state.globalReducer.ctx

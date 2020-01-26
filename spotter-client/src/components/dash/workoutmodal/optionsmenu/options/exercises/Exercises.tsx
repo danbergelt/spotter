@@ -27,7 +27,7 @@ const Exercises: React.FC<Props> = ({ setExercisesModal }) => {
   const [msg, setMsg] = useState<Msg>({});
 
   // clear modal state on close
-  const handleCloseExerciseModal = () => {
+  const handleCloseExerciseModal = (): void => {
     setExercisesModal(false);
     setTab(0);
     setMsg({});
@@ -45,7 +45,7 @@ const Exercises: React.FC<Props> = ({ setExercisesModal }) => {
       }
       isOpen={modalState}
       contentLabel='Saved Exercises'
-      onRequestClose={() => handleCloseExerciseModal()}
+      onRequestClose={(): void => handleCloseExerciseModal()}
     >
       <section className='exercises-container'>
         <ExercisesHead

@@ -14,7 +14,7 @@ const Tab: React.FC<Props> = ({ active, setActive, text, id }) => {
       className={
         active === id ? 'tags-modal-tab-active' : 'tags-modal-tab-not-active'
       }
-      onClick={() => setActive(id)}
+      onClick={(): void => setActive(id)}
     >
       {text}
     </div>

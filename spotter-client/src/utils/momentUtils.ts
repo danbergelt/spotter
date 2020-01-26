@@ -6,6 +6,8 @@ const moment: MomentRange = extendMoment(Moment);
 // Used for generating days of week in dashboard
 // due to the way in which the moment object is exported, I need to override the moment object with moment["default"] to satisfy type errors and import a function
 // to see more on this, see this open issue: https://github.com/palantir/blueprint/issues/959
+
+// eslint-disable-next-line
 let m = require('moment');
 if ('default' in m) {
   m = moment['default'];

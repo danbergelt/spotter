@@ -15,7 +15,7 @@ const GenerateTemplate: React.FC<Props> = ({ active, setActive }) => {
   const dispatch = useDispatch();
 
   // handles state when new template is generated
-  const genHandler = (template: Template | {}) => {
+  const genHandler = (template: Template | {}): void => {
     // TS does not pick up on Lodash isEmpty, so need to pass in empty object as a union
     dispatch(generateTemplateAction(template));
     dispatch(setFromTemplateModalAction(false));
@@ -25,7 +25,9 @@ const GenerateTemplate: React.FC<Props> = ({ active, setActive }) => {
   return (
     <div
       role='button'
-      onClick={() => (!isEmpty(active) ? genHandler(active) : null)}
+      onClick={(): void | null =>
+        !isEmpty(active) ? genHandler(active) : null
+      }
       className='generate-template'
       data-testid='generate-template'
     >

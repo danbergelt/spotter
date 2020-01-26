@@ -19,7 +19,7 @@ const GridWorkout: React.FC<Props> = ({ data, openViewModal, date }) => {
       style={{ background: data.tags[0] && data.tags[0].color }}
       className='month-grid-workout'
       role='button'
-      onClick={() => openViewModal(data, date)}
+      onClick={(): void => openViewModal(data, date)}
       key={data._id}
     >
       {width <= 800 && data.title.length > 5

@@ -25,7 +25,7 @@ const WorkoutColumn: React.FC<Props> = ({
       <WorkoutColumnContent
         date={date}
         i={i}
-        openAddWorkoutModal={() => openAddWorkoutModal(date)}
+        openAddWorkoutModal={(): void => openAddWorkoutModal(date)}
       />
       <div>
         {/* filter workouts for workouts matching this date */}
@@ -34,7 +34,7 @@ const WorkoutColumn: React.FC<Props> = ({
           .map(data => (
             <div
               className='workout-card-container'
-              onClick={() => openViewModal(data, date)}
+              onClick={(): void => openViewModal(data, date)}
               key={data._id}
               role='button'
             >

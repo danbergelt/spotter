@@ -13,7 +13,7 @@ interface TagsState {
 }
 
 // tab - add tag to current workout
-const TagsModalAdd = () => {
+const TagsModalAdd: React.FC = () => {
   const { tags, isLoading }: TagsState = useSelector(
     (state: State) => state.tagsReducer
   );

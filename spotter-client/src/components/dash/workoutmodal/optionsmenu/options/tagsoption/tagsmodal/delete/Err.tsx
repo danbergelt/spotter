@@ -12,7 +12,7 @@ const Err: React.FC<Props> = ({ err, setErr }) => {
       {err}
       <div
         role='button'
-        onClick={() => setErr('')}
+        onClick={(): void => setErr('')}
         style={{ fontSize: '1.2rem', cursor: 'pointer' }}
       >
         <FiX />

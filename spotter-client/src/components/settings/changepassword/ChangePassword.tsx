@@ -5,6 +5,7 @@ import ChangePasswordContent from './ChangePasswordContent';
 interface Props {
   changePassword: boolean;
   setChangePassword: React.Dispatch<React.SetStateAction<boolean>>;
+  // eslint-disable-next-line
   children: any;
 }
 
@@ -16,7 +17,7 @@ const ChangePassword: React.FC<Props> = ({
   return (
     <Popover
       isOpen={changePassword}
-      onClickOutside={() => setChangePassword(false)}
+      onClickOutside={(): void => setChangePassword(false)}
       content={<ChangePasswordContent setChangePassword={setChangePassword} />}
       align='start'
       position='bottom'

@@ -1,6 +1,6 @@
 import React, { ReactNode, memo } from 'react';
 import { Form, Field, Formik, FormikActions } from 'formik';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { History } from 'history';
 import { Link } from 'react-router-dom';
 import { ValidationSchema } from './ValidationSchema';
@@ -39,9 +39,9 @@ const SpotterForm: React.FC<Props> = ({
         onSubmit={async (
           values: FormValues,
           { resetForm, setStatus }: FormActions
-        ) => {
+        ): Promise<void> => {
           try {
-            const res: AxiosResponse<any> = await axios.post(api, values, {
+            const res = await axios.post(api, values, {
               withCredentials: true
             });
             resetForm();
@@ -60,7 +60,7 @@ const SpotterForm: React.FC<Props> = ({
           }
         }}
       >
-        {({ status, errors, touched }) => (
+        {({ status, errors, touched }): JSX.Element => (
           <section className='form-sub-container'>
             <header className='form-head'>{action}</header>
             {status && <p className='api-err-box'>{status}</p>}

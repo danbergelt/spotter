@@ -78,7 +78,7 @@ const GridDay: React.FC<Props> = ({
                     date={date}
                   >
                     <div
-                      onClick={() =>
+                      onClick={(): void =>
                         setPopover({
                           open: true,
                           id: date.format('MMM DD YYYY')

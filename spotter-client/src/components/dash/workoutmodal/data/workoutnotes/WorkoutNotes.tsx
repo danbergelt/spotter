@@ -5,11 +5,12 @@ import NotesTextArea from './NotesTextArea';
 import NotesHead from './NotesHead';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from 'src/types/State';
+import { AnyAction } from 'redux';
 
 // misc. notes to include on a workout.
 // can be anything worth noting that doesn't fit into a specific category
 
-const WorkoutNotes = () => {
+const WorkoutNotes: React.FC = () => {
   // actions include saving, deleting notes
   const [actions, setActions] = useState<boolean>(false);
 
@@ -40,7 +41,7 @@ const WorkoutNotes = () => {
         <FiTrash
           role='button'
           data-testid='trash'
-          onMouseDown={() => dispatch(resetNotesAction(''))}
+          onMouseDown={(): AnyAction => dispatch(resetNotesAction(''))}
           className='workout-data-notes-cancel'
         />
       </section>

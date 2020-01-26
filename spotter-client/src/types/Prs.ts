@@ -1,4 +1,6 @@
-export type SortedPrsRange = [{ name: string; date: string; pr: number }][];
+import { Exercise } from './ExerciseOption';
+
+export type SortedPrsRange = Array<Exercise>;
 
 export interface SortedPrs {
   lastMonth: SortedPrsRange;

@@ -7,7 +7,7 @@ import { Options, Option } from './types/types';
 
 // determines scope of dashboard (either month view or weekly view)
 
-const SubnavDropdown = () => {
+const SubnavDropdown: React.FC = () => {
   const options: Options = [
     { value: 'Week', label: 'Week' },
     { value: 'Month', label: 'Month' }
@@ -42,7 +42,7 @@ const SubnavDropdown = () => {
   };
 
   // changes the scope - must be a controlled component
-  const handleChange = (option: ValueType<Option>) => {
+  const handleChange = (option: ValueType<Option>): void => {
     dispatch(handleScopeChangeAction(option));
   };
 
@@ -53,12 +53,13 @@ const SubnavDropdown = () => {
         styles={customStyles}
         options={options}
         value={scope}
-        onChange={(selectedOption: ValueType<Option>) =>
+        onChange={(selectedOption: ValueType<Option>): void =>
           handleChange(selectedOption)
         }
         defaultValue={scope}
         isSearchable={false}
-        theme={theme => ({
+        // eslint-disable-next-line
+        theme={(theme): any => ({
           ...theme,
           colors: {
             ...theme.colors,

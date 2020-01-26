@@ -26,7 +26,7 @@ const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
           data-testid='settings'
           className='spotter-nav-link'
           to='/settings'
-          onClick={() => setIsOpen && setIsOpen(!isOpen)}
+          onClick={(): void => setIsOpen && setIsOpen(!isOpen)}
         >
           Settings
         </Link>
@@ -46,7 +46,7 @@ const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
           data-testid='login'
           className='spotter-nav-link dashboard'
           to='/login'
-          onClick={() => setIsOpen && setIsOpen(!isOpen)}
+          onClick={(): void => setIsOpen && setIsOpen(!isOpen)}
         >
           Log In
         </Link>
@@ -56,7 +56,7 @@ const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
           data-testid='signup'
           className='spotter-nav-link styled'
           to='/signup'
-          onClick={() => setIsOpen && setIsOpen(!isOpen)}
+          onClick={(): void => setIsOpen && setIsOpen(!isOpen)}
         >
           Sign Up
         </Link>

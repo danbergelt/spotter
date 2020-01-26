@@ -9,7 +9,7 @@ import Color from './Color';
 import { fetchToken } from 'src/types/State';
 
 // tab - create tag
-const TagsModalCreate = () => {
+const TagsModalCreate: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -42,7 +42,7 @@ const TagsModalCreate = () => {
       <input
         autoFocus
         value={name}
-        onChange={e => setName(e.target.value)}
+        onChange={(e): void => setName(e.target.value)}
         placeholder='Set tag name...'
         className='tags-modal-create-name'
       />

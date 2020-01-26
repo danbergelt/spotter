@@ -12,7 +12,7 @@ const FeatureOptions: React.FC<Props> = ({ selected, setSelected }) => {
       <select
         name='Feature Tabs'
         value={selected}
-        onChange={e => setSelected(e.target.value)}
+        onChange={(e): void => setSelected(e.target.value)}
         className='feature-tabs-select'
       >
         <option>Week View</option>

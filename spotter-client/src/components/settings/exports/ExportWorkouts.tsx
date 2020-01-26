@@ -16,7 +16,7 @@ const ExportWorkouts: React.FC<Props> = ({ t }) => {
       </p>
       <div
         role='button'
-        onClick={() => downloadData(setDataDump, t, 'workouts')}
+        onClick={(): Promise<void> => downloadData(setDataDump, t, 'workouts')}
         className='settings-action'
       >
         Export workout data...

@@ -6,6 +6,7 @@ import { P } from 'src/types/Grid';
 import { Workout } from 'src/types/Workout';
 
 interface Props {
+  // eslint-disable-next-line
   children?: any;
   popover: P;
   setPopover: React.Dispatch<React.SetStateAction<P>>;
@@ -29,7 +30,7 @@ const PopoverContainer: React.FC<Props> = ({
         popover.open === true && popover.id === date.format('MMM DD YYYY')
       }
       position={'top'}
-      onClickOutside={() => setPopover({ open: false, id: null })}
+      onClickOutside={(): void => setPopover({ open: false, id: null })}
       content={
         <ViewMoreContent
           setPopover={setPopover}

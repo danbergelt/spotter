@@ -18,7 +18,7 @@ const NotesHead: React.FC<Props> = ({ notes, notesRef }) => {
         <div
           role='button'
           className='workout-data-notes-edit'
-          onClick={() => handleFocus()}
+          onClick={(): void => handleFocus()}
         >
           Edit
         </div>
