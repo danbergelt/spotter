@@ -41,6 +41,7 @@
     "react-router-dom": "^5.1.2",
     "react-router-hash-link": "^1.2.2",
     "react-scripts": "3.2.0",
+    "react-scrolllock": "^5.0.0",
     "react-select": "^3.0.8",
     "react-textarea-autosize": "^7.1.2",
     "react-tiny-popover": "^4.0.0",
