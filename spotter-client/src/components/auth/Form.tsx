@@ -53,7 +53,6 @@ const SpotterForm: React.FC<Props> = ({
               // "status" is essentially a type of state messaging system that allows us to push messages to the user
               // in this case, that's an error
               // useful for providing server-side errors in addition to the native Yup errors on the FE
-              console.log(error.response);
               setStatus(error.response.data.error);
             } else {
               history.push('/500');

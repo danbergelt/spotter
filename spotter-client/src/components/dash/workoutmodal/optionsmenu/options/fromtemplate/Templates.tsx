@@ -25,9 +25,9 @@ const Templates: React.FC<Props> = ({ setActive, active, search }) => {
     (state: State) => state.optionsReducer
   );
 
-  const deleteTemplate: (id: string) => Promise<void> = useCallback(
-    async id => {
-      await dispatch(deleteTemplateAction(t, id));
+  const deleteTemplate: (id: string) => void = useCallback(
+    id => {
+      dispatch(deleteTemplateAction(t, id));
     },
     [dispatch, t]
   );

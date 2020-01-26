@@ -20,8 +20,8 @@ const FromTemplateOption: React.FC<Props> = ({ iconClass }) => {
   const t: string | null = useSelector(fetchToken);
 
   // API call that provides a selection of templates to choose from
-  const openFromTemplateModal: () => Promise<void> = async () => {
-    await dispatch(fetchTemplatesAction(t));
+  const openFromTemplateModal: () => void = () => {
+    dispatch(fetchTemplatesAction(t));
     dispatch(setFromTemplateModalAction(true));
   };
 

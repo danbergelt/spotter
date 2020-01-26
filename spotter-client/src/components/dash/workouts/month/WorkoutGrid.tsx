@@ -58,14 +58,14 @@ const WorkoutGrid = () => {
   // opens modal to add a new workout
   const paramsHelper = { setModal, fetchExercises, t, history };
   const openAddWorkoutModal: (date: Moment) => void = useCallback(
-    async date => {
+    date => {
       dispatch(addWorkoutModalAction({ ...paramsHelper, date }));
     },
     [dispatch, paramsHelper]
   );
   // opens modal to view a saved workout
   const openViewModal: (workout: Workout, date: Moment) => void = useCallback(
-    async (workout, date) => {
+    (workout, date) => {
       dispatch(viewWorkoutModalAction({ ...paramsHelper, date, workout }));
     },
     [dispatch, paramsHelper]

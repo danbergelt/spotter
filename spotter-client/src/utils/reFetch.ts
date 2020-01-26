@@ -21,7 +21,7 @@ const reFetch: Params = (time, history, scope, t) => {
     range = generateMonth(time);
   }
 
-  let formattedRange: Array<string> = range.map(d => d.format('MMM DD YYYY'));
+  const formattedRange: Array<string> = range.map(d => d.format('MMM DD YYYY'));
   store.dispatch<any>(fetchWorkouts(formattedRange, history, t));
 };
 

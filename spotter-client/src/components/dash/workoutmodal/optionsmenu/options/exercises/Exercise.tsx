@@ -3,7 +3,7 @@ import { FiX } from 'react-icons/fi';
 import { Exercise as E } from '../../../../../../types/ExerciseOption';
 
 interface Props {
-  deleteExercise: (id: string) => Promise<void>;
+  deleteExercise: (id: string) => void;
   exercise: E;
 }
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Loader from 'react-loader-spinner';
 import axios from 'axios';
 import Routes from './routes';
+import Popup from './components/contact/Popup';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { ADD_TOKEN } from './actions/addTokenActions';
@@ -51,6 +52,7 @@ const App: React.FC = () => {
 
   return (
     <main className='app-container'>
+      <Popup />
       <Routes />
     </main>
   );

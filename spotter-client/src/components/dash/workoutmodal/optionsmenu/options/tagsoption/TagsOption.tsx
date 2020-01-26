@@ -20,9 +20,9 @@ const Tags: React.FC<Props> = ({ iconClass }) => {
 
   const t: string | null = useSelector(fetchToken);
 
-  const openTagsModal: () => void = async () => {
+  const openTagsModal: () => void = () => {
     dispatch(openTagModalAction());
-    await dispatch(fetchTags(history, t));
+    dispatch(fetchTags(history, t));
   };
 
   return (

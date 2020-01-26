@@ -58,15 +58,15 @@ const SaveWorkout: React.FC<Props> = ({
     workoutId
   };
 
-  const saveHandler: () => Promise<void> = async () => {
+  const saveHandler: () => void = () => {
     // if user is adding a new workout
     if (ctx === 'add') {
-      await dispatch(saveWorkoutAction(paramsHelper));
+      dispatch(saveWorkoutAction(paramsHelper));
     }
 
     // if user is editing a saved workout
     if (ctx === 'view') {
-      await dispatch(editWorkoutAction(paramsHelper));
+      dispatch(editWorkoutAction(paramsHelper));
     }
   };
 

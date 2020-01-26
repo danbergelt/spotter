@@ -33,8 +33,8 @@ const TagsModalCreate = () => {
     name
   };
 
-  const submitTag: () => Promise<void> = async () => {
-    await dispatch(saveTagAction(paramsHelper));
+  const submitTag: () => void = () => {
+    dispatch(saveTagAction(paramsHelper));
   };
 
   return (

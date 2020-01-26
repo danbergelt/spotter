@@ -3,7 +3,7 @@ import { FiX } from 'react-icons/fi';
 import { Template as T } from 'src/types/Template';
 
 interface Props {
-  deleteTemplate: (id: string) => Promise<void>;
+  deleteTemplate: (id: string) => void;
   active: Partial<T>;
   template: T;
   setActive: React.Dispatch<React.SetStateAction<{} | T>>;

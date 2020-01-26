@@ -17,9 +17,9 @@ const ConfirmDeleteBody: React.FC<Props> = ({
   const t: string | null = useSelector(fetchToken);
   const dispatch = useDispatch();
 
-  const deleteWorkout: () => Promise<void> = async () => {
+  const deleteWorkout: () => void = () => {
     if (workoutId) {
-      await dispatch(deleteWorkoutAction(t, workoutId));
+      dispatch(deleteWorkoutAction(t, workoutId));
       closeConfirmDelete();
       closeParentModal();
     }

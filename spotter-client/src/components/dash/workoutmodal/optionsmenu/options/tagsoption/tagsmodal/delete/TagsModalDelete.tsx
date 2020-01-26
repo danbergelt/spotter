@@ -34,8 +34,8 @@ const TagsModalDelete: React.FC<Props> = ({ toDelete }) => {
     setErr
   };
 
-  const deleteTag: () => Promise<void> = async () => {
-    await dispatch(deleteTagAction(paramsHelper));
+  const deleteTag: () => void = () => {
+    dispatch(deleteTagAction(paramsHelper));
   };
 
   return (

@@ -32,14 +32,16 @@
     .spotter-nav-link {
       font-size: $p;
       height: max-content;
-      padding: 0.75rem 1.5rem;
+      padding: 1rem 2rem;
       text-decoration: none;
       border-radius: $border;
       @include textHover;
+
       @include medium {
         font-size: 1.3rem;
         padding: 0.66rem 1.25rem;
       }
+
       @include small {
         margin-bottom: 2.5rem;
         padding: 0;
@@ -84,11 +86,13 @@
       border: 1px solid $primary;
       margin-right: 0;
       @include hover;
+
       &:hover {
         background: $primary-hover;
         cursor: pointer;
         color: white;
       }
+
       @include small {
         border: none;
         color: $gray2;

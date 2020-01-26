@@ -13,7 +13,7 @@ const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
   const token: string | null = useSelector(fetchToken);
   const dispatch = useDispatch();
 
-  const logOut: () => Promise<void> = async () => {
+  const logOut: () => void = () => {
     // clears refresh token and access token
     dispatch(logOutAction());
     if (setIsOpen) setIsOpen(!isOpen);
