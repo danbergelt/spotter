@@ -17,7 +17,8 @@ export const styles = {
   },
   bmCrossButton: {
     height: '24px',
-    width: '24px'
+    width: '24px',
+    zIndex: '2000'
   },
   bmCross: {
     background: css.gray2
@@ -31,7 +32,8 @@ export const styles = {
     padding: '2.5em 1.5em 0',
     fontSize: '1.15em',
     position: 'relative',
-    bottom: '20px'
+    bottom: '20px',
+    zIndex: '1999'
   },
   bmMorphShape: {},
   bmItemList: {

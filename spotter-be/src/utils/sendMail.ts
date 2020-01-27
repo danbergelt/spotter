@@ -62,9 +62,11 @@ export const contactMessageTemplate = (
 ): string => {
   return `
   <html>
-  <div>Message: ${message}</div>
+  <div>Name: ${name}</div>
   <br />
-  <div>From: ${name}, ${email}</div>
+  <div>Email: ${email}</div>
+  <br />
+  <div>Message: ${message}</div>
   </html>`;
 };
 
