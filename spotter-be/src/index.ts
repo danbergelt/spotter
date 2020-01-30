@@ -33,6 +33,7 @@ if (process.env.NODE_ENV === 'development') {
 if (process.env.NODE_ENV === 'production') {
   connectDB();
   whitelist.push('https://getspotter.io');
+  whitelist.push('http://localhost:3000');
 }
 
 const app: Express = express();

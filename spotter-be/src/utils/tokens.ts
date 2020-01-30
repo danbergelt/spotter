@@ -13,8 +13,7 @@ export const genToken = (id: string, sec: string, exp: string): string => {
 export const refreshToken = (res: Response, token: string): Response => {
   return res.cookie('toll', token, {
     expires: new Date(Number(new Date()) + 604800000),
-    httpOnly: process.env.NODE_ENV === 'development' ? false : true,
-    secure: process.env.NODE_ENV === 'development' ? false : true
+    httpOnly: process.env.NODE_ENV === 'development' ? false : true
   });
 };
 
@@ -22,8 +21,7 @@ export const refreshToken = (res: Response, token: string): Response => {
 export const clearRefreshToken = (res: Response): Response => {
   return res.cookie('toll', '', {
     expires: new Date(Date.now() * 0),
-    httpOnly: process.env.NODE_ENV === 'development' ? false : true,
-    secure: process.env.NODE_ENV === 'development' ? false : true
+    httpOnly: process.env.NODE_ENV === 'development' ? false : true
   });
 };
 
