@@ -23,7 +23,6 @@ describe('send contact message', () => {
     should.exist(res);
     res.body.success.should.equal(true);
     res.should.have.status(200);
-    res.body.data.should.equal('Message sent');
   });
 
   it('does not send with missing fields', async () => {
