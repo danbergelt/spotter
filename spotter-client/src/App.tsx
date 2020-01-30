@@ -27,7 +27,7 @@ const App: React.FC = () => {
         });
         setLoading(false);
       })
-      .catch(() => {
+      .catch(err => {
         history.push('/500');
         setLoading(false);
       });
