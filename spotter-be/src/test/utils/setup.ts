@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import wipe from './wipe';
+
 require('dotenv').config();
 before(async () => {
   mongoose.Promise = global.Promise;
@@ -9,6 +11,8 @@ before(async () => {
     useFindAndModify: false,
     useUnifiedTopology: true
   });
+
+  wipe();
 
   mongoose.connection.on('error', error => console.warn(error));
 });

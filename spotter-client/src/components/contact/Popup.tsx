@@ -5,6 +5,8 @@ import useDelayUnmount from './useDelayUnmount';
 import { useLocation } from 'react-router-dom';
 import 'animate.css';
 import ContactForm from './ContactForm';
+import ScrollLock from 'react-scrolllock';
+import { useWindowSize } from 'react-use';
 
 /*
   Contact pop-up
@@ -25,8 +27,11 @@ const Popup: React.FC = () => {
     setForm(false);
   }, [pathname]);
 
+  const { width } = useWindowSize();
+
   return (
     <>
+      <ScrollLock isActive={width <= 450 && form && true} />
       {customMount && <ContactForm form={form} />}
       <div
         data-testid='contact-button'
