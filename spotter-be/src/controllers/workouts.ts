@@ -174,7 +174,6 @@ export const downloadWorkoutData = asyncHandler(async (req, res, next) => {
     if (err) {
       if (res.headersSent) {
         // log the err to the console (this should not happen, should default to the below response)
-        console.log('foo_bar');
         console.log(err);
       } else {
         return next(new Err('Could not download, an error occurred', 400));
