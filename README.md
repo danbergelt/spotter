@@ -1,4 +1,5 @@
 ![Spotter Logo](spotter.png)
+
 a blazing fast, user obsessed, weightlifting focused fitness pal
 
 https://getspotter.io
