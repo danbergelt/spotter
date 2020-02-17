@@ -66,4 +66,6 @@ spotter is written on the back end in **node** and **express.** since workouts c
 
 the back end is containerized with **docker** and **docker-compose**, must pass a **travis ci** build pre-merge, and is deployed to a **digital ocean** vps
 
+### learn more
+
 if you'd like to peek at the code, or learn more about the different pieces of the application, links are at the top of this document.
