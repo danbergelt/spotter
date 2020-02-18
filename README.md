@@ -60,7 +60,8 @@ additionally, it is not optimized for ease of use, it is optimized for complexit
 
 <details>
 <summary></summary>
-when performing research, a common complaint i noticed when discussing competitors was **too many features.**
+
+when performing research, a common complaint i noticed was that many apps have too many features.
 
 often, users do not need a lifting tracker, cardio tracker, sample workouts, and a meal planner in one app. too many features creates a complex ui and bloat.
 
