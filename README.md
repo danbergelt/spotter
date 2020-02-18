@@ -41,7 +41,9 @@ many people who lift opt to track by hand, or in a convoluted excel table (_shud
 <details>
 <summary></summary>
 
-tracking by hand is not scalable. finding past workouts is a pain, and recording your workouts is arduous, and subject to formatting blemishes over time. this is not a scalable solution.
+tracking by hand is easy, but it does not scale well. finding past workouts is a pain, and recording your workouts is arduous and subject to formatting blemishes over time.
+
+if you have been tracking for 1 year+, then you know the pain of writing your workouts by hand.
 
 </details>
 
@@ -50,7 +52,7 @@ tracking by hand is not scalable. finding past workouts is a pain, and recording
 <details>
 <summary></summary>
 
-excel is a very powerful tool. however, it is unopinionated by nature, and forces the user to perform non-trivial work up front to set up their tool to their liking.
+excel is a very powerful tool. however, it is unopinionated by nature, and forces the user to perform non-trivial work up front to set up the document to their liking.
 
 additionally, it is not optimized for ease of use, it is optimized for complexity. thus, it is fairly bloated when compared to the needs of this specific application. the ui is also not well-suited for mobile
 
@@ -63,7 +65,7 @@ additionally, it is not optimized for ease of use, it is optimized for complexit
 
 when performing research, a common complaint i noticed was that many apps have too many features.
 
-often, users do not need a lifting tracker, cardio tracker, sample workouts, and a meal planner in one app. too many features creates a complex ui and bloat.
+often, users do not need a lifting tracker, cardio tracker, sample workouts, and a meal planner in one app. too many features creates a complex ui and bloat, and adds unnecessary complexity to what should be a simple product.
 
 </details>
 
