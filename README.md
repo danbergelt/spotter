@@ -87,6 +87,8 @@ often, users do not need a lifting tracker, cardio tracker, sample workouts, and
 - `express` - services
 - `typescript` - static type checking
 - `mongodb` - persistence/db
+- `mocha` - test runner + unit tests
+- `chai` - integration tests
 - `docker/docker-compose` - containerization
 - `travis ci` - ci
 - `digital ocean` - deployment
